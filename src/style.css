@@ -83,6 +83,13 @@ h1 {
   margin: 0;
 }
 
+h1 {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  margin: 0;
+}
+
 h2{
   font-weight: 500;
   font-size: 14px;
@@ -270,82 +277,6 @@ button.icon.back::after{
   left: -10vw;
   opacity: .5;
   z-index: 1;
-}
-
-.cell{
-  background: var(--color-accent-light);
-  width: calc(100% / 8);
-  height: 12vh;
-  border-radius: 10px;
-  position: relative;
-}
-
-.single .cell{
-  height: 40vh;
-}
-
-.synth .cell{
-  height: 18px;
-  width: 18px;
-  border-radius: 30px;
-  position: relative;
-}
-
-.synth .cell::before{
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0vw;
-  opacity: 0;
-  background: var(--color-accent);
-  border-radius: 20px;
-  transition: .4s;
-}
-
-.strings .cell{
-  z-index: 2;
-  height: 40px;
-  width: 40px;
-  border-radius: 40px;
-}
-
-.strings .grid .cell:nth-child(even){
-  height: 30px;
-  width: 30px;
-}
-
-.cell::after{
-  content: '';
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  padding: 3px;
-  border-radius: 15px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 2px solid var(--color-accent);
-  opacity: 0;
-  transition: .2s;
-}
-
-.strings .cell::after{
-  border-radius: 40px;
-}
-
-.cell.activeCell::after{
-  opacity: 1;
-}
-
-.cell.selected {
-  background: var(--color-accent);
-}
-
-.synth .cell.selected::before{
-  width: 13vw;
-  opacity: 1;
 }
 
 
