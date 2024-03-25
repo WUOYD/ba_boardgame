@@ -4,6 +4,8 @@ const http = require('http')
 const server = http.createServer(app)
 const { Server } = require('socket.io')
 
+
+// Server
 const io = new Server(server, {
   cors: {
     origin: '*',
@@ -11,35 +13,13 @@ const io = new Server(server, {
   },
 })
 
-let bar = 0
-let bpm = 200
-let bpm_ms = 60000 / bpm
-let sockets = [];
-
-let track1 = [false, false, false, false, false, false, false, false]
-let track2 = [false, false, false, false, false, false, false, false]
-let track3 = [false, false, false, false, false, false, false, false]
-let track41 = [false, false, false, false, false, false, false, false]
-let track42 = [false, false, false, false, false, false, false, false]
-let track43 = [false, false, false, false, false, false, false, false]
-let track44 = [false, false, false, false, false, false, false, false]
-let track51 = [false, false, false, false, false, false, false, false]
-let track52 = [false, false, false, false, false, false, false, false]
-let track53 = [false, false, false, false, false, false, false, false]
-let track54 = [false, false, false, false, false, false, false, false]
-let track61 = [false, false, false, false, false, false, false, false]
-let track62 = [false, false, false, false, false, false, false, false]
-let track63 = [false, false, false, false, false, false, false, false]
-let track64 = [false, false, false, false, false, false, false, false]
-
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 })
 
-
-
 app.use(express.static('public'))
 
+//Connection
 io.on('connection', (socket) => {
   //Server message & update
   console.log('new connection: ' + socket.id)
@@ -63,30 +43,6 @@ io.on('connection', (socket) => {
       case 1:
         socket.emit('updateComponentT1', track1)
         break
-      case 2:
-        socket.emit('updateComponentT2', track2)
-        break
-      case 3:
-        socket.emit('updateComponentT3', track3)
-        break
-      case 4:
-        socket.emit('updateComponentT41', track41)
-        socket.emit('updateComponentT42', track42)
-        socket.emit('updateComponentT43', track43)
-        socket.emit('updateComponentT44', track44)
-        break
-      case 5:
-        socket.emit('updateComponentT51', track51)
-        socket.emit('updateComponentT52', track52)
-        socket.emit('updateComponentT53', track53)
-        socket.emit('updateComponentT54', track54)
-        break
-      case 6:
-        socket.emit('updateComponentT61', track61)
-        socket.emit('updateComponentT62', track62)
-        socket.emit('updateComponentT63', track63)
-        socket.emit('updateComponentT64', track64)
-        break
     }
   })
 
@@ -95,115 +51,13 @@ io.on('connection', (socket) => {
     track1[index] = !track1[index]
     socket.broadcast.emit('updateComponentT1', track1)
   })
-  socket.on('updateT2', (index) => {
-    track2[index] = !track2[index]
-    socket.broadcast.emit('updateComponentT2', track2)
-  })
-  socket.on('updateT3', (index) => {
-    track3[index] = !track3[index]
-    socket.broadcast.emit('updateComponentT3', track3)
-  })
-  socket.on('updateT41', (index) => {
-    track41[index] = !track41[index]
-    socket.broadcast.emit('updateComponentT41', track41)
-  })
-  socket.on('updateT42', (index) => {
-    track42[index] = !track42[index]
-    socket.broadcast.emit('updateComponentT42', track42)
-  })
-  socket.on('updateT43', (index) => {
-    track43[index] = !track43[index]
-    socket.broadcast.emit('updateComponentT43', track43)
-  })
-  socket.on('updateT44', (index) => {
-    track44[index] = !track44[index]
-    socket.broadcast.emit('updateComponentT44', track44)
-  })
-  socket.on('updateT51', (index) => {
-    track51[index] = !track51[index]
-    socket.broadcast.emit('updateComponentT51', track51)
-  })
-  socket.on('updateT52', (index) => {
-    track52[index] = !track52[index]
-    socket.broadcast.emit('updateComponentT52', track52)
-  })
-  socket.on('updateT53', (index) => {
-    track53[index] = !track53[index]
-    socket.broadcast.emit('updateComponentT53', track53)
-  })
-  socket.on('updateT54', (index) => {
-    track54[index] = !track54[index]
-    socket.broadcast.emit('updateComponentT54', track54)
-  })
-  socket.on('updateT61', (index) => {
-    track61[index] = !track61[index]
-    socket.broadcast.emit('updateComponentT61', track61)
-  })
-  socket.on('updateT62', (index) => {
-    track62[index] = !track62[index]
-    socket.broadcast.emit('updateComponentT62', track62)
-  })
-  socket.on('updateT63', (index) => {
-    track63[index] = !track63[index]
-    socket.broadcast.emit('updateComponentT63', track63)
-  })
-  socket.on('updateT64', (index) => {
-    track64[index] = !track64[index]
-    socket.broadcast.emit('updateComponentT64', track64)
-  })
 
-  //Mute
-  socket.on('mute', (mute) => {
-    socket.emit('muteClient', mute)
-  })
 
   //Reset
   socket.on('reset', (reset) => {
     track1 = [false, false, false, false, false, false, false, false]
-    track2 = [false, false, false, false, false, false, false, false]
-    track3 = [false, false, false, false, false, false, false, false]
-    track41 = [false, false, false, false, false, false, false, false]
-    track42 = [false, false, false, false, false, false, false, false]
-    track43 = [false, false, false, false, false, false, false, false]
-    track44 = [false, false, false, false, false, false, false, false]
-    track51 = [false, false, false, false, false, false, false, false]
-    track52 = [false, false, false, false, false, false, false, false]
-    track53 = [false, false, false, false, false, false, false, false]
-    track54 = [false, false, false, false, false, false, false, false]
-    track61 = [false, false, false, false, false, false, false, false]
-    track62 = [false, false, false, false, false, false, false, false]
-    track63 = [false, false, false, false, false, false, false, false]
-    track64 = [false, false, false, false, false, false, false, false]
     socket.emit('updateComponentT1', track1)
-    socket.emit('updateComponentT2', track2)
-    socket.emit('updateComponentT3', track3)
-    socket.emit('updateComponentT41', track41)
-    socket.emit('updateComponentT42', track42)
-    socket.emit('updateComponentT43', track43)
-    socket.emit('updateComponentT44', track44)
-    socket.emit('updateComponentT51', track51)
-    socket.emit('updateComponentT52', track52)
-    socket.emit('updateComponentT53', track53)
-    socket.emit('updateComponentT54', track54)
-    socket.emit('updateComponentT61', track61)
-    socket.emit('updateComponentT62', track62)
-    socket.emit('updateComponentT63', track63)
-    socket.emit('updateComponentT64', track64)
     socket.broadcast.emit('updateComponentT1', track1)
-    socket.broadcast.emit('updateComponentT2', track2)
-    socket.broadcast.emit('updateComponentT3', track3)
-    socket.broadcast.emit('updateComponentT41', track41)
-    socket.broadcast.emit('updateComponentT42', track42)
-    socket.broadcast.emit('updateComponentT43', track43)
-    socket.broadcast.emit('updateComponentT44', track44)
-    socket.broadcast.emit('updateComponentT51', track51)
-    socket.broadcast.emit('updateComponentT52', track52)
-    socket.broadcast.emit('updateComponentT53', track53)
-    socket.broadcast.emit('updateComponentT54', track54)
-    socket.broadcast.emit('updateComponentT61', track61)
-    socket.broadcast.emit('updateComponentT62', track62)
-    socket.broadcast.emit('updateComponentT63', track63)
-    socket.broadcast.emit('updateComponentT64', track64)
   })
 
   //Disconnect message
@@ -225,20 +79,6 @@ server.listen(3000, () => {
 setInterval(() => {
   let tracks = [
     track1,
-    track2,
-    track3,
-    track41,
-    track42,
-    track43,
-    track44,
-    track51,
-    track52,
-    track53,
-    track54,
-    track61,
-    track62,
-    track63,
-    track64,
   ]
   let playSounds = []
   for (let i = 0; i < tracks.length; i++) {
@@ -246,13 +86,160 @@ setInterval(() => {
   }
   io.emit('playSounds', playSounds)
   io.emit('sequencerStep', bar)
-  sequencerStep()
 }, bpm_ms)
 
-function sequencerStep() {
-  if (bar == 7) {
-    bar = 0
-  } else {
-    bar++
+class Player{
+  constructor(name){
+    var name
+    var actions = 10;
+    var health = 10;
+    var attack = 2;
+    var defense = 5;
+    var blocks = 3;
+    var experiencePoints = 0;
+    var gold = 0;
+    var monstersKilled = 0;
+    var questsSolved = 0;
   }
+}
+
+//Monster
+class Monster{
+  constructor(type, victoryPoints, health, attack, defense, damage, rewardXP, rewardGold){
+    this.type = type;
+    this.victoryPoints = victoryPoints;
+    this.health = health;
+    this.attack = attack;
+    this.defense = defense;
+    this.damage = damage;
+    this.rewardXP = rewardXP;
+    this.rewardGold = rewardGold;
+  }
+}
+
+var monsterTableBronze = [
+  ["Bronze", 1, 14, 2, 2, 2, 1, 1]
+  ["Bronze", 1, 15, 1, 3, 3, 1, 1]
+  ["Bronze", 1, 16, 2, 2, 2, 1, 1]
+  ["Bronze", 1, 13, 3, 1, 1, 1, 1]
+  ["Bronze", 1, 15, 0, 3, 2, 1, 1]
+];
+
+var monsterTableSilver = [
+  ["Silver", 2, 21, 0, 4, 3, 2, 3]
+  ["Silver", 2, 20, 3, 0, 4, 2, 3]
+  ["Silver", 2, 22, 1, 3, 3, 2, 3]
+  ["Silver", 2, 21, 3, 3, 2, 2, 3]
+  ["Silver", 2, 22, 2, 1, 3, 2, 3]
+];
+
+var monsterTableGold = [
+  ["Gold", 3, 28, 3, 5, 5, 3, 5]
+  ["Gold", 3, 29, 5, 3, 4, 3, 5]
+  ["Gold", 3, 30, 3, 5, 5, 3, 5]
+  ["Gold", 3, 28, 3, 5, 3, 3, 5]
+  ["Gold", 3, 27, 4, 4, 4, 3, 5]
+];
+
+var monstersBronze = [];
+var monstersSilver = [];
+var monstersGold = [];
+
+function initMonsters(monsterTable){
+  for (let i = -1; i < monstersBronze.length; i++){
+    monstersBronze[i] = new Monster(monsterTableBronze[i][1], monsterTableBronze[i][2], monsterTableBronze[i][3], monsterTableBronze[i][4], monsterTableBronze[i][5], monsterTableBronze[i][6], monsterTableBronze[i][7], monsterTableBronze[i][8]);
+  }
+  for (let i = -1; i < monstersSilver.length; i++){
+    monstersSilver[i] = new Monster(monsterTableSilver[i][1], monsterTableSilver[i][2], monsterTableSilver[i][3], monsterTableSilver[i][4], monsterTableSilver[i][5], monsterTableSilver[i][6], monsterTableSilver[i][7], monsterTableSilver[i][8]);
+  } 
+  for (let i = -1; i < monstersGold.length; i++){
+    monstersGold[i] = new Monster(monsterTableGold[i][1], monsterTableGold[i][2], monsterTableGold[i][3], monsterTableGold[i][4], monsterTableGold[i][5], monsterTableGold[i][6], monsterTableGold[i][7], monsterTableGold[i][8]);
+  }  
+}
+
+//Fight
+function fightMonster(activePlayer, activeMonster){
+  var playerWon = false;
+  var monsterWon = false;
+  var playerRoundstate = activePlayer;
+  var monsterRoundstate = activeMonster;
+  while(monsterWon == false && playerWon == false){
+    //damage calculations
+    attackerBonusBefore(playerRoundstate);
+    var playerRoll = diceRoll();
+    var monsterRoll = diceRoll();
+    var playerDamage = calculateFightPlayer(playerRoundstate, activeMonster, playerRoll);
+    var monsterDamage = calculateFightMonster(playerRoundstate, activeMonster, monsterRoll);
+
+    //damage calculations
+    attackerBonusAfter(playerRoundstate);
+    monsterRoundstate.health - playerDamage;
+    if(monsterDamage){
+      if(!playerDamageBlock()){
+        activePlayer.health - activeMonster.damage;
+      } 
+    }
+
+    //Winner
+    if(activePlayer.health <= 0){
+      monsterWon = true;
+    }
+    if(activeMonster.health <= 0){
+      true;
+    }
+    if(playerWon){
+      activePlayer.monstersKilled += 1;
+      activePlayer.experiencePoints += activeMonster.rewardXP;
+      activePlayer.gold += activeMonster.rewardGold;
+    }
+    else if(monsterWon){
+      
+    }
+    else{
+
+    }
+
+};
+
+function diceRoll(){
+  var diceCount
+
+  return diceCount
+}
+
+function block(){
+  var blocked = false;
+  return blocked
+}
+
+function attackerBonusBefore(player){
+
+}
+
+function attackerBonusAfter(player){
+  
+}
+
+function calculateFightPlayer(playerRoundstate, activeMonster, playerRoll ){
+  var playerDamage
+  if((playerRoundstate.attack + playerRoll) - activeMonster.defense >= 0){
+      return playerDamage
+  }
+  return 0
+}
+
+function calculateFightMonster(playerRoundstate, activeMonster, monsterRoll){
+  var monsterDamage
+  if((activeMonster.attack + monsterRoll) - playerRoundstate.defense >= 0){
+      return true
+    }
+  }
+  return false
+}
+
+function playerDamageBlock(){
+  var blockedState = false
+  //blocked View
+
+  return blockedState
 }
