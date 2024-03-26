@@ -61,6 +61,9 @@ export default {
         case 4:
           this.updateView("Quests")
           break;
+        case 5:
+          this.updateView("Fight")
+          break;
       }
     })
     socket.on('join', (join) => {

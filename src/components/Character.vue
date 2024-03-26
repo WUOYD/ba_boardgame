@@ -14,16 +14,16 @@
       </div>
       <h2>Experience</h2>
       <div class="experience-grid">
-        <div class="cell" id="div21"> </div>
-        <div class="cell" id="div22"> </div>
-        <div class="cell" id="div23"> </div>
-        <div class="cell" id="div24"> </div>
-        <div class="cell" id="div25"> </div>
-        <div class="cell" id="div26"> </div>
-        <div class="cell" id="div27"> </div>
-        <div class="cell" id="div28"> </div>
-        <div class="cell" id="div29"> </div>
-        <div class="cell" id="div30"> </div>
+        <div class="cell" id="div21"></div>
+        <div class="cell" id="div22"></div>
+        <div class="cell" id="div23"></div>
+        <div class="cell" id="div24"></div>
+        <div class="cell" id="div25"></div>
+        <div class="cell" id="div26"></div>
+        <div class="cell" id="div27"></div>
+        <div class="cell" id="div28"></div>
+        <div class="cell" id="div29"></div>
+        <div class="cell" id="div30"></div>
       </div>
   </div>
 </template>
@@ -35,8 +35,6 @@ export default {
   data() {
     return {
       items: [
-          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
     ]
     }
   },

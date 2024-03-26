@@ -7,6 +7,7 @@
         <div class="menu-item" id="actions" @click="updateView(2)"><p>Actions</p></div>
         <div class="menu-item" id="skilltree" @click="updateView(3)"><p>Skilltree</p></div>
         <div class="menu-item" id="quests" @click="updateView(4)"><p>Quests</p></div>
+        <div class="menu-item" id="fight" @click="updateView(5)"><p>Fight</p></div>
       </div>
     </div>
 </template>

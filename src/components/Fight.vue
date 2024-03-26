@@ -1,6 +1,10 @@
 <template>
   <div class="content single">
     <h1>Fight</h1>
+    <button @click="startFight()">Start fight</button>
+    <p>{{ text }}</p>
+    <input v-model="diceRoll" placeholder="dice roll" />
+    <button @click="enterRoll()">enter roll</button>
   </div>
 </template>
 
@@ -10,17 +14,25 @@ import { socket } from '../client'
 export default {
   data() {
     return {
+      text: "Fight text",
+      diceRoll: 0,
+      test: 0,
     }
   },
   mounted() {
-    socket.on("updateComponentT1", track => {
+    socket.on("updateFight", track => {
+      this.text = track
+      console.log("got server feedback")
     })
   },
   methods: {
-    updateClick(element, index) {
-      element.target.classList.toggle("selected");
-      socket.emit("updateT1", index);
-    }
+    startFight() {
+      socket.emit("startFight")
+    },
+    enterRoll() {
+      var diceRoll = this.diceRoll
+      socket.emit("diceRoll", diceRoll);
+    },
   },
   beforeUnmount() {
     this.mounted = false;
