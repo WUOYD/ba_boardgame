@@ -7,6 +7,7 @@ const { Server } = require('socket.io')
 let intervalMs = 100
 let sockets = []
 let dice = 0;
+let clientSocket;
 
 // Server
 const io = new Server(server, {
@@ -27,6 +28,7 @@ io.on('connection', (socket) => {
   //Server message & update
   console.log('new connection: ' + socket.id)
   sockets.push(socket);
+  clientSocket = socket;
   socket.emit("userCount", sockets.length)
 
   // Join
@@ -46,8 +48,12 @@ io.on('connection', (socket) => {
 
   //Sockets fight
   socket.on("startFight", function() {
-    socket.emit('updateFight', "fight has started" )
+    socket.emit('startFight', "fight has started" )
     startFight();
+  })
+
+  socket.on("updateFight", function() {
+    socket.emit('updateFight', "" )
   })
 
   //Disconnect message
@@ -180,12 +186,15 @@ function calculateFightMonster(playerRoundstate, activeMonster, monsterRoll){
 function playerDamageBlock(){
   let blockedState = false
   //blocked View
-
   return blockedState
 }
 
 function randomNumber(min, max) { // min and max included 
   return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function getRandomMonster(round){
@@ -208,23 +217,20 @@ function getRandomMonster(round){
   return monster
 }
 
-function startFight(){
+async function startFight(){
   let game = new Game(1);
   let player = new Player("Julian");
   initMonsters();
   let activeMonster = getRandomMonster(game.round);
   let activePlayer = player;
-  fightMonster(activePlayer, activeMonster)
-}
-
-function fight(activePlayer, activeMonster){
-  
-  let playerWon
-  if (playerWon){
-    console.log("Player Won")
+  let winner;
+  clientSocket.emit("activeMonster", activeMonster);
+  while(winner == "none"){
+    winner = await fightMonster(activePlayer, activeMonster);
   }
-  else{
-    console.log("Monster Won")
+  if (winner == "player")
+  {
+    console.log("player has won")
   }
 }
 
@@ -236,24 +242,25 @@ async function fightMonster(activePlayer, activeMonster){
 
   while(winner == "none"){
     attackerBonusBefore(playerRoundstate);
-    while(dice == 0){}
+    while(dice == 0){
+      sleep(100);
+    }
     let playerRoll = dice
     dice = 0;
-    while(dice == 0){}
+    while(dice == 0){
+      sleep(100);
+    }
     let monsterRoll = dice;
+    dice = 0;
     attackerBonusAfter(playerRoundstate);
-    callculateFight(playerRoundstate, monsterRoundstate, activePlayer, activeMonster, playerRoll, monsterRoll)
+    winner = callculateFight(playerRoundstate, monsterRoundstate, activePlayer, activeMonster, playerRoll, monsterRoll)
   }
   if(winner == "player"){
-
+    return "player"
   }
-  else{}
-}
-
-
-function diceRoll(diceRoll){
-  dice = diceRoll
-  return 
+  else{
+    return "monster"
+  }
 }
 
 function callculateFight(playerRoundstate, monsterRoundstate , activePlayer, activeMonster, playerRoll, monsterRoll){
@@ -283,3 +290,4 @@ function callculateFight(playerRoundstate, monsterRoundstate , activePlayer, act
 
   return "none"
 }
+
