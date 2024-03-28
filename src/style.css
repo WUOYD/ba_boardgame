@@ -101,6 +101,7 @@ p {
   font-weight: 300;
   text-transform: none;
   font-size: 12px;
+  white-space: pre-line;
 }
 
 a {

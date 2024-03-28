@@ -16,28 +16,25 @@ export default {
     return {
       text: "Fight text",
       diceRoll: 0,
-      test: 0,
     }
   },
   mounted() {
     socket.on("startFight", info => {
       this.text = info
-      console.log("got server feedback")
     }),
-    socket.on("updateFight", track => {
-      this.text = track
-      console.log("got server feedback")
+    socket.on("updateFight", message => {
+      this.text = this.text + "\n" + message
     }),
     socket.on("activeMonster", activeMonster => {
-      this.text = activeMonster
+      this.text = this.text + "\n" + JSON.stringify(activeMonster);
     })
   },
   methods: {
     startFight() {
-      socket.emit("startFight")
+      socket.emit("startFight");
     },
     enterRoll() {
-      var diceRoll = this.diceRoll
+      var diceRoll = this.diceRoll;
       socket.emit("diceRoll", diceRoll);
     },
   },

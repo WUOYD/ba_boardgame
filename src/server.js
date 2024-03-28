@@ -38,7 +38,7 @@ io.on('connection', (socket) => {
 
   // dice roll input
   socket.emit("diceRoll", (currentDiceRoll) => {
-    diceRoll(currentDiceRoll)
+    dice = currentDiceRoll
   });
 
   // Update View
@@ -50,10 +50,6 @@ io.on('connection', (socket) => {
   socket.on("startFight", function() {
     socket.emit('startFight', "fight has started" )
     startFight();
-  })
-
-  socket.on("updateFight", function() {
-    socket.emit('updateFight', "" )
   })
 
   //Disconnect message
@@ -160,27 +156,11 @@ function block(){
 }
 
 function attackerBonusBefore(player){
-
+  return
 }
 
 function attackerBonusAfter(player){
-  
-}
-
-function calculateFightPlayer(playerRoundstate, activeMonster, playerRoll ){
-  let playerDamage
-  if((playerRoundstate.attack + playerRoll) - activeMonster.defense >= 0){
-      return playerDamage
-  }
-  return 0
-}
-
-function calculateFightMonster(playerRoundstate, activeMonster, monsterRoll){
-  let monsterDamage
-  if((activeMonster.attack + monsterRoll) - playerRoundstate.defense >= 0){
-      return true
-  }
-  return false
+  return
 }
 
 function playerDamageBlock(){
@@ -217,50 +197,60 @@ function getRandomMonster(round){
   return monster
 }
 
-async function startFight(){
+function startFight(){
   let game = new Game(1);
   let player = new Player("Julian");
+  let winner
   initMonsters();
   let activeMonster = getRandomMonster(game.round);
   let activePlayer = player;
-  let winner;
   clientSocket.emit("activeMonster", activeMonster);
-  while(winner == "none"){
-    winner = await fightMonster(activePlayer, activeMonster);
+  winner = fightMonster(activePlayer, activeMonster);
+  if(winner == "player"){
+    clientSocket.emit("updateFight", "Player won");
+    return "player"
   }
-  if (winner == "player")
-  {
-    console.log("player has won")
+  else if(winner == "monster"){
+    clientSocket.emit("updateFight", "Monster won");
+    return "monster"
+  }
+  else{
+    clientSocket.emit("updateFight", "None won");
+    return "none"
   }
 }
 
 //Fight
-async function fightMonster(activePlayer, activeMonster){
+function calculateFightPlayer(playerRoundstate, activeMonster, playerRoll ){
+  let playerDamage = 0;
+  if((playerRoundstate.attack + playerRoll) - activeMonster.defense >= 0){
+      playerDamage = playerRoundstate.attack + playerRoll - activeMonster.defense;
+      return playerDamage 
+  }
+  return 0
+}
+
+function calculateFightMonster(playerRoundstate, activeMonster, monsterRoll){
+  let monsterDamage = 0;
+  if((activeMonster.attack + monsterRoll) - playerRoundstate.defense >= 0){
+      return true
+  }
+  return false
+}
+
+function fightMonster(activePlayer, activeMonster){
   let playerRoundstate = activePlayer;
   let monsterRoundstate = activeMonster;
   let winner = "none"
+  let playerRoll = 12
+  let monsterRoll = 7
 
-  while(winner == "none"){
-    attackerBonusBefore(playerRoundstate);
-    while(dice == 0){
-      sleep(100);
-    }
-    let playerRoll = dice
-    dice = 0;
-    while(dice == 0){
-      sleep(100);
-    }
-    let monsterRoll = dice;
-    dice = 0;
-    attackerBonusAfter(playerRoundstate);
-    winner = callculateFight(playerRoundstate, monsterRoundstate, activePlayer, activeMonster, playerRoll, monsterRoll)
-  }
-  if(winner == "player"){
-    return "player"
-  }
-  else{
-    return "monster"
-  }
+  //attackerBonusBefore(playerRoundstate);
+  clientSocket.emit("updateFight", "Please roll player");
+  clientSocket.emit("updateFight", "Please roll monster");
+  //attackerBonusAfter(playerRoundstate);
+  winner = callculateFight(playerRoundstate, monsterRoundstate, activePlayer, activeMonster, playerRoll, monsterRoll)
+  return winner;
 }
 
 function callculateFight(playerRoundstate, monsterRoundstate , activePlayer, activeMonster, playerRoll, monsterRoll){
@@ -270,7 +260,7 @@ function callculateFight(playerRoundstate, monsterRoundstate , activePlayer, act
 
   //apply damage and check for win
   if(playerDamage > 0){
-    monsterRoundstate.health - playerDamage;
+    monsterRoundstate.health =  monsterRoundstate.health - playerDamage;
   }
   
   if(monsterRoundstate.health <= 0){
@@ -281,7 +271,7 @@ function callculateFight(playerRoundstate, monsterRoundstate , activePlayer, act
   }
 
   if(monsterDamage){
-    activePlayer.health =- activeMonster.damage;
+    activePlayer.health = activePlayer.health - activeMonster.damage;
   }
 
   if(activePlayer.health <= 0){
