@@ -4,9 +4,9 @@ const http = require('http')
 const server = http.createServer(app)
 const { Server } = require('socket.io')
 
-let intervalMs = 100
-let sockets = []
-let dice = 0;
+let intervalMs = 100;
+let sockets = [];
+let players = new Array();
 let clientSocket;
 
 // Server
@@ -50,6 +50,14 @@ io.on('connection', (socket) => {
   socket.on("startFight", function() {
     socket.emit('startFight', "fight has started" )
     startFight();
+  })
+
+  socket.on("diceRollPlayer", (rollPlayer) => {
+    diceRollPlayer(rollPlayer);
+  })
+
+  socket.on("diceRollMonster", (rollMonster) => {
+    diceRollMonster(rollMonster);
   })
 
   //Disconnect message
@@ -107,6 +115,15 @@ class Monster{
     this.damage = damage;
     this.rewardXP = rewardXP;
     this.rewardGold = rewardGold;
+  }
+}
+
+class Fight{
+  constructor(activePlayerObject, activeMonsterObject){
+    let activePlayer = activePlayerObject;
+    this.activeMonster = activeMonsterObject;
+    this.turn = 0;
+    this.fight;
   }
 }
 
@@ -173,10 +190,6 @@ function randomNumber(min, max) { // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function getRandomMonster(round){
   let monster
   let rndNumber
@@ -197,87 +210,92 @@ function getRandomMonster(round){
   return monster
 }
 
+//start fight
 function startFight(){
   let game = new Game(1);
   let player = new Player("Julian");
-  let winner
+  players.push(player);
   initMonsters();
   let activeMonster = getRandomMonster(game.round);
   let activePlayer = player;
   clientSocket.emit("activeMonster", activeMonster);
-  winner = fightMonster(activePlayer, activeMonster);
-  if(winner == "player"){
-    clientSocket.emit("updateFight", "Player won");
-    return "player"
-  }
-  else if(winner == "monster"){
-    clientSocket.emit("updateFight", "Monster won");
-    return "monster"
-  }
-  else{
-    clientSocket.emit("updateFight", "None won");
-    return "none"
-  }
+  initFightMonster(activePlayer, activeMonster);
 }
 
-//Fight
-function calculateFightPlayer(playerRoundstate, activeMonster, playerRoll ){
+//fight monster
+function initFightMonster(activePlayer, activeMonster){
+  activePlayer.fight = new Fight(activePlayer, activeMonster)
+  clientSocket.emit("updateFight", "Please roll player and monster");
+}
+
+//Fight functions
+function calculateFightPlayer(activePlayer, activeMonster, playerRoll ){
   let playerDamage = 0;
-  if((playerRoundstate.attack + playerRoll) - activeMonster.defense >= 0){
-      playerDamage = playerRoundstate.attack + playerRoll - activeMonster.defense;
-      return playerDamage 
+  if(parseInt(activePlayer.attack) + parseInt(playerRoll) - parseInt(activeMonster.defense) >= 0){
+      playerDamage = parseInt(activePlayer.attack) + parseInt(playerRoll) - parseInt(activeMonster.defense);
+      return playerDamage
   }
   return 0
 }
 
-function calculateFightMonster(playerRoundstate, activeMonster, monsterRoll){
-  let monsterDamage = 0;
-  if((activeMonster.attack + monsterRoll) - playerRoundstate.defense >= 0){
+function calculateFightMonster(activePlayer, activeMonster, monsterRoll){
+  if(parseInt(activeMonster.attack) + parseInt(monsterRoll) - parseInt(activePlayer.defense) >= 0){
       return true
   }
   return false
 }
 
-function fightMonster(activePlayer, activeMonster){
-  let playerRoundstate = activePlayer;
-  let monsterRoundstate = activeMonster;
-  let winner = "none"
-  let playerRoll = 12
-  let monsterRoll = 7
+function fightPlayer(activePlayer, activeMonster, playerRoll,){
+  //damage calculations
+ let playerDamage = calculateFightPlayer(activePlayer, activeMonster, playerRoll);
 
-  //attackerBonusBefore(playerRoundstate);
-  clientSocket.emit("updateFight", "Please roll player");
-  clientSocket.emit("updateFight", "Please roll monster");
-  //attackerBonusAfter(playerRoundstate);
-  winner = callculateFight(playerRoundstate, monsterRoundstate, activePlayer, activeMonster, playerRoll, monsterRoll)
-  return winner;
+ //apply damage and check for win
+ if(playerDamage > 0){
+
+  activeMonster.health = activeMonster.health - playerDamage;
+ }
+ 
+ if(activeMonster.health <= 0){
+   activePlayer.monstersKilled += 1;
+   activePlayer.experiencePoints += activeMonster.rewardXP;
+   activePlayer.gold += activeMonster.rewardGold;
+   return true
+ }
+ return false
 }
 
-function callculateFight(playerRoundstate, monsterRoundstate , activePlayer, activeMonster, playerRoll, monsterRoll){
-   //damage calculations
-  let playerDamage = calculateFightPlayer(playerRoundstate, activeMonster, playerRoll);
-  let monsterDamage = calculateFightMonster(playerRoundstate, activeMonster, monsterRoll);
+function fightMonster(activePlayer, activeMonster, monsterRoll){
+  //damage calculations
+ let monsterDamage = calculateFightMonster(activePlayer, activeMonster, monsterRoll);
 
-  //apply damage and check for win
-  if(playerDamage > 0){
-    monsterRoundstate.health =  monsterRoundstate.health - playerDamage;
-  }
-  
-  if(monsterRoundstate.health <= 0){
-    activePlayer.monstersKilled += 1;
-    activePlayer.experiencePoints += activeMonster.rewardXP;
-    activePlayer.gold += activeMonster.rewardGold;
-    return "player"
-  }
+ //apply damage and check for win
+ if(monsterDamage){
+   activePlayer.health = activePlayer.health - activeMonster.damage;
+ }
 
-  if(monsterDamage){
-    activePlayer.health = activePlayer.health - activeMonster.damage;
-  }
+ if(activePlayer.health <= 0){
+   return true
+ }
 
-  if(activePlayer.health <= 0){
-    return "monster"
-  }
-
-  return "none"
+ return false
 }
 
+function diceRollPlayer(diceRollPlayer){
+  let winner = fightPlayer(players[0], players[0].fight.activeMonster, diceRollPlayer)
+  if(winner){
+    clientSocket.emit("updateFight", "Player won");
+    return
+  }
+  clientSocket.emit("updateFight", "Monster has " + players[0].fight.activeMonster.health + " health");
+  return
+}
+
+function diceRollMonster(diceRollMonster){
+  let winner = fightMonster(players[0], players[0].fight.activeMonster, diceRollMonster)
+  if(winner){
+    clientSocket.emit("updateFight", "Monster won");
+    return
+  }
+  clientSocket.emit("updateFight", "Player has " + players[0].health + " health");
+  return
+}
