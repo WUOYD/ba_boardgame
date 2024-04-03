@@ -6,7 +6,7 @@
     <h2>Player</h2>
     <div class="diceCombinationsPlayer">
         <div v-for="(option, index) in optionsPlayer" :key="index" class="combinationButtons">
-          <button :class="{ selected: selectedOption === option }" @click="selectOption(option)">
+          <button :class="{ selected: selectedOptionPlayer === option }" @click="selectOptionPlayer(option)">
             <div class="buttonCominationImages">
               <img :src="combinationImages[index][0]" width="48" height="48"/>
               <img :src="combinationImages[index][1]" width="48" height="48"/>
@@ -25,10 +25,13 @@
           </button>
         </div>
     </div>
+    <button @click="readSelectedOptionPlayer()">Ausgewählte Option lesen</button>
+    <p v-if="selectedOptionPlayer">Ausgewählte Option: {{ selectedOptionPlayer }}</p>
+    <p v-else>Noch keine Option ausgewählt</p>
     <h2>Monster</h2>
     <div class="diceCombinationsMonster">
         <div v-for="(option, index) in optionsMonster" :key="index" class="combinationButtons">
-          <button :class="{ selected: selectedOption === option }" @click="selectOption(option)">
+          <button :class="{ selected: selectedOptionMonster === option }" @click="selectOptionMonster(option)">
             <div class="buttonCominationImages">
               <img :src="combinationImages[index][0]" width="48" height="48"/>
               <img :src="combinationImages[index][1]" width="48" height="48"/>
@@ -47,8 +50,8 @@
           </button>
         </div>
     </div>
-    <button @click="readSelectedOption">Ausgewählte Option lesen</button>
-    <p v-if="selectedOption">Ausgewählte Option: {{ selectedOption }}</p>
+    <button @click="readSelectedOptionMonster()">Ausgewählte Option lesen</button>
+    <p v-if="selectedOptionMonster">Ausgewählte Option: {{ selectedOptionMonster }}</p>
     <p v-else>Noch keine Option ausgewählt</p>
   </div>
 </template>
@@ -76,7 +79,8 @@ export default {
         ["src/assets/icons/skull.png", "src/assets/icons/skull.png"],
         ["src/assets/icons/skull.png", "src/assets/icons/claw.png"],
       ],
-      selectedOption: null
+      selectedOptionPlayer: null,
+      selectedOptionMonster: null
     }
   },
   mounted() {
@@ -102,11 +106,17 @@ export default {
     enterRollMonster() {
       socket.emit("diceRollMonster", this.diceRollMonster);
     },
-    selectOption(option) {
-      this.selectedOption = option;
+    selectOptionPlayer(option) {
+      this.selectedOptionPlayer = option;
     },
-    readSelectedOption() {
-        this.selectedOption;
+    selectOptionMonster(option) {
+      this.selectedOptionMonster = option;
+    },
+    readSelectedOptionPlayer() {
+        this.selectedOptionPlayer;
+    },
+    readSelectedOptionMonster() {
+        this.selectedOptionMonster;
     }
   },
   beforeUnmount() {
@@ -138,6 +148,8 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    border: none;
+    border-radius: 5px;
   }
 
   .buttonCominationImages, .buttonCombinationName, .buttonCombinationDamage, .buttonCombinationBlock {
@@ -147,11 +159,11 @@ export default {
   }
 
   .buttonCominationImages{
-    width: 25%;
+    width: 30%;
   }
 
   .buttonCombinationName{
-    width: 35%;
+    width: 30%;
   }
 
   .buttonCombinationDamage, .buttonCombinationBlock{
@@ -160,7 +172,9 @@ export default {
     flex-direction: column;
   }
 
-  
+  .selected {
+    background-color: #333333;
+  }
 
   img {
     border-radius: 5px;
