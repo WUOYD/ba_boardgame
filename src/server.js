@@ -8,6 +8,8 @@ let intervalMs = 100;
 let sockets = [];
 let players = new Array();
 let clientSocket;
+let game;
+let player;
 
 // Server
 const io = new Server(server, {
@@ -59,6 +61,10 @@ io.on('connection', (socket) => {
     diceRollMonster(rollMonster);
   })
 
+  socket.on("getActivePlayer", function() {
+    socket.emit("activePlayer", player)
+  })
+
   //Disconnect message
   socket.on('disconnect', () => {
     console.log('connection disconnected: ' + socket.id)
@@ -98,6 +104,7 @@ class Player{
     this.monstersKilled = 0;
     this.questsSolved = 0;
     this.victoryPoints = 0;
+    this.moves = [["Inflict Wounds", 3, 0], ["Scorching Ray", 2, 0], ["Invisibilty", 0, 3], ["Misty Step", 1, 1], ["Vicious Mockery", 0, 2], ["Powerword Kill", 10, 0]];
   }
 }
 
@@ -176,10 +183,6 @@ function getRandomMonster(round){
 
 //start fight
 function startFight(){
-  let game = new Game(1);
-  let player = new Player("Julian");
-  players.push(player);
-  initMonsters();
   let activeMonster = getRandomMonster(game.round);
   let activePlayer = player;
   initFightMonster(activePlayer, activeMonster);
@@ -251,3 +254,12 @@ function generateEncounter(){
     
   }
 }
+
+function initGame(){
+  initMonsters();
+  game = new Game(1);
+  player = new Player("Julian");
+  players.push(player);
+}
+
+initGame()

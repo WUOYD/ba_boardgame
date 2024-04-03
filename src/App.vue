@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      comp: "Map",
+      comp: "",
       title: true
     }
   },
@@ -47,7 +47,7 @@ export default {
     socket.on('updateClientView', comp => {
       switch (comp) {
         case 0:
-          this.updateView("Map")
+          this.updateView("Fight")
           break;
         case 1:
           this.updateView("Character")
@@ -62,12 +62,13 @@ export default {
           this.updateView("Quests")
           break;
         case 5:
-          this.updateView("Fight")
+          this.updateView("Map")
           break;
       }
     })
     socket.on('join', (join) => {
       this.title = false;
+      this.comp = "Fight"
     })
   },
   methods: {
