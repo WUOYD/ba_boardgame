@@ -94,33 +94,28 @@ class Player{
     this.name = name
     this.actions = 10;
     this.health = 10;
-    this.attack = 2;
-    this.defense = 5;
-    this.blocks = 2;
-    this.experiencePoints = 0;
+    this.reputation = 0;
     this.gold = 0;
     this.monstersKilled = 0;
     this.questsSolved = 0;
+    this.victoryPoints = 0;
   }
 }
 
 //Monster
 class Monster{
-  constructor(type, victoryPoints, health, attack, defense, damage, rewardXP, rewardGold){
+  constructor(name, type, health, victoryPoints, rewardGold){
+    this.name = name;
     this.type = type;
-    this.victoryPoints = victoryPoints;
     this.health = health;
-    this.attack = attack;
-    this.defense = defense;
-    this.damage = damage;
-    this.rewardXP = rewardXP;
+    this.victoryPoints = victoryPoints;
     this.rewardGold = rewardGold;
   }
 }
 
 class Fight{
   constructor(activePlayerObject, activeMonsterObject){
-    let activePlayer = activePlayerObject;
+    this.activePlayer = activePlayerObject;
     this.activeMonster = activeMonsterObject;
     this.turn = 0;
     this.fight;
@@ -178,12 +173,6 @@ function attackerBonusBefore(player){
 
 function attackerBonusAfter(player){
   return
-}
-
-function playerDamageBlock(){
-  let blockedState = false
-  //blocked View
-  return blockedState
 }
 
 function randomNumber(min, max) { // min and max included 
@@ -298,4 +287,17 @@ function diceRollMonster(diceRollMonster){
   }
   clientSocket.emit("updateFight", "Player has " + players[0].health + " health");
   return
+}
+
+//Encounter generation
+
+function probability(n){
+  return Math.random() < n;
+}
+
+function generateEncounter(){
+  let monsterrobability
+  if(probability()){
+    
+  }
 }

@@ -1,6 +1,8 @@
 <template>
   <div class="content single">
       <h1>Actions</h1>
+      <button @click="generateEncounter()">Generate Encounter</button>
+      <p>{{ text }}</p>
   </div>
 </template>
 
@@ -10,14 +12,16 @@ import { socket } from '../client'
 export default {
   data() {
     return {
+      text: "Encounter",
     }
   },
   mounted() {
-    socket.on("updateComponentT1", track => {
+    socket.on("updateEncounter", message => {
+      this.text = this.text + "\n" + message
     })
   },
   methods: {
-    updateClick(element, index) {
+    generateEncounter() {
       element.target.classList.toggle("selected");
       socket.emit("updateT1", index);
     }
