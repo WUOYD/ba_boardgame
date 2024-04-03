@@ -48,7 +48,6 @@ io.on('connection', (socket) => {
 
   //Sockets fight
   socket.on("startFight", function() {
-    socket.emit('startFight', "fight has started" )
     startFight();
   })
 
@@ -104,12 +103,13 @@ class Player{
 
 //Monster
 class Monster{
-  constructor(name, type, health, victoryPoints, rewardGold){
+  constructor(name, type, victoryPoints, health, rewardGold, moves){
     this.name = name;
     this.type = type;
     this.health = health;
     this.victoryPoints = victoryPoints;
     this.rewardGold = rewardGold;
+    this.moves = moves;
   }
 }
 
@@ -123,27 +123,15 @@ class Fight{
 }
 
 let monsterTableBronze = [
-  ["Bronze", 1, 14, 2, 2, 2, 1, 1],
-  ["Bronze", 1, 15, 1, 3, 3, 1, 1],
-  ["Bronze", 1, 16, 2, 2, 2, 1, 1],
-  ["Bronze", 1, 13, 3, 1, 1, 1, 1],
-  ["Bronze", 1, 15, 0, 3, 2, 1, 1],
+  ["Betrunkener Goblin", "Bronze", 1, 14, 2, [["Kratzer", 1, 0], ["Biss", 1, 0], ["Kauern", 0, 1], ["Counter", 1, 1], ["Käulenhieb", 3, 0], ["Kopfnuss", 2, 0]]],
 ];
 
 let monsterTableSilver = [
-  ["Silver", 2, 21, 0, 4, 3, 2, 3],
-  ["Silver", 2, 20, 3, 0, 4, 2, 3],
-  ["Silver", 2, 22, 1, 3, 3, 2, 3],
-  ["Silver", 2, 21, 3, 3, 2, 2, 3],
-  ["Silver", 2, 22, 2, 1, 3, 2, 3]
+
 ];
 
 let monsterTableGold = [
-  ["Gold", 3, 28, 3, 5, 5, 3, 5],
-  ["Gold", 3, 29, 5, 3, 4, 3, 5],
-  ["Gold", 3, 30, 3, 5, 5, 3, 5],
-  ["Gold", 3, 28, 3, 5, 3, 3, 5],
-  ["Gold", 3, 27, 4, 4, 4, 3, 5]
+
 ];
 
 let monstersBronze = [];
@@ -152,27 +140,14 @@ let monstersGold = [];
 
 function initMonsters(){
   for (let i = 0; i < monsterTableBronze.length; i++){
-    monstersBronze[i] = new Monster(monsterTableBronze[i][0], monsterTableBronze[i][1], monsterTableBronze[i][2], monsterTableBronze[i][3], monsterTableBronze[i][4], monsterTableBronze[i][5], monsterTableBronze[i][6], monsterTableBronze[i][7]);
+    monstersBronze[i] = new Monster(monsterTableBronze[i][0], monsterTableBronze[i][1], monsterTableBronze[i][2], monsterTableBronze[i][3], monsterTableBronze[i][4], monsterTableBronze[i][5]);
   }
   for (let i = 0; i < monsterTableSilver.length; i++){
-    monstersSilver[i] = new Monster(monsterTableSilver[i][0], monsterTableSilver[i][1], monsterTableSilver[i][2], monsterTableSilver[i][3], monsterTableSilver[i][4], monsterTableSilver[i][5], monsterTableSilver[i][6], monsterTableSilver[i][7]);
+    monstersSilver[i] = new Monster(monsterTableSilver[i][0], monsterTableSilver[i][1], monsterTableSilver[i][2], monsterTableSilver[i][3], monsterTableSilver[i][4], monsterTableSilver[i][5]);
   } 
   for (let i = 0; i < monsterTableGold.length; i++){
-    monstersGold[i] = new Monster(monsterTableGold[i][0], monsterTableGold[i][1], monsterTableGold[i][2], monsterTableGold[i][3], monsterTableGold[i][4], monsterTableGold[i][5], monsterTableGold[i][6], monsterTableGold[i][7]);
+    monstersGold[i] = new Monster(monsterTableGold[i][0], monsterTableGold[i][1], monsterTableGold[i][2], monsterTableGold[i][3], monsterTableGold[i][4], monsterTableGold[i][5]);
   }  
-}
-
-function block(){
-  let blocked = false;
-  return blocked
-}
-
-function attackerBonusBefore(player){
-  return
-}
-
-function attackerBonusAfter(player){
-  return
 }
 
 function randomNumber(min, max) { // min and max included 
@@ -207,8 +182,9 @@ function startFight(){
   initMonsters();
   let activeMonster = getRandomMonster(game.round);
   let activePlayer = player;
-  clientSocket.emit("activeMonster", activeMonster);
   initFightMonster(activePlayer, activeMonster);
+  clientSocket.emit("activeMonster", activeMonster);
+  return activeMonster;
 }
 
 //fight monster
@@ -218,35 +194,15 @@ function initFightMonster(activePlayer, activeMonster){
 }
 
 //Fight functions
-function calculateFightPlayer(activePlayer, activeMonster, playerRoll ){
-  let playerDamage = 0;
-  if(parseInt(activePlayer.attack) + parseInt(playerRoll) - parseInt(activeMonster.defense) >= 0){
-      playerDamage = parseInt(activePlayer.attack) + parseInt(playerRoll) - parseInt(activeMonster.defense);
-      return playerDamage
-  }
-  return 0
-}
 
-function calculateFightMonster(activePlayer, activeMonster, monsterRoll){
-  if(parseInt(activeMonster.attack) + parseInt(monsterRoll) - parseInt(activePlayer.defense) >= 0){
-      return true
-  }
-  return false
-}
-
-function fightPlayer(activePlayer, activeMonster, playerRoll,){
-  //damage calculations
- let playerDamage = calculateFightPlayer(activePlayer, activeMonster, playerRoll);
-
+function fightPlayer(activePlayer, activeMonster, playerRoll){
  //apply damage and check for win
- if(playerDamage > 0){
-
-  activeMonster.health = activeMonster.health - playerDamage;
+ if(playerRoll > 0){
+  activeMonster.health = activeMonster.health - playerRoll;
  }
- 
  if(activeMonster.health <= 0){
    activePlayer.monstersKilled += 1;
-   activePlayer.experiencePoints += activeMonster.rewardXP;
+   activePlayer.victoryPoints += activeMonster.victoryPoints;
    activePlayer.gold += activeMonster.rewardGold;
    return true
  }
@@ -254,18 +210,13 @@ function fightPlayer(activePlayer, activeMonster, playerRoll,){
 }
 
 function fightMonster(activePlayer, activeMonster, monsterRoll){
-  //damage calculations
- let monsterDamage = calculateFightMonster(activePlayer, activeMonster, monsterRoll);
-
  //apply damage and check for win
- if(monsterDamage){
-   activePlayer.health = activePlayer.health - activeMonster.damage;
+ if(monsterRoll > 0){
+   activePlayer.health = activePlayer.health - monsterRoll;
  }
-
  if(activePlayer.health <= 0){
    return true
  }
-
  return false
 }
 
@@ -290,7 +241,6 @@ function diceRollMonster(diceRollMonster){
 }
 
 //Encounter generation
-
 function probability(n){
   return Math.random() < n;
 }

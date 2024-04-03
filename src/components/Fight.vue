@@ -3,18 +3,46 @@
     <h1>Fight</h1>
     <p>{{ text }}</p>
     <button @click="startFight">Start fight</button>
-    <div class="diceCombinations">
-        <div v-for="(option, index) in options" :key="index" class="combinationButtons">
+    <h2>Player</h2>
+    <div class="diceCombinationsPlayer">
+        <div v-for="(option, index) in optionsPlayer" :key="index" class="combinationButtons">
           <button :class="{ selected: selectedOption === option }" @click="selectOption(option)">
             <div class="buttonCominationImages">
               <img :src="combinationImages[index][0]" width="48" height="48"/>
               <img :src="combinationImages[index][1]" width="48" height="48"/>
             </div>
             <div class="buttonCombinationName">
-              {{ combinationName[index] }}
+              {{ combinationNamePlayer[index] }}
             </div>
-            <div class="buttonCombinationMove">
-              {{ combinationMove[index] }}
+            <div class="buttonCombinationDamage">
+              <div>Schaden</div>
+              <div>{{ combinationDamagePlayer[index] }}</div>
+            </div>
+            <div class="buttonCombinationBlock">
+              <div>Block</div>
+              <div>{{ combinationBlockPlayer[index] }}</div>
+            </div>
+          </button>
+        </div>
+    </div>
+    <h2>Monster</h2>
+    <div class="diceCombinationsMonster">
+        <div v-for="(option, index) in optionsMonster" :key="index" class="combinationButtons">
+          <button :class="{ selected: selectedOption === option }" @click="selectOption(option)">
+            <div class="buttonCominationImages">
+              <img :src="combinationImages[index][0]" width="48" height="48"/>
+              <img :src="combinationImages[index][1]" width="48" height="48"/>
+            </div>
+            <div class="buttonCombinationName">
+              {{ combinationNameMonster[index] }}
+            </div>
+            <div class="buttonCombinationDamage">
+              <div>Schaden</div>
+              <div>{{ combinationDamageMonster[index] }}</div>
+            </div>
+            <div class="buttonCombinationBlock">
+              <div>Block</div>
+              <div>{{ combinationBlockMonster[index] }}</div>
             </div>
           </button>
         </div>
@@ -32,11 +60,14 @@ export default {
   data() {
     return {
       text: "start fight by pressing start fight button",
-      diceRollPlayer: 0,
-      diceRollMonster: 0,
-      options: ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"],
-      combinationName: ["Kratzer", "Biss", "Kauern", "Counter", "Keulenhieb", "Kopfnuss"],
-      combinationMove: ["1 Schaden", "1 Schaden", "1 Blocken", "1 Schaden, 1 Block", "3 Schaden", "2 Schaden"],
+      optionsPlayer: ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"],
+      optionsMonster: ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"],
+      combinationNamePlayer: ["", "", "", "", "", ""],
+      combinationDamagePlayer: ["", "", "", "", "", ""],
+      combinationBlockPlayer: ["", "", "", "", "", ""],
+      combinationNameMonster: ["", "", "", "", "", ""],
+      combinationDamageMonster: ["", "", "", "", "", ""],
+      combinationBlockMonster: ["", "", "", "", "", ""],
       combinationImages: [
         ["src/assets/icons/claw.png", "src/assets/icons/claw.png"],
         ["src/assets/icons/claw.png", "src/assets/icons/magic.png"],
@@ -49,14 +80,16 @@ export default {
     }
   },
   mounted() {
-    socket.on("startFight", message => {
-      this.text = message
-    }),
     socket.on("updateFight", message => {
       this.text = this.text + "\n" + message
     }),
     socket.on("activeMonster", activeMonster => {
-      this.text = this.text + "\n" + JSON.stringify(activeMonster);
+      //this.text = this.text + "\n" + JSON.stringify(activeMonster)
+      for (let i = 0; i < 6; i++){
+        this.combinationNameMonster[i] = activeMonster.moves[i][0];
+        this.combinationDamageMonster[i] = activeMonster.moves[i][1];
+        this.combinationBlockMonster[i] = activeMonster.moves[i][2];
+      }
     })
   },
   methods: {
@@ -83,7 +116,11 @@ export default {
 </script>
 
 <style>
-  .diceCombinations {
+  p {
+    white-space: pre-line;
+  }
+
+  .diceCombinationsMonster, .diceCombinationsPlayer {
     display: flex;
     flex-wrap: wrap;
   }
@@ -103,12 +140,27 @@ export default {
     justify-content: center;
   }
 
-  .buttonCominationImages, .buttonCombinationName, .buttonCombinationMove {
+  .buttonCominationImages, .buttonCombinationName, .buttonCombinationDamage, .buttonCombinationBlock {
     display: flex; 
-    width: 33%;
     align-items: center;
     justify-content: center;
   }
+
+  .buttonCominationImages{
+    width: 25%;
+  }
+
+  .buttonCombinationName{
+    width: 35%;
+  }
+
+  .buttonCombinationDamage, .buttonCombinationBlock{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  
 
   img {
     border-radius: 5px;
