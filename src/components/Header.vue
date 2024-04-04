@@ -25,7 +25,7 @@
   .menu-item{
       margin-left: 2%;
       margin-right: 2%;
-
+      cursor: pointer;
   }
 
 </style>

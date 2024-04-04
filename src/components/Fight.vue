@@ -3,60 +3,96 @@
     <h1>Fight</h1>
     <button @click="startFight">Start fight</button>
     <p>{{ fightText }}</p>
-    <h2>Player</h2>
-    <table>
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <td>
-                    <p>{{ playerName }}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Actions</th>
-                <td>
-                    <p>{{ playerActions }}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Health</th>
-                <td>
-                    <p>{{ playerHealth }}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Reputation</th>
-                <td>
-                    <p>{{ playerReputation }}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Gold</th>
-                <td>
-                    <p>{{ playerGold }}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Monsters Killed</th>
-                <td>
-                    <p>{{ playerMonstersKilled }}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Quests Solved</th>
-                <td>
-                    <p>{{ playerQuestsSolved }}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Victory Points</th>
-                <td>
-                    <p>{{ playerVictoryPoints }}</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="statistics">
+      <div id="playerStatistics">
+        <h2>Player</h2>
+        <table>
+          <tbody>
+              <tr>
+                  <th>Name</th>
+                  <td>
+                      <p>{{ playerName }}</p>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Actions</th>
+                  <td>
+                      <p>{{ playerActions }}</p>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Health</th>
+                  <td>
+                      <p>{{ playerHealth }}</p>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Blocks</th>
+                  <td>
+                      <p>{{ playerBlocks }}</p>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Reputation</th>
+                  <td>
+                      <p>{{ playerReputation }}</p>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Gold</th>
+                  <td>
+                      <p>{{ playerGold }}</p>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+      </div>
+      <div id="monsterStatistics">
+        <h2>Monster</h2>
+        <table>
+          <tbody>
+              <tr>
+                  <th>Name</th>
+                  <td>
+                      <p>{{ monsterName }}</p>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Typ</th>
+                  <td>
+                      <p>{{ monsterType }}</p>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Health</th>
+                  <td>
+                      <p>{{ monsterHealth }}</p>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Blocks</th>
+                  <td>
+                      <p>{{ monsterBlocks }}</p>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Victory Points</th>
+                  <td>
+                      <p>{{ monsterVictoryPoints }}</p>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Monster Reward</th>
+                  <td>
+                      <p>{{ monsterRewardGold }}</p>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div class="diceCombinationsPlayer">
+      <h2>Player</h2>
         <div v-for="(option, index) in optionsPlayer" :key="index" class="combinationButtons">
             <button :class="{ selected: selectedOptionPlayer === option }" @click="selectOptionPlayer(option)">
                 <div class="buttonCominationImages">
@@ -78,46 +114,12 @@
         </div>
     </div>
     <div>
-      <button @click="readSelectedOptionPlayer()">Ausgewählte Option lesen</button>
-      <p v-if="selectedOptionPlayer">Ausgewählte Option: {{ selectedOptionPlayer }}</p>
-      <p v-else>Noch keine Option ausgewählt</p>
+        <button @click="readSelectedOptionPlayer()">Ausgewählte Option lesen</button>
+        <p v-if="selectedOptionPlayer">Ausgewählte Option: {{ selectedOptionPlayer }}</p>
+        <p v-else>Noch keine Option ausgewählt</p>
     </div>
-    <h2>Monster</h2>
-    <table>
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <td>
-                    <p>{{ monsterName }}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Typ</th>
-                <td>
-                    <p>{{ monsterType }}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Health</th>
-                <td>
-                    <p>{{ monsterHealth }}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Victory Points</th>
-                <td>
-                    <p>{{ monsterVictoryPoints }}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Monster Reward</th>
-                <td>
-                    <p>{{ monsterRewardGold }}</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
     <div class="diceCombinationsMonster">
+      <h2>Monster</h2>
         <div v-for="(option, index) in optionsMonster" :key="index" class="combinationButtons">
             <button :class="{ selected: selectedOptionMonster === option }" @click="selectOptionMonster(option)">
                 <div class="buttonCominationImages">
@@ -139,11 +141,11 @@
         </div>
     </div>
     <div>
-      <button @click="readSelectedOptionMonster()">Ausgewählte Option lesen</button>
-      <p v-if="selectedOptionMonster">Ausgewählte Option: {{ selectedOptionMonster }}</p>
-      <p v-else>Noch keine Option ausgewählt</p>
+        <button @click="readSelectedOptionMonster()">Ausgewählte Option lesen</button>
+        <p v-if="selectedOptionMonster">Ausgewählte Option: {{ selectedOptionMonster }}</p>
+        <p v-else>Noch keine Option ausgewählt</p>
     </div>
-    
+
 </div>
 </template>
 
@@ -177,14 +179,13 @@ export default {
             monsterHealth: null,
             monsterVictoryPoints: null,
             monsterRewardGold: null,
+            monsterBlocks: null,
             playerName: null,
             playerActions: null,
             playerHealth: null,
             playerReputation: null,
             playerGold: null,
-            playerMonstersKilled: null,
-            playerQuestsSolved: null,
-            playerVictoryPoints: null,
+            playerBlocks: null,
             selectedOptionPlayer: null,
             selectedOptionMonster: null,
         }
@@ -193,34 +194,33 @@ export default {
         socket.on("updateFight", message => {
             this.fightText = this.fightText + "\n" + message
         })
-        socket.on("activeMonster", activeMonster => {
+        socket.on("updateMonster", activeMonster => {
             this.monsterName = activeMonster.name;
             this.monsterType = activeMonster.type;
             this.monsterHealth = activeMonster.health;
             this.monsterVictoryPoints = activeMonster.victoryPoints;
             this.monsterRewardGold = activeMonster.rewardGold;
+            this.monsterBlocks = activeMonster.blocks;
             for (let i = 0; i < 6; i++) {
                 this.combinationNameMonster[i] = activeMonster.moves[i][0];
                 this.combinationDamageMonster[i] = activeMonster.moves[i][1];
                 this.combinationBlockMonster[i] = activeMonster.moves[i][2];
             }
         })
-        socket.on("activePlayer", activePlayer => {
+        socket.on("updatePlayer", activePlayer => {
             this.playerName = activePlayer.name;
-            this.playerActions = activePlayer.actions
-            this.playerHealth = activePlayer.health
-            this.playerReputation = activePlayer.reputation
-            this.playerGold = activePlayer.gold
-            this.playerMonstersKilled = activePlayer.monstersKilled
-            this.playerQuestsSolved = activePlayer.questsSolved
-            this.playerVictoryPoints = activePlayer.victoryPoints
+            this.playerActions = activePlayer.actions;
+            this.playerHealth = activePlayer.health;
+            this.playerReputation = activePlayer.reputation;
+            this.playerGold = activePlayer.gold;
+            this.playerBlocks = activePlayer.blocks;
             for (let i = 0; i < 6; i++) {
                 this.combinationNamePlayer[i] = activePlayer.moves[i][0];
                 this.combinationDamagePlayer[i] = activePlayer.moves[i][1];
                 this.combinationBlockPlayer[i] = activePlayer.moves[i][2];
             }
         })
-        socket.emit("getActivePlayer")
+        socket.emit("getActivePlayer");
     },
     methods: {
         startFight() {
@@ -240,9 +240,11 @@ export default {
         },
         readSelectedOptionPlayer() {
             socket.emit("diceRollPlayer", this.selectedOptionPlayer)
+            this.selectedOptionPlayer = null;
         },
         readSelectedOptionMonster() {
-          socket.emit("diceRollMonster", this.selectedOptionMonster)
+            socket.emit("diceRollMonster", this.selectedOptionMonster)
+            this.selectedOptionMonster = null;
         }
     },
     beforeUnmount() {
@@ -310,5 +312,30 @@ p {
 img {
     border-radius: 5px;
     margin: 5px;
+}
+
+#statistics {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+#playerStatistics{ 
+  width: 45%
+}
+#monsterStatistics{
+  width: 45%;
+  position: absolute;
+  right: 0;
+}
+table {
+  width: 100%;
+}
+
+th,
+td {
+  width: 50%;
+  border-bottom: #333333 dotted;
 }
 </style>
