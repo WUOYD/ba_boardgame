@@ -156,8 +156,8 @@ export default {
     data() {
         return {
             fightText: "start fight by pressing start fight button",
-            optionsPlayer: ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"],
-            optionsMonster: ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"],
+            optionsPlayer: [1, 2, 3, 4, 5, 6],
+            optionsMonster: [1, 2, 3, 4, 5, 6],
             combinationImages: [
                 ["src/assets/icons/claw.png", "src/assets/icons/claw.png"],
                 ["src/assets/icons/claw.png", "src/assets/icons/magic.png"],
@@ -206,7 +206,6 @@ export default {
             }
         })
         socket.on("activePlayer", activePlayer => {
-          console.log(activePlayer)
             this.playerName = activePlayer.name;
             this.playerActions = activePlayer.actions
             this.playerHealth = activePlayer.health
@@ -240,10 +239,10 @@ export default {
             this.selectedOptionMonster = option;
         },
         readSelectedOptionPlayer() {
-            this.selectedOptionPlayer;
+            socket.emit("diceRollPlayer", this.selectedOptionPlayer)
         },
         readSelectedOptionMonster() {
-            this.selectedOptionMonster;
+          socket.emit("diceRollMonster", this.selectedOptionMonster)
         }
     },
     beforeUnmount() {

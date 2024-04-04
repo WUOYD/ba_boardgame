@@ -38,11 +38,6 @@ io.on('connection', (socket) => {
     socket.emit('join', join)
   })
 
-  // dice roll input
-  socket.emit("diceRoll", (currentDiceRoll) => {
-    dice = currentDiceRoll
-  });
-
   // Update View
   socket.on('updateView', (comp) => {
     socket.emit('updateClientView', comp)
@@ -184,7 +179,7 @@ function getRandomMonster(round){
 //start fight
 function startFight(){
   let activeMonster = getRandomMonster(game.round);
-  let activePlayer = player;
+  let activePlayer = players[0];
   initFightMonster(activePlayer, activeMonster);
   clientSocket.emit("activeMonster", activeMonster);
   return activeMonster;
@@ -198,31 +193,6 @@ function initFightMonster(activePlayer, activeMonster){
 
 //Fight functions
 
-function fightPlayer(activePlayer, activeMonster, playerRoll){
- //apply damage and check for win
- if(playerRoll > 0){
-  activeMonster.health = activeMonster.health - playerRoll;
- }
- if(activeMonster.health <= 0){
-   activePlayer.monstersKilled += 1;
-   activePlayer.victoryPoints += activeMonster.victoryPoints;
-   activePlayer.gold += activeMonster.rewardGold;
-   return true
- }
- return false
-}
-
-function fightMonster(activePlayer, activeMonster, monsterRoll){
- //apply damage and check for win
- if(monsterRoll > 0){
-   activePlayer.health = activePlayer.health - monsterRoll;
- }
- if(activePlayer.health <= 0){
-   return true
- }
- return false
-}
-
 function diceRollPlayer(diceRollPlayer){
   let winner = fightPlayer(players[0], players[0].fight.activeMonster, diceRollPlayer)
   if(winner){
@@ -230,6 +200,7 @@ function diceRollPlayer(diceRollPlayer){
     return
   }
   clientSocket.emit("updateFight", "Monster has " + players[0].fight.activeMonster.health + " health");
+  clientSocket.emit("activeMonster", players[0].fight.activeMonster)
   return
 }
 
@@ -242,6 +213,31 @@ function diceRollMonster(diceRollMonster){
   clientSocket.emit("updateFight", "Player has " + players[0].health + " health");
   return
 }
+
+function fightPlayer(activePlayer, activeMonster, playerRoll){
+  //apply damage and check for win
+  if(players[0].moves[playerRoll-1][1] > 0){
+   activeMonster.health = activeMonster.health - players[0].moves[playerRoll-1][1];
+  }
+  if(activeMonster.health <= 0){
+    activePlayer.monstersKilled += 1;
+    activePlayer.victoryPoints += activeMonster.victoryPoints;
+    activePlayer.gold += activeMonster.rewardGold;
+    return true
+  }
+  return false
+ }
+ 
+ function fightMonster(activePlayer, monsterRoll){
+  //apply damage and check for win
+  if(monsterRoll > 0){
+    activePlayer.health = activePlayer.health - monsterRoll;
+  }
+  if(activePlayer.health <= 0){
+    return true
+  }
+  return false
+ }
 
 //Encounter generation
 function probability(n){
