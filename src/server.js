@@ -100,7 +100,10 @@ class Player{
     this.questsSolved = 0;
     this.victoryPoints = 0;
     this.blocks = 0;
-    this.moves = [["Leicheter Hieb", 1, 0], ["Gedeckter Angriff", 1, 1], ["Schildwall", 0, 3], ["Magischer Schild", 0, 3], ["Magisches Eis", 2, 1], ["Schwerer Hieb", 2, 0]];
+    this.dot = 0;
+    this.reflect = 0;
+    this.damageNextRound = 0;
+    this.moves = [["Leicheter Hieb", 1, 0, 0, 0, 0, 0], ["Gedeckter Angriff", 1, 1, 0, 0, 0, 0], ["Schildwall", 0, 3, 0, 0, 0, 0], ["Magischer Schild", 0, 3, 0, 0, 0, 0], ["Magisches Eis", 2, 1, 0, 0, 0, 0], ["Schwerer Hieb", 2, 0, 0, 0, 0, 0]];
   }
 }
 
@@ -113,6 +116,9 @@ class Monster{
     this.victoryPoints = victoryPoints;
     this.rewardGold = rewardGold;
     this.blocks = 0;
+    this.dot = 0;
+    this.reflect = 0;
+    this.damageNextRound = 0;
     this.moves = moves;
   }
 }
@@ -125,12 +131,13 @@ class Fight{
   }
 }
 
+//Moves, "Name", Damage, Block, Heal, DoT, Reflect, Damage next Round
 let monsterTableBronze = [
-  ["Goblin Jäger", "Bronze", 1, 6, 2, [["Steinwurf", 1, 0], ["Speerwurf", 2, 0], ["Flinkheit", 0, 5], ["Meditation", 1, 0], ["Vergifteter Dolch", 1, 0], ["Kritischer Treffer", 3, 0]]], 
-  ["Manfred", "Bronze", 1, 8, 2, [["Dornen", 1, 0], ["Blätterpanzer", 0, 1], ["Wachstum", 0, 2], ["Dornenpanzer", 2, 1], ["Entend", 3, 0], ["Stolpern", 0, 0]]],
-  ["Feuerkobold", "Bronze", 1, 4, 2, [["Klauenangriff", 1, 0], ["Feueratem", 2, 0], ["Jinx", 1, 1], ["Flammenwand", 1, 1], ["Explosion", 4, 0], ["Koboldbiss", 3, 0]]],
-  ["Eisgolem", "Bronze", 1, 8, 2, [["Eisige Briese", 1, 0], ["Eissplitter", 1, 0], ["Frostrüstung", 0, 1], ["Frost Nova", 2, 1], ["Blizzard", 2, 1], ["Erfrierung", 2, 0]]], 
-  ["Betrunkener Goblin", "Bronze", 1, 14, 2, [["Kratzer", 1, 0], ["Biss", 1, 0], ["Kauern", 0, 1], ["Counter", 1, 1], ["Käulenhieb", 3, 0], ["Kopfnuss", 2, 0]]],
+  ["Goblin Jäger", "Bronze", 1, 6, 2, [["Steinwurf", 1, 0, 0, 0, 0, 0], ["Speerwurf", 2, 0, 0, 0, 0, 0], ["Flinkheit", 0, 5, 0, 0, 0, 0], ["Meditation", 0, 0, 0, 0, 0, 1], ["Vergifteter Dolch", 1, 0, 0, 1, 0, 0], ["Kritischer Treffer", 3, 0, 0, 0, 0, 0]]], 
+  ["Manfred", "Bronze", 1, 8, 2, [["Dornen", 1, 0, 0, 0, 0, 0], ["Blätterpanzer", 0, 1, 0, 0, 0, 0], ["Wachstum", 0, 0, 2, 0, 0, 0], ["Dornenpanzer", 0, 0, 0, 0, 10, 0], ["Entend", 4, 0, 0, 0, 4, 0], ["Stolpern", 0, 0, 1, 0, 0, 0]]],
+  ["Feuerkobold", "Bronze", 1, 4, 2, [["Klauenangriff", 1, 0, 0, 0, 0, 0], ["Feueratem", 2, 0, 0, 0, 0, 0], ["Jinx", 0, 1, 0, 0, 1, 0], ["Flammenwand", 2, 0, 0, 0, 0, 1], ["Explosion", 4, 0, -4, 0, 0, 0], ["Koboldbiss", 3, 0, 0, 0, 0, 0]]],
+  ["Eisgolem", "Bronze", 1, 8, 2, [["Eisige Briese", 1, 0, 0, 0, 0, 0], ["Eissplitter", 1, 0, 0, 0, 0, 0], ["Frostrüstung", 0, 0, 2, 0, 0, 0], ["Frost Nova", 2, 0, 0, 0, 0, 0], ["Blizzard", 2, 0, 1, 0, 0, 0], ["Erfrierung", 2, 0, 0, 0, 0, 0]]], 
+  ["Betrunkener Goblin", "Bronze", 1, 14, 2, [["Kratzer", 1, 0, 0, 0, 0, 0, 0], ["Biss", 1, 0, 0, 0, 0, 0], ["Kauern", 0, 1, 0, 0, 0, 0], ["Counter", 1, 1, 0, 0, 0, 0], ["Käulenhieb", 3, 0, 0, 0, 0, 0], ["Kopfnuss", 2, 0, 0, 0, 0, 0]]],
 ]
 
 let monsterTableSilver = [
@@ -223,27 +230,62 @@ function diceRollMonster(diceRollMonster){
 }
 
 function fightPlayer(activePlayer, activeMonster, playerRoll){
-  //apply damage and check for win
   let playerDamage = players[0].moves[playerRoll-1][1];
+  //dot
+  if(players[0].moves[playerRoll-1][4] > players[0].dot){
+    players[0].dot = players[0].moves[playerRoll-1][4]
+  }
+  if(players[0].dot > 0){
+    playerDamage += players[0].dot
+  }
+  //apply previous next round
+  if(players[0].damageNextRound > 0){
+    playerDamage += players[0].damageNextRound;
+    players[0].damageNextRound = 0;
+  }
+  //apply damage
   if(playerDamage > 0){
-    if(activeMonster.blocks > playerDamage){
+    if(activeMonster.blocks >= playerDamage){
       activeMonster.blocks = 0;
     }
     else if(activeMonster.blocks < playerDamage){
       activeMonster.health = activeMonster.health + (activeMonster.blocks - playerDamage)
-      activeMonster.blocks = 0
+      activeMonster.blocks = 0;
     }
     else{
       activeMonster.health = activeMonster.health -  playerDamage;
     }
   }
+  //apply damage next round
+  if(players[0].moves[playerRoll-1][6] > 0){
+    playerDamage.damageNextRound = players[0].moves[playerRoll-1][6];
+  }
+  // reflect 
+  if(activeMonster.reflect > 0){
+    if(playerDamage >= activeMonster.reflect){
+      players[0].health = players[0].health - activeMonster.reflect;
+      activeMonster.reflect = 0;
+    }
+    if(playerDamage < activeMonster.reflect){
+      players[0].health = players[0].health - playerDamage
+      activeMonster.reflect = 0;
+    }
+  }
+  
+  //apply heal
+  players[0].health += players[0].moves[playerRoll-1][3]
   // set blocks
   players[0].blocks = players[0].moves[playerRoll-1][2]
+  //reflect
+  players[0].reflect = players[0].moves[playerRoll-1][5]
   //check for win
   if(activeMonster.health <= 0){
     activePlayer.monstersKilled += 1;
     activePlayer.victoryPoints += activeMonster.victoryPoints;
     activePlayer.gold += activeMonster.rewardGold;
+    players[0].dot = 0;
+    players[0].reflect = 0;
+    players[0].damageNextRound = 0;
     return true
   }
   return false
@@ -252,6 +294,19 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
  function fightMonster(activePlayer, activeMonster, monsterRoll){
   //apply damage
   let monsterDamage = activeMonster.moves[monsterRoll-1][1];
+
+  //dot
+  if(activeMonster.moves[monsterRoll-1][4] > 0){
+    activeMonster.dot = activeMonster.moves[monsterRoll-1][4]
+  }
+  if(activeMonster.dot > 0){
+    monsterDamage += activeMonster.dot
+  }
+  //apply previous next round
+  if(activeMonster.damageNextRound > 0){
+    monsterDamage += activeMonster.damageNextRound;
+    activeMonster.damageNextRound = 0;
+  }
   if(monsterDamage > 0){
     if(activePlayer.blocks > monsterDamage){
       activePlayer.blocks = 0;
@@ -264,8 +319,27 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
       activePlayer.health = activePlayer.health - monsterDamage;
     }
   }
+  //apply damage next round
+  if(activeMonster.moves[monsterRoll-1][6] > 0){
+    monsterDamage.damageNextRound = activeMonster.moves[monsterRoll-1][6];
+  }
+  // reflect 
+  if(activePlayer.reflect > 0){
+    if(monsterDamage >= activePlayer.reflect){
+      activeMonster.health - activePlayer.reflect;
+      activePlayer.reflect = 0;
+    }
+    if(monsterDamage < activePlayer.reflect){
+      activeMonster.health - monsterDamage
+      activeMonster.reflect = 0;
+    }
+  }
+  //apply heal
+  activeMonster.health += activeMonster.moves[monsterRoll-1][3]
   // set blocks
   activeMonster.blocks = activeMonster.moves[monsterRoll-1][2]
+  //reflect
+  activeMonster.reflect = activeMonster.moves[monsterRoll-1][5]
   //check for win
   if(activePlayer.health <= 0){
     return true
