@@ -6,111 +6,113 @@
     <div id="statistics">
         <div id="playerStatistics">
             <h2>Player</h2>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>Name</th>
-                        <td>
-                            <p>{{ playerName }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Actions</th>
-                        <td>
-                            <p>{{ playerActions }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Health</th>
-                        <td>
-                            <p>{{ playerHealth }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Blocks</th>
-                        <td>
-                            <p>{{ playerBlocks }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Reputation</th>
-                        <td>
-                            <p>{{ playerReputation }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Gold</th>
-                        <td>
-                            <p>{{ playerGold }}</p>
-                        </td>
-                    </tr>
-                    <th>Dot</th>
-                    <td>
-                        <p>{{ playerDot }}</p>
-                    </td>
-                    <tr>
-                        <th>Reflect</th>
-                        <td>
-                            <p>{{ playerReflect }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Damage next Round</th>
-                        <td>
-                            <p>{{ playerDamageNextRound }}</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="staticticsContent">
+                <div class="statisticsImage">
+                    <img :src="playerPicture" width="250" height="250" />
+                </div>
+                <div class="statisticsTable">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Name</th>
+                                <td>
+                                    <p>{{ playerName }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Actions</th>
+                                <td>
+                                    <p>{{ playerActions }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Health</th>
+                                <td>
+                                    <p>{{ playerHealth }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Blocks</th>
+                                <td>
+                                    <p>{{ playerBlocks }}</p>
+                                </td>
+                            </tr>
+                            <th>Dot</th>
+                            <td>
+                                <p>{{ playerDot }}</p>
+                            </td>
+                            <tr>
+                                <th>Reflect</th>
+                                <td>
+                                    <p>{{ playerReflect }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Damage next Round</th>
+                                <td>
+                                    <p>{{ playerDamageNextRound }}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <div id="monsterStatistics">
             <h2>Monster</h2>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>Name</th>
-                        <td>
-                            <p>{{ monsterName }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Typ</th>
-                        <td>
-                            <p>{{ monsterType }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Health</th>
-                        <td>
-                            <p>{{ monsterHealth }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Blocks</th>
-                        <td>
-                            <p>{{ monsterBlocks }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Dot</th>
-                        <td>
-                            <p>{{ monsterDot }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Reflect</th>
-                        <td>
-                            <p>{{ monsterReflect }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Damage next Round</th>
-                        <td>
-                            <p>{{ monsterDamageNextRound }}</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="staticticsContent">
+                <div class="statisticsTable">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Name</th>
+                                <td>
+                                    <p>{{ monsterName }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Typ</th>
+                                <td>
+                                    <p>{{ monsterType }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Health</th>
+                                <td>
+                                    <p>{{ monsterHealth }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Blocks</th>
+                                <td>
+                                    <p>{{ monsterBlocks }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Dot</th>
+                                <td>
+                                    <p>{{ monsterDot }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Reflect</th>
+                                <td>
+                                    <p>{{ monsterReflect }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Damage next Round</th>
+                                <td>
+                                    <p>{{ monsterDamageNextRound }}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="statisticsImage">
+                    <img :src="monsterPicture" width="250" height="250" />
+                </div>
+            </div>
         </div>
     </div>
     <div class="visible" id="diceCombinationsPlayer">
@@ -207,7 +209,6 @@
             <p v-else>Noch keine Option ausgewählt</p>
         </div>
     </div>
-    
 
 </div>
 </template>
@@ -221,8 +222,6 @@ export default {
     data() {
         return {
             fightText: "start fight by pressing start fight button",
-            optionsPlayer: [1, 2, 3, 4, 5, 6],
-            optionsMonster: [1, 2, 3, 4, 5, 6],
             combinationImages: [
                 ["src/assets/icons/claw.png", "src/assets/icons/claw.png"],
                 ["src/assets/icons/claw.png", "src/assets/icons/magic.png"],
@@ -231,29 +230,8 @@ export default {
                 ["src/assets/icons/skull.png", "src/assets/icons/skull.png"],
                 ["src/assets/icons/skull.png", "src/assets/icons/claw.png"],
             ],
-            combinationNamePlayer: ["", "", "", "", "", ""],
-            combinationDamagePlayer: ["", "", "", "", "", ""],
-            combinationBlockPlayer: ["", "", "", "", "", ""],
-            combinationHealPlayer: ["", "", "", "", "", ""],
-            combinationDotPlayer: ["", "", "", "", "", ""],
-            combinationReflectPlayer: ["", "", "", "", "", ""],
-            combinationDamageNextRoundPlayer: ["", "", "", "", "", ""],
-            combinationNameMonster: ["", "", "", "", "", ""],
-            combinationDamageMonster: ["", "", "", "", "", ""],
-            combinationBlockMonster: ["", "", "", "", "", ""],
-            combinationHealMonster: ["", "", "", "", "", ""],
-            combinationDotMonster: ["", "", "", "", "", ""],
-            combinationReflectMonster: ["", "", "", "", "", ""],
-            combinationDamageNextRoundMonster: ["", "", "", "", "", ""],
-            monsterName: null,
-            monsterType: null,
-            monsterHealth: null,
-            monsterVictoryPoints: null,
-            monsterRewardGold: null,
-            monsterBlocks: null,
-            monsterDot: null,
-            monsterReflect: null,
-            monsterDamageNextRound: null,
+            optionsPlayer: [1, 2, 3, 4, 5, 6],
+            playerPicture: "",
             playerName: null,
             playerActions: null,
             playerHealth: null,
@@ -263,6 +241,31 @@ export default {
             playerDot: null,
             playerReflect: null,
             playerDamageNextRound: null,
+            combinationNamePlayer: ["", "", "", "", "", ""],
+            combinationDamagePlayer: ["", "", "", "", "", ""],
+            combinationBlockPlayer: ["", "", "", "", "", ""],
+            combinationHealPlayer: ["", "", "", "", "", ""],
+            combinationDotPlayer: ["", "", "", "", "", ""],
+            combinationReflectPlayer: ["", "", "", "", "", ""],
+            combinationDamageNextRoundPlayer: ["", "", "", "", "", ""],
+            optionsMonster: [1, 2, 3, 4, 5, 6],
+            monsterPicture: "src/assets/img/placeholder.webp",
+            monsterName: null,
+            monsterType: null,
+            monsterHealth: null,
+            monsterVictoryPoints: null,
+            monsterRewardGold: null,
+            monsterBlocks: null,
+            monsterDot: null,
+            monsterReflect: null,
+            combinationNameMonster: ["", "", "", "", "", ""],
+            combinationDamageMonster: ["", "", "", "", "", ""],
+            combinationBlockMonster: ["", "", "", "", "", ""],
+            combinationHealMonster: ["", "", "", "", "", ""],
+            combinationDotMonster: ["", "", "", "", "", ""],
+            combinationReflectMonster: ["", "", "", "", "", ""],
+            combinationDamageNextRoundMonster: ["", "", "", "", "", ""],
+            monsterDamageNextRound: null,
             selectedOptionPlayer: null,
             selectedOptionMonster: null,
         }
@@ -273,6 +276,7 @@ export default {
         })
         socket.on("updateMonster", activeMonster => {
             this.monsterName = activeMonster.name;
+            this.monsterPicture = activeMonster.picture;
             this.monsterType = activeMonster.type;
             this.monsterHealth = activeMonster.health;
             this.monsterVictoryPoints = activeMonster.victoryPoints;
@@ -293,6 +297,7 @@ export default {
         })
         socket.on("updatePlayer", activePlayer => {
             this.playerName = activePlayer.name;
+            this.playerPicture = activePlayer.picture;
             this.playerActions = activePlayer.actions;
             this.playerHealth = activePlayer.health;
             this.playerReputation = activePlayer.reputation;
@@ -451,13 +456,27 @@ img {
 }
 
 #playerStatistics {
-    width: 45%
+    width: 47.5%;
+    display: flex;
+    flex-direction: column;
 }
 
 #monsterStatistics {
-    width: 45%;
+    width: 47.5%;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     right: 0;
+}
+
+.statisticsImage, .statisticsTable {
+    width: 50% !important;
+}
+
+.staticticsContent {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
 table {
@@ -479,10 +498,11 @@ td {
     /* or any other appropriate display property */
 }
 
-.enterCombination{
+.enterCombination {
     width: 100%;
     justify-content: center;
     align-items: center;
 }
-</style>
 
+
+</style>

@@ -1,56 +1,22 @@
-# README MashRoom
-MashRoom was developed for studio_UxWebmobile2_2023 at Digital Ideation HSLU. The project is using vue.js, node.js, express, socket.io and howler.js. The Goal was creating a music sequencer with collaboration features for creating music together
+# Boardgame Companion App
 
-## How to play?
-Requirements: Node.js
+Welcome to the Boardgame Companion App repository! This project is developed as a part of my bachelor's project to create a digital companion app for a board game. This README will guide you through the project, its features, and how to get started.
 
-1. Download repo
+## Overview
 
-2. Start node server in console: "node start -- --host"
+The Boardgame Companion App aims to enhance the gaming experience of [Boardgame Name] by providing players with digital tools and utilities. Whether you're a seasoned player or new to the game, this app strives to make gameplay smoother and more enjoyable.
 
-4. Start vue in console: "npm run dev"
+## Features
 
-5. Open http://127.0.0.1:5173/
+### 1. Rulebook Access
+Easily access the rulebook of the game within the app. No more flipping through pages or searching for rules during gameplay.
 
-6. Play!
+### 2. Score Tracking
+Keep track of scores for all players in real-time. The app automatically calculates and updates scores, saving players from manual calculations.
 
-## Architecture diagram
-```mermaid
-flowchart RL
-    subgraph Server
-    Node.js
-    Express.js
-    Socket.io-Server
-    end
-    subgraph Client
-	Vue.js
-	Socket.io-Client
-    Howler.js
-    end
-    Server --> Client 
-    Client --> Server
-```
-## Sequence diagram
-```mermaid
+### 3. Interactive Quests
+Embark on interactive quests that add a new dimension to the gameplay experience. Complete challenges, gather resources, and make strategic decisions to advance in the game.
 
-sequenceDiagram
+### 4. Fight System
+Engage in dynamic battles with opponents or in-game adversaries. Utilize different tactics and abilities to emerge victorious and claim your rewards.
 
-participant Client 1
-participant Server
-participant Client 2
-
-Client 2->>Server: initialize connection
-Server ->> Client 2: initialize socket
-Client 2 ->> Server: join lobby
-Client 1->>Server: initialize connection
-Server ->> Client 1: initialize socket
-Client 1 ->> Server: join lobby
-Client 1 ->> Server: open track
-Server ->> Client 1: synchronize server state
-Client 1 ->> Server: click cell
-Server ->> Client 2: toggle cell
-Server ->> Client 2: send data to sequencer
-Server ->> Client 1: send data to sequencer
-Client 1 ->> Server: resume to sequencer
-Server ->> Client 1: synchronize server state
-```
