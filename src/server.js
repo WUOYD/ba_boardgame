@@ -60,6 +60,21 @@ io.on('connection', (socket) => {
     socket.emit("updatePlayer", players[0])
   })
 
+  socket.on("upgradeClaw", function() {
+    updateSkills(1);
+    socket.emit("updatePlayer", players[0])
+  })
+
+  socket.on("upgradeMagic", function() {
+    updateSkills(2);
+    socket.emit("updatePlayer", players[0])
+  })
+
+  socket.on("upgradeSkull", function() {
+    updateSkills(3);
+    socket.emit("updatePlayer", players[0])
+  })
+
   //Disconnect message
   socket.on('disconnect', () => {
     console.log('connection disconnected: ' + socket.id)
@@ -95,7 +110,7 @@ class Player{
     this.actions = 10;
     this.health = 10;
     this.reputation = 0;
-    this.gold = 0;
+    this.gold = 20;
     this.monstersKilled = 0;
     this.questsSolved = 0;
     this.victoryPoints = 0;
@@ -105,6 +120,9 @@ class Player{
     this.damageNextRound = 0;
     this.picture = "src/assets/img/player.webp"
     this.moves = [["Leicheter Hieb", 1, 0, 0, 0, 0, 0], ["Gedeckter Angriff", 1, 1, 0, 0, 0, 0], ["Schildwall", 0, 3, 0, 0, 0, 0], ["Magischer Schild", 0, 3, 0, 0, 0, 0], ["Magisches Eis", 2, 1, 0, 0, 0, 0], ["Schwerer Hieb", 2, 0, 0, 0, 0, 0]];
+    this.clawLevel = 1;
+    this.skullLevel = 1;
+    this.magicLevel = 1;
   }
 }
 
@@ -359,6 +377,28 @@ function generateEncounter(){
   if(probability()){
     
   }
+}
+
+function updateSkills(skill){
+  if(skill == 1){
+    if(players[0].gold > (players[0].clawLevel * 3)){
+      players[0].gold = players[0].gold - (players[0].clawLevel * 3)
+      players[0].clawLevel++
+    }
+  }
+  else if(skill == 2){
+    if(players[0].gold > (players[0].magicLevel * 3)){
+      players[0].gold = players[0].gold - (players[0].magicLevel * 3)
+      players[0].magicLevel++
+    }
+  }
+  else if(skill == 3){
+    if(players[0].gold > (players[0].skullLevel * 3)){
+      players[0].gold = players[0].gold - (players[0].skullLevel * 3)
+      players[0].skullLevel++
+    }
+  }
+  else{}
 }
 
 function initGame(){

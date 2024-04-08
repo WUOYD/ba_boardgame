@@ -486,7 +486,12 @@ table {
 th,
 td {
     width: 50%;
-    border-bottom: #333333 dotted;
+    border-bottom: #333333 dotted 1px;
+    font-size: 16px;
+}
+
+td p {
+    font-size: 16px;
 }
 
 .hidden {
