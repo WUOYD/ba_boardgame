@@ -140,6 +140,7 @@ class Monster{
     this.damageNextRound = 0;
     this.picture = picture;
     this.moves = moves;
+    this.quests;
   }
 }
 
@@ -148,6 +149,19 @@ class Fight{
     this.activeMonster = activeMonsterObject;
     this.turn = 0;
     this.fight;
+  }
+}
+
+class Quest{
+  constructor(questOfferer, questReceiver, rewardGood, rewardBad, optionGood, optionBad, region, text){
+    this.questOfferer = questOfferer;
+    this.questReceiver = questReceiver;
+    this.rewardGood = rewardGood;
+    this.rewardBad = rewardBad;
+    this.optionGood = optionGood;
+    this.optionBad = optionBad;
+    this.questRegion = region;
+    this.text = text;
   }
 }
 
@@ -403,7 +417,6 @@ function generateEncounter(activePlayer) {
     { type: "ActiveQuest", probability: activeQuestProbability },
   ];
 
-  console.log(encounters)
 
   let cumulativeProbability = 0;
   for (const encounter of encounters) {
@@ -427,8 +440,6 @@ function modifyProbability(activePlayer, choice) {
   let amountLoot = 0.05;
   let amountQuest = 0.1;
   let amountActiveQuest = 0.1;
-
-  console.log(choice)
 
   if (choice == "Nothing"){
     activePlayer.probability[0] += amountMonster;
