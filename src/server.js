@@ -403,6 +403,8 @@ function generateEncounter(activePlayer) {
     { type: "ActiveQuest", probability: activeQuestProbability },
   ];
 
+  console.log(encounters)
+
   let cumulativeProbability = 0;
   for (const encounter of encounters) {
     cumulativeProbability += encounter.probability;
@@ -428,37 +430,7 @@ function modifyProbability(activePlayer, choice) {
 
   console.log(choice)
 
-  if (choice == "Monster") {
-    activePlayer.probability[0] = 0.2;
-    activePlayer.probability[1] += amountLoot;
-    if (activePlayer.probability[3] > 0) {
-      activePlayer.probability[3] += amountActiveQuest;
-    }
-    else{
-      activePlayer.probability[2] += amountQuest;
-    }
-  } else if (choice == "Loot") {
-    activePlayer.probability[0] += amountMonster;
-    activePlayer.probability[1] = 0.1;
-    if (activePlayer.probability[3] > 0) {
-      activePlayer.probability[3] += amountActiveQuest;
-    }
-    else{
-      activePlayer.probability[2] += amountQuest;
-    }
-  } else if (choice == "Quest") {
-    activePlayer.probability[0] += amountMonster;
-    activePlayer.probability[1] += amountLoot;
-    activePlayer.probability[2] = 0;
-    activePlayer.probability[3] = 0.2;
-
-  } else if (choice == "ActiveQuest") {
-    activePlayer.probability[0] += amountMonster;
-    activePlayer.probability[1] += amountLoot;
-    activePlayer.probability[2] = 0.2;
-    activePlayer.probability[3] = 0;
-  }
-   else {
+  if (choice == "Nothing"){
     activePlayer.probability[0] += amountMonster;
     activePlayer.probability[1] += amountLoot;
     activePlayer.probability[2] += amountQuest;
@@ -469,6 +441,38 @@ function modifyProbability(activePlayer, choice) {
       activePlayer.probability[2] += amountQuest;
     }
   }
+  else if (choice == "Monster") {
+    activePlayer.probability[0] = 0.2;
+    activePlayer.probability[1] += amountLoot;
+    if (activePlayer.probability[3] > 0) {
+      activePlayer.probability[3] += amountActiveQuest;
+    }
+    else{
+      activePlayer.probability[2] += amountQuest;
+    }
+  } 
+  else if (choice == "Loot") {
+    activePlayer.probability[0] += amountMonster;
+    activePlayer.probability[1] = 0.1;
+    if (activePlayer.probability[3] > 0) {
+      activePlayer.probability[3] += amountActiveQuest;
+    }
+    else{
+      activePlayer.probability[2] += amountQuest;
+    }
+  } 
+  else if (choice == "Quest") {
+    activePlayer.probability[0] += amountMonster;
+    activePlayer.probability[1] += amountLoot;
+    activePlayer.probability[2] = 0;
+    activePlayer.probability[3] = 0.2;
+  } 
+  else if (choice == "ActiveQuest") {
+    activePlayer.probability[0] += amountMonster;
+    activePlayer.probability[1] += amountLoot;
+    activePlayer.probability[2] = 0.2;
+    activePlayer.probability[3] = 0;
+  } else {}
 }
 
 function initGame(){
