@@ -76,7 +76,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on("generateEncounter", function() {
-    encounter = generateEncounter(players[0])
+    encounter = investigate(players[0])
     socket.emit("updateEncounter", encounter)
   })
 
@@ -196,6 +196,31 @@ function initMonsters(){
   for (let i = 0; i < monsterTableGold.length; i++){
     monstersGold[i] = new Monster(monsterTableGold[i][0], monsterTableGold[i][1], monsterTableGold[i][2], monsterTableGold[i][3], monsterTableGold[i][4], monsterTableGold[i][5], monsterTableBronze[i][6]);
   }  
+}
+
+function getRandomQuest(round){
+  let quest
+  let rndNumber
+  switch (round) {
+    case 1:
+      rndNumber = randomNumber(0,questsBronze.length-1);
+      quest = questsBronze[rndNumber];
+      break;
+    case 2:
+      rndNumber = randomNumber(0,questsSilver.length-1);
+      quest = questsSilver[rndNumber];
+      break;
+    case 3:
+      rndNumber = randomNumber(0,questsGold.length-1);
+      quest = questsGold[rndNumber];
+      break;
+  }
+  return quest
+}
+
+function startQuest(activePlayer){
+  activePlayer.quest = getRandomQuest(game.round);
+  clientSocket.emit("updateFight", "Quest is:");
 }
 
 function randomNumber(min, max) { // min and max included 
@@ -402,6 +427,25 @@ function updateSkills(skill){
   else{}
 }
 
+function investigate(activePlayer){
+  let encounter = generateEncounter(activePlayer);
+  if(encounter == "Nothing"){
+
+  }
+  else if(encounter == "Monster"){
+    startFight(activePlayer);
+  }
+  else if(encounter == "Loot"){
+    generateLoot();
+  }
+  else if(encounter == "Quest"){
+    startQuest(activePlayer);
+  }
+  else if(encounter == "ActiveQuest"){
+    manageQuest();
+  }
+}
+
 function generateEncounter(activePlayer) {
   const random = Math.random();
   let monsterProbability = activePlayer.probability[0]
@@ -409,14 +453,13 @@ function generateEncounter(activePlayer) {
   let questProbability = activePlayer.probability[2]
   let activeQuestProbability = activePlayer.probability[3]
 
-  const encounters = [
+  let encounters = [
     { type: "Nothing", probability: 1 - (monsterProbability + lootProbability + questProbability + activeQuestProbability) },
     { type: "Monster", probability: monsterProbability },
     { type: "Loot", probability: lootProbability },
     { type: "Quest", probability: questProbability },
     { type: "ActiveQuest", probability: activeQuestProbability },
   ];
-
 
   let cumulativeProbability = 0;
   for (const encounter of encounters) {
@@ -430,9 +473,6 @@ function generateEncounter(activePlayer) {
       return encounter.type;
     }
   }
-
-  // Default case if no encounter is selected
-  return "No Encounter";
 }
 
 function modifyProbability(activePlayer, choice) {
@@ -485,6 +525,8 @@ function modifyProbability(activePlayer, choice) {
     activePlayer.probability[3] = 0;
   } else {}
 }
+
+
 
 function initGame(){
   initMonsters();
