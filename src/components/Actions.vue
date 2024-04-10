@@ -22,8 +22,7 @@ export default {
   },
   methods: {
     generateEncounter() {
-      element.target.classList.toggle("selected");
-      socket.emit("updateT1", index);
+      socket.emit("generateEncounter");
     }
   },
   beforeUnmount() {

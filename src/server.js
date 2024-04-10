@@ -75,6 +75,11 @@ io.on('connection', (socket) => {
     socket.emit("updatePlayer", players[0])
   })
 
+  socket.on("generateEncounter", function() {
+    encounter = generateEncounter(players[0])
+    socket.emit("updateEncounter", encounter)
+  })
+
   //Disconnect message
   socket.on('disconnect', () => {
     console.log('connection disconnected: ' + socket.id)
@@ -90,12 +95,7 @@ server.listen(3000, () => {
   console.log('listening on port :3000/')
 })
 
-// Sequencer Interval
-// setInterval(() => {
-//   io.emit('playSounds', playSounds)
-//   io.emit('sequencerStep', bar)
-// }, intervalMs)
-
+//Classes
 class Game{
   constructor(playerCount){
     this.playerCount = playerCount;
@@ -103,7 +103,6 @@ class Game{
   }
 }
 
-//Player
 class Player{
   constructor(name){
     this.name = name
@@ -123,10 +122,11 @@ class Player{
     this.clawLevel = 1;
     this.skullLevel = 1;
     this.magicLevel = 1;
+    this.probability = [this.monsterProbability = 0.2, this.lootProbability = 0.1, this.questProbability = 0.2, this.activeQuestProbability = 0.0]
+    this.quests = [];
   }
 }
 
-//Monster
 class Monster{
   constructor(name, type, victoryPoints, health, rewardGold, picture ,moves){
     this.name = name;
@@ -224,7 +224,6 @@ function initFightMonster(activePlayer, activeMonster){
 }
 
 //Fight functions
-
 function diceRollPlayer(diceRollPlayer){
   let winner = fightPlayer(players[0], players[0].fight.activeMonster, diceRollPlayer)
   if(winner){
@@ -367,18 +366,6 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
   return false
  }
 
-//Encounter generation
-function probability(n){
-  return Math.random() < n;
-}
-
-function generateEncounter(){
-  let monsterrobability
-  if(probability()){
-    
-  }
-}
-
 function updateSkills(skill){
   if(skill == 1){
     if(players[0].gold > (players[0].clawLevel * 3)){
@@ -399,6 +386,89 @@ function updateSkills(skill){
     }
   }
   else{}
+}
+
+function generateEncounter(activePlayer) {
+  const random = Math.random();
+  let monsterProbability = activePlayer.probability[0]
+  let lootProbability = activePlayer.probability[1]
+  let questProbability = activePlayer.probability[2]
+  let activeQuestProbability = activePlayer.probability[3]
+
+  const encounters = [
+    { type: "Nothing", probability: 1 - (monsterProbability + lootProbability + questProbability + activeQuestProbability) },
+    { type: "Monster", probability: monsterProbability },
+    { type: "Loot", probability: lootProbability },
+    { type: "Quest", probability: questProbability },
+    { type: "ActiveQuest", probability: activeQuestProbability },
+  ];
+
+  let cumulativeProbability = 0;
+  for (const encounter of encounters) {
+    cumulativeProbability += encounter.probability;
+    encounter.cumulativeProbability = cumulativeProbability;
+  }
+
+  for (const encounter of encounters) {
+    if (random < encounter.cumulativeProbability) {
+      modifyProbability(activePlayer, encounter.type)
+      return encounter.type;
+    }
+  }
+
+  // Default case if no encounter is selected
+  return "No Encounter";
+}
+
+function modifyProbability(activePlayer, choice) {
+  let amountMonster = 0.1;
+  let amountLoot = 0.05;
+  let amountQuest = 0.1;
+  let amountActiveQuest = 0.1;
+
+  console.log(choice)
+
+  if (choice == "Monster") {
+    activePlayer.probability[0] = 0.2;
+    activePlayer.probability[1] += amountLoot;
+    if (activePlayer.probability[3] > 0) {
+      activePlayer.probability[3] += amountActiveQuest;
+    }
+    else{
+      activePlayer.probability[2] += amountQuest;
+    }
+  } else if (choice == "Loot") {
+    activePlayer.probability[0] += amountMonster;
+    activePlayer.probability[1] = 0.1;
+    if (activePlayer.probability[3] > 0) {
+      activePlayer.probability[3] += amountActiveQuest;
+    }
+    else{
+      activePlayer.probability[2] += amountQuest;
+    }
+  } else if (choice == "Quest") {
+    activePlayer.probability[0] += amountMonster;
+    activePlayer.probability[1] += amountLoot;
+    activePlayer.probability[2] = 0;
+    activePlayer.probability[3] = 0.2;
+
+  } else if (choice == "ActiveQuest") {
+    activePlayer.probability[0] += amountMonster;
+    activePlayer.probability[1] += amountLoot;
+    activePlayer.probability[2] = 0.2;
+    activePlayer.probability[3] = 0;
+  }
+   else {
+    activePlayer.probability[0] += amountMonster;
+    activePlayer.probability[1] += amountLoot;
+    activePlayer.probability[2] += amountQuest;
+    if (activePlayer.probability[3] > 0) {
+      activePlayer.probability[3] += amountActiveQuest;
+    }
+    else{
+      activePlayer.probability[2] += amountQuest;
+    }
+  }
 }
 
 function initGame(){
