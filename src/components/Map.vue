@@ -8,6 +8,7 @@
         <button @click="changeRegion(4)">Talvar</button>
         <button @click="changeRegion(5)">Athos</button>
         <button @click="changeRegion(6)">Drakan</button>
+        <button @click="changeRegion(7)">Middle</button>
     </div>
 </template>
 

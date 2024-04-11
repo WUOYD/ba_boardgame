@@ -1,16 +1,21 @@
 <template>
 <div class="content single">
     <h1>Quests</h1>
-    <p>Quest type: {{ questType }}</p>
-    <p>Quest offerer: {{ questOfferer }}</p>
-    <p>Quest receiver: {{ questReceiver }}</p>
-    <p>Quest region : {{ regionQuest }}</p>
-    <p>Quest region deliver: {{ regionDeliver }}</p>
-    <p>Quest option good: {{ optionGood }}</p>
-    <p>Quest option bad: {{ optionBad }}</p>
-    <p>Quest reward good: {{ rewardGood }}</p>
-    <p>Quest reward bad: {{ rewardBad }}</p>
-    <p>Quest quest text: {{ questText }}</p>
+    <div class="quest" v-if="playerHasQuest">
+        <p>Quest type: {{ questType }}</p>
+        <p>Quest offerer: {{ questOfferer }}</p>
+        <p>Quest receiver: {{ questReceiver }}</p>
+        <p>Quest region : {{ regionQuest }}</p>
+        <p>Quest region deliver: {{ regionDeliver }}</p>
+        <p>Quest option good: {{ optionGood }}</p>
+        <p>Quest option bad: {{ optionBad }}</p>
+        <p>Quest reward good: {{ rewardGood }}</p>
+        <p>Quest reward bad: {{ rewardBad }}</p>
+        <p>Quest quest text: {{ questText }}</p>
+    </div>
+    <div class="quest" v-else>
+        <p>Player has no quest</p>
+    </div>
 </div>
 </template>
 
@@ -22,6 +27,7 @@ import {
 export default {
     data() {
         return {
+            playerHasQuest: false,
             questName: null,
             questType: null,
             questOfferer: null,
@@ -37,6 +43,9 @@ export default {
     },
     mounted() {
         socket.on("updatePlayer", activePlayer => {
+            if (activePlayer.quest != null) {
+                this.playerHasQuest = true
+            }
             this.questType = activePlayer.quest.questType
             this.questOfferer = activePlayer.quest.questOfferer
             this.questReceiver = activePlayer.quest.questReceiver
@@ -49,9 +58,9 @@ export default {
             this.questText = activePlayer.quest.questText
         })
         socket.emit("getActivePlayer");
+
     },
-    methods: {
-    },
+    methods: {},
     beforeUnmount() {
         this.mounted = false;
     }

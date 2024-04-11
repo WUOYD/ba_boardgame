@@ -6,7 +6,6 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 
 // Global Variables
-let intervalMs = 100;
 let sockets = [];
 let players = [];
 let clientSocket;
@@ -93,7 +92,7 @@ class Player {
       questProbability: 0.2,
       activeQuestProbability: 0.0
     };
-    this.quests;
+    this.quest = null;
     this.region = "Frosgar";
   }
 }
@@ -111,7 +110,6 @@ class Monster {
     this.damageNextRound = 0;
     this.picture = picture;
     this.moves = moves;
-    this.quests = [];
   }
 }
 
@@ -133,6 +131,7 @@ class Quest {
     this.rewardGood = rewardGood;
     this.rewardBad = rewardBad;
     this.questText = questText;
+    this.optionPicked = 0;
   }
 }
 
@@ -213,10 +212,24 @@ io.on('connection', (socket) => {
     socket.emit("updateEncounter", encounter);
   });
 
-  // Generate Encounter
+  // Change Region
   socket.on("changeRegion", (region) => { 
     changeRegion(players[0], region);
     socket.emit("currentRegion", players[0]);
+  });
+
+   // Deny quest
+  socket.on("denyQuest", function() { 
+    players[0].quest = null;
+  });
+
+  //option good
+  socket.on("optionQuestGood", function() { 
+    players[0].quest.optionPicked = "Good";
+  });
+  //option bad
+  socket.on("optionQuestBad", function() { 
+    players[0].quest.optionPicked = "Bad";
   });
 
   // Disconnect Handling
@@ -414,7 +427,7 @@ function modifyProbability(activePlayer, choice) {
 //start quest
 function startQuest(activePlayer){
   activePlayer.quest = getRandomQuest(game.round);
-  clientSocket.emit("updateFight", ("Quest is:", activePlayer.quest));
+  clientSocket.emit("updateQuest", ("Quest is:", activePlayer.quest));
 }
 
 //manage Quest
@@ -622,6 +635,9 @@ function changeRegion(activePlayer, region){
       break;
     case 6:
       activePlayer.region = "Drakan"
+      break;
+    case 7:
+      activePlayer.region = "Middle"
       break;
   }
 }
