@@ -93,8 +93,8 @@ class Player {
       questProbability: 0.2,
       activeQuestProbability: 0.0
     };
-    this.quests = [];
-    this.region = 0;
+    this.quests;
+    this.region = "Frosgar";
   }
 }
 
@@ -211,6 +211,12 @@ io.on('connection', (socket) => {
   socket.on("generateEncounter", function() {
     encounter = investigate(players[0]);
     socket.emit("updateEncounter", encounter);
+  });
+
+  // Generate Encounter
+  socket.on("changeRegion", (region) => { 
+    changeRegion(players[0], region);
+    socket.emit("currentRegion", players[0]);
   });
 
   // Disconnect Handling
@@ -585,6 +591,29 @@ function updateSkills(skill){
     }
   }
   else{}
+}
+
+function changeRegion(activePlayer, region){
+  switch (region) {
+    case 1:
+      activePlayer.region = "Frosgar"
+      break;
+    case 2:
+      activePlayer.region = "Aridora"
+      break;
+    case 3:
+      activePlayer.region = "Nythoria"
+      break;
+    case 4:
+      activePlayer.region = "Talvar"
+      break;
+    case 5:
+      activePlayer.region = "Athos"
+      break;
+    case 6:
+      activePlayer.region = "Drakan"
+      break;
+  }
 }
 
  //help functions

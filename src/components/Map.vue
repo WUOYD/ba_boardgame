@@ -1,7 +1,13 @@
 <template>
     <div class="content sequencer">
         <h1>Map</h1>
-        
+        <p>{{ currentIsland }}</p>
+        <button @click="changeRegion(1)">Frosgar</button>
+        <button @click="changeRegion(2)">Aridora</button>
+        <button @click="changeRegion(3)">Nythoria</button>
+        <button @click="changeRegion(4)">Talvar</button>
+        <button @click="changeRegion(5)">Athos</button>
+        <button @click="changeRegion(6)">Drakan</button>
     </div>
 </template>
 
@@ -20,17 +26,6 @@ h1 {
     font-size: 16px;
 }
 
-/* sequencer */
-#sequencer {
-    width: 80vw;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin: 20px 0 15px 0;
-}
 </style> 
 
 <script>
@@ -39,12 +34,22 @@ import { socket } from '../client'
 export default {
     data() {
         return {
-        
+            currentIsland: null
         }
     },
     mounted() {
+        socket.on("currentRegion", activePlayer => {
+            this.currentIsland = activePlayer.region;
+        })
+        socket.on("updatePlayer", activePlayer => {
+            this.currentIsland = activePlayer.region;
+        })
+        socket.emit("getActivePlayer");
     },
     methods: {
+        changeRegion(region){
+            socket.emit("changeRegion", region);
+        }
     }
 }
 </script>
