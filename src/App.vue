@@ -9,8 +9,6 @@ import Fight from './components/Fight.vue'
 import Map from './components/Map.vue'
 import Options from './components/Options.vue'
 import Quests from './components/Quests.vue'
-import Sabotage from './components/Sabotage.vue'
-import Skilltree from './components/Skilltree.vue'
 </script>
 
 <template>
@@ -27,11 +25,9 @@ export default {
     Map,
     Character,
     Actions,
-    Skilltree,
     Quests,
     Cutscenes,
     Fight,
-    Sabotage,
     Options
   },
   created() {
@@ -46,9 +42,6 @@ export default {
   mounted() {
     socket.on('updateClientView', comp => {
       switch (comp) {
-        case 0:
-          this.updateView("Fight")
-          break;
         case 1:
           this.updateView("Character")
           break;
@@ -56,13 +49,13 @@ export default {
           this.updateView("Actions")
           break;
         case 3:
-          this.updateView("Skilltree")
+          this.updateView("Map")
           break;
         case 4:
-          this.updateView("Quests")
+          this.updateView("Fight")
           break;
         case 5:
-          this.updateView("Map")
+          this.updateView("Quests")
           break;
       }
     })
