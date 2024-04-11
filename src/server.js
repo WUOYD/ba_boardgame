@@ -34,7 +34,11 @@ let monstersBronze = [];
 let monstersSilver = [];
 let monstersGold = [];
 
+//questType, questOfferer, questReceiver, regionQuest, regionDeliver, optionGood, optionBad, rewardGood[Ehre, Gold, life], rewardBad[Ehre, Gold, Life], questText,
 let questTableBronze = [
+  ["Deliever", "Jorn", "Seppo", "Frosgar", "Talvar", "Fische an den Hafen von Talvar bringen", "Die Fische essen", ["1", "2", "0"], ["-1", "0", "5"], "text blablabla"],
+  ["Monster", "Dorfbewohner von Nebelfrost", "Dorfbewohner von Nebelfrost", "Frosgar", "Frosgar", "Hilf den Dorfbewohnern den Drachen zu töten", "Hilfe ablehnen", ["1", "4", "0"], ["0", "0", "0"], "text blablabla"],
+  ["Return", "Gunnar", "Holzhändler", "Frosgar", "Athos", "Hole das Holz am Hafen von Athos und bringe es hierher", "Nimm das Geld und behalte es für dich.", ["1", "2", ""], ["-1", "", "5"],  "Athos", "text blablabla"],
   ]
 
 let questTableSilver = [
@@ -90,6 +94,7 @@ class Player {
       activeQuestProbability: 0.0
     };
     this.quests = [];
+    this.region = 0;
   }
 }
 
@@ -107,28 +112,27 @@ class Monster {
     this.picture = picture;
     this.moves = moves;
     this.quests = [];
-    this.region = 0;
   }
 }
 
 class Fight {
   constructor(activeMonsterObject) {
     this.activeMonster = activeMonsterObject;
-    this.turn = 0;
-    this.fight;
   }
 }
 
 class Quest {
-  constructor(questOfferer, questReceiver, rewardGood, rewardBad, optionGood, optionBad, region, text) {
+  constructor(questType, questOfferer, questReceiver, regionQuest, regionDeliver, optionGood, optionBad, rewardGood, rewardBad, questText) {
+    this.questType = questType;
     this.questOfferer = questOfferer;
     this.questReceiver = questReceiver;
+    this.regionQuest = regionQuest;
+    this.regionDeliver = regionDeliver;
     this.rewardGood = rewardGood;
     this.rewardBad = rewardBad;
     this.optionGood = optionGood;
     this.optionBad = optionBad;
-    this.questRegion = region;
-    this.text = text;
+    this.text = questText;
   }
 }
 
@@ -399,7 +403,7 @@ function modifyProbability(activePlayer, choice) {
 //start quest
 function startQuest(activePlayer){
   activePlayer.quest = getRandomQuest(game.round);
-  clientSocket.emit("updateFight", "Quest is:");
+  clientSocket.emit("updateFight", ("Quest is:", activePlayer.quest));
 }
 
 //start fight
