@@ -38,7 +38,7 @@ let monstersGold = [];
 let questTableBronze = [
   ["Deliever", "Jorn", "Seppo", "Frosgar", "Talvar", "Fische an den Hafen von Talvar bringen", "Die Fische essen", ["1", "2", "0"], ["-1", "0", "5"], "text blablabla"],
   ["Monster", "Dorfbewohner von Nebelfrost", "Dorfbewohner von Nebelfrost", "Frosgar", "Frosgar", "Hilf den Dorfbewohnern den Drachen zu töten", "Hilfe ablehnen", ["1", "4", "0"], ["0", "0", "0"], "text blablabla"],
-  ["Return", "Gunnar", "Holzhändler", "Frosgar", "Athos", "Hole das Holz am Hafen von Athos und bringe es hierher", "Nimm das Geld und behalte es für dich.", ["1", "2", ""], ["-1", "", "5"],  "Athos", "text blablabla"],
+  ["Return", "Gunnar", "Holzhändler", "Frosgar", "Athos", "Hole das Holz am Hafen von Athos und bringe es hierher", "Nimm das Geld und behalte es für dich.", ["1", "2", ""], ["-1", "", "5"], "text blablabla"],
   ]
 
 let questTableSilver = [
@@ -128,11 +128,11 @@ class Quest {
     this.questReceiver = questReceiver;
     this.regionQuest = regionQuest;
     this.regionDeliver = regionDeliver;
-    this.rewardGood = rewardGood;
-    this.rewardBad = rewardBad;
     this.optionGood = optionGood;
     this.optionBad = optionBad;
-    this.text = questText;
+    this.rewardGood = rewardGood;
+    this.rewardBad = rewardBad;
+    this.questText = questText;
   }
 }
 
@@ -249,7 +249,7 @@ function initMonsters(){
     monstersSilver[i] = new Monster(monsterTableSilver[i][0], monsterTableSilver[i][1], monsterTableSilver[i][2], monsterTableSilver[i][3], monsterTableSilver[i][4], monsterTableSilver[i][5], monsterTableBronze[i][6]);
   } 
   for (let i = 0; i < monsterTableGold.length; i++){
-    monstersGold[i] = new Monster(monsterTableGold[i][0], monsterTableGold[i][1], monsterTableGold[i][2], monsterTableGold[i][3], monsterTableGold[i][4], monsterTableGold[i][5], monsterTableBronze[i][6]);
+    monstersGold[i] = new Monster(monsterTableGold[i][0], monsterTableGold[i][1], monsterTableGold[i][2], monsterTableGold[i][3], monsterTableGold[i][4], monsterTableGold[i][5], monsterTableGold[i][6]);
   }  
 }
 
@@ -275,13 +275,13 @@ function getRandomMonster(round){
 
 function initQuests(){
   for (let i = 0; i < questTableBronze.length; i++){
-    questsBronze[i] = new Quest(questTableBronze[i][0], questTableBronze[i][1], questTableBronze[i][2], questTableBronze[i][3], questTableBronze[i][4], questTableBronze[i][5], questTableBronze[i][6]);
+    questsBronze[i] = new Quest(questTableBronze[i][0], questTableBronze[i][1], questTableBronze[i][2], questTableBronze[i][3], questTableBronze[i][4], questTableBronze[i][5], questTableBronze[i][6], questTableBronze[i][7], questTableBronze[i][8], questTableBronze[i][9]);
   }
   for (let i = 0; i < questTableSilver.length; i++){
-    questsSilver[i] = new Quest(questTableSilver[i][0], questTableSilver[i][1], questTableSilver[i][2], questTableSilver[i][3], questTableSilver[i][4], questTableSilver[i][5], questTableBronze[i][6]);
+    questsSilver[i] = new Quest(questTableSilver[i][0], questTableSilver[i][1], questTableSilver[i][2], questTableSilver[i][3], questTableSilver[i][4], questTableSilver[i][5], questTableBronze[i][6], questTableBronze[i][7], questTableBronze[i][8], questTableBronze[i][9]);
   } 
   for (let i = 0; i < questTableGold.length; i++){
-    questsGold[i] = new Quest(questTableGold[i][0], questTableGold[i][1], questTableGold[i][2], questTableGold[i][3], questTableGold[i][4], questTableGold[i][5], questTableBronze[i][6]);
+    questsGold[i] = new Quest(questTableGold[i][0], questTableGold[i][1], questTableGold[i][2], questTableGold[i][3], questTableGold[i][4], questTableGold[i][5], questTableGold[i][6], questTableGold[i][7], questTableGold[i][8], questTableGold[i][9]);
   }  
 }
 
@@ -310,28 +310,33 @@ function getRandomQuest(round){
 function investigate(activePlayer){
   let encounter = generateEncounter(activePlayer);
   if(encounter == "Nothing"){
-
+    
   }
   else if(encounter == "Monster"){
     startFight(activePlayer);
+
   }
   else if(encounter == "Loot"){
     generateLoot(activePlayer);
+
   }
   else if(encounter == "Quest"){
     startQuest(activePlayer);
+
   }
   else if(encounter == "ActiveQuest"){
     manageQuest(activePlayer);
+    
   }
+  return encounter
 }
 
 function generateEncounter(activePlayer) {
   const random = Math.random();
-  let monsterProbability = activePlayer.probability[0]
-  let lootProbability = activePlayer.probability[1]
-  let questProbability = activePlayer.probability[2]
-  let activeQuestProbability = activePlayer.probability[3]
+  let monsterProbability = activePlayer.probability.monsterProbability
+  let lootProbability = activePlayer.probability.lootProbability
+  let questProbability = activePlayer.probability.questProbability
+  let activeQuestProbability = activePlayer.probability.activeQuestProbability
 
   let encounters = [
     { type: "Nothing", probability: 1 - (monsterProbability + lootProbability + questProbability + activeQuestProbability) },
@@ -410,6 +415,11 @@ function modifyProbability(activePlayer, choice) {
 function startQuest(activePlayer){
   activePlayer.quest = getRandomQuest(game.round);
   clientSocket.emit("updateFight", ("Quest is:", activePlayer.quest));
+}
+
+//manage Quest
+function manageQuest(activePlayer){
+  return
 }
 
 //start fight
@@ -614,6 +624,10 @@ function changeRegion(activePlayer, region){
       activePlayer.region = "Drakan"
       break;
   }
+}
+
+function generateLoot(activePlayer){
+  return
 }
 
  //help functions
