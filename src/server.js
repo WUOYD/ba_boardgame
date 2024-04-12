@@ -6,11 +6,8 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 
 // Global Variables
-let sockets = [];
-let players = [];
-let clientSocket;
+const lobby = {};
 let game;
-let player;
 
 //Moves, "Name", Damage, Block, Heal, DoT, Reflect, Damage next Round
 let monsterTableBronze = [
@@ -156,16 +153,18 @@ server.listen(3000, () => {
   console.log('listening on port :3000/');
 });
 
-// Connection Handling
+// Connection Handlsing
 io.on('connection', (socket) => {
   console.log('new connection: ' + socket.id);
-  sockets.push(socket);
-  clientSocket = socket;
-  socket.emit("userCount", sockets.length);
-
-  // Join
-  socket.on('join', (join) => {
-    socket.emit('join', join);
+  lobby[socket.id] = { socket: socket };
+  
+  socket.on('join', (playerName) => {
+      console.log('Player joining: ', playerName);
+      const playerObject = new Player(playerName);
+      playerObject.socket = socket;
+      lobby[socket.id] = playerObject;
+      socket.emit('join', playerName);
+      console.log('Player joined: ', playerName);
   });
 
   // Update View
@@ -179,70 +178,75 @@ io.on('connection', (socket) => {
   });
 
   socket.on("diceRollPlayer", (rollPlayer) => {
-    diceRollPlayer(rollPlayer);
+    diceRollPlayer(socket.id, rollPlayer); 
   });
 
   socket.on("diceRollMonster", (rollMonster) => {
-    diceRollMonster(rollMonster);
+    diceRollMonster(socket.id, rollMonster); 
   });
 
   // Get Active Player
   socket.on("getActivePlayer", function() {
-    socket.emit("updatePlayer", players[0]);
+    socket.emit("updatePlayer", lobby[socket.id]);
   });
 
   // Upgrades
   socket.on("upgradeClaw", function() {
-    updateSkills(1);
-    socket.emit("updatePlayer", players[0]);
+    updateSkills(socket.id, 1); 
+    socket.emit("updatePlayer", lobby[socket.id]);
   });
 
   socket.on("upgradeMagic", function() {
-    updateSkills(2);
-    socket.emit("updatePlayer", players[0]);
+    updateSkills(socket.id, 2); 
+    socket.emit("updatePlayer", lobby[socket.id]);
   });
 
   socket.on("upgradeSkull", function() {
-    updateSkills(3);
-    socket.emit("updatePlayer", players[0]);
+    updateSkills(socket.id, 3); // Pass socket.id instead of lobby[socket.id]
+    socket.emit("updatePlayer", lobby[socket.id]);
   });
 
   // Generate Encounter
   socket.on("generateEncounter", function() {
-    encounter = investigate(players[0]);
+    encounter = investigate(socket.id); // Pass socket.id instead of lobby[socket.id]
     socket.emit("updateEncounter", encounter);
   });
 
   // Change Region
   socket.on("changeRegion", (region) => { 
-    changeRegion(players[0], region);
-    socket.emit("currentRegion", players[0]);
+    changeRegion(socket.id, region); // Pass socket.id instead of lobby[socket.id]
+    socket.emit("currentRegion", lobby[socket.id]);
   });
 
-   // Deny quest
+  // Deny quest
   socket.on("denyQuest", function() { 
-    players[0].quest = null;
-    modifyProbability(players[0], "Quest")
+    lobby[socket.id].quest = null;
+    modifyProbability(socket.id, "Quest"); // Pass socket.id instead of lobby[socket.id]
   });
 
-  //option good
+  // Option good
   socket.on("optionQuestGood", function() { 
-    players[0].quest.optionPicked = "Good";
-    modifyProbability(players[0], "Quest")
+    lobby[socket.id].quest.optionPicked = "Good";
+    modifyProbability(socket.id, "Quest"); // Pass socket.id instead of lobby[socket.id]
   });
-  //option bad
+
+  // Option bad
   socket.on("optionQuestBad", function() { 
-    players[0].quest.optionPicked = "Bad";
-    modifyProbability(players[0], "Quest")
+    lobby[socket.id].quest.optionPicked = "Bad";
+    modifyProbability(socket.id, "Quest"); // Pass socket.id instead of lobby[socket.id]
   });
 
   // Disconnect Handling
   socket.on('disconnect', () => {
     console.log('connection disconnected: ' + socket.id);
-    let i = sockets.indexOf(socket);
-    sockets.splice(i, 1);
-    socket.emit("userCount", sockets.length);
-    socket.broadcast.emit("userCount", sockets.length);
+    const playerName = lobby[socket.id].name; // Retrieve player name if needed
+    delete lobby[socket.id];
+    if (playerName) {
+      console.log(`Player ${playerName} has disconnected.`);
+    } else {
+      console.log(`No player associated with socket ${socket.id}.`);
+    }
+    io.emit("userCount", Object.keys(lobby).length); // Broadcast updated user count to all connected sockets
   });
 });
 
@@ -251,8 +255,6 @@ function initGame() {
   initMonsters();
   initQuests();
   game = new Game(1);
-  player = new Player("Julian");
-  players.push(player);
 }
 
 initGame();
@@ -406,7 +408,6 @@ function generateEncounter(activePlayer) {
     cumulativeProbability += encounter.probability;
     encounter.cumulativeProbability = cumulativeProbability;
   }
-  console.log(encounters)
   for (const encounter of encounters) {
     if (random < encounter.cumulativeProbability) {
       return encounter.type;
@@ -483,7 +484,7 @@ function modifyProbability(activePlayer, choice) {
 //start quest
 function startQuest(activePlayer){
   activePlayer.quest = getRandomQuest(game.round);
-  clientSocket.emit("updatePlayer", players[0])
+  lobby[socket.id].socket.emit("updatePlayer", activePlayer)
 }
 
 //manage Quest
@@ -523,58 +524,57 @@ function manageQuest(activePlayer){
 }
 
 //start fight
-function startFight(){
+function startFight(activePlayer){
   let activeMonster = getRandomMonster(game.round);
-  let activePlayer = players[0];
   initFightMonster(activePlayer, activeMonster);
-  clientSocket.emit("updateMonster", activeMonster);
+  lobby[socket.id].socket.emit("updateMonster", activeMonster);
   return activeMonster;
 }
 
 //fight monster
 function initFightMonster(activePlayer, activeMonster){
   activePlayer.fight = new Fight(activeMonster)
-  clientSocket.emit("updateFight", "Please roll player and monster");
+  lobby[socket.id].socket.emit("updateFight", "Please roll player and monster");
 }
 
 //Fight rolls
-function diceRollPlayer(diceRollPlayer){
-  let winner = fightPlayer(players[0], players[0].fight.activeMonster, diceRollPlayer)
-  if(winner){
-    clientSocket.emit("updateFight", "Player won");
-    return
+function diceRollPlayer(activePlayer, rollPlayer) {
+  let winner = fightPlayer(activePlayer, activePlayer.fight.activeMonster, rollPlayer);
+  if (winner) {
+    lobby[socket.id].socket.emit("updateFight", "Player won");
+  } else {
+    lobby[socket.id].socket.emit("updateFight", "Monster has " + activePlayer.fight.activeMonster.health + " health");
   }
-  clientSocket.emit("updateFight", "Monster has " + players[0].fight.activeMonster.health + " health");
-  clientSocket.emit("updatePlayer", players[0])
-  clientSocket.emit("updateMonster", players[0].fight.activeMonster)
-  return
+  lobby[socket.id].socket.emit("updatePlayer", activePlayer);
+  lobby[socket.id].socket.emit("updateMonster", activePlayer.fight.activeMonster);
 }
 
-function diceRollMonster(diceRollMonster){
-  let winner = fightMonster(players[0], players[0].fight.activeMonster, diceRollMonster)
-  if(winner){
-    clientSocket.emit("updateFight", "Monster won");
-    return
+function diceRollMonster(activePlayer, rollMonster) {
+  let winner = fightMonster(activePlayer, activePlayer.fight.activeMonster, rollMonster);
+  if (winner) {
+    lobby[socket.id].socket.emit("updateFight", "Monster won");
+  } else {
+    lobby[socket.id].socket.emit("updateFight", "Player has " + activePlayer.health + " health");
   }
-  clientSocket.emit("updateFight", "Player has " + players[0].health + " health");
-  clientSocket.emit("updatePlayer", players[0])
-  clientSocket.emit("updateMonster", players[0].fight.activeMonster)
-  return
+  lobby[socket.id].socket.emit("updatePlayer", activePlayer);
+  lobby[socket.id].socket.emit("updateMonster", activePlayer.fight.activeMonster);
 }
+
+
 
 function fightPlayer(activePlayer, activeMonster, playerRoll){
-  let playerDamage = players[0].moves[playerRoll-1][1];
+  let playerDamage = activePlayer.moves[playerRoll-1][1];
   //dot
-  if(players[0].moves[playerRoll-1][4] > players[0].dot){
-    players[0].dot = players[0].moves[playerRoll-1][4]
+  if(activePlayer.moves[playerRoll-1][4] > activePlayer.dot){
+    activePlayer.dot = activePlayer.moves[playerRoll-1][4]
   }
-  if(players[0].dot > 0){
-    playerDamage += players[0].dot
+  if(activePlayer.dot > 0){
+    playerDamage += activePlayer.dot
   }
   //apply previous next round
-  if(players[0].damageNextRound > 0){
-    playerDamage += players[0].damageNextRound;
-    players[0].damageNextRound = 0;
+  if(activePlayer.damageNextRound > 0){
+    playerDamage += activePlayer.damageNextRound;
+    activePlayer.damageNextRound = 0;
   }
   //apply damage
   if(playerDamage > 0){
@@ -590,35 +590,35 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
     }
   }
   //apply damage next round
-  if(players[0].moves[playerRoll-1][6] > 0){
-    playerDamage.damageNextRound = players[0].moves[playerRoll-1][6];
+  if(activePlayer.moves[playerRoll-1][6] > 0){
+    playerDamage.damageNextRound = activePlayer.moves[playerRoll-1][6];
   }
   // reflect 
   if(activeMonster.reflect > 0){
     if(playerDamage >= activeMonster.reflect){
-      players[0].health = players[0].health - activeMonster.reflect;
+      activePlayer.health = activePlayer.health - activeMonster.reflect;
       activeMonster.reflect = 0;
     }
     if(playerDamage < activeMonster.reflect){
-      players[0].health = players[0].health - playerDamage
+      activePlayer.health = activePlayer.health - playerDamage
       activeMonster.reflect = 0;
     }
   }
   
   //apply heal
-  players[0].health += players[0].moves[playerRoll-1][3]
+  activePlayer.health += activePlayer.moves[playerRoll-1][3]
   // set blocks
-  players[0].blocks = players[0].moves[playerRoll-1][2]
+  activePlayer.blocks = activePlayer.moves[playerRoll-1][2]
   //reflect
-  players[0].reflect = players[0].moves[playerRoll-1][5]
+  activePlayer.reflect = activePlayer.moves[playerRoll-1][5]
   //check for win
   if(activeMonster.health <= 0){
     activePlayer.monstersKilled += 1;
     activePlayer.victoryPoints += activeMonster.victoryPoints;
     activePlayer.gold += activeMonster.rewardGold;
-    players[0].dot = 0;
-    players[0].reflect = 0;
-    players[0].damageNextRound = 0;
+    activePlayer.dot = 0;
+    activePlayer.reflect = 0;
+    activePlayer.damageNextRound = 0;
     return true
   }
   return false
@@ -681,23 +681,23 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
  }
 
  // update skills
-function updateSkills(skill){
+function updateSkills(activePlayer, skill){
   if(skill == 1){
-    if(players[0].gold > (players[0].clawLevel * 3)){
-      players[0].gold = players[0].gold - (players[0].clawLevel * 3)
-      players[0].clawLevel++
+    if(activePlayer.gold > (activePlayer.clawLevel * 3)){
+      activePlayer.gold = activePlayer.gold - (activePlayer.clawLevel * 3)
+      activePlayer.clawLevel++
     }
   }
   else if(skill == 2){
-    if(players[0].gold > (players[0].magicLevel * 3)){
-      players[0].gold = players[0].gold - (players[0].magicLevel * 3)
-      players[0].magicLevel++
+    if(activePlayer.gold > (activePlayer.magicLevel * 3)){
+      activePlayer.gold = activePlayer.gold - (activePlayer.magicLevel * 3)
+      activePlayer.magicLevel++
     }
   }
   else if(skill == 3){
-    if(players[0].gold > (players[0].skullLevel * 3)){
-      players[0].gold = players[0].gold - (players[0].skullLevel * 3)
-      players[0].skullLevel++
+    if(activePlayer.gold > (activePlayer.skullLevel * 3)){
+      activePlayer.gold = activePlayer.gold - (activePlayer.skullLevel * 3)
+      activePlayer.skullLevel++
     }
   }
   else{}

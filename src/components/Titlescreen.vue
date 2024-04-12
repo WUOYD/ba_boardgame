@@ -4,6 +4,7 @@
             <div class="text-wrapper">
                 <h1>be part of the experience</h1>
             </div>
+            <input type="text" v-model="playerName" placeholder="Enter your name">
             <button class="text icon play" @click="join()">join</button>
         </div>
     </div>
@@ -55,15 +56,16 @@
 import { socket } from '../client'
 
 export default {
+    data() {
+        return {
+            playerName: '',
+        }
+    },
     methods: {
         join() {
-            socket.emit("join", "join");
+            socket.emit("join", this.playerName);
         },
 
     },
-    data() {
-        return {
-        }
-  }
 }
 </script>
