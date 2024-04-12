@@ -35,9 +35,9 @@ let monstersGold = [];
 
 //questType, questOfferer, questReceiver, regionQuest, regionDeliver, optionGood, optionBad, rewardGood[Ehre, Gold, life], rewardBad[Ehre, Gold, Life], questText,
 let questTableBronze = [
-  ["Deliever", "Jorn", "Seppo", "Frosgar", "Talvar", "Fische an den Hafen von Talvar bringen", "Die Fische essen", ["1", "2", "0"], ["-1", "0", "5"], "text blablabla"],
-  ["Monster", "Dorfbewohner von Nebelfrost", "Dorfbewohner von Nebelfrost", "Frosgar", "Frosgar", "Hilf den Dorfbewohnern den Drachen zu töten", "Hilfe ablehnen", ["1", "4", "0"], ["0", "0", "0"], "text blablabla"],
-  ["Return", "Gunnar", "Holzhändler", "Frosgar", "Athos", "Hole das Holz am Hafen von Athos und bringe es hierher", "Nimm das Geld und behalte es für dich.", ["1", "2", ""], ["-1", "", "5"], "text blablabla"],
+  ["Deliver", "Jorn", "Seppo", "Frosgar", "Talvar", "Fische an den Hafen von Talvar bringen", "Die Fische essen", ["1", "2", "0"], ["-1", "0", "5"], null, "text blablabla"],
+  ["Monster", "Dorfbewohner von Nebelfrost", "Dorfbewohner von Nebelfrost", "Frosgar", "Frosgar", "Hilf den Dorfbewohnern den Drachen zu töten", "Hilfe ablehnen", ["1", "4", "0"], ["0", "0", "0"], null,"text blablabla"],
+  ["Return", "Gunnar", "Holzhändler", "Frosgar", "Athos", "Hole das Holz am Hafen von Athos und bringe es hierher", "Nimm das Geld und behalte es für dich.", ["1", "2", ""], ["-1", "", "5"], false,"text blablabla"],
   ]
 
 let questTableSilver = [
@@ -120,7 +120,7 @@ class Fight {
 }
 
 class Quest {
-  constructor(questType, questOfferer, questReceiver, regionQuest, regionDeliver, optionGood, optionBad, rewardGood, rewardBad, questText) {
+  constructor(questType, questOfferer, questReceiver, regionQuest, regionDeliver, optionGood, optionBad, rewardGood, rewardBad, questFlag, questText) {
     this.questType = questType;
     this.questOfferer = questOfferer;
     this.questReceiver = questReceiver;
@@ -131,7 +131,8 @@ class Quest {
     this.rewardGood = rewardGood;
     this.rewardBad = rewardBad;
     this.questText = questText;
-    this.optionPicked = 0;
+    this.optionPicked = null;
+    this.questFlag = questFlag;
   }
 }
 
@@ -221,15 +222,18 @@ io.on('connection', (socket) => {
    // Deny quest
   socket.on("denyQuest", function() { 
     players[0].quest = null;
+    modifyProbability(players[0], "Quest")
   });
 
   //option good
   socket.on("optionQuestGood", function() { 
     players[0].quest.optionPicked = "Good";
+    modifyProbability(players[0], "Quest")
   });
   //option bad
   socket.on("optionQuestBad", function() { 
     players[0].quest.optionPicked = "Bad";
+    modifyProbability(players[0], "Quest")
   });
 
   // Disconnect Handling
@@ -327,30 +331,30 @@ function investigate(activePlayer){
   }
   else if(encounter == "Monster"){
     startFight(activePlayer);
-
+    modifyProbability(activePlayer, encounter)
   }
   else if(encounter == "Loot"){
     generateLoot(activePlayer);
-
+    modifyProbability(activePlayer, encounter)
   }
   else if(encounter == "Quest"){
     startQuest(activePlayer);
-
   }
   else if(encounter == "ActiveQuest"){
     manageQuest(activePlayer);
-    
+    modifyProbability(activePlayer, encounter)
   }
   return encounter
 }
 
 function generateEncounter(activePlayer) {
   const random = Math.random();
+  let amountActiveQuest = 0.2
   let monsterProbability = activePlayer.probability.monsterProbability
   let lootProbability = activePlayer.probability.lootProbability
   let questProbability = activePlayer.probability.questProbability
   let activeQuestProbability = activePlayer.probability.activeQuestProbability
-
+  
   let encounters = [
     { type: "Nothing", probability: 1 - (monsterProbability + lootProbability + questProbability + activeQuestProbability) },
     { type: "Monster", probability: monsterProbability },
@@ -359,80 +363,163 @@ function generateEncounter(activePlayer) {
     { type: "ActiveQuest", probability: activeQuestProbability },
   ];
 
+  if(activePlayer.quest != null){
+    if(activePlayer.quest.questType == "Return"){
+      if(activePlayer.region == activePlayer.quest.regionDeliver && activePlayer.quest.questFlag == false){
+        activeQuestProbability += amountActiveQuest
+        encounters = [
+          { type: "Nothing", probability: 1 - (monsterProbability + lootProbability + questProbability + activeQuestProbability) },
+          { type: "Monster", probability: monsterProbability },
+          { type: "Loot", probability: lootProbability },
+          { type: "Quest", probability: questProbability },
+          { type: "ActiveQuest", probability: activeQuestProbability },
+        ];
+      }
+      else if(activePlayer.region == activePlayer.quest.regionQuest && activePlayer.quest.questFlag == true){
+        activeQuestProbability += amountActiveQuest
+        encounters = [
+          { type: "Nothing", probability: 1 - (monsterProbability + lootProbability + questProbability + activeQuestProbability) },
+          { type: "Monster", probability: monsterProbability },
+          { type: "Loot", probability: lootProbability },
+          { type: "Quest", probability: questProbability },
+          { type: "ActiveQuest", probability: activeQuestProbability },
+        ];
+      }
+      else{}
+    }
+    else {
+      if(activePlayer.region == activePlayer.quest.regionDeliver){
+        activeQuestProbability += 0.2
+        encounters = [
+          { type: "Nothing", probability: 1 - (monsterProbability + lootProbability + questProbability + activeQuestProbability) },
+          { type: "Monster", probability: monsterProbability },
+          { type: "Loot", probability: lootProbability },
+          { type: "Quest", probability: questProbability },
+          { type: "ActiveQuest", probability: activeQuestProbability },
+        ];
+      }
+      else{}
+    }
+  }
   let cumulativeProbability = 0;
   for (const encounter of encounters) {
     cumulativeProbability += encounter.probability;
     encounter.cumulativeProbability = cumulativeProbability;
   }
-
+  console.log(encounters)
   for (const encounter of encounters) {
     if (random < encounter.cumulativeProbability) {
-      modifyProbability(activePlayer, encounter.type)
       return encounter.type;
     }
   }
+  
 }
 
 function modifyProbability(activePlayer, choice) {
+  let standardAmountMonster = 0.1;
+  let standardAmountLoot = 0.05;
+  let standardAmountQuest = 0.1;
   let amountMonster = 0.1;
   let amountLoot = 0.05;
   let amountQuest = 0.1;
   let amountActiveQuest = 0.1;
 
   if (choice == "Nothing"){
-    activePlayer.probability[0] += amountMonster;
-    activePlayer.probability[1] += amountLoot;
-    activePlayer.probability[2] += amountQuest;
-    if (activePlayer.probability[3] > 0) {
-      activePlayer.probability[3] += amountActiveQuest;
+    activePlayer.probability.monsterProbability += amountMonster;
+    activePlayer.probability.lootProbability += amountLoot;
+    if(activePlayer.quest == null){
+      activePlayer.probability.questProbability += amountQuest;
     }
-    else{
-      activePlayer.probability[2] += amountQuest;
-    }
+    return
   }
   else if (choice == "Monster") {
-    activePlayer.probability[0] = 0.2;
-    activePlayer.probability[1] += amountLoot;
-    if (activePlayer.probability[3] > 0) {
-      activePlayer.probability[3] += amountActiveQuest;
+    activePlayer.probability.monsterProbability = standardAmountMonster;
+    activePlayer.probability.lootProbability += amountLoot;
+    if(activePlayer.quest == null){
+      activePlayer.probability.questProbability += amountQuest;
     }
-    else{
-      activePlayer.probability[2] += amountQuest;
-    }
+    return
   } 
   else if (choice == "Loot") {
-    activePlayer.probability[0] += amountMonster;
-    activePlayer.probability[1] = 0.1;
-    if (activePlayer.probability[3] > 0) {
-      activePlayer.probability[3] += amountActiveQuest;
+    activePlayer.probability.monsterProbability += amountMonster;
+    activePlayer.probability.lootProbability = standardAmountLoot;
+    if(activePlayer.quest == null){
+      activePlayer.probability.questProbability += amountQuest;
     }
-    else{
-      activePlayer.probability[2] += amountQuest;
-    }
+    return
   } 
   else if (choice == "Quest") {
-    activePlayer.probability[0] += amountMonster;
-    activePlayer.probability[1] += amountLoot;
-    activePlayer.probability[2] = 0;
-    activePlayer.probability[3] = 0.2;
+    activePlayer.probability.monsterProbability += amountMonster;
+    activePlayer.probability.lootProbability += amountLoot;
+    if(activePlayer.quest == null){
+      activePlayer.probability.questProbability += amountQuest;
+    }
+    else{
+      activePlayer.probability.questProbability = 0;
+    }
+    return
   } 
   else if (choice == "ActiveQuest") {
-    activePlayer.probability[0] += amountMonster;
-    activePlayer.probability[1] += amountLoot;
-    activePlayer.probability[2] = 0.2;
-    activePlayer.probability[3] = 0;
-  } else {}
+    activePlayer.probability.monsterProbability += amountMonster;
+    activePlayer.probability.lootProbability += amountLoot;
+    if(activePlayer.quest != null){
+      if(activePlayer.quest.questType == "Return"){
+        if(activePlayer.quest.questFlag == true){
+          activePlayer.probability.activeQuestProbability = 0;
+        }
+        else{
+          activePlayer.probability.activeQuestProbability += amountActiveQuest
+        }
+      }
+      else{
+        activePlayer.probability.questProbability = standardAmountQuest
+        activePlayer.probability.activeQuestProbability = 0;
+      }
+    }
+    return
+  }
 }
 
 //start quest
 function startQuest(activePlayer){
   activePlayer.quest = getRandomQuest(game.round);
-  clientSocket.emit("updateQuest", ("Quest is:", activePlayer.quest));
+  clientSocket.emit("updatePlayer", players[0])
 }
 
 //manage Quest
 function manageQuest(activePlayer){
-  return
+  if(activePlayer.quest.questType == "Return"){
+    if(activePlayer.quest.questFlag == false){
+      activePlayer.quest.questFlag = true
+      //activePlayer.emit("questUpdate", (activePlayer, false))
+      activePlayer.probability.activeQuestProbability = 0
+      return
+    }
+    else{
+      //activePlayer.emit("questUpdate" (activePlayer, true))
+      activePlayer.gold += activePlayer.quest.rewardGood[0]
+      activePlayer.reputation += activePlayer.quest.rewardGood[1]
+      activePlayer.health += activePlayer.quest.rewardGood[2]
+      activePlayer.victoryPoints += activePlayer.quest.rewardGood[3];
+      activePlayer.questsSolved += 1;
+      activePlayer.probability.questProbability = 0.2;
+      activePlayer.probability.activeQuestProbability = 0;
+      activePlayer.quest = null;
+      return
+    }
+  }
+  else{
+    //activePlayer.emit("questUpdate" (activePlayer, true))
+    activePlayer.gold += activePlayer.quest.rewardGood[0]
+    activePlayer.reputation += activePlayer.quest.rewardGood[1]
+    activePlayer.health += activePlayer.quest.rewardGood[2]
+    activePlayer.victoryPoints += activePlayer.quest.rewardGood[3];
+    activePlayer.questsSolved += 1;
+    activePlayer.probability.questProbability = 0.2;
+    activePlayer.probability.activeQuestProbability = 0;
+    activePlayer.quest = null;
+    return
+  }
 }
 
 //start fight

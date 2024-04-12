@@ -44,7 +44,7 @@ export default {
     data() {
         return {
             text: "Encounter",
-            currentEncounter: 0,
+            currentEncounter: null,
             questName: null,
             questType: null,
             questOfferer: null,
@@ -83,12 +83,15 @@ export default {
         },
         optionQuestGood(){
           socket.emit("optionQuestGood");
+          this.currentEncounter = null;
         },
         optionQuestBad(){
           socket.emit("optionQuestBad");
+          this.currentEncounter = null;
         },
         denyQuest(){
           socket.emit("denyQuest");
+          this.currentEncounter = null;
         },
     },
     beforeUnmount() {
