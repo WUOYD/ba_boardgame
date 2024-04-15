@@ -161,7 +161,6 @@ io.on('connection', (socket) => {
   socket.on('join', (playerName) => {
       console.log('Player joining: ', playerName);
       const playerObject = new Player(playerName);
-      playerObject.socket = socket;
       lobby[socket.id] = playerObject;
       socket.emit('join', playerName);
       console.log('Player joined: ', playerName);
@@ -174,15 +173,16 @@ io.on('connection', (socket) => {
 
   // Fight Handling
   socket.on("startFight", function() {
-    startFight();
+    startFight(lobby[socket.id]);
+    socket.emit("updatePlayer", lobby[socket.id])
   });
 
   socket.on("diceRollPlayer", (rollPlayer) => {
-    diceRollPlayer(socket.id, rollPlayer); 
+    diceRollPlayer(socket, lobby[socket.id], rollPlayer); 
   });
 
   socket.on("diceRollMonster", (rollMonster) => {
-    diceRollMonster(socket.id, rollMonster); 
+    diceRollMonster(socket, lobby[socket.id], rollMonster); 
   });
 
   // Get Active Player
@@ -192,48 +192,48 @@ io.on('connection', (socket) => {
 
   // Upgrades
   socket.on("upgradeClaw", function() {
-    updateSkills(socket.id, 1); 
+    updateSkills(lobby[socket.id], 1); 
     socket.emit("updatePlayer", lobby[socket.id]);
   });
 
   socket.on("upgradeMagic", function() {
-    updateSkills(socket.id, 2); 
+    updateSkills(lobby[socket.id], 2); 
     socket.emit("updatePlayer", lobby[socket.id]);
   });
 
   socket.on("upgradeSkull", function() {
-    updateSkills(socket.id, 3); // Pass socket.id instead of lobby[socket.id]
+    updateSkills(lobby[socket.id], 3); // Pass socket.id instead of lobby[socket.id]
     socket.emit("updatePlayer", lobby[socket.id]);
   });
 
   // Generate Encounter
   socket.on("generateEncounter", function() {
-    encounter = investigate(socket.id); // Pass socket.id instead of lobby[socket.id]
+    encounter = investigate(socket, lobby[socket.id]); // Pass socket.id instead of lobby[socket.id]
     socket.emit("updateEncounter", encounter);
   });
 
   // Change Region
   socket.on("changeRegion", (region) => { 
-    changeRegion(socket.id, region); // Pass socket.id instead of lobby[socket.id]
+    changeRegion(lobby[socket.id], region); // Pass socket.id instead of lobby[socket.id]
     socket.emit("currentRegion", lobby[socket.id]);
   });
 
   // Deny quest
   socket.on("denyQuest", function() { 
     lobby[socket.id].quest = null;
-    modifyProbability(socket.id, "Quest"); // Pass socket.id instead of lobby[socket.id]
+    modifyProbability(lobby[socket.id], "Quest"); // Pass socket.id instead of lobby[socket.id]
   });
 
   // Option good
   socket.on("optionQuestGood", function() { 
     lobby[socket.id].quest.optionPicked = "Good";
-    modifyProbability(socket.id, "Quest"); // Pass socket.id instead of lobby[socket.id]
+    modifyProbability(lobby[socket.id], "Quest"); // Pass socket.id instead of lobby[socket.id]
   });
 
   // Option bad
   socket.on("optionQuestBad", function() { 
     lobby[socket.id].quest.optionPicked = "Bad";
-    modifyProbability(socket.id, "Quest"); // Pass socket.id instead of lobby[socket.id]
+    modifyProbability(lobby[socket.id], "Quest"); // Pass socket.id instead of lobby[socket.id]
   });
 
   // Disconnect Handling
@@ -326,7 +326,7 @@ function getRandomQuest(round){
 
 
 //investigate
-function investigate(activePlayer){
+function investigate(socket, activePlayer){
   let encounter = generateEncounter(activePlayer);
   if(encounter == "Nothing"){
     
@@ -484,7 +484,6 @@ function modifyProbability(activePlayer, choice) {
 //start quest
 function startQuest(activePlayer){
   activePlayer.quest = getRandomQuest(game.round);
-  lobby[socket.id].socket.emit("updatePlayer", activePlayer)
 }
 
 //manage Quest
@@ -527,37 +526,35 @@ function manageQuest(activePlayer){
 function startFight(activePlayer){
   let activeMonster = getRandomMonster(game.round);
   initFightMonster(activePlayer, activeMonster);
-  lobby[socket.id].socket.emit("updateMonster", activeMonster);
   return activeMonster;
 }
 
 //fight monster
 function initFightMonster(activePlayer, activeMonster){
   activePlayer.fight = new Fight(activeMonster)
-  lobby[socket.id].socket.emit("updateFight", "Please roll player and monster");
 }
 
 //Fight rolls
-function diceRollPlayer(activePlayer, rollPlayer) {
+function diceRollPlayer(socket, activePlayer, rollPlayer) {
   let winner = fightPlayer(activePlayer, activePlayer.fight.activeMonster, rollPlayer);
   if (winner) {
-    lobby[socket.id].socket.emit("updateFight", "Player won");
+    socket.emit("updateFight", "Player won");
   } else {
-    lobby[socket.id].socket.emit("updateFight", "Monster has " + activePlayer.fight.activeMonster.health + " health");
+    socket.emit("updateFight", "Monster has " + activePlayer.fight.activeMonster.health + " health");
   }
-  lobby[socket.id].socket.emit("updatePlayer", activePlayer);
-  lobby[socket.id].socket.emit("updateMonster", activePlayer.fight.activeMonster);
+  socket.emit("updatePlayer", activePlayer);
+  socket.emit("updateMonster", activePlayer.fight.activeMonster);
 }
 
-function diceRollMonster(activePlayer, rollMonster) {
+function diceRollMonster(socket, activePlayer, rollMonster) {
   let winner = fightMonster(activePlayer, activePlayer.fight.activeMonster, rollMonster);
   if (winner) {
-    lobby[socket.id].socket.emit("updateFight", "Monster won");
+    socket.emit("updateFight", "Monster won");
   } else {
-    lobby[socket.id].socket.emit("updateFight", "Player has " + activePlayer.health + " health");
+    socket.emit("updateFight", "Player has " + activePlayer.health + " health");
   }
-  lobby[socket.id].socket.emit("updatePlayer", activePlayer);
-  lobby[socket.id].socket.emit("updateMonster", activePlayer.fight.activeMonster);
+  socket.emit("updatePlayer", activePlayer);
+  socket.emit("updateMonster", activePlayer.fight.activeMonster);
 }
 
 
