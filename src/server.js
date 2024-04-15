@@ -60,7 +60,7 @@ class Game {
 class Player {
   constructor(name) {
     this.name = name;
-    this.actions = 10;
+    this.actions = 6;
     this.health = 10;
     this.reputation = 0;
     this.gold = 20;
@@ -159,7 +159,6 @@ io.on('connection', (socket) => {
   lobby[socket.id] = { socket: socket };
   
   socket.on('join', (playerName) => {
-      console.log('Player joining: ', playerName);
       const playerObject = new Player(playerName);
       lobby[socket.id] = playerObject;
       socket.emit('join', playerName);
@@ -169,12 +168,6 @@ io.on('connection', (socket) => {
   // Update View
   socket.on('updateView', (comp) => {
     socket.emit('updateClientView', comp);
-  });
-
-  // Fight Handling
-  socket.on("startFight", function() {
-    startFight(lobby[socket.id]);
-    socket.emit("updatePlayer", lobby[socket.id])
   });
 
   socket.on("diceRollPlayer", (rollPlayer) => {
@@ -188,6 +181,10 @@ io.on('connection', (socket) => {
   // Get Active Player
   socket.on("getActivePlayer", function() {
     socket.emit("updatePlayer", lobby[socket.id]);
+  });
+
+  socket.on("getActiveMonster", function() {
+    socket.emit("updateMonster", lobby[socket.id]);
   });
 
   // Upgrades
@@ -207,15 +204,23 @@ io.on('connection', (socket) => {
   });
 
   // Generate Encounter
-  socket.on("generateEncounter", function() {
-    encounter = investigate(socket, lobby[socket.id]); // Pass socket.id instead of lobby[socket.id]
+  socket.on("investigate", function() {
+    encounter = investigate(lobby[socket.id]); // Pass socket.id instead of lobby[socket.id]
     socket.emit("updateEncounter", encounter);
+    socket.emit("updatePlayer", lobby[socket.id])
+    socket.emit("updateMonster", lobby[socket.id])
   });
 
   // Change Region
   socket.on("changeRegion", (region) => { 
-    changeRegion(lobby[socket.id], region); // Pass socket.id instead of lobby[socket.id]
+    changeRegion(lobby[socket.id], region); 
     socket.emit("currentRegion", lobby[socket.id]);
+  });
+
+  // Change Region
+  socket.on("updateActions", function() { 
+    lobby[socket.id].actions -= 1
+    socket.emit("updatePlayer", lobby[socket.id]);
   });
 
   // Deny quest
@@ -326,26 +331,22 @@ function getRandomQuest(round){
 
 
 //investigate
-function investigate(socket, activePlayer){
+function investigate(activePlayer){
   let encounter = generateEncounter(activePlayer);
-  if(encounter == "Nothing"){
-    
-  }
-  else if(encounter == "Monster"){
+  if(encounter == "Monster"){
     startFight(activePlayer);
-    modifyProbability(activePlayer, encounter)
   }
   else if(encounter == "Loot"){
     generateLoot(activePlayer);
-    modifyProbability(activePlayer, encounter)
   }
   else if(encounter == "Quest"){
     startQuest(activePlayer);
   }
   else if(encounter == "ActiveQuest"){
     manageQuest(activePlayer);
-    modifyProbability(activePlayer, encounter)
+    
   }
+  modifyProbability(activePlayer, encounter)
   return encounter
 }
 
@@ -525,13 +526,7 @@ function manageQuest(activePlayer){
 //start fight
 function startFight(activePlayer){
   let activeMonster = getRandomMonster(game.round);
-  initFightMonster(activePlayer, activeMonster);
-  return activeMonster;
-}
-
-//fight monster
-function initFightMonster(activePlayer, activeMonster){
-  activePlayer.fight = new Fight(activeMonster)
+  activePlayer.fight = new Fight(activeMonster);
 }
 
 //Fight rolls
@@ -543,7 +538,7 @@ function diceRollPlayer(socket, activePlayer, rollPlayer) {
     socket.emit("updateFight", "Monster has " + activePlayer.fight.activeMonster.health + " health");
   }
   socket.emit("updatePlayer", activePlayer);
-  socket.emit("updateMonster", activePlayer.fight.activeMonster);
+  socket.emit("updateMonster", activePlayer);
 }
 
 function diceRollMonster(socket, activePlayer, rollMonster) {
@@ -554,7 +549,7 @@ function diceRollMonster(socket, activePlayer, rollMonster) {
     socket.emit("updateFight", "Player has " + activePlayer.health + " health");
   }
   socket.emit("updatePlayer", activePlayer);
-  socket.emit("updateMonster", activePlayer.fight.activeMonster);
+  socket.emit("updateMonster", activePlayer);
 }
 
 

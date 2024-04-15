@@ -101,28 +101,6 @@
                 <p>Claw Level: {{ playerSkullLevel }}</p>
             </div>
         </div>
-        <div class="upgrade-costs">
-            <div class="gold-required">
-                <p>Gold Required: {{ goldRequiredClaw }}</p>
-            </div>
-            <div class="gold-required">
-                <p>Gold Required: {{ goldRequiredMagic }}</p>
-            </div>
-            <div class="gold-required">
-                <p>Gold Required: {{ goldRequiredSkull }}</p>
-            </div>
-          </div>
-        <div class="upgrade-buttons">
-            <div class="button-option">
-                <button @click="upgradeClaw()">Upgrade Claw</button>
-            </div>
-            <div class="button-option">
-                <button @click="upgradeMagic()">Upgrade Magic</button>
-            </div>
-            <div class="button-option">
-                <button @click="upgradeSkull()">Upgrade Skull</button>
-            </div>
-        </div>
     </div>
 
 </div>
@@ -157,9 +135,6 @@ export default {
                 ["src/assets/icons/skull.png", "src/assets/icons/skull.png"],
                 ["src/assets/icons/skull.png", "src/assets/icons/claw.png"],
             ],
-            goldRequiredClaw: 0,
-            goldRequiredMagic: 0,
-            goldRequiredSkull: 0,
             playerClawLevel: 0,
             playerMagicLevel: 0,
             playerSkullLevel: 0,
@@ -167,7 +142,6 @@ export default {
     },
     mounted() {
         socket.on("updatePlayer", activePlayer => {
-            console.log(activePlayer)
             this.playerName = activePlayer.name;
             this.playerPicture = activePlayer.picture;
             this.playerActions = activePlayer.actions;

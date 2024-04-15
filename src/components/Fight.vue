@@ -1,7 +1,6 @@
 <template>
 <div class="content single">
     <h1>Fight</h1>
-    <button @click="startFight">Start fight</button>
     <p>{{ fightText }}</p>
     <div id="statistics">
         <div id="playerStatistics">
@@ -221,7 +220,7 @@ import {
 export default {
     data() {
         return {
-            fightText: "start fight by pressing start fight button",
+            fightText: "start fight by making move",
             combinationImages: [
                 ["src/assets/icons/claw.png", "src/assets/icons/claw.png"],
                 ["src/assets/icons/claw.png", "src/assets/icons/magic.png"],
@@ -274,25 +273,25 @@ export default {
         socket.on("updateFight", message => {
             this.fightText = this.fightText + "\n" + message
         })
-        socket.on("updateMonster", activeMonster => {
-            this.monsterName = activeMonster.name;
-            this.monsterPicture = activeMonster.picture;
-            this.monsterType = activeMonster.type;
-            this.monsterHealth = activeMonster.health;
-            this.monsterVictoryPoints = activeMonster.victoryPoints;
-            this.monsterRewardGold = activeMonster.rewardGold;
-            this.monsterBlocks = activeMonster.blocks;
-            this.monsterDot = activeMonster.dot;
-            this.monsterReflect = activeMonster.reflect;
-            this.monsterDamageNextRound = activeMonster.damageNextRound;
+        socket.on("updateMonster", activePlayer => {
+            this.monsterName = activePlayer.fight.activeMonster.name;
+            this.monsterPicture = activePlayer.fight.activeMonster.picture;
+            this.monsterType = activePlayer.fight.activeMonster.type;
+            this.monsterHealth = activePlayer.fight.activeMonster.health;
+            this.monsterVictoryPoints = activePlayer.fight.activeMonster.victoryPoints;
+            this.monsterRewardGold = activePlayer.fight.activeMonster.rewardGold;
+            this.monsterBlocks = activePlayer.fight.activeMonster.blocks;
+            this.monsterDot = activePlayer.fight.activeMonster.dot;
+            this.monsterReflect = activePlayer.fight.activeMonster.reflect;
+            this.monsterDamageNextRound = activePlayer.fight.activeMonster.damageNextRound;
             for (let i = 0; i < 6; i++) {
-                this.combinationNameMonster[i] = activeMonster.moves[i][0];
-                this.combinationDamageMonster[i] = activeMonster.moves[i][1];
-                this.combinationBlockMonster[i] = activeMonster.moves[i][2];
-                this.combinationHealMonster[i] = activeMonster.moves[i][3];
-                this.combinationDotMonster[i] = activeMonster.moves[i][4];
-                this.combinationReflectMonster[i] = activeMonster.moves[i][5];
-                this.combinationDamageNextRoundMonster[i] = activeMonster.moves[i][6];
+                this.combinationNameMonster[i] = activePlayer.fight.activeMonster.moves[i][0];
+                this.combinationDamageMonster[i] = activePlayer.fight.activeMonster.moves[i][1];
+                this.combinationBlockMonster[i] = activePlayer.fight.activeMonster.moves[i][2];
+                this.combinationHealMonster[i] = activePlayer.fight.activeMonster.moves[i][3];
+                this.combinationDotMonster[i] = activePlayer.fight.activeMonster.moves[i][4];
+                this.combinationReflectMonster[i] = activePlayer.fight.activeMonster.moves[i][5];
+                this.combinationDamageNextRoundMonster[i] = activePlayer.fight.activeMonster.moves[i][6];
             }
         })
         socket.on("updatePlayer", activePlayer => {
@@ -317,11 +316,9 @@ export default {
             }
         })
         socket.emit("getActivePlayer");
+        socket.emit("getActiveMonster");
     },
     methods: {
-        startFight() {
-            socket.emit("startFight");
-        },
         enterRollPlayer(value) {
             socket.emit("diceRollPlayer", value);
         },

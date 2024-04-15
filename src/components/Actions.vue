@@ -1,36 +1,22 @@
 <template>
 <div class="content single">
     <h1>Actions</h1>
-    <button @click="generateEncounter()">Generate Encounter</button>
-    <p>{{ text }}</p>
-    <div class="encounter" id="nothing" v-if="currentEncounter == 'Nothing'">
-        <h2>Nothing</h2>
+    <div id="playerActions">
+        <div v-for="cell in cells" :key="cell.id" :class="{ 'cell': true, 'colored': cell.colored }"></div>
     </div>
-    <div class="encounter" id="monster" v-if="currentEncounter == 'Monster'">
-        <h2>Monster</h2>
-    </div>
-    <div class="encounter" id="loot" v-if="currentEncounter == 'Loot'">
-        <h2>Loot</h2>
-    </div>
-    <div class="encounter" id="quest" v-if="currentEncounter == 'Quest'">
-        <h2>Quest</h2>
-        <p>Quest type: {{ questType }}</p>
-        <p>Quest offerer: {{ questOfferer }}</p>
-        <p>Quest receiver: {{ questReceiver }}</p>
-        <p>Quest region : {{ regionQuest }}</p>
-        <p>Quest region deliver: {{ regionDeliver }}</p>
-        <p>Quest option good: {{ optionGood }}</p>
-        <p>Quest option bad: {{ optionBad }}</p>
-        <p>Quest reward good: {{ rewardGood }}</p>
-        <p>Quest reward bad: {{ rewardBad }}</p>
-        <p>Quest quest text: {{ questText }}</p>
-        <button @click="optionQuestGood()">Option Good</button>
-        <button @click="optionQuestBad()">Option Bad</button>
-        <button @click="denyQuest()">Deny Quest</button>
-
-    </div>
-    <div class="encounter" id="activeQuest" v-if="currentEncounter == 'ActiveQuest'">
-        <h2>ActiveQuest</h2>
+    <div id="actions">
+        <div class="action" @click="investigate()">
+            <img :src="imageInvestigate" width="250" height="250"/>
+            <p>Untersuchen </p>
+        </div>
+        <div class="action" @click="move()">
+            <img :src="imageMove" width="250" height="250" />
+            <p>Reisen</p>
+        </div>
+        <div class="action" @click="changeIsland()">
+            <img :src="imageChangeIsland" width="250" height="250" />
+            <p>Insel wechseln</p>
+        </div>
     </div>
 </div>
 </template>
@@ -43,56 +29,43 @@ import {
 export default {
     data() {
         return {
-            text: "Encounter",
-            currentEncounter: null,
-            questName: null,
-            questType: null,
-            questOfferer: null,
-            questReceiver: null,
-            regionQuest: null,
-            regionDeliver: null,
-            optionGood: null,
-            optionBad: null,
-            rewardGood: null,
-            rewardBad: null,
-            questText: null
+            imageChangeIsland: "/src/assets/img/changeIsland.png",
+            imageInvestigate: "/src/assets/img/investigate.png",
+            imageMove: "/src/assets/img/move.png",
+            playerActions: null,
+            cells: [],
         }
     },
     mounted() {
-        socket.on("updateEncounter", message => {
-            this.text = this.text + "\n" + message
-            this.currentEncounter = message
-        })
         socket.on("updatePlayer", activePlayer => {
-            this.questType = activePlayer.quest.questType
-            this.questOfferer = activePlayer.quest.questOfferer
-            this.questReceiver = activePlayer.quest.questReceiver
-            this.regionQuest = activePlayer.quest.regionQuest
-            this.regionDeliver = activePlayer.quest.regionDeliver
-            this.optionGood = activePlayer.quest.optionGood
-            this.optionBad = activePlayer.quest.optionBad
-            this.rewardGood = activePlayer.quest.rewardGood
-            this.rewardBad = activePlayer.quest.rewardBad
-            this.questText = activePlayer.quest.questText
+            this.generateCells(parseInt(activePlayer.actions))
         })
         socket.emit("getActivePlayer");
+        
     },
     methods: {
-        generateEncounter() {
-            socket.emit("generateEncounter");
+        generateCells(number) {
+            this.cells = []; // Clear existing cells
+            for (let i = 0; i < 10; i++) {
+                const cell = {
+                    id: i,
+                    colored: i < number
+                };
+                this.cells.push(cell);
+            }
         },
-        optionQuestGood(){
-          socket.emit("optionQuestGood");
-          this.currentEncounter = null;
+        investigate(){
+            socket.emit("updateActions");
+            socket.emit("updateView", 6);
         },
-        optionQuestBad(){
-          socket.emit("optionQuestBad");
-          this.currentEncounter = null;
+        move(){
+            socket.emit("updateActions");
         },
-        denyQuest(){
-          socket.emit("denyQuest");
-          this.currentEncounter = null;
-        },
+        changeIsland(){
+            socket.emit("updateActions");
+            socket.emit("updateView", 3);
+        }
+
     },
     beforeUnmount() {
         this.mounted = false;
@@ -101,8 +74,37 @@ export default {
 </script>
 
 <style>
-.encounter {
+#actions {
     width: 100%;
-    height: 30vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.action {
+    width: 33.3333%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.action p {
+    font-size: 20px;
+    color: #f7e4c2;
+}
+
+#playerActions {
+    display: flex;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    border: 1px solid #f7e4c2;
+}
+
+.colored {
+    background-color: #6c0317;
 }
 </style>

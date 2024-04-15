@@ -45,17 +45,18 @@ export default {
         socket.on("updatePlayer", activePlayer => {
             if (activePlayer.quest != null) {
                 this.playerHasQuest = true
+                this.questType = activePlayer.quest.questType
+                this.questOfferer = activePlayer.quest.questOfferer
+                this.questReceiver = activePlayer.quest.questReceiver
+                this.regionQuest = activePlayer.quest.regionQuest
+                this.regionDeliver = activePlayer.quest.regionDeliver
+                this.optionGood = activePlayer.quest.optionGood
+                this.optionBad = activePlayer.quest.optionBad
+                this.rewardGood = activePlayer.quest.rewardGood
+                this.rewardBad = activePlayer.quest.rewardBad
+                this.questText = activePlayer.quest.questText
             }
-            this.questType = activePlayer.quest.questType
-            this.questOfferer = activePlayer.quest.questOfferer
-            this.questReceiver = activePlayer.quest.questReceiver
-            this.regionQuest = activePlayer.quest.regionQuest
-            this.regionDeliver = activePlayer.quest.regionDeliver
-            this.optionGood = activePlayer.quest.optionGood
-            this.optionBad = activePlayer.quest.optionBad
-            this.rewardGood = activePlayer.quest.rewardGood
-            this.rewardBad = activePlayer.quest.rewardBad
-            this.questText = activePlayer.quest.questText
+
         })
         socket.emit("getActivePlayer");
 

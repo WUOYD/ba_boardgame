@@ -36,7 +36,6 @@ export default {
   methods: {
     updateView(comp) {
             socket.emit("updateView", comp);
-            socket.emit("updateComp", comp);
         }
   }
 }

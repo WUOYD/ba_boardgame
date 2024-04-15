@@ -9,6 +9,7 @@ import Fight from './components/Fight.vue'
 import Map from './components/Map.vue'
 import Options from './components/Options.vue'
 import Quests from './components/Quests.vue'
+import Investigation from './components/Investigation.vue'
 </script>
 
 <template>
@@ -28,7 +29,8 @@ export default {
     Quests,
     Cutscenes,
     Fight,
-    Options
+    Options,
+    Investigation
   },
   created() {
     socket.connect();
@@ -57,11 +59,14 @@ export default {
         case 5:
           this.updateView("Quests")
           break;
+        case 6:
+          this.updateView("Investigation")
+          break;
       }
     })
     socket.on('join', (join) => {
       this.title = false;
-      this.comp = "Fight"
+      this.comp = "Actions"
     })
   },
   methods: {
