@@ -29,9 +29,9 @@ import {
 export default {
     data() {
         return {
-            imageChangeIsland: "/src/assets/img/changeIsland.png",
-            imageInvestigate: "/src/assets/img/investigate.png",
-            imageMove: "/src/assets/img/move.png",
+            imageChangeIsland: "/src/assets/icons/changeIsland.png",
+            imageInvestigate: "/src/assets/icons/investigate.png",
+            imageMove: "/src/assets/icons/move.png",
             playerActions: null,
             cells: [],
         }

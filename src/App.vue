@@ -8,7 +8,7 @@ import Cutscenes from './components/Cutscenes.vue'
 import Fight from './components/Fight.vue'
 import Map from './components/Map.vue'
 import Options from './components/Options.vue'
-import Quests from './components/Quests.vue'
+import Quest from './components/Quest.vue'
 import Investigation from './components/Investigation.vue'
 </script>
 
@@ -26,7 +26,7 @@ export default {
     Map,
     Character,
     Actions,
-    Quests,
+    Quest,
     Cutscenes,
     Fight,
     Options,
@@ -57,7 +57,7 @@ export default {
           this.updateView("Fight")
           break;
         case 5:
-          this.updateView("Quests")
+          this.updateView("Quest")
           break;
         case 6:
           this.updateView("Investigation")

@@ -4,9 +4,7 @@
       <div class="menu-wrapper">
         <div class="menu-item" id="character" @click="updateView(1)"><p>Character</p></div>
         <div class="menu-item" id="actions" @click="updateView(2)"><p>Actions</p></div>
-        <div class="menu-item" id="map" @click="updateView(3)"><p>Map</p></div>
-        <div class="menu-item" id="fight" @click="updateView(4)"><p>Fight</p></div>
-        <div class="menu-item" id="quests" @click="updateView(5)"><p>Quests</p></div>
+        <div class="menu-item" id="quest" @click="updateView(5)"><p>Quest</p></div>
       </div>
     </div>
 </template>
@@ -27,6 +25,9 @@
       cursor: pointer;
   }
 
+  p {
+    font-size: 16px;
+  }
 </style>
 
 <script>
