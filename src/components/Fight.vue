@@ -1,7 +1,20 @@
 <template>
+<div id="playerWon" class="overlay, hidden">
+    <div class="overlay-content">
+        <h2>Player won</h2>
+        <p>Overlay content goes here...</p>
+        <button class="close-btn" v-on:click="closeFightPlayer()">Zurück zu Übersicht</button>
+    </div>
+</div>
+<div id="monsterWon" class="overlay, hidden">
+    <div class="overlay-content">
+        <h2>Monster</h2>
+        <p>Overlay content goes here...</p>
+        <button class="close-btn" @click="closeFightMonster()">Zurück zu Übersicht</button>
+    </div>
+</div>
 <div class="content single">
     <h1>Fight</h1>
-    <p>{{ fightText }}</p>
     <div id="statistics">
         <div id="playerStatistics">
             <h2>Player</h2>
@@ -157,8 +170,6 @@
         </div>
         <div class="enterCombination">
             <button @click="readSelectedOptionPlayer()">Ausgewählte Option lesen</button>
-            <p v-if="selectedOptionPlayer">Ausgewählte Option: {{ selectedOptionPlayer }}</p>
-            <p v-else>Noch keine Option ausgewählt</p>
         </div>
     </div>
     <div class="hidden" id="diceCombinationsMonster">
@@ -204,11 +215,8 @@
         </div>
         <div class="enterCombination">
             <button @click="readSelectedOptionMonster()">Ausgewählte Option lesen</button>
-            <p v-if="selectedOptionMonster">Ausgewählte Option: {{ selectedOptionMonster }}</p>
-            <p v-else>Noch keine Option ausgewählt</p>
         </div>
     </div>
-
 </div>
 </template>
 
@@ -270,8 +278,12 @@ export default {
         }
     },
     mounted() {
-        socket.on("updateFight", message => {
-            this.fightText = this.fightText + "\n" + message
+        socket.on("fightWinner", status => {
+            if (status) {
+                this.toggleVisibility("playerWon")
+            } else {
+                this.toggleVisibility("monsterWon")
+            }
         })
         socket.on("updateMonster", activePlayer => {
             this.monsterName = activePlayer.fight.activeMonster.name;
@@ -352,6 +364,14 @@ export default {
                 element.classList.remove('hidden');
                 element.classList.add('visible');
             }
+        },
+        closeFightPlayer() {
+            toggleVisibility("playerWon")
+            changeView(2);
+        },
+        closeFightMonster() {
+            toggleVisibility("monsterWon")
+            changeView(2);
         }
     },
     beforeUnmount() {
@@ -466,7 +486,8 @@ img {
     right: 0;
 }
 
-.statisticsImage, .statisticsTable {
+.statisticsImage,
+.statisticsTable {
     width: 50% !important;
 }
 
@@ -497,7 +518,6 @@ td p {
 
 .visible {
     display: flex !important;
-    /* or any other appropriate display property */
 }
 
 .enterCombination {
@@ -506,5 +526,30 @@ td p {
     align-items: center;
 }
 
+.overlay {
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    z-index: 999;
+    overflow: auto;
+    padding: 20px;
+}
 
+.overlay-content {
+    height: 100%;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
 </style>

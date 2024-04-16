@@ -49,6 +49,12 @@
     <div class="encounter" id="activeQuest" v-if="currentEncounter == 'ActiveQuest'">
         <h2>ActiveQuest</h2>
         <p>Quest abgeschlossen</p>
+        <p>Quest offerer: {{ questOfferer }}</p>
+        <p>Quest quest text: {{ questText }}</p>
+        <p>Quest reward:  
+            <p v-if="optionPicked == 'Good'">{{ rewardGood }}</p>
+            <p v-if="optionPicked == 'Bad'">{{ rewardBad}}</p>
+        </p>
         <button @click="changeView(2)">Zurück zur Übersicht</button>
     </div>
 </div>
@@ -78,6 +84,9 @@ export default {
             monsterPicture: "src/assets/img/placeholder.webp",
             monsterName: null,
             monsterType: null,
+            rewardGood: null,
+            rewardBad: null,
+            optionPicked: null,
         }
     },
     mounted() {
@@ -94,6 +103,9 @@ export default {
                 this.optionGood = activePlayer.quest.optionGood
                 this.optionBad = activePlayer.quest.optionBad
                 this.questText = activePlayer.quest.questText
+                this.rewardGood = activePlayer.quest.rewardGood
+                this.rewardBad = activePlayer.quest.rewardBad
+                this.optionPicked = activePlayer.quest.optionPicked
             }
         })
         socket.on("updateMonster", activePlayer => {

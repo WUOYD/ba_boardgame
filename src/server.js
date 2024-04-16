@@ -60,7 +60,7 @@ class Game {
 class Player {
   constructor(name) {
     this.name = name;
-    this.actions = 6;
+    this.actions = 10;
     this.health = 10;
     this.reputation = 0;
     this.gold = 20;
@@ -497,7 +497,6 @@ function manageQuest(activePlayer){
       return
     }
     else{
-      //activePlayer.emit("questUpdate" (activePlayer, true))
       activePlayer.gold += activePlayer.quest.rewardGood[0]
       activePlayer.reputation += activePlayer.quest.rewardGood[1]
       activePlayer.health += activePlayer.quest.rewardGood[2]
@@ -510,7 +509,6 @@ function manageQuest(activePlayer){
     }
   }
   else{
-    //activePlayer.emit("questUpdate" (activePlayer, true))
     activePlayer.gold += activePlayer.quest.rewardGood[0]
     activePlayer.reputation += activePlayer.quest.rewardGood[1]
     activePlayer.health += activePlayer.quest.rewardGood[2]
@@ -533,9 +531,8 @@ function startFight(activePlayer){
 function diceRollPlayer(socket, activePlayer, rollPlayer) {
   let winner = fightPlayer(activePlayer, activePlayer.fight.activeMonster, rollPlayer);
   if (winner) {
-    socket.emit("updateFight", "Player won");
-  } else {
-    socket.emit("updateFight", "Monster has " + activePlayer.fight.activeMonster.health + " health");
+    socket.emit("fightWinner", true)
+    return
   }
   socket.emit("updatePlayer", activePlayer);
   socket.emit("updateMonster", activePlayer);
@@ -544,9 +541,8 @@ function diceRollPlayer(socket, activePlayer, rollPlayer) {
 function diceRollMonster(socket, activePlayer, rollMonster) {
   let winner = fightMonster(activePlayer, activePlayer.fight.activeMonster, rollMonster);
   if (winner) {
-    socket.emit("updateFight", "Monster won");
-  } else {
-    socket.emit("updateFight", "Player has " + activePlayer.health + " health");
+    socket.emit("fightWinner", false)
+    return
   }
   socket.emit("updatePlayer", activePlayer);
   socket.emit("updateMonster", activePlayer);

@@ -19,6 +19,7 @@
     height: 100%;
     width: 100%;
   }
+  
   .menu-item{
       margin-left: 2%;
       margin-right: 2%;
