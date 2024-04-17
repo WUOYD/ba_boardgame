@@ -1,15 +1,17 @@
 <template>
-<div id="playerWon" class="overlay, hidden">
+<div id="playerWon" class="hidden">
     <div class="overlay-content">
         <h2>Player won</h2>
-        <p>Overlay content goes here...</p>
+        <p>{{ playerName }} has slayn {{ monsterName }}</p>
+        <p>Victory Points: {{ monsterVictoryPoints }}</p>
+        <p>Gold: {{ monsterRewardGold }}</p>
         <button class="close-btn" v-on:click="closeFightPlayer()">Zurück zu Übersicht</button>
     </div>
 </div>
-<div id="monsterWon" class="overlay, hidden">
+<div id="monsterWon" class="hidden">
     <div class="overlay-content">
         <h2>Monster</h2>
-        <p>Overlay content goes here...</p>
+        <p>{{ monsterName }} has slayn {{ playerName }}</p>
         <button class="close-btn" @click="closeFightMonster()">Zurück zu Übersicht</button>
     </div>
 </div>
@@ -282,6 +284,7 @@ export default {
             if (status) {
                 this.toggleVisibility("playerWon")
             } else {
+                console.log("test")
                 this.toggleVisibility("monsterWon")
             }
         })
@@ -365,13 +368,16 @@ export default {
                 element.classList.add('visible');
             }
         },
+        updateView(comp) {
+            socket.emit("updateView", comp);
+        },
         closeFightPlayer() {
-            toggleVisibility("playerWon")
-            changeView(2);
+            this.toggleVisibility("playerWon")
+            this.updateView(2);
         },
         closeFightMonster() {
-            toggleVisibility("monsterWon")
-            changeView(2);
+            this.toggleVisibility("monsterWon")
+            this.updateView(2);
         }
     },
     beforeUnmount() {
@@ -497,18 +503,18 @@ img {
     flex-direction: row;
 }
 
-table {
+.statisticsTable table {
     width: 100%;
 }
 
-th,
+.statisticsTable th,
 td {
     width: 50%;
     border-bottom: #333333 dotted 1px;
     font-size: 16px;
 }
 
-td p {
+.statisticsTable td p {
     font-size: 16px;
 }
 
@@ -517,7 +523,7 @@ td p {
 }
 
 .visible {
-    display: flex !important;
+    display: flex;
 }
 
 .enterCombination {
@@ -526,30 +532,53 @@ td p {
     align-items: center;
 }
 
-.overlay {
-    position: fixed;
+#playerWon {
+    position: fixed !important;
     top: 25%;
     left: 25%;
     width: 50%;
     height: 50%;
-    background-color: white;
+    background-color: rgba(19, 7, 33, 0.9);
     z-index: 999;
     overflow: auto;
     padding: 20px;
+    border-radius: 25px;
+}
+
+#monsterWon {
+    position: fixed !important;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    background-color: rgba(19, 7, 33, 0.9);
+    z-index: 999;
+    overflow: auto;
+    padding: 20px;
+    border-radius: 25px;
 }
 
 .overlay-content {
+    width: 100%;
     height: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-content h2{
+    width: auto;
 }
 
 .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     background-color: transparent;
-    border: none;
+    border-radius: 10px;
+    border-color: white;
     cursor: pointer;
     font-size: 16px;
-    color: #333;
+    color: white;
+    border-width: 1px;
 }
 </style>

@@ -1,39 +1,42 @@
 <template>
 <div class="content single">
-    <h1>Character</h1>
+    <h1>Upgrades</h1>
     <div id="playerInfos">
         <div id="playerImage">
             <img :src="playerPicture" width="250" height="250" />
         </div>
-        <div id="playerStatistics">
-            <div class="cell" id="div11">
-                <p>{{ playerName }}</p>
-            </div>
-            <div class="cell" id="div12">
-                <p>Actions</p>
-            </div>
-            <div class="cell" id="div13">
-                <p>{{ playerActions }}</p>
-            </div>
-            <div class="cell" id="div14">
-                <p>Health</p>
-            </div>
-            <div class="cell" id="div15">
-                <p>{{ playerHealth }}</p>
-            </div>
-            <div class="cell" id="div16">
-                <p>Reputation</p>
-            </div>
-            <div class="cell" id="div17">
-                <p>{{ playerReputation }}</p>
-            </div>
-            <div class="cell" id="div18">
-                <p>Gold</p>
-            </div>
-            <div class="cell" id="div19">
-                <p>{{ playerGold }}</p>
-            </div>
-        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Name</th>
+                    <td>
+                        <p>{{ playerName }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Actions</th>
+                    <td>
+                        <p>{{ playerActions }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Health</th>
+                    <td>
+                        <p>{{ playerHealth }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Reputation</th>
+                    <td>
+                        <p>{{ playerReputation }}</p>
+                    </td>
+                </tr>
+                <th>Gold</th>
+                <td>
+                    <p>{{ playerGold }}</p>
+                </td>
+            </tbody>
+        </table>
     </div>
     <div id="combinationPlayer">
         <div v-for="(option, index) in optionsPlayer" :key="index" class="combinationPlayer">
@@ -207,89 +210,24 @@ export default {
 }
 
 p {
-    font-size: 12px;
+    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 5px;
     margin: 0;
 }
 
-#div11 {
-    grid-area: 1 / 1 / 2 / 3;
+table {
+    width: 100%;
 }
 
-#div12 {
-    grid-area: 2 / 1 / 3 / 2;
+th,
+td {
+    width: 50%;
+    border-bottom: #333333 dotted 1px;
+    font-size: 16px;
 }
 
-#div13 {
-    grid-area: 2 / 2 / 3 / 3;
-}
-
-#div14 {
-    grid-area: 3 / 1 / 4 / 2;
-}
-
-#div15 {
-    grid-area: 3 / 2 / 4 / 3;
-}
-
-#div16 {
-    grid-area: 4 / 1 / 5 / 2;
-}
-
-#div17 {
-    grid-area: 4 / 2 / 5 / 3;
-}
-
-#div18 {
-    grid-area: 5 / 1 / 6 / 2;
-}
-
-#div19 {
-    grid-area: 5 / 2 / 6 / 3;
-}
-
-#div21 {
-    grid-area: 1 / 1 / 2 / 2;
-}
-
-#div22 {
-    grid-area: 1 / 2 / 2 / 3;
-}
-
-#div23 {
-    grid-area: 1 / 3 / 2 / 4;
-}
-
-#div24 {
-    grid-area: 1 / 4 / 2 / 5;
-}
-
-#div25 {
-    grid-area: 1 / 5 / 2 / 6;
-}
-
-#div26 {
-    grid-area: 1 / 6 / 2 / 7;
-}
-
-#div27 {
-    grid-area: 1 / 7 / 2 / 8;
-}
-
-#div28 {
-    grid-area: 1 / 8 / 2 / 9;
-}
-
-#div29 {
-    grid-area: 1 / 9 / 2 / 10;
-}
-
-#div30 {
-    grid-area: 1 / 10 / 2 / 11;
-}
-
-p {
+td p {
     font-size: 16px;
 }
 
@@ -311,7 +249,6 @@ p {
 
 #combinationPlayer .combinationPlayer:nth-child(even) {
     margin-right: 0px;
-    /* Adding right margin for even-numbered divs */
 }
 
 #combinationPlayer .playerTop,

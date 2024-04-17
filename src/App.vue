@@ -10,13 +10,14 @@ import Map from './components/Map.vue'
 import Options from './components/Options.vue'
 import Quest from './components/Quest.vue'
 import Investigation from './components/Investigation.vue'
+import Upgrades from './components/Upgrades.vue'
 </script>
 
 <template>
-  <Titlescreen v-if="title"/>
-    <component :is="Header"></component>
-    <component :is="comp"></component>
-  <Footer />
+<Titlescreen v-if="title" />
+<component :is="Header"></component>
+<component :is="comp"></component>
+<Footer />
 </template>
 
 <script>
@@ -30,7 +31,8 @@ export default {
     Cutscenes,
     Fight,
     Options,
-    Investigation
+    Investigation,
+    Upgrades
   },
   created() {
     socket.connect();
@@ -61,6 +63,9 @@ export default {
           break;
         case 6:
           this.updateView("Investigation")
+          break;
+        case 7:
+          this.updateView("Upgrades")
           break;
       }
     })

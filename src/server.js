@@ -344,7 +344,6 @@ function investigate(activePlayer){
   }
   else if(encounter == "ActiveQuest"){
     manageQuest(activePlayer);
-    
   }
   modifyProbability(activePlayer, encounter)
   return encounter
@@ -484,7 +483,7 @@ function modifyProbability(activePlayer, choice) {
 
 //start quest
 function startQuest(activePlayer){
-  activePlayer.quest = getRandomQuest(game.round);
+  activePlayer.quest = Object.assign({}, getRandomQuest(game.round));
 }
 
 //manage Quest
@@ -523,29 +522,30 @@ function manageQuest(activePlayer){
 
 //start fight
 function startFight(activePlayer){
-  let activeMonster = getRandomMonster(game.round);
+  let activeMonster = Object.assign({}, getRandomMonster(game.round));
   activePlayer.fight = new Fight(activeMonster);
 }
 
 //Fight rolls
 function diceRollPlayer(socket, activePlayer, rollPlayer) {
   let winner = fightPlayer(activePlayer, activePlayer.fight.activeMonster, rollPlayer);
+  socket.emit("updatePlayer", activePlayer);
+  socket.emit("updateMonster", activePlayer);
   if (winner) {
     socket.emit("fightWinner", true)
     return
   }
-  socket.emit("updatePlayer", activePlayer);
-  socket.emit("updateMonster", activePlayer);
 }
 
 function diceRollMonster(socket, activePlayer, rollMonster) {
   let winner = fightMonster(activePlayer, activePlayer.fight.activeMonster, rollMonster);
+  socket.emit("updatePlayer", activePlayer);
+  socket.emit("updateMonster", activePlayer);
   if (winner) {
     socket.emit("fightWinner", false)
     return
   }
-  socket.emit("updatePlayer", activePlayer);
-  socket.emit("updateMonster", activePlayer);
+  return
 }
 
 
@@ -579,7 +579,7 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
   }
   //apply damage next round
   if(activePlayer.moves[playerRoll-1][6] > 0){
-    playerDamage.damageNextRound = activePlayer.moves[playerRoll-1][6];
+    activePlayer.damageNextRound = activePlayer.moves[playerRoll-1][6];
   }
   // reflect 
   if(activeMonster.reflect > 0){
@@ -642,7 +642,7 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
   }
   //apply damage next round
   if(activeMonster.moves[monsterRoll-1][6] > 0){
-    monsterDamage.damageNextRound = activeMonster.moves[monsterRoll-1][6];
+    activeMonster.damageNextRound = activeMonster.moves[monsterRoll-1][6];
   }
   // reflect 
   if(activePlayer.reflect > 0){
