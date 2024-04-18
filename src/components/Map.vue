@@ -145,10 +145,10 @@ export default {
 
 #changeRegionPopUp {
     position: fixed !important;
-    top: 25%;
-    left: 25%;
-    width: 50%;
-    height: 50%;
+    top: 12.5%;
+    left: 12.5%;
+    width: 75%;
+    height: 75%;
     background-color: rgba(19, 7, 33, 0.9);
     z-index: 999;
     overflow: hidden;
