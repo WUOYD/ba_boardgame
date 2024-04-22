@@ -37,7 +37,6 @@
     <div id="changeRegionPopUp" class="hidden">
         <img :src="travelDestinationPicture" />
         <div class="overlay-content">
-            
             <p>Möchtest du wirklich auf {{ travelDestinationText }} reisen?</p>
             <div id="buttons">
                 <button @click="acceptedChoice()">Annehmen</button>
@@ -158,15 +157,17 @@ export default {
 
 .overlay-content {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 40%;
+    left: 35%;
+    width: 30%;
+    height: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
 }
 
 #changeRegionPopUp img {

@@ -6,7 +6,7 @@
             <div class="headerItem">
                 <img :src="imagePlayer" width="100" height="100" @click="updateView(1)" />
             </div>
-            <div class="headerItem" id="playerStatistics">
+            <div class="headerItem" id="playerStatisticsActions">
                 <div id="playerGold">
                     <img :src="imageGold" width="50" height="50" />
                     <p>{{ playerGold }}</p>
@@ -145,6 +145,7 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .action p {
@@ -156,12 +157,12 @@ export default {
     display: flex;
 }
 
-#playerStatistics {
+#playerStatisticsActions {
     display: flex;
     flex-direction: column;
 }
 
-#playerStatistics p {
+#playerStatisticsActionsActions p {
     font-size: 24px;
 }
 
@@ -208,11 +209,20 @@ export default {
 .headerItem {
     margin-right: 2%;
     margin-left: 2%;
+    cursor: pointer;
 }
 
-#playerStatistics img {
+#playerStatisticsActions{
+    cursor: default !important;
+}
+
+#playerStatisticsActions img {
     border-radius: 0% !important;
     border: 0px !important;
+}
+
+#playerStatisticsActions p{
+    font-size: 24px !important;
 }
 
 #playerGold {
