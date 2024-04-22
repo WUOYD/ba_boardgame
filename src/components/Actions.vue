@@ -17,6 +17,14 @@
             <img :src="imageChangeIsland" width="250" height="250" />
             <p>Insel wechseln</p>
         </div>
+        <div class="action" @click="heal()">
+            <img :src="imageHeal" width="250" height="250" />
+            <p>Heilen</p>
+        </div>
+        <div class="action" @click="quest()">
+            <img :src="imageQuest" width="250" height="250" />
+            <p>Quest</p>
+        </div>
     </div>
 </div>
 </template>
@@ -32,6 +40,8 @@ export default {
             imageChangeIsland: "/src/assets/icons/changeIsland.png",
             imageInvestigate: "/src/assets/icons/investigate.png",
             imageMove: "/src/assets/icons/move.png",
+            imageHeal: "/src/assets/icons/heart.png",
+            imageQuest: "/src/assets/icons/quest.png",
             playerActions: null,
             cells: [],
         }
@@ -64,6 +74,12 @@ export default {
         changeIsland(){
             socket.emit("updateActions");
             socket.emit("updateView", 3);
+        },
+        heal(){
+            socket.emit("healPlayer");
+        },
+        quest(){
+            socket.emit("manageQuest");
         }
 
     },

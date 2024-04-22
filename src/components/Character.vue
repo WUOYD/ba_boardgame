@@ -77,57 +77,6 @@
             </div>
         </div>
     </div>
-    <h2>Upgrades</h2>
-    <div class="upgrade-section">
-        <div class="gold-section">
-            <p>Gold: {{ playerGold }}</p>
-        </div>
-        <div class="upgrade-options">
-            <div class="upgrade-option">
-                <img src="src/assets/icons/claw.png" alt="Claw" />
-            </div>
-            <div class="upgrade-option">
-                <img src="src/assets/icons/magic.png" alt="Magic" />
-            </div>
-            <div class="upgrade-option">
-                <img src="src/assets/icons/skull.png" alt="Skull" />
-            </div>
-        </div>
-        <div class="player-levels">
-            <div class="player-level">
-                <p>Claw Level: {{ playerClawLevel }}</p>
-            </div>
-            <div class="player-level">
-                <p>Claw Level: {{ playerMagicLevel }}</p>
-            </div>
-            <div class="player-level">
-                <p>Claw Level: {{ playerSkullLevel }}</p>
-            </div>
-        </div>
-        <div class="upgrade-costs">
-            <div class="gold-required">
-                <p>Gold Required: {{ goldRequiredClaw }}</p>
-            </div>
-            <div class="gold-required">
-                <p>Gold Required: {{ goldRequiredMagic }}</p>
-            </div>
-            <div class="gold-required">
-                <p>Gold Required: {{ goldRequiredSkull }}</p>
-            </div>
-          </div>
-        <div class="upgrade-buttons">
-            <div class="button-option">
-                <button @click="upgradeClaw()">Upgrade Claw</button>
-            </div>
-            <div class="button-option">
-                <button @click="upgradeMagic()">Upgrade Magic</button>
-            </div>
-            <div class="button-option">
-                <button @click="upgradeSkull()">Upgrade Skull</button>
-            </div>
-        </div>
-    </div>
-
 </div>
 </template>
 
@@ -195,8 +144,7 @@ export default {
         })
         socket.emit("getActivePlayer");
     },
-    methods: {
-    },
+    methods: {},
     beforeUnmount() {
         this.mounted = false;
     }
@@ -326,7 +274,8 @@ td p {
     margin-bottom: 20px;
 }
 
-.upgrade-options, .player-levels {
+.upgrade-options,
+.player-levels {
     display: flex;
     width: 100%;
 }
@@ -355,7 +304,8 @@ td p {
 }
 
 .button-option,
-.gold-required, .player-level {
+.gold-required,
+.player-level {
     width: 33.3333%
 }
 </style>
