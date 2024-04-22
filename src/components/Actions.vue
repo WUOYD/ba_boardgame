@@ -1,28 +1,56 @@
 <template>
 <div class="content single">
     <h1>Actions</h1>
-    <div id="playerActions">
-        <div v-for="cell in cells" :key="cell.id" :class="{ 'cell': true, 'colored': cell.colored }"></div>
+    <div id="headerActions">
+        <div id="headerSectionLeft">
+            <div class="headerItem">
+                <img :src="imagePlayer" width="100" height="100" @click="updateView(1)" />
+            </div>
+            <div class="headerItem" id="playerStatistics">
+                <div id="playerGold">
+                    <img :src="imageGold" width="50" height="50" />
+                    <p>{{ playerGold }}</p>
+                </div>
+                <div id="playerHealth">
+                    <img :src="imageHeal" width="50" height="50" />
+                    <p>{{ playerHealth }}</p>
+                </div>
+            </div>
+        </div>
+        <div id="headerSectionMiddle">
+            <h2>Spieler Aktionen</h2>
+            <div id="playerActions">
+                <div v-for="cell in cells" :key="cell.id" :class="{ 'cell': true, 'colored': cell.colored }"></div>
+            </div>
+        </div>
+        <div id="headerSectionRight">
+            <div class="headerItem">
+                <img :src="imageMap" width="100" height="100" @click="updateView(8)" />
+            </div>
+            <div class="headerItem">
+                <img :src="imageQuestBig" width="100" height="100" @click="updateView(5)" />
+            </div>
+        </div>
     </div>
     <div id="actions">
         <div class="action" @click="investigate()">
-            <img :src="imageInvestigate" width="250" height="250"/>
+            <img :src="imageInvestigate">
             <p>Untersuchen </p>
         </div>
         <div class="action" @click="move()">
-            <img :src="imageMove" width="250" height="250" />
+            <img :src="imageMove"/>
             <p>Reisen</p>
         </div>
         <div class="action" @click="changeIsland()">
-            <img :src="imageChangeIsland" width="250" height="250" />
+            <img :src="imageChangeIsland"/>
             <p>Insel wechseln</p>
         </div>
         <div class="action" @click="heal()">
-            <img :src="imageHeal" width="250" height="250" />
+            <img :src="imageHeal"/>
             <p>Heilen</p>
         </div>
         <div class="action" @click="quest()">
-            <img :src="imageQuest" width="250" height="250" />
+            <img :src="imageQuest"/>
             <p>Quest</p>
         </div>
     </div>
@@ -42,16 +70,28 @@ export default {
             imageMove: "/src/assets/icons/move.png",
             imageHeal: "/src/assets/icons/heart.png",
             imageQuest: "/src/assets/icons/quest.png",
+            imageQuestBig: "/src/assets/icons/quest_big.png",
+            imageGold: "/src/assets/icons/gold.png",
+            imageMap: "/src/assets/icons/map.png",
+            imagePlayer: "/src/assets/img/player/player.webp",
             playerActions: null,
+            playerHealth: null,
+            playerGold: null,
             cells: [],
         }
     },
     mounted() {
         socket.on("updatePlayer", activePlayer => {
+            this.playerName = activePlayer.name;
+            this.playerActions = activePlayer.actions;
+            this.playerHealth = activePlayer.health;
+            this.playerGold = activePlayer.gold;
+        })
+        socket.on("updatePlayer", activePlayer => {
             this.generateCells(parseInt(activePlayer.actions))
         })
         socket.emit("getActivePlayer");
-        
+
     },
     methods: {
         generateCells(number) {
@@ -64,22 +104,25 @@ export default {
                 this.cells.push(cell);
             }
         },
-        investigate(){
+        investigate() {
             socket.emit("updateActions");
             socket.emit("updateView", 6);
         },
-        move(){
+        move() {
             socket.emit("updateActions");
         },
-        changeIsland(){
+        changeIsland() {
             socket.emit("updateActions");
             socket.emit("updateView", 3);
         },
-        heal(){
+        heal() {
             socket.emit("healPlayer");
         },
-        quest(){
+        quest() {
             socket.emit("manageQuest");
+        },
+        updateView(comp) {
+            socket.emit("updateView", comp);
         }
 
     },
@@ -113,6 +156,15 @@ export default {
     display: flex;
 }
 
+#playerStatistics {
+    display: flex;
+    flex-direction: column;
+}
+
+#playerStatistics p {
+    font-size: 24px;
+}
+
 .cell {
     width: 30px;
     height: 30px;
@@ -122,5 +174,64 @@ export default {
 
 .colored {
     background-color: #6c0317;
+}
+
+#headerActions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 5%;
+}
+
+#headerActions img {
+    border-radius: 50%;
+    border: 3px solid #f7e4c2;
+}
+
+#actions img{
+    width: 100%;
+}
+
+#headerSectionLeft {
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+}
+
+#headerSectionRight {
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+}
+
+.headerItem {
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+#playerStatistics img {
+    border-radius: 0% !important;
+    border: 0px !important;
+}
+
+#playerGold {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#playerHealth {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#playerHealth p,
+#playerGold p {
+    margin-bottom: 0px !important;
 }
 </style>

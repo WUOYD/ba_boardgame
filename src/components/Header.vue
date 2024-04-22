@@ -2,9 +2,7 @@
     <div id="header">
       <!-- <img src="../assets/logo/" alt="logo"> -->
       <div class="menu-wrapper">
-        <div class="menu-item" id="character" @click="updateView(1)"><p>Character</p></div>
-        <div class="menu-item" id="actions" @click="updateView(2)"><p>Actions</p></div>
-        <div class="menu-item" id="quest" @click="updateView(5)"><p>Quest</p></div>
+        <div class="menu-item" id="character" @click="updateView(2)"><p>Zurück</p></div>
       </div>
     </div>
 </template>
@@ -14,7 +12,6 @@
     display: flex;
     place-items: center;
     align-items: center;
-    justify-content: center;
     flex-direction: row;
     height: 100%;
     width: 100%;

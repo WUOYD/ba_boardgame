@@ -7,6 +7,7 @@ import Character from './components/Character.vue'
 import Cutscenes from './components/Cutscenes.vue'
 import Fight from './components/Fight.vue'
 import Map from './components/Map.vue'
+import MapOverview from './components/MapOverview.vue'
 import Options from './components/Options.vue'
 import Quest from './components/Quest.vue'
 import Investigation from './components/Investigation.vue'
@@ -32,7 +33,8 @@ export default {
     Fight,
     Options,
     Investigation,
-    Upgrades
+    Upgrades,
+    MapOverview
   },
   created() {
     socket.connect();
@@ -66,6 +68,9 @@ export default {
           break;
         case 7:
           this.updateView("Upgrades")
+          break;
+        case 8:
+          this.updateView("MapOverview")
           break;
       }
     })
