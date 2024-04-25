@@ -1,3 +1,7 @@
+//import
+const monsterTables = require("./monsters.js");
+const questTables = require("./quests.js");
+
 // Express Setup
 const express = require('express');
 const app = express();
@@ -9,45 +13,15 @@ const { Server } = require('socket.io');
 const lobby = {};
 let game;
 
-//Moves, "Name", Damage, Block, Heal, DoT, Reflect, Damage next Round
-let monsterTableBronze = [
-  ["Goblin Jäger", "Bronze", 1, 6, 2, "src/assets/img/monster/goblin_jaeger.webp" ,[["Steinwurf", 1, 0, 0, 0, 0, 0], ["Speerwurf", 2, 0, 0, 0, 0, 0], ["Flinkheit", 0, 5, 0, 0, 0, 0], ["Meditation", 0, 0, 0, 0, 0, 1], ["Vergifteter Dolch", 1, 0, 0, 1, 0, 0], ["Kritischer Treffer", 3, 0, 0, 0, 0, 0]]], 
-  ["Manfred", "Bronze", 1, 8, 2, "src/assets/img/monster/manfred.webp", [["Dornen", 1, 0, 0, 0, 0, 0], ["Blätterpanzer", 0, 1, 0, 0, 0, 0], ["Wachstum", 0, 0, 2, 0, 0, 0], ["Dornenpanzer", 0, 0, 0, 0, 10, 0], ["Entend", 4, 0, 0, 0, 4, 0], ["Stolpern", 0, 0, 1, 0, 0, 0]]],
-  ["Feuerkobold", "Bronze", 1, 4, 2, "src/assets/img/monster/glubber.webp", [["Klauenangriff", 1, 0, 0, 0, 0, 0], ["Feueratem", 2, 0, 0, 0, 0, 0], ["Jinx", 0, 1, 0, 0, 1, 0], ["Flammenwand", 2, 0, 0, 0, 0, 1], ["Explosion", 4, 0, -4, 0, 0, 0], ["Koboldbiss", 3, 0, 0, 0, 0, 0]]],
-  ["Eisgolem", "Bronze", 1, 8, 2, "src/assets/img/monster/eisgolem.webp", [["Eisige Briese", 1, 0, 0, 0, 0, 0], ["Eissplitter", 1, 0, 0, 0, 0, 0], ["Frostrüstung", 0, 0, 2, 0, 0, 0], ["Frost Nova", 2, 0, 0, 0, 0, 0], ["Blizzard", 2, 0, 1, 0, 0, 0], ["Erfrierung", 2, 0, 0, 0, 0, 0]]], 
-  ["Betrunkener Goblin", "Bronze", 1, 14, 2, "src/assets/img/monster/betrunkener_goblin.webp", [["Kratzer", 1, 0, 0, 0, 0, 0, 0], ["Biss", 1, 0, 0, 0, 0, 0], ["Kauern", 0, 1, 0, 0, 0, 0], ["Counter", 1, 1, 0, 0, 0, 0], ["Käulenhieb", 3, 0, 0, 0, 0, 0], ["Kopfnuss", 2, 0, 0, 0, 0, 0]]],
-]
-
-let monsterTableSilver = [
-
-];
-
-let monsterTableGold = [
-
-];
-
 let monstersBronze = [];
 let monstersSilver = [];
 let monstersGold = [];
-
-//questType, questOfferer, questReceiver, regionQuest, regionDeliver, optionGood, optionBad, rewardGood[Ehre, Gold, life], rewardBad[Ehre, Gold, Life], questText,
-let questTableBronze = [
-  ["Deliver", "Jorn", "Seppo", "Frosgar", "Talvar", "Fische an den Hafen von Talvar bringen", "Die Fische essen", ["1", "2", "0"], ["-1", "0", "5"], null, "text blablabla"],
-  ["Monster", "Dorfbewohner von Nebelfrost", "Dorfbewohner von Nebelfrost", "Frosgar", "Frosgar", "Hilf den Dorfbewohnern den Drachen zu töten", "Hilfe ablehnen", ["1", "4", "0"], ["0", "0", "0"], null,"text blablabla"],
-  ["Return", "Gunnar", "Holzhändler", "Frosgar", "Athos", "Hole das Holz am Hafen von Athos und bringe es hierher", "Nimm das Geld und behalte es für dich.", ["1", "2", ""], ["-1", "", "5"], false,"text blablabla"],
-  ]
-
-let questTableSilver = [
-
-];
-
-let questTableGold = [
-
-];
-
 let questsBronze = [];
 let questsSilver = [];
 let questsGold = [];
+
+const { monsterTableBronze, monsterTableSilver, monsterTableGold } = monsterTables;
+const { questTableBronze, questTableSilver, questTableGold } = questTables;
 
 // Classes
 class Game {
@@ -276,6 +250,7 @@ initGame();
 
 
 function initMonsters(){
+  console.log(monsterTableBronze)
   for (let i = 0; i < monsterTableBronze.length; i++){
     monstersBronze[i] = new Monster(monsterTableBronze[i][0], monsterTableBronze[i][1], monsterTableBronze[i][2], monsterTableBronze[i][3], monsterTableBronze[i][4], monsterTableBronze[i][5], monsterTableBronze[i][6]);
   }

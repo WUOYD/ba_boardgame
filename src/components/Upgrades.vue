@@ -1,7 +1,8 @@
 <template>
 <div class="content single">
     <h1>Upgrades</h1>
-    <div class="buttons">
+    <button id="backButton" class="hidden" @click="changeViewAbility(7)">Back</button>
+    <div id="buttons" class="visible">
         <button v-if="currentView == 'abilities'">Fähigkeiten</button>
         <button v-if="currentView == 'equipment'" @click="toggleView()">Fähigkeiten</button>
         <button v-if="currentView == 'equipment'">Ausrüstung</button>
@@ -13,7 +14,7 @@
             <p>Gold: {{ playerGold }}</p>
         </div>
         <div id="combinationPlayer">
-            <div v-for="(option, index) in optionsPlayer" :key="index" class="combinationPlayer">
+            <div v-for="(option, index) in optionsPlayer" :key="index" class="combinationPlayer" @click="changeViewAbility(index+1)">
                 <div class="playerTop">
                     <div class="playerImages">
                         <img :src="combinationImages[index][0]" width="48" height="48" />
@@ -50,6 +51,21 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="hidden" id="upgradeAbility">
+        <div id="moveCurrent">
+            <div id="combinationImagesUpgrade">
+                <img :src="combinationImagesUpgrade[0]" width="48" height="48" />
+                <img :src="combinationImagesUpgrade[1]" width="48" height="48" />
+                <div id="draganddrop"></div>
+            </div>
+            <div id="combinationInfos">
+                <p>{{ combinationNamePlayerUpgrade }}</p>
+                <p>{{ combinationTextPlayerUpgrade }}</p>
+            </div>
+        </div>
+        <div id="moveOptions">
         </div>
     </div>
     <div id="equipment" class="hidden">
@@ -125,6 +141,11 @@ import {
 export default {
     data() {
         return {
+            currentView: 'abilities',
+            activeAbility: 'none',
+            combinationImagesUpgrade: 'none',
+            combinationNamePlayerUpgrade: 'none',
+            combinationTextPlayerUpgrade: 'none',
             playerName: null,
             playerActions: null,
             playerHealth: null,
@@ -149,7 +170,6 @@ export default {
             playerClawLevel: 0,
             playerMagicLevel: 0,
             playerSkullLevel: 0,
-            currentView: 'abilities',
             clawIcons: [
                 { value: false },
                 { value: false },
@@ -256,6 +276,15 @@ export default {
         upgradeSkull(){
             socket.emit("upgradeSkull");
         },
+        changeViewAbility(index){
+            this.combinationImagesUpgrade = this.combinationImages[index];
+            this.combinationNamePlayerUpgrade = combinationNamePlayer[index];
+            this.combinationNameTextUpgrade = combinationTextPlayer[index];
+            this.toggleVisibility("abilities")
+            this.toggleVisibility("upgradeAbility")
+            this.toggleVisibility("buttons")
+            this.toggleVisibility("backButton")
+        },
     },
     beforeUnmount() {
         this.mounted = false;
@@ -290,7 +319,6 @@ td p {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    /* Adding gap between the divs */
 }
 
 #combinationPlayer .combinationPlayer {
@@ -340,6 +368,8 @@ td p {
 }
 
 #combinationPlayer img {
+    width: 48px;
+    height: 48px;
     border-radius: 5px;
     margin: 5px;
 }

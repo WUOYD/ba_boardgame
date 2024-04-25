@@ -148,7 +148,6 @@ export default {
     left: 12.5%;
     width: 75%;
     height: 75%;
-    background-color: rgba(19, 7, 33, 0.9);
     z-index: 999;
     overflow: hidden;
     padding: 20px;

@@ -49,7 +49,7 @@
             <img :src="imageHeal"/>
             <p>Heilen</p>
         </div>
-        <div class="action" @click="quest()">
+        <div v-if="playerHasQuest" class="action" @click="quest()">
             <img :src="imageQuest"/>
             <p>Quest</p>
         </div>
@@ -78,6 +78,7 @@ export default {
             playerHealth: null,
             playerGold: null,
             cells: [],
+            playerHasQuest: false,
         }
     },
     mounted() {
@@ -86,6 +87,12 @@ export default {
             this.playerActions = activePlayer.actions;
             this.playerHealth = activePlayer.health;
             this.playerGold = activePlayer.gold;
+            if(activePlayer.quest != null){
+                this.playerHasQuest = true
+            }
+            else{
+                this.playerHasQuest = false
+            }
         })
         socket.on("updatePlayer", activePlayer => {
             this.generateCells(parseInt(activePlayer.actions))
