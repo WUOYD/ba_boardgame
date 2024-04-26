@@ -20,7 +20,7 @@ let questsBronze = [];
 let questsSilver = [];
 let questsGold = [];
 
-const { monsterTableBronze, monsterTableSilver, monsterTableGold } = monsterTables;
+const { monsterTableBronze, monsterTableSilver, monsterTableGold, monsterTableQuests } = monsterTables;
 const { questTableBronze, questTableSilver, questTableGold } = questTables;
 
 // Classes
@@ -90,19 +90,23 @@ class Fight {
 }
 
 class Quest {
-  constructor(questType, questOfferer, questReceiver, regionQuest, regionDeliver, optionGood, optionBad, rewardGood, rewardBad, questFlag, questText) {
+  constructor(questType, questOfferer, questMiddleman, questReceiver, questRegions, rewardGood, rewardBad, rewardDeny, optionGood, optionBad, optionDeny, questEncounters, optionGoodSecond, optionBadSecond) {
     this.questType = questType;
     this.questOfferer = questOfferer;
+    this.questMiddleman = questMiddleman;
     this.questReceiver = questReceiver;
-    this.regionQuest = regionQuest;
-    this.regionDeliver = regionDeliver;
+    this.regionQuest = questRegions[0];
+    this.regionDeliver = questRegions[1];
     this.optionGood = optionGood;
     this.optionBad = optionBad;
+    this.optionDeny = optionDeny;
     this.rewardGood = rewardGood;
     this.rewardBad = rewardBad;
-    this.questText = questText;
+    this.rewardDeny = rewardDeny;
+    this.questMonster = questEncounters[0];
+    this.questImpact = questEncounters[1];
     this.optionPicked = null;
-    this.questFlag = questFlag;
+    this.questFlag = false;
   }
 }
 
@@ -183,23 +187,17 @@ io.on('connection', (socket) => {
     socket.emit("updatePlayer", lobby[socket.id])
     socket.emit("updateMonster", lobby[socket.id])
   });
+  
+  socket.on("completeQuest", function() { 
+    completeQuest(lobby[socket.id])
+    socket.emit("updatePlayer", lobby[socket.id]);
+  });
+  
 
   // Change Region
   socket.on("changeRegion", (region) => { 
     changeRegion(lobby[socket.id], region); 
     socket.emit("currentRegion", lobby[socket.id]);
-  });
-
-  // Change Region
-  socket.on("updateActions", function() { 
-    lobby[socket.id].actions -= 1
-    socket.emit("updatePlayer", lobby[socket.id]);
-  });
-
-  // Deny quest
-  socket.on("denyQuest", function() { 
-    lobby[socket.id].quest = null;
-    modifyProbability(lobby[socket.id], "Quest"); 
   });
 
   // Option good
@@ -214,6 +212,22 @@ io.on('connection', (socket) => {
     modifyProbability(lobby[socket.id], "Quest"); 
   });
 
+  // Deny quest
+  socket.on("optionQuestDeny", function() { 
+    lobby[socket.id].quest = null;
+    modifyProbability(lobby[socket.id], "Quest"); 
+  });
+
+  socket.on("decisionGood", function() {
+    manageQuestDecision(lobby[socket.id], "Good") 
+    modifyProbability(lobby[socket.id], "Quest"); 
+  });
+
+  socket.on("decisionBad", function() { 
+    manageQuestDecision(lobby[socket.id], "Bad") 
+    modifyProbability(lobby[socket.id], "Quest"); 
+  });
+
   // Change Region
   socket.on("healPlayer", function() { 
     lobby[socket.id].health = lobby[socket.id].health + ((10-lobby[socket.id].health)/2 + 2)
@@ -221,7 +235,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on("manageQuest", function() { 
-    manageQuest(lobby[socket.id]);
+    manageQuest(socket, lobby[socket.id]);
     socket.emit("updatePlayer", lobby[socket.id]);
   });
 
@@ -319,7 +333,8 @@ function getRandomQuest(round){
 function investigate(activePlayer){
   let encounter = generateEncounter(activePlayer);
   if(encounter == "Monster"){
-    startFight(activePlayer);
+    let activeMonster = Object.assign({}, getRandomMonster(game.round));
+    startFight(activePlayer, activeMonster);
   }
   else if(encounter == "Loot"){
     generateLoot(activePlayer);
@@ -407,24 +422,76 @@ function startQuest(activePlayer){
 }
 
 //manage Quest
-function manageQuest(activePlayer){
-  if(activePlayer.quest.questType == "Return"){
-    if(activePlayer.quest.questFlag == false){
-      activePlayer.quest.questFlag = true
-      return
-    }
-    else{
-      activePlayer.gold += activePlayer.quest.rewardGood[0]
-      activePlayer.reputation += activePlayer.quest.rewardGood[1]
-      activePlayer.health += activePlayer.quest.rewardGood[2]
-      activePlayer.victoryPoints += activePlayer.quest.rewardGood[3];
-      activePlayer.questsSolved += 1;
-      activePlayer.probability.questProbability = 0.2;
-      activePlayer.quest = null;
-      return
+function manageQuest(socket, activePlayer){
+  if(activePlayer.quest.optionPicked == "Good"){
+    switch(activePlayer.quest.optionGood[1]) {
+      case "Deliver":
+        socket.emit("updatePlayer", activePlayer);
+        socket.emit("updateQuest", ("Deliver", "Good"))
+        break;
+      case "DeliverMonster":
+        let activeMonster = Object.assign({}, monsterTableQuests[activePlayer.quest.questMonster]);
+        startFight(activePlayer, activeMonster);
+        socket.emit("updatePlayer", activePlayer);
+        socket.emit("updateQuest", ("DeliverMonster", "Good"))
+        break;
+      case "DeliverDecision":
+        socket.emit("updatePlayer", activePlayer);
+        socket.emit("updateQuest", ("DeliverDecision", "Good"))
+        break;
+      case "Return":
+        if(activePlayer.quest.questFlag == false){
+          activePlayer.quest.questFlag = true
+          socket.emit("updateQuest", ("Return", "Good"))
+        }
+        else{
+
+        }
+        break;
+      case "ReturnMonster":
+        // Code for "ReturnMonster" option
+        break;
+      case "ReturnDecision":
+        // Code for "ReturnDecision" option
+        break;
+      case "Fight":
+        // Code for "Fight" option
+        break;
     }
   }
-  else{
+  if(activePlayer.quest.optionPicked == "Bad"){
+    switch(activePlayer.quest.optionBad[1]) {
+      case "Deliver":
+        // Code for "Deliver" option
+        break;
+      case "DeliverMonster":
+        // Code for "DeliverMonster" option
+        break;
+      case "DeliverDecision":
+        // Code for "DeliverDecision" option
+        break;
+      case "Return":
+        // Code for "Return" option
+        break;
+      case "ReturnMonster":
+        // Code for "ReturnMonster" option
+        break;
+      case "ReturnDecision":
+        // Code for "ReturnDecision" option
+        break;
+      case "Fight":
+        // Code for "Fight" option
+        break;
+    }
+  }
+}
+
+function manageQuestDecision(){
+
+}
+
+function completeQuest(){
+  if(activePlayer.quest.optionPicked == "Good"){
     activePlayer.gold += activePlayer.quest.rewardGood[0]
     activePlayer.reputation += activePlayer.quest.rewardGood[1]
     activePlayer.health += activePlayer.quest.rewardGood[2]
@@ -438,7 +505,7 @@ function manageQuest(activePlayer){
 
 //start fight
 function startFight(activePlayer){
-  let activeMonster = Object.assign({}, getRandomMonster(game.round));
+  
   activePlayer.fight = new Fight(activeMonster);
 }
 

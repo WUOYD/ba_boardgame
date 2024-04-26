@@ -27,5 +27,6 @@ let monsterTableQuests = [
 module.exports = {
     monsterTableBronze,
     monsterTableSilver,
-    monsterTableGold
+    monsterTableGold,
+    monsterTableQuests
   };

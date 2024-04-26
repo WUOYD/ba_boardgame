@@ -1,21 +1,28 @@
 <template>
 <div class="content single">
     <h1>Quests</h1>
-    <div class="quest" v-if="playerHasQuest">
-        <p>Quest type: {{ questType }}</p>
-        <p>Quest offerer: {{ questOfferer }}</p>
-        <p>Quest receiver: {{ questReceiver }}</p>
-        <p>Quest region : {{ regionQuest }}</p>
-        <p>Quest region deliver: {{ regionDeliver }}</p>
-        <p>Quest option good: {{ optionGood }}</p>
-        <p>Quest option bad: {{ optionBad }}</p>
-        <p>Quest reward good: {{ rewardGood }}</p>
-        <p>Quest reward bad: {{ rewardBad }}</p>
-        <p>Quest quest text: {{ questText }}</p>
+    <div>
+        <div class="activeQuest" v-if="playerHasQuest">
+            <p>Quest type: {{ questType }}</p>
+            <p>Quest offerer: {{ questOfferer }}</p>
+            <p>Quest receiver: {{ questReceiver }}</p>
+            <p>Quest region : {{ regionQuest }}</p>
+            <p>Quest region deliver: {{ regionDeliver }}</p>
+            <p>Quest option good: {{ optionGood }}</p>
+            <p>Quest option bad: {{ optionBad }}</p>
+            <p>Quest reward good: {{ rewardGood }}</p>
+            <p>Quest reward bad: {{ rewardBad }}</p>
+            <p>Quest quest text: {{ questText }}</p>
+        </div>
+        <div class="activeQuest" v-else>
+            <p>Player has no quest</p>
+        </div>
     </div>
-    <div class="quest" v-else>
-        <p>Player has no quest</p>
+    <div>
+        <button @click="this.optionGood()">Good</button>
+        <button @click="this.optionBad()">Bad</button>
     </div>
+    
 </div>
 </template>
 
@@ -43,7 +50,7 @@ export default {
     },
     mounted() {
         socket.on("updatePlayer", activePlayer => {
-            if (activePlayer.quest != null) {
+            if(activePlayer.quest != null) {
                 this.playerHasQuest = true
                 this.questType = activePlayer.quest.questType
                 this.questOfferer = activePlayer.quest.questOfferer
@@ -58,10 +65,29 @@ export default {
             }
 
         })
-        socket.emit("getActivePlayer");
-
+        socket.emit("getActivePlayer")
+        socket.on("updateQuest", (questType, questOption) => {
+            
+        })
     },
-    methods: {},
+    methods: {
+        toggleVisibility(elementId) {
+            var element = document.getElementById(elementId);
+            if (element.classList.contains('visible')) {
+                element.classList.remove('visible');
+                element.classList.add('hidden');
+            } else {
+                element.classList.remove('hidden');
+                element.classList.add('visible');
+            }
+        },
+        desicionGood(){
+            socket.emit("decisionGood")
+        },
+        desicionBad(){
+            socket.emit("decisionBad")
+        },
+    },
     beforeUnmount() {
         this.mounted = false;
     }

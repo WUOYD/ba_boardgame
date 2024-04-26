@@ -126,6 +126,7 @@ export default {
             socket.emit("healPlayer");
         },
         quest() {
+            socket.emit("updateView", 5);
             socket.emit("manageQuest");
         },
         updateView(comp) {
