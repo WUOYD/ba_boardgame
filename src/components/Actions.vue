@@ -126,13 +126,12 @@ export default {
             socket.emit("healPlayer");
         },
         quest() {
-            socket.emit("updateView", 5);
             socket.emit("manageQuest");
+            socket.emit("updateView", 5);
         },
         updateView(comp) {
             socket.emit("updateView", comp);
         }
-
     },
     beforeUnmount() {
         this.mounted = false;

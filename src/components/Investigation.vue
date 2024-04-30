@@ -34,28 +34,21 @@
     </div>
     <div class="encounter" id="quest" v-if="currentEncounter == 'Quest'">
         <h2>Quest</h2>
-        <p>Quest type: {{ questType }}</p>
-        <p>Quest offerer: {{ questOfferer }}</p>
-        <p>Quest receiver: {{ questReceiver }}</p>
-        <p>Quest region: {{ regionQuest }}</p>
-        <p>Quest region deliver: {{ regionDeliver }}</p>
-        <p>Quest option good: {{ optionGood }}</p>
-        <p>Quest option bad: {{ optionBad }}</p>
-        <p>Quest quest text: {{ questText }}</p>
-        <button @click="optionQuestGood()">Option Good</button>
-        <button @click="optionQuestBad()">Option Bad</button>
-        <button @click="optionQuestDeny()">Deny Quest</button>
-    </div>
-    <div class="encounter" id="activeQuest" v-if="currentEncounter == 'ActiveQuest'">
-        <h2>ActiveQuest</h2>
-        <p>Quest abgeschlossen</p>
-        <p>Quest offerer: {{ questOfferer }}</p>
-        <p>Quest quest text: {{ questText }}</p>
-        <p>Quest reward:  
-            <p v-if="optionPicked == 'Good'">{{ rewardGood }}</p>
-            <p v-if="optionPicked == 'Bad'">{{ rewardBad}}</p>
-        </p>
-        <button @click="changeView(2)">Zurück zur Übersicht</button>
+        <div id="questPicture">
+            <img :src="questOffererPicture"/>
+        </div>
+        <div id="questInfos">
+            <div id="questOfferer">
+                <p>{{ questOffererName }}</p>
+            </div>
+            <div>
+                <p>{{ questOffererText }}</p>
+                <div id="optionButtons"></div>
+                <button v-if="this.questOptionGood == 1" @click="optionQuestGood()">{{ optionGood[2] }} Reward: {{  }}</button>
+                <button v-if="this.questOptionBad == 1" @click="optionQuestBad()">{{ optionBad[2] }}</button>
+                <button v-if="this.questOptionDeny == 1" @click="optionQuestDeny()">{{ optionDeny[2] }}</button>
+            </div>
+        </div>
     </div>
 </div>
 </template>
@@ -75,17 +68,16 @@ export default {
             questName: null,
             questType: null,
             questOfferer: null,
-            questMiddleman: null,
-            questReceiver: null,
-            regionQuest: null,
-            regionDeliver: null,
             optionGood: null,
             optionBad: null,
             optionDeny: null,
             rewardGood: null,
             rewardBad: null,
             rewardDeny: null,
-            optionPicked: null,
+            questText: null,
+            questOffererPicture: null,
+            questOffererName: null,
+            questOffererText: null,
             monsterPicture: "src/assets/img/placeholder.webp",
             monsterName: null,
             monsterType: null,
@@ -98,18 +90,19 @@ export default {
         socket.on("updatePlayer", activePlayer => {
             if (activePlayer.quest != null) {
                 this.questType = activePlayer.quest.questType
-                this.questOfferer = activePlayer.quest.questOfferer
-                this.questMiddleman = activePlayer.quest.questMiddleman
-                this.questReceiver = activePlayer.quest.questReceiver
-                this.regionQuest = activePlayer.quest.regionQuest
-                this.regionDeliver = activePlayer.quest.regionDeliver
-                this.optionGood = activePlayer.quest.optionGood
-                this.optionBad = activePlayer.quest.optionBad
-                this.optionDeny = activePlayer.quest.optionDeny
-                this.rewardGood = activePlayer.quest.rewardGood
-                this.rewardBad = activePlayer.quest.rewardBad
-                this.rewardDeny = activePlayer.quest.rewardDeny
-                this.questMonster = activePlayer.quest.questMonster
+                this.questOfferer = Array.from(activePlayer.quest.questOfferer)
+                this.optionGood = Array.from(activePlayer.quest.optionGood)
+                this.optionBad = Array.from(activePlayer.quest.optionBad)
+                this.optionDeny = Array.from(activePlayer.quest.optionDeny)
+                this.rewardGood = Array.from(activePlayer.quest.rewardGood)
+                this.rewardBad = Array.from(activePlayer.quest.rewardBad)
+                this.rewardDeny = Array.from(activePlayer.quest.rewardDeny)
+                this.questOffererName = this.questOfferer[0]
+                this.questOffererPicture = this.questOfferer[1]
+                this.questOffererText = this.questOfferer[2]
+                this.questOptionGood = this.optionGood[0]
+                this.questOptionBad = this.optionBad[0]
+                this.questOptionDeny = this.optionDeny[0]
             }
         })
         socket.on("updateMonster", activePlayer => {
@@ -129,18 +122,18 @@ export default {
         optionQuestGood() {
             socket.emit("optionQuestGood");
             this.currentEncounter = null;
-            this.changeView(2)
+            this.changeView(5)
 
         },
         optionQuestBad() {
             socket.emit("optionQuestBad");
             this.currentEncounter = null;
-            this.changeView(2)
+            this.changeView(5)
         },
         optionQuestDeny() {
             socket.emit("optionQuestDeny");
             this.currentEncounter = null;
-            this.changeView(2)
+            this.changeView(5)
         },
         changeView(comp) {
             socket.emit("updateView", comp);

@@ -1,12 +1,116 @@
 <template>
 <div class="content single">
-    <h1>Quests</h1>
-    <div>
+    <h1>Quest</h1>
+    <div v-if="questView">
+        <h2>Quest</h2>
+        <div v-if="questStep == 'Deliver'" class="questContent">
+            <div class="questPicture">
+                <img :src="this.questPictureDeliver" />
+            </div>
+            <div class="questInfos">
+                <div class="questName">
+                    <p>{{ questNameDeliver }}</p>
+                </div>
+                <div>
+                    <p v-if="this.optionPicked == 'Good'">{{ questTextDeliverGood }}</p>
+                    <p v-else>{{ questTextDeliverBad }}</p>
+                    <div class="questContinue">
+                        <button @click="this.questReward()">Weiter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="questStep == 'Middleman'" class="questContent">
+            <div class="questPicture">
+                <img :src="this.questPictureMiddleman" />
+            </div>
+            <div class="questInfos">
+                <div class="questName">
+                    <p>{{ questNameMiddleman }}</p>
+                </div>
+                <div>
+                    <p v-if="this.optionPicked == 'Good'">{{ questTextMiddlemanGood }}</p>
+                    <p v-else>{{ questTextMiddlemanBad }}</p>
+                    <div class="questContinue">
+                        <button @click="this.questContinue()">Weiter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="questStep == 'Return'" class="questContent">
+            <div class="questPicture">
+                <img :src="this.questPictureReturn" />
+            </div>
+            <div class="questInfos">
+                <div class="questName">
+                    <p>{{ questNameReturn }}</p>
+                </div>
+                <div>
+                    <p v-if="this.optionPicked == 'Good'">{{ questTextReturnGood }}</p>
+                    <p v-else>{{ questTextReturnBad }}</p>
+                    <div class="questContinue">
+                        <button @click="this.questReward()">Weiter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="questStep == 'Desicion'" class="questContent">
+            <div class="questPicture">
+                <img :src="this.questPictureDeliver" />
+            </div>
+            <div class="questInfos">
+                <div class="questName">
+                    <p>{{ questNameDeliver }}</p>
+                </div>
+                <div>
+                    <p>{{ questTextDeliver }}</p>
+                    <div>
+                        <button @click="this.desicionGood()">{{ questTextChoiceSecondGood }}</button>
+                        <button @click="this.desicionBad()">{{ questTextChoiceSecondBad }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="questStep == 'Fight'" class="questContent">
+            <div class="questPicture">
+                <img :src="this.questPictureMonster" />
+            </div>
+            <div class="questInfos">
+                <div class="questName">
+                    <p>{{ questNameMonster }}</p>
+                </div>
+                <div>
+                    <p>{{ questTextMonster }}</p>
+                    <div class="questContinue">
+                        <button @click="this.questContinueFight()">Kämpfen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="questStep == 'Reward'" class="questContent">
+            <div class="questInfos">
+                <div>
+                    <div>
+                        <img :src="this.treasurePicture" />
+                    </div>
+                    <div>
+                        <p v-if="this.optionPicked == 'Good'">{{ rewardGood }}</p>
+                        <p v-else>{{ rewardBad }}</p>
+                    </div>
+                    <div class="questContinue">
+                        <button @click="this.questComplete()">Weiter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-else>
         <div class="activeQuest" v-if="playerHasQuest">
+            <div class=""></div>
             <p>Quest type: {{ questType }}</p>
             <p>Quest offerer: {{ questOfferer }}</p>
             <p>Quest receiver: {{ questReceiver }}</p>
-            <p>Quest region : {{ regionQuest }}</p>
+            <p>Quest region: {{ regionQuest }}</p>
             <p>Quest region deliver: {{ regionDeliver }}</p>
             <p>Quest option good: {{ optionGood }}</p>
             <p>Quest option bad: {{ optionBad }}</p>
@@ -18,11 +122,6 @@
             <p>Player has no quest</p>
         </div>
     </div>
-    <div>
-        <button @click="this.optionGood()">Good</button>
-        <button @click="this.optionBad()">Bad</button>
-    </div>
-    
 </div>
 </template>
 
@@ -35,40 +134,77 @@ export default {
     data() {
         return {
             playerHasQuest: false,
-            questName: null,
             questType: null,
-            questOfferer: null,
-            questReceiver: null,
             regionQuest: null,
             regionDeliver: null,
-            optionGood: null,
-            optionBad: null,
             rewardGood: null,
             rewardBad: null,
-            questText: null
+            questView: false,
+            questStep: null,
+            optionPicked: null,
+            questPictureDeliver: null,
+            questNameDeliver: null,
+            questTextDeliverGood: null,
+            questTextDeliverBad: null,
+            questPictureMiddleman: null,
+            questNameMiddleman: null,
+            questTextMiddlemanGood: null,
+            questTextMiddlemanBad: null,
+            questPictureReturn: null,
+            questNameReturn: null,
+            questTextReturnGood: null,
+            questTextReturnBad: null,
+            questPictureMonster: null,
+            questNameMonster: null,
+            questTextMonster: null,
+            questTextChoiceSecondGood: null,
+            questTextChoiceSecondBad: null,
         }
     },
     mounted() {
         socket.on("updatePlayer", activePlayer => {
-            if(activePlayer.quest != null) {
+            if (activePlayer.quest != null) {
                 this.playerHasQuest = true
+                this.optionPicked = activePlayer.quest.optionPicked
+                this.questStep = activePlayer.quest.questStep
                 this.questType = activePlayer.quest.questType
-                this.questOfferer = activePlayer.quest.questOfferer
-                this.questReceiver = activePlayer.quest.questReceiver
+                this.questNameDeliver = Object.values(activePlayer.quest.questReceiver)[0]
+                this.questPictureDeliver = Object.values(activePlayer.quest.questReceiver)[1]
+                this.questTextDeliverGood = Object.values(activePlayer.quest.questReceiver)[2]
+                this.questTextDeliverBad = Object.values(activePlayer.quest.questReceiver)[3]
+                this.questNameMiddleman = Object.values(activePlayer.quest.questMiddleman)[0]
+                this.questPictureMiddleman = Object.values(activePlayer.quest.questMiddleman)[1]
+                this.questTextMiddlemanGood = Object.values(activePlayer.quest.questMiddleman)[2]
+                this.questTextMiddlemanBad = Object.values(activePlayer.quest.questMiddleman)[3]
+                this.questNameReturn = Object.values(activePlayer.quest.questReceiver)[0]
+                this.questPictureReturn = Object.values(activePlayer.quest.questReceiver)[1]
+                this.questTextReturnGood = Object.values(activePlayer.quest.questReceiver)[2]
+                this.questTextReturnBad = Object.values(activePlayer.quest.questReceiver)[3]
+                this.questNameMonster = activePlayer.quest.questMonster.name
+                this.questPictureMonster = activePlayer.quest.questMonster.picture
+                this.questTextMonster = activePlayer.quest.questMonsterText
                 this.regionQuest = activePlayer.quest.regionQuest
                 this.regionDeliver = activePlayer.quest.regionDeliver
-                this.optionGood = activePlayer.quest.optionGood
-                this.optionBad = activePlayer.quest.optionBad
+                this.questTextChoiceSecondGood = activePlayer.quest.optionGood
+                this.questTextChoiceSecondBad = activePlayer.quest.optionBad
                 this.rewardGood = activePlayer.quest.rewardGood
                 this.rewardBad = activePlayer.quest.rewardBad
-                this.questText = activePlayer.quest.questText
             }
-
+        })
+        socket.on("changeQuestView", () => {
+            if (this.questView) {
+                this.questView = true
+            } else {
+                this.questView = false
+            }
+        })
+        socket.on("updateQuestDecision", questOption => {
+            if(questOption == "Good"){
+                
+            }
+            else{}
         })
         socket.emit("getActivePlayer")
-        socket.on("updateQuest", (questType, questOption) => {
-            
-        })
     },
     methods: {
         toggleVisibility(elementId) {
@@ -81,12 +217,25 @@ export default {
                 element.classList.add('visible');
             }
         },
-        desicionGood(){
+        desicionGood() {
             socket.emit("decisionGood")
         },
-        desicionBad(){
+        desicionBad() {
             socket.emit("decisionBad")
         },
+        questContinue() {
+            socket.emit("updateView", 2)
+        },
+        questContinueFight() {
+            socket.emit("updateView", 4)
+        },
+        questReward() {
+            this.questStep = "Reward"
+        },
+        questComplete() {
+            socket.emit("questComplete")
+        },
+
     },
     beforeUnmount() {
         this.mounted = false;
