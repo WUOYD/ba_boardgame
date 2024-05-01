@@ -14,7 +14,7 @@ let questTableBronze = [
         questType: "Bronze",
         questOfferer: {
             name: "Bjorn, Jäger",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             text: "Während unserer letzten Jagd wurde eine ungewöhnlich große und gefährliche Bestie gesichtet - ein gigantischer Wolf von beispiellosem Ausmaß. Diese Kreatur hat bereits mehrere unserer erfahrensten Jäger getötet und stellt eine ernsthafte Bedrohung für unser Dorf dar. Finde, diesen übermächtigen Wolf und besiege ihn. Bringe mir einen seiner Reisszähne als Beweis für deine Tat. Für diese gefährliche Aufgabe werde ich dich großzügig belohnen."
         },
         questMiddleman: {
@@ -83,7 +83,7 @@ let questTableBronze = [
         questType: "Bronze",
         questOfferer: {
             name: "Freya, Schmiedin",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             text: "Ich habe eine Waffenlieferung für die Zwerge in Drakan. Bringe sie ihnen, ich werde dir dafür einen Anteil geben."
         },
         questMiddleman: {
@@ -157,7 +157,7 @@ let questTableBronze = [
         questType: "Bronze",
         questOfferer: {
             name: "Grimgar, Dorfbewohner",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             text: "Unser friedliches Dorf wurde von einem anderen Stamm überfallen, einige unserer Häuser wurden abgebrannt und die Nahrungsmittel wurden gestohlen. Aber all das ist nicht so schlimm wie der Verlust des Amulettes meines Vaters. Hilf mir bitte, den Dieb zu fassen und mir das Amulett wieder zu beschaffen, um den Rest dieser abscheulichen Übeltäter kümmern wir uns später."
         },
         questMiddleman: {
@@ -231,7 +231,7 @@ let questTableBronze = [
         questType: "Bronze",
         questOfferer: {
             name: "Hilda, Handwerkerin",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             text: "Ich habe gehört, dass es in Aridora begabte Handwerker gibt, von denen ich neue Fertigkeiten und Möglichkeiten lernen kann, um meine eigene Handwerkskunst zu verbessern. Die Reise über das Meer ist jedoch alleine viel zu gefährlich. Könntest du mich begleiten und mich sicher nach Aridora bringen?"
         },
         questMiddleman: {
@@ -305,7 +305,7 @@ let questTableBronze = [
         questType: "Bronze",
         questOfferer: {
             name: "Leyla",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             text: "Ich verfüge über einige kostbare Edelsteine, die in Drakan benötigt werden, um Waffen zu veredeln. Bringe sie zu den Zwergen, welche in dieser Gegend leben, und tausche sie dort gegen Feueressenz ein. Sobald du die Feueressenz hast, bringe sie zu mir zurück. Ich brauche sie, um meine Schmuckstücke herzustellen."
         },
         questMiddleman: {

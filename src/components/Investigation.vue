@@ -2,12 +2,10 @@
 <div class="content single">
     <h1>Investigation</h1>
     <div class="encounter" id="nothing" v-if="currentEncounter == 'Nothing'">
-        <h2>Nothing</h2>
         <p>Nothing happens...</p>
         <button @click="changeView(2)">Zurück zur Übersicht</button>
     </div>
     <div class="encounter" id="monster" v-if="currentEncounter == 'Monster'">
-        <h2>Monster</h2>
         <img :src="monsterPicture" width="250" height="250" />
         <table>
             <tbody>
@@ -28,25 +26,26 @@
         <button @click="changeView(4)">Kämpfe gegen das Monster</button>
     </div>
     <div class="encounter" id="loot" v-if="currentEncounter == 'Loot'">
-        <h2>Loot</h2>
         <p>Loot XY</p>
         <button @click="changeView(2)">Zurück zur Übersicht</button>
     </div>
     <div class="encounter" id="quest" v-if="currentEncounter == 'Quest'">
-        <h2>Quest</h2>
-        <div id="questPicture">
-            <img :src="questOffererPicture"/>
+        <div class="questPicture">
+            <img :src="questOffererPicture" />
         </div>
-        <div id="questInfos">
-            <div id="questOfferer">
+        <div class="questInfos">
+            <div class="questOfferer">
                 <p>{{ questOffererName }}</p>
             </div>
-            <div>
-                <p>{{ questOffererText }}</p>
-                <div id="optionButtons"></div>
-                <button v-if="this.optionGood.hasOption != 0" @click="optionQuestGood()">{{ this.optionGood.optionText }}</button>
-                <button v-if="this.optionBad.hasOption != 0" @click="optionQuestBad()">{{ this.optionBad.optionText }}</button>
-                <button v-if="this.optionDeny.hasOption != 0" @click="optionQuestDeny()">{{ this.optionDeny.optionText }}</button>
+            <div class="questContent">
+                <div class="questText">
+                    <p>{{ questOffererText }}</p>
+                </div>
+                <div class="optionButtons">
+                    <button v-if="this.optionGood.hasOption != 0" @click="optionQuestGood()">{{ this.optionGood.optionText }}</button>
+                    <button v-if="this.optionBad.hasOption != 0" @click="optionQuestBad()">{{ this.optionBad.optionText }}</button>
+                    <button v-if="this.optionDeny.hasOption != 0" @click="optionQuestDeny()">{{ this.optionDeny.optionText }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -100,8 +99,6 @@ export default {
                 this.questOffererName = activePlayer.quest.questOfferer.name
                 this.questOffererPicture = activePlayer.quest.questOfferer.image
                 this.questOffererText = activePlayer.quest.questOfferer.text
-                console.log(activePlayer.quest.optionGood)
-                console.log(this.optionGood)
             }
         })
         socket.on("updateMonster", activePlayer => {
@@ -147,5 +144,67 @@ export default {
 <style>
 p {
     margin-bottom: 20px;
+}
+
+#quest {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80%;
+}
+
+.questPicture {
+    display: flex;
+    width: 30%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+}
+
+.questPicture img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.questInfos {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding: 2%;
+}
+
+.questOfferer {
+    width: 100%;
+    height: 10%;
+    justify-content: left;
+}
+
+.questOfferer p{
+    font-size: 24px;
+}
+
+.questContent{
+    width: 100%;
+    height: 100%;
+}
+
+.questText{
+    width: 100%;
+    height: 60%
+}
+
+.optionButtons{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 30%;
+}
+
+.optionButtons button{
+    width: 100%;
+    margin: 4px;
 }
 </style>

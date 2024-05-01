@@ -466,7 +466,12 @@ p {
     background-color: #333333;
 }
 
-img {
+.statisticsImage img {
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.buttonCombinationImages img{
     border-radius: 5px;
     margin: 5px;
 }
