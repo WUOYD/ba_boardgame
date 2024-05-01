@@ -25,7 +25,7 @@ let questTableBronze = [
         },
         questReceiver: {
             name: "Bjorn, Jäger",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             textGood: "TextGood",
             textBad: "TextBad"
         },
@@ -36,20 +36,20 @@ let questTableBronze = [
         questRewardGood: {
             reputation: 1,
             gold: 5,
-            move: 0,
-            impact: 0
+            move: "-",
+            impact: "-"
         },
         questRewardBad: {
-            reputation: 0,
-            gold: 0,
-            move: 0,
-            impact: 0
+            reputation: "-",
+            gold: "-",
+            move: "-",
+            impact: "-"
         },
         questRewardDeny: {
-            reputation: 0,
-            gold: 0,
-            move: 0,
-            impact: 0,
+            reputation: "-",
+            gold: "-",
+            move: "-",
+            impact: "-",
         },
         optionGood: {
             hasOption: 1,
@@ -88,13 +88,13 @@ let questTableBronze = [
         },
         questMiddleman: {
             name: "Zwerge",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             textGood: "TextGood",
             textBad: "TextBad"
         },
         questReceiver: {
             name: "Freya, Schmiedin",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             textGood: "TextGood",
             textBad: "TextBad"
         },
@@ -105,20 +105,20 @@ let questTableBronze = [
         questRewardGood: {
             reputation: 1,
             gold: 5,
-            move: 0,
-            impact: 0
+            move: "-",
+            impact: "-"
         },
         questRewardBad: {
             reputation: -1,
             gold: 10,
-            move: 0,
+            move: "-",
             impact: 1
         },
         questRewardDeny: {
-            reputation: 0,
-            gold: 0,
-            move: 0,
-            impact: 0
+            reputation: "-",
+            gold: "-",
+            move: "-",
+            impact: "-"
         },
         optionGood: {
             hasOption: 1,
@@ -168,7 +168,7 @@ let questTableBronze = [
         },
         questReceiver: {
             name: "Grimgar, Dorfbewohner",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             textGood: "TextGood",
             textBad: "TextBad"
         },
@@ -179,20 +179,20 @@ let questTableBronze = [
         questRewardGood: {
             reputation: 1,
             gold: 3,
-            move: 0,
-            impact: 0
+            move: "-",
+            impact: "-"
         },
         questRewardBad: {
-            reputation: 0,
+            reputation: "-",
             gold: 3,
-            move: 0,
-            impact: 0
+            move: "-",
+            impact: "-"
         },
         questRewardDeny: {
-            reputation: 0,
-            gold: 0,
-            move: 0,
-            impact: 0
+            reputation: "-",
+            gold: "-",
+            move: "-",
+            impact: "-"
         },
         optionGood: {
             hasOption: 1,
@@ -242,7 +242,7 @@ let questTableBronze = [
         },
         questReceiver: {
             name: "Max, Handwerker",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             textGood: "TextGood",
             textBad: "TextBad"
         },
@@ -253,20 +253,20 @@ let questTableBronze = [
         questRewardGood: {
             reputation: 1,
             gold: 5,
-            move: 0,
-            impact: 0
+            move: "-",
+            impact: "-"
         },
         questRewardBad: {
             reputation: -1,
-            gold: 0,
-            move: 0,
-            impact: 0
+            gold: "-",
+            move: "-",
+            impact: "-"
         },
         questRewardDeny: {
-            reputation: 0,
-            gold: 0,
-            move: 0,
-            impact: 0
+            reputation: "-",
+            gold: "-",
+            move: "-",
+            impact: "-"
         },
         optionGood: {
             hasOption: 1,
@@ -310,13 +310,13 @@ let questTableBronze = [
         },
         questMiddleman: {
             name: "Zwerge",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             textGood: "TextGood",
             textBad: "TextBad"
         },
         questReceiver: {
             name: "Leyla",
-            image: "Bild",
+            image: "src/assets/img/quest/placeholder_quest.webp",
             textGood: "TextGood",
             textBad: "TextBad"
         },
@@ -327,20 +327,20 @@ let questTableBronze = [
         questRewardGood: {
             reputation: 1,
             gold: 3,
-            move: 0,
-            impact: 0
+            move: "-",
+            impact: "-"
         },
         questRewardBad: {
             reputation: -1,
             gold: 5,
-            move: 0,
-            impact: 0
+            move: "-",
+            impact: "-"
         },
         questRewardDeny: {
-            reputation: 0,
-            gold: 0,
-            move: 0,
-            impact: 0
+            reputation: "-",
+            gold: "-",
+            move: "-",
+            impact: "-"
         },
         optionGood: {
             hasOption: 1,

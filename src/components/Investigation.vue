@@ -42,9 +42,9 @@
                     <p>{{ questOffererText }}</p>
                 </div>
                 <div class="optionButtons">
-                    <button v-if="this.optionGood.hasOption != 0" @click="optionQuestGood()">{{ this.optionGood.optionText }}</button>
-                    <button v-if="this.optionBad.hasOption != 0" @click="optionQuestBad()">{{ this.optionBad.optionText }}</button>
-                    <button v-if="this.optionDeny.hasOption != 0" @click="optionQuestDeny()">{{ this.optionDeny.optionText }}</button>
+                    <button v-if="hasOptionGood == 1" @click="optionQuestGood()">{{ this.optionGood.optionText }}</button>
+                    <button v-if="hasOptionBad == 1" @click="optionQuestBad()">{{ this.optionBad.optionText }}</button>
+                    <button v-if="hasOptionDeny == 1" @click="optionQuestDeny()">{{ this.optionDeny.optionText }}</button>
                 </div>
             </div>
         </div>
@@ -70,6 +70,9 @@ export default {
             optionGood: null,
             optionBad: null,
             optionDeny: null,
+            hasOptionGood: null,
+            hasOptionBad: null,
+            hasOptionDeny: null,
             rewardGood: null,
             rewardBad: null,
             rewardDeny: null,
@@ -93,6 +96,9 @@ export default {
                 this.optionGood = activePlayer.quest.optionGood
                 this.optionBad = activePlayer.quest.optionBad
                 this.optionDeny = activePlayer.quest.optionDeny
+                this.hasOptionGood = activePlayer.quest.optionGood.hasOption
+                this.hasOptionBad = activePlayer.quest.optionBad.hasOption
+                this.hasOptionDeny = activePlayer.quest.optionDeny.hasOption
                 this.rewardGood = activePlayer.quest.rewardGood
                 this.rewardBad = activePlayer.quest.rewardBad
                 this.rewardDeny = activePlayer.quest.rewardDeny
@@ -156,7 +162,6 @@ p {
 .questPicture {
     display: flex;
     width: 30%;
-    height: 100%;
     justify-content: center;
     align-items: center;
     padding: 2%;
@@ -179,7 +184,7 @@ p {
 .questOfferer {
     width: 100%;
     height: 10%;
-    justify-content: left;
+    text-align: left;
 }
 
 .questOfferer p{
@@ -188,23 +193,26 @@ p {
 
 .questContent{
     width: 100%;
-    height: 100%;
+    height: 90%;
 }
 
 .questText{
     width: 100%;
-    height: 60%
+    height: 60%;
+    text-align: left;
 }
 
 .optionButtons{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 30%;
+    height: 40%;
+    justify-content: center;
 }
 
 .optionButtons button{
     width: 100%;
-    margin: 4px;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 </style>

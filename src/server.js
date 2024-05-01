@@ -435,7 +435,7 @@ function startQuest(activePlayer){
 //manage Quest
 function manageQuest(socket, activePlayer){
   if(activePlayer.quest.optionPicked == "Good"){
-    switch(activePlayer.quest.optionGood[1]) {
+    switch(activePlayer.quest.optionGood.optionType) {
       case "Deliver":
         activePlayer.quest.questStep = "Deliver"
         socket.emit("updatePlayer", activePlayer);
@@ -483,7 +483,7 @@ function manageQuest(socket, activePlayer){
     }
   }
   if(activePlayer.quest.optionPicked == "Bad"){
-    switch(activePlayer.quest.optionBad[1]) {
+    switch(activePlayer.quest.optionBad.optionType) {
       case "Deliver":
         activePlayer.quest.questStep = "Deliver"
         socket.emit("updatePlayer", activePlayer);

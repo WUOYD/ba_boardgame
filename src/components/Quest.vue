@@ -1,105 +1,115 @@
 <template>
 <div class="content single">
     <h1>Quest</h1>
-    <div v-if="questView">
+    <div v-if="questView" id="questView">
         <h2>Quest</h2>
-        <div v-if="questStep == 'Deliver'" class="questContent">
+        <div v-if="questStep == 'Deliver'" class="quest">
             <div class="questPicture">
                 <img :src="this.questPictureOfferer" />
             </div>
             <div class="questInfos">
-                <div class="questName">
+                <div class="questOfferer">
                     <p>{{ questNameOfferer }}</p>
                 </div>
-                <div>
-                    <div v-if="optionPicked == 'Good'">
-                        <p>{{ questTextOffererGood }}</p>
+                <div class="questContent">
+                    <div class="questText">
+                        <div v-if="optionPicked == 'Good'">
+                            <p>{{ questTextOffererGood }}</p>
+                        </div>
+                        <div v-else>
+                            <p>{{ questTextOffererBad }}</p> 
+                        </div>
                     </div>
-                    <div v-else>
-                        <p>{{ questTextOffererBad }}</p> 
-                    </div>
-                    <div class="questContinue">
+                    <div class="questButtons">
                         <button @click="this.questReward()">Weiter</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-if="questStep == 'Middleman'" class="questContent">
+        <div v-if="questStep == 'Middleman'" class="quest">
             <div class="questPicture">
                 <img :src="this.questPictureMiddleman" />
             </div>
             <div class="questInfos">
-                <div class="questName">
+                <div class="questOfferer">
                     <p>{{ questNameMiddleman }}</p>
                 </div>
-                <div>
-                    <div v-if="optionPicked == 'Good'">
-                        <p>{{ questTextMiddlemanGood }}</p>
+                <div class="questContent">
+                    <div class="questText">
+                        <div v-if="optionPicked == 'Good'">
+                            <p>{{ questTextMiddlemanGood }}</p>
+                        </div>
+                        <div v-else>
+                            <p>{{ questTextMiddlemanBad }}</p> 
+                        </div>
                     </div>
-                    <div v-else>
-                        <p>{{ questTextMiddlemanBad }}</p> 
-                    </div>
-                    <div class="questContinue">
+                    <div class="questButtons">
                         <button @click="this.questContinue()">Weiter</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-if="questStep == 'Return'" class="questContent">
+        <div v-if="questStep == 'Return'" class="quest">
             <div class="questPicture">
                 <img :src="this.questPictureReceiver" />
             </div>
             <div class="questInfos">
-                <div class="questName">
+                <div class="questOfferer">
                     <p>{{ questNameReceiver }}</p>
                 </div>
-                <div>
-                    <div v-if="optionPicked == 'Good'">
-                        <p>{{ questTextReceiverGood }}</p>
+                <div class="questContent">
+                    <div class="questText">
+                        <div v-if="optionPicked == 'Good'">
+                            <p>{{ questTextReceiverGood }}</p>
+                        </div>
+                        <div v-else>
+                            <p>{{ questTextReceiverBad }}</p> 
+                        </div>
                     </div>
-                    <div v-else>
-                        <p>{{ questTextReceiverBad }}</p> 
-                    </div>
-                    <div class="questContinue">
+                    <div class="questButtons">
                         <button @click="this.questReward()">Weiter</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-if="questStep == 'Desicion'" class="questContent">
+        <div v-if="questStep == 'Desicion'" class="quest">
             <div class="questPicture">
                 <img :src="this.questPictureReceiver" />
             </div>
             <div class="questInfos">
-                <div class="questName">
+                <div class="questOfferer">
                     <p>{{ questNameReceiver }}</p>
                 </div>
-                <div>
-                    <p>{{ questTextReceiver }}</p>
-                    <div>
+                <div class="questContent">
+                    <div class="questText">
+                        <p>{{ questTextReceiver }}</p>
+                    </div>
+                    <div class="questButtons">
                         <button @click="this.desicionGood()">{{ questTextOptionSecondGood }}</button>
                         <button @click="this.desicionBad()">{{ questTextOptionSecondBad }}</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-if="questStep == 'Fight'" class="questContent">
+        <div v-if="questStep == 'Fight'" class="quest">
             <div class="questPicture">
                 <img :src="this.questPictureMonster" />
             </div>
             <div class="questInfos">
-                <div class="questName">
+                <div class="questOfferer">
                     <p>{{ questNameMonster }}</p>
                 </div>
-                <div>
-                    <p>{{ questTextMonster }}</p>
-                    <div class="questContinue">
+                <div class="questContent">
+                    <div class="questText">
+                        <p>{{ questTextMonster }}</p>
+                    </div>
+                    <div class="questButtons">
                         <button @click="this.questContinueFight()">Kämpfen</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-if="questStep == 'Reward'" class="questContent">
+        <div v-if="questStep == 'Reward'" class="quest">
             <div class="questInfos">
                 <div>
                     <div>
@@ -107,17 +117,17 @@
                     </div>
                     <div>
                         <div v-if="this.optionPicked == 'Good'">
-                            <p v-if="rewardGood[0]!=0">{{ rewardGood[0] }} Ehre</p>
-                            <p v-if="rewardGood[1]!=0">{{ rewardGood[1] }} Gold</p>
-                            <p v-if="rewardGood[2]!=0">{{ rewardGood[2] }} Move</p>
+                            <p v-if="rewardGood.reputation!='-'">{{ rewardGood.reputation }} Ehre</p>
+                            <p v-if="rewardGood.gold!='-'">{{ rewardGood.gold }} Gold</p>
+                            <p v-if="rewardGood.move!='-'">{{ rewardGood.move }} Move</p>
                         </div>
                         <div v-else>
-                            <p v-if="rewardBad[0]!=0">{{ rewardBad[0] }} Ehre</p>
-                            <p v-if="rewardBad[1]!=0">{{ rewardBad[1] }} Gold</p>
-                            <p v-if="rewardBad[2]!=0">{{ rewardBad[2] }} Move</p>
+                            <p v-if="rewardBad.reputation!='-'">{{ rewardBad.reputation }} Ehre</p>
+                            <p v-if="rewardBad.gold!='-'">{{ rewardBad.gold }} Gold</p>
+                            <p v-if="rewardBad.move!='-'">{{ rewardBad.move }} Move</p>
                         </div>
                     </div>
-                    <div class="questContinue">
+                    <div class="questButtons">
                         <button @click="this.questComplete()">Weiter</button>
                     </div>
                 </div>
@@ -261,3 +271,74 @@ export default {
     }
 }
 </script>
+
+<style>
+
+#questView{
+    height: 100%;
+}
+
+.quest {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80%;
+}
+
+.questPicture {
+    display: flex;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+}
+
+.questPicture img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.questInfos {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding: 2%;
+}
+
+.questOfferer {
+    width: 100%;
+    height: 10%;
+    text-align: left;
+}
+
+.questOfferer p{
+    font-size: 24px;
+}
+
+.questContent{
+    width: 100%;
+    height: 90%;
+}
+
+.questText{
+    width: 100%;
+    height: 60%;
+    text-align: left;
+}
+
+.questButtons{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 40%;
+    justify-content: center;
+}
+
+.questButtons button{
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+</style>
