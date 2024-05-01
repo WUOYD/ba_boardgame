@@ -127,7 +127,6 @@ export default {
         },
         quest() {
             socket.emit("manageQuest");
-            socket.emit("updateView", 5);
         },
         updateView(comp) {
             socket.emit("updateView", comp);

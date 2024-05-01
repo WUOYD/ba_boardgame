@@ -44,9 +44,9 @@
             <div>
                 <p>{{ questOffererText }}</p>
                 <div id="optionButtons"></div>
-                <button v-if="this.questOptionGood == 1" @click="optionQuestGood()">{{ optionGood[2] }} Reward: {{  }}</button>
-                <button v-if="this.questOptionBad == 1" @click="optionQuestBad()">{{ optionBad[2] }}</button>
-                <button v-if="this.questOptionDeny == 1" @click="optionQuestDeny()">{{ optionDeny[2] }}</button>
+                <button v-if="this.optionGood.hasOption != 0" @click="optionQuestGood()">{{ this.optionGood.optionText }}</button>
+                <button v-if="this.optionBad.hasOption != 0" @click="optionQuestBad()">{{ this.optionBad.optionText }}</button>
+                <button v-if="this.optionDeny.hasOption != 0" @click="optionQuestDeny()">{{ this.optionDeny.optionText }}</button>
             </div>
         </div>
     </div>
@@ -90,19 +90,18 @@ export default {
         socket.on("updatePlayer", activePlayer => {
             if (activePlayer.quest != null) {
                 this.questType = activePlayer.quest.questType
-                this.questOfferer = Array.from(activePlayer.quest.questOfferer)
-                this.optionGood = Array.from(activePlayer.quest.optionGood)
-                this.optionBad = Array.from(activePlayer.quest.optionBad)
-                this.optionDeny = Array.from(activePlayer.quest.optionDeny)
-                this.rewardGood = Array.from(activePlayer.quest.rewardGood)
-                this.rewardBad = Array.from(activePlayer.quest.rewardBad)
-                this.rewardDeny = Array.from(activePlayer.quest.rewardDeny)
-                this.questOffererName = this.questOfferer[0]
-                this.questOffererPicture = this.questOfferer[1]
-                this.questOffererText = this.questOfferer[2]
-                this.questOptionGood = this.optionGood[0]
-                this.questOptionBad = this.optionBad[0]
-                this.questOptionDeny = this.optionDeny[0]
+                this.questOfferer = activePlayer.quest.questOfferer
+                this.optionGood = activePlayer.quest.optionGood
+                this.optionBad = activePlayer.quest.optionBad
+                this.optionDeny = activePlayer.quest.optionDeny
+                this.rewardGood = activePlayer.quest.rewardGood
+                this.rewardBad = activePlayer.quest.rewardBad
+                this.rewardDeny = activePlayer.quest.rewardDeny
+                this.questOffererName = activePlayer.quest.questOfferer.name
+                this.questOffererPicture = activePlayer.quest.questOfferer.image
+                this.questOffererText = activePlayer.quest.questOfferer.text
+                console.log(activePlayer.quest.optionGood)
+                console.log(this.optionGood)
             }
         })
         socket.on("updateMonster", activePlayer => {

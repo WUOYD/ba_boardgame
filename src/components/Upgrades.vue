@@ -77,7 +77,7 @@
                 <div class="player-level">
                     <div class="player-level-icons">
                         <div class="player-level-icon" v-for="(item, index) in clawIcons" :key="index">
-                            <img :src="getImageClaw(item.value,)">
+                            <img :src="getImageClaw(item.value)">
                         </div>
                     </div>
                     <div class="player-level-infos">

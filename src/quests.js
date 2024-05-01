@@ -8,89 +8,374 @@ let questTableGold = [
   
 ];
 
-// Offerer[Name, Picture, Text], Middleman[Name, Picture, Text], Receiver[Name, Picture, Text], Regions[questRegion, questDeliverRegion] questRewardGood[Honor, Gold, Move, Happening], questRewardBad[Honor, Gold, Move, Happening], questRewardDeny[Honor, Gold, Move, Happening], optionGood[hasOption, optionGoodType, optionGoodText], optionBad[hasOption, optionBadType, optionBadText], optionDeny[hasOption, optionDenyType, optionDenyText], Monster, optionGood2[], optionBad2[]
+
 let questTableBronze = [
-    [   
-        "Bronze",
-        ["Bjorn, Jäger", "Bild", "Während unserer letzten Jagd wurde eine ungewöhnlich große und gefährliche Bestie gesichtet - ein gigantischer Wolf von beispiellosem Ausmaß. Diese Kreatur hat bereits mehrere unserer erfahrensten Jäger getötet und stellt eine ernsthafte Bedrohung für unser Dorf dar. Finde, diesen übermächtigen Wolf  und besiege ihn. Bringe mir einen seiner Reisszähne als Beweis für deine Tat. Für diese gefährliche Aufgabe werde ich dich großzügig belohnen."],
-        ["-", "-", "-"],
-        ["Bjorn, Jäger", "Bild", "Text"],
-        "Frostgar", "Frostgar",
-        [1, 5, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0],
-        [1, "ReturnMonster", "Annehmen"],
-        ["-", "-", "-"],
-        [1, "None", "Ablehnen"],
-        [1],
-        "Text",  
-        ["-"],
-        0,
-        0
-    ],
-    [
-        "Bronze",
-        ["Freya, Schmiedin", "Bild", "Ich habe eine Waffenlieferung für die Zwerge in Drakan. Bringe sie ihnen, ich werde dir dafür einen Anteil geben."],
-        ["Zwerge", "Bild", "Text"],
-        ["Freya, Schmiedin", "Bild", "TextGood", "TextBad"],
-        "Frostgar", "Drakan",
-        [1, 5, 0, 0], [-1, 10, 0, 1], [0, 0, 0, 0],
-        [1, "Return", "Abliefern und Gold zurückbringen"],
-        [1, "Deliver", "Abliefern und Gold für sich behalten"],
-        [1, "None", "Ablehnen"],
-        [2],
-        "Text",  
-        ["-"],
-        0,
-        0
-    ],
-    [
-        "Bronze",
-        ["Grimgar, Dorfbewohner", "Bild", "Unser friedliches Dorf wurde von einem anderen Stamm überfallen, einige unserer Häuser wurden abgebrannt und die Nahrungsmittel wurden gestohlen. Aber all das ist nicht so schlimm wie der Verlust des Amulettes meines Vaters. Hilf mir bitte, den Dieb zu fassen und mir das Amulett wieder zu beschaffen, um den Rest dieser abscheulichen Übeltäter kümmern wir uns später."],
-        ["-", "-", "-", "-"],
-        ["Grimgar, Dorfbewohner", "Bild", "TextGood", "TextBad"],
-        "Frostgar", "Frostgar",
-        [1, 3, 0, 0], [0, 3, 0, 0], [0, 0, 0, 0],
-        [1, "ReturnMonster", "Den Dieb finden und das Amulett zurückbringen"],
-        [1, "Fight", "Ablehnen"],
-        ["-", "-", "-"],
-        [3],
-        "Text", 
-        [4],
-        0,
-        0
-    ],
-    [
-        "Bronze",
-        ["Hilda, Handwerkerin", "Bild", "Ich habe gehört, dass es in Aridora begabte Handwerker gibt, von denen ich neue Fertigkeiten und Möglichkeiten lernen kann, um meine eigene Handwerkskunst zu verbessern. Die Reise über das Meer ist jedoch alleine viel zu gefährlich. Könntest du mich begleiten und mich sicher nach Aridora bringen?"],
-        ["-", "-", "-", "-"],
-        ["Max, Handwerker", "Bild", "TextGood", "TextBad"],
-        "Frostgar", "Arida",
-        [1, 5, 0, 0], [-1, 0, 0, 0], [0, 0, 0, 0],
-        [1, "Deliver", "Hilf Hilda"],
-        [1, "End", "Nimm Hilda auf dem Weg ihr Gepäck und ihre Wertsachen ab und lasse sie zurück"],
-        [1, "None", "Ablehnen"],
-        ["-"],
-        "Text",  
-        [5],
-        0,
-        0
-    ],
-    [
-        "Bronze",
-        ["Leyla", "Bild", "Ich verfüge über einige kostbare Edelsteine, die in Drakan benötigt werden, um Waffen zu veredeln. Bringe sie zu den Zwergen,  welche in dieser Gegend leben, und tausche sie dort gegen Feueressenz ein. Sobald du die Feueressenz hast, bringe sie zu mir zurück. Ich brauche sie, um meine Schmuckstücke herzustellen."],
-        ["Zwerge", "Bild", "TextGood", "TextBad"],
-        ["Leyla", "Bild",  "TextGood", "TextBad"],
-        "Frostgar", "Drakan"
-        [1, 3, 0, 0], [-1, 5, 0, 0], [0, 0, 0, 0],
-        [1, "Return", "Hole die Feueressenz"],
-        [1, "Deliver", "Stiehl die Diamanten und verkaufe sie am Hafen von Aridora"],
-        [1, "None", "Ablehnen"],
-        ["-"],
-        "Text", 
-        ["-"],
-        0,
-        0 
-    ]
-]
+    {
+        questType: "Bronze",
+        questOfferer: {
+            name: "Bjorn, Jäger",
+            image: "Bild",
+            text: "Während unserer letzten Jagd wurde eine ungewöhnlich große und gefährliche Bestie gesichtet - ein gigantischer Wolf von beispiellosem Ausmaß. Diese Kreatur hat bereits mehrere unserer erfahrensten Jäger getötet und stellt eine ernsthafte Bedrohung für unser Dorf dar. Finde, diesen übermächtigen Wolf und besiege ihn. Bringe mir einen seiner Reisszähne als Beweis für deine Tat. Für diese gefährliche Aufgabe werde ich dich großzügig belohnen."
+        },
+        questMiddleman: {
+            name: "-",
+            image: "-",
+            textGood: "TextGood",
+            textBad: "TextBad"
+        },
+        questReceiver: {
+            name: "Bjorn, Jäger",
+            image: "Bild",
+            textGood: "TextGood",
+            textBad: "TextBad"
+        },
+        regions: {
+            questRegion: "Frostgar",
+            questDeliverRegion: "Frostgar"
+        },
+        questRewardGood: {
+            reputation: 1,
+            gold: 5,
+            move: 0,
+            impact: 0
+        },
+        questRewardBad: {
+            reputation: 0,
+            gold: 0,
+            move: 0,
+            impact: 0
+        },
+        questRewardDeny: {
+            reputation: 0,
+            gold: 0,
+            move: 0,
+            impact: 0,
+        },
+        optionGood: {
+            hasOption: 1,
+            optionType: "ReturnMonster",
+            optionText: "Annehmen",
+        },
+        optionBad: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-",
+        },
+        optionDeny: {
+            hasOption: 1,
+            optionType: "None",
+            optionText: "Ablehnen"
+        },
+        questMonster: 1,
+        questMonsterText: "Text",
+        optionGoodSecond: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
+        },
+        optionBadSecond: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
+        },
+    },
+    {
+        questType: "Bronze",
+        questOfferer: {
+            name: "Freya, Schmiedin",
+            image: "Bild",
+            text: "Ich habe eine Waffenlieferung für die Zwerge in Drakan. Bringe sie ihnen, ich werde dir dafür einen Anteil geben."
+        },
+        questMiddleman: {
+            name: "Zwerge",
+            image: "Bild",
+            textGood: "TextGood",
+            textBad: "TextBad"
+        },
+        questReceiver: {
+            name: "Freya, Schmiedin",
+            image: "Bild",
+            textGood: "TextGood",
+            textBad: "TextBad"
+        },
+        regions: {
+            questRegion: "Frostgar",
+            questDeliverRegion: "Drakan"
+        },
+        questRewardGood: {
+            reputation: 1,
+            gold: 5,
+            move: 0,
+            impact: 0
+        },
+        questRewardBad: {
+            reputation: -1,
+            gold: 10,
+            move: 0,
+            impact: 1
+        },
+        questRewardDeny: {
+            reputation: 0,
+            gold: 0,
+            move: 0,
+            impact: 0
+        },
+        optionGood: {
+            hasOption: 1,
+            optionType: "Return",
+            optionText: "Abliefern und Gold zurückbringen"
+        },
+        optionBad: {
+            hasOption: 1,
+            optionType: "Deliver",
+            optionText: "Abliefern und Gold für sich behalten"
+        },
+        optionDeny: {
+            hasOption: 1,
+            optionType: "None",
+            optionText: "Ablehnen"
+        },
+        questImpact: {
+            name: "-",
+            image: "-",
+            text: "-"
+        },
+        questMonster: 2,
+        questMonsterText: "Text",
+        optionGoodSecond: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
+        },
+        optionBadSecond: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
+        },
+    },
+    {
+        questType: "Bronze",
+        questOfferer: {
+            name: "Grimgar, Dorfbewohner",
+            image: "Bild",
+            text: "Unser friedliches Dorf wurde von einem anderen Stamm überfallen, einige unserer Häuser wurden abgebrannt und die Nahrungsmittel wurden gestohlen. Aber all das ist nicht so schlimm wie der Verlust des Amulettes meines Vaters. Hilf mir bitte, den Dieb zu fassen und mir das Amulett wieder zu beschaffen, um den Rest dieser abscheulichen Übeltäter kümmern wir uns später."
+        },
+        questMiddleman: {
+            name: "-",
+            image: "-",
+            textGood: "TextGood",
+            textBad: "TextBad"
+        },
+        questReceiver: {
+            name: "Grimgar, Dorfbewohner",
+            image: "Bild",
+            textGood: "TextGood",
+            textBad: "TextBad"
+        },
+        regions: {
+            questRegion: "Frostgar",
+            questDeliverRegion: "Frostgar"
+        },
+        questRewardGood: {
+            reputation: 1,
+            gold: 3,
+            move: 0,
+            impact: 0
+        },
+        questRewardBad: {
+            reputation: 0,
+            gold: 3,
+            move: 0,
+            impact: 0
+        },
+        questRewardDeny: {
+            reputation: 0,
+            gold: 0,
+            move: 0,
+            impact: 0
+        },
+        optionGood: {
+            hasOption: 1,
+            optionType: "ReturnMonster",
+            optionText: "Den Dieb finden und das Amulett zurückbringen"
+        },
+        optionBad: {
+            hasOption: 1,
+            optionType: "Fight",
+            optionText: "Ablehnen"
+        },
+        optionDeny: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
+        },
+        questImpact: {
+            name: "-",
+            image: "-",
+            text: "-"
+        },
+        questMonster: 3,
+        questMonsterText: "Text",
+        optionGoodSecond: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
+        },
+        optionBadSecond: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
+        },
+    },
+    {
+        questType: "Bronze",
+        questOfferer: {
+            name: "Hilda, Handwerkerin",
+            image: "Bild",
+            text: "Ich habe gehört, dass es in Aridora begabte Handwerker gibt, von denen ich neue Fertigkeiten und Möglichkeiten lernen kann, um meine eigene Handwerkskunst zu verbessern. Die Reise über das Meer ist jedoch alleine viel zu gefährlich. Könntest du mich begleiten und mich sicher nach Aridora bringen?"
+        },
+        questMiddleman: {
+            name: "-",
+            image: "-",
+            textGood: "TextGood",
+            textBad: "TextBad"
+        },
+        questReceiver: {
+            name: "Max, Handwerker",
+            image: "Bild",
+            textGood: "TextGood",
+            textBad: "TextBad"
+        },
+        regions: {
+            questRegion: "Frostgar",
+            questDeliverRegion: "Arida"
+        },
+        questRewardGood: {
+            reputation: 1,
+            gold: 5,
+            move: 0,
+            impact: 0
+        },
+        questRewardBad: {
+            reputation: -1,
+            gold: 0,
+            move: 0,
+            impact: 0
+        },
+        questRewardDeny: {
+            reputation: 0,
+            gold: 0,
+            move: 0,
+            impact: 0
+        },
+        optionGood: {
+            hasOption: 1,
+            optionType: "Deliver",
+            optionText: "Hilf Hilda"
+        },
+        optionBad: {
+            hasOption: 1,
+            optionType: "End",
+            optionText: "Nimm Hilda auf dem Weg ihr Gepäck und ihre Wertsachen ab und lasse sie zurück"
+        },
+        optionDeny: {
+            hasOption: 1,
+            optionType: "None",
+            optionText: "Ablehnen"
+        },
+        questImpact: {
+            name: "-",
+            image: "-",
+            text: "-"
+        },
+        questMonster: "-",
+        questMonsterText: "Text",
+        optionGoodSecond: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
+        },
+        optionBadSecond: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
+        },
+    },
+    {
+        questType: "Bronze",
+        questOfferer: {
+            name: "Leyla",
+            image: "Bild",
+            text: "Ich verfüge über einige kostbare Edelsteine, die in Drakan benötigt werden, um Waffen zu veredeln. Bringe sie zu den Zwergen, welche in dieser Gegend leben, und tausche sie dort gegen Feueressenz ein. Sobald du die Feueressenz hast, bringe sie zu mir zurück. Ich brauche sie, um meine Schmuckstücke herzustellen."
+        },
+        questMiddleman: {
+            name: "Zwerge",
+            image: "Bild",
+            textGood: "TextGood",
+            textBad: "TextBad"
+        },
+        questReceiver: {
+            name: "Leyla",
+            image: "Bild",
+            textGood: "TextGood",
+            textBad: "TextBad"
+        },
+        regions: {
+            questRegion: "Frostgar",
+            questDeliverRegion: "Drakan"
+        },
+        questRewardGood: {
+            reputation: 1,
+            gold: 3,
+            move: 0,
+            impact: 0
+        },
+        questRewardBad: {
+            reputation: -1,
+            gold: 5,
+            move: 0,
+            impact: 0
+        },
+        questRewardDeny: {
+            reputation: 0,
+            gold: 0,
+            move: 0,
+            impact: 0
+        },
+        optionGood: {
+            hasOption: 1,
+            optionType: "Return",
+            optionText: "Hole die Feueressenz"
+        },
+        optionBad: {
+            hasOption: 1,
+            optionType: "Deliver",
+            optionText: "Stiehl die Diamanten und verkaufe sie am Hafen von Aridora"
+        },
+        optionDeny: {
+            hasOption: 1,
+            optionType: "None",
+            optionText: "Ablehnen"
+        },
+        questImpact: {
+            name: "-",
+            image: "-",
+            text: "-"
+        },
+        questMonster: "-",
+        questMonsterText: "Text",
+        optionGoodSecond: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
+        },
+        optionBadSecond: {
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
+        },
+    }
+]    
 
 module.exports = {
     questTableBronze,

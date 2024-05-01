@@ -5,15 +5,19 @@
         <h2>Quest</h2>
         <div v-if="questStep == 'Deliver'" class="questContent">
             <div class="questPicture">
-                <img :src="this.questPictureDeliver" />
+                <img :src="this.questPictureOfferer" />
             </div>
             <div class="questInfos">
                 <div class="questName">
-                    <p>{{ questNameDeliver }}</p>
+                    <p>{{ questNameOfferer }}</p>
                 </div>
                 <div>
-                    <p v-if="this.optionPicked == 'Good'">{{ questTextDeliverGood }}</p>
-                    <p v-else>{{ questTextDeliverBad }}</p>
+                    <div v-if="optionPicked == 'Good'">
+                        <p>{{ questTextOffererGood }}</p>
+                    </div>
+                    <div v-else>
+                        <p>{{ questTextOffererBad }}</p> 
+                    </div>
                     <div class="questContinue">
                         <button @click="this.questReward()">Weiter</button>
                     </div>
@@ -29,8 +33,12 @@
                     <p>{{ questNameMiddleman }}</p>
                 </div>
                 <div>
-                    <p v-if="this.optionPicked == 'Good'">{{ questTextMiddlemanGood }}</p>
-                    <p v-else>{{ questTextMiddlemanBad }}</p>
+                    <div v-if="optionPicked == 'Good'">
+                        <p>{{ questTextMiddlemanGood }}</p>
+                    </div>
+                    <div v-else>
+                        <p>{{ questTextMiddlemanBad }}</p> 
+                    </div>
                     <div class="questContinue">
                         <button @click="this.questContinue()">Weiter</button>
                     </div>
@@ -39,15 +47,19 @@
         </div>
         <div v-if="questStep == 'Return'" class="questContent">
             <div class="questPicture">
-                <img :src="this.questPictureReturn" />
+                <img :src="this.questPictureReceiver" />
             </div>
             <div class="questInfos">
                 <div class="questName">
-                    <p>{{ questNameReturn }}</p>
+                    <p>{{ questNameReceiver }}</p>
                 </div>
                 <div>
-                    <p v-if="this.optionPicked == 'Good'">{{ questTextReturnGood }}</p>
-                    <p v-else>{{ questTextReturnBad }}</p>
+                    <div v-if="optionPicked == 'Good'">
+                        <p>{{ questTextReceiverGood }}</p>
+                    </div>
+                    <div v-else>
+                        <p>{{ questTextReceiverBad }}</p> 
+                    </div>
                     <div class="questContinue">
                         <button @click="this.questReward()">Weiter</button>
                     </div>
@@ -56,17 +68,17 @@
         </div>
         <div v-if="questStep == 'Desicion'" class="questContent">
             <div class="questPicture">
-                <img :src="this.questPictureDeliver" />
+                <img :src="this.questPictureReceiver" />
             </div>
             <div class="questInfos">
                 <div class="questName">
-                    <p>{{ questNameDeliver }}</p>
+                    <p>{{ questNameReceiver }}</p>
                 </div>
                 <div>
-                    <p>{{ questTextDeliver }}</p>
+                    <p>{{ questTextReceiver }}</p>
                     <div>
-                        <button @click="this.desicionGood()">{{ questTextChoiceSecondGood }}</button>
-                        <button @click="this.desicionBad()">{{ questTextChoiceSecondBad }}</button>
+                        <button @click="this.desicionGood()">{{ questTextOptionSecondGood }}</button>
+                        <button @click="this.desicionBad()">{{ questTextOptionSecondBad }}</button>
                     </div>
                 </div>
             </div>
@@ -94,8 +106,16 @@
                         <img :src="this.treasurePicture" />
                     </div>
                     <div>
-                        <p v-if="this.optionPicked == 'Good'">{{ rewardGood }}</p>
-                        <p v-else>{{ rewardBad }}</p>
+                        <div v-if="this.optionPicked == 'Good'">
+                            <p v-if="rewardGood[0]!=0">{{ rewardGood[0] }} Ehre</p>
+                            <p v-if="rewardGood[1]!=0">{{ rewardGood[1] }} Gold</p>
+                            <p v-if="rewardGood[2]!=0">{{ rewardGood[2] }} Move</p>
+                        </div>
+                        <div v-else>
+                            <p v-if="rewardBad[0]!=0">{{ rewardBad[0] }} Ehre</p>
+                            <p v-if="rewardBad[1]!=0">{{ rewardBad[1] }} Gold</p>
+                            <p v-if="rewardBad[2]!=0">{{ rewardBad[2] }} Move</p>
+                        </div>
                     </div>
                     <div class="questContinue">
                         <button @click="this.questComplete()">Weiter</button>
@@ -108,15 +128,11 @@
         <div class="activeQuest" v-if="playerHasQuest">
             <div class=""></div>
             <p>Quest type: {{ questType }}</p>
-            <p>Quest offerer: {{ questOfferer }}</p>
-            <p>Quest receiver: {{ questReceiver }}</p>
             <p>Quest region: {{ regionQuest }}</p>
             <p>Quest region deliver: {{ regionDeliver }}</p>
-            <p>Quest option good: {{ optionGood }}</p>
-            <p>Quest option bad: {{ optionBad }}</p>
-            <p>Quest reward good: {{ rewardGood }}</p>
-            <p>Quest reward bad: {{ rewardBad }}</p>
-            <p>Quest quest text: {{ questText }}</p>
+            <p v-if="optionPicked == 'Good'">Quest reward good: {{ rewardGood }}</p>
+            <p v-else>Quest reward bad: {{ rewardBad }}</p>
+            <p>Quest Text: {{ questTextOfferer }}</p>
         </div>
         <div class="activeQuest" v-else>
             <p>Player has no quest</p>
@@ -142,23 +158,22 @@ export default {
             questView: false,
             questStep: null,
             optionPicked: null,
-            questPictureDeliver: null,
-            questNameDeliver: null,
-            questTextDeliverGood: null,
-            questTextDeliverBad: null,
+            questPictureOfferer: null,
+            questNameOfferer: null,
+            questTextOffererGood: null,
             questPictureMiddleman: null,
             questNameMiddleman: null,
             questTextMiddlemanGood: null,
             questTextMiddlemanBad: null,
-            questPictureReturn: null,
-            questNameReturn: null,
-            questTextReturnGood: null,
-            questTextReturnBad: null,
+            questPictureReceiver: null,
+            questNameReceiver: null,
+            questTextReceiverGood: null,
+            questTextReceiverBad: null,
             questPictureMonster: null,
             questNameMonster: null,
             questTextMonster: null,
-            questTextChoiceSecondGood: null,
-            questTextChoiceSecondBad: null,
+            questTextOptionSecondGood: null,
+            questTextOptionSecondBad: null,
         }
     },
     mounted() {
@@ -168,31 +183,34 @@ export default {
                 this.optionPicked = activePlayer.quest.optionPicked
                 this.questStep = activePlayer.quest.questStep
                 this.questType = activePlayer.quest.questType
-                this.questNameDeliver = Object.values(activePlayer.quest.questReceiver)[0]
-                this.questPictureDeliver = Object.values(activePlayer.quest.questReceiver)[1]
-                this.questTextDeliverGood = Object.values(activePlayer.quest.questReceiver)[2]
-                this.questTextDeliverBad = Object.values(activePlayer.quest.questReceiver)[3]
-                this.questNameMiddleman = Object.values(activePlayer.quest.questMiddleman)[0]
-                this.questPictureMiddleman = Object.values(activePlayer.quest.questMiddleman)[1]
-                this.questTextMiddlemanGood = Object.values(activePlayer.quest.questMiddleman)[2]
-                this.questTextMiddlemanBad = Object.values(activePlayer.quest.questMiddleman)[3]
-                this.questNameReturn = Object.values(activePlayer.quest.questReceiver)[0]
-                this.questPictureReturn = Object.values(activePlayer.quest.questReceiver)[1]
-                this.questTextReturnGood = Object.values(activePlayer.quest.questReceiver)[2]
-                this.questTextReturnBad = Object.values(activePlayer.quest.questReceiver)[3]
-                this.questNameMonster = activePlayer.quest.questMonster.name
-                this.questPictureMonster = activePlayer.quest.questMonster.picture
-                this.questTextMonster = activePlayer.quest.questMonsterText
+                this.questNameOfferer = activePlayer.quest.questOfferer.name
+                this.questPictureOfferer = activePlayer.quest.questOfferer.image
+                this.questTextOfferer = activePlayer.quest.questOfferer.text
+                this.questNameMiddleman = activePlayer.quest.questMiddleman.name
+                this.questPictureMiddleman = activePlayer.quest.questMiddleman.image
+                this.questTextMiddlemanGood = activePlayer.quest.questMiddleman.textGood
+                this.questTextMiddlemanBad = activePlayer.quest.questMiddleman.textBad
+                this.questNameReceiver = activePlayer.quest.questReceiver.name
+                this.questPictureReceiver= activePlayer.quest.questReceiver.image
+                this.questTextReceiverGood = activePlayer.quest.questReceiver.textGood
+                this.questTextReceiverBad = activePlayer.quest.questReceiver.textBad
                 this.regionQuest = activePlayer.quest.regionQuest
                 this.regionDeliver = activePlayer.quest.regionDeliver
-                this.questTextChoiceSecondGood = activePlayer.quest.optionGood
-                this.questTextChoiceSecondBad = activePlayer.quest.optionBad
+                this.questTextOptionSecondGood = activePlayer.quest.optionGoodSecond.text
+                this.questTextOptionSecondBad = activePlayer.quest.optionBadSecond.text
                 this.rewardGood = activePlayer.quest.rewardGood
                 this.rewardBad = activePlayer.quest.rewardBad
+
+                //this.questNameMonster = activePlayer.quest.questMonster.name
+                //this.questPictureMonster = activePlayer.quest.questMonster.picture
+                //this.questTextMonster = activePlayer.quest.questMonsterText
+            }
+            else{
+                this.playerHasQuest = false
             }
         })
         socket.on("changeQuestView", () => {
-            if (this.questView) {
+            if (this.questView == false) {
                 this.questView = true
             } else {
                 this.questView = false
@@ -233,6 +251,7 @@ export default {
             this.questStep = "Reward"
         },
         questComplete() {
+            socket.emit("updateView", 2)
             socket.emit("questComplete")
         },
 

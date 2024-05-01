@@ -236,7 +236,7 @@ io.on('connection', (socket) => {
     modifyProbability(lobby[socket.id], "Quest"); 
   });
 
-  socket.on("completeQuest", function() { 
+  socket.on("questComplete", function() { 
     completeQuest(lobby[socket.id])
     socket.emit("updatePlayer", lobby[socket.id]);
   });
@@ -309,13 +309,13 @@ function getRandomMonster(round){
 
 function initQuests(){
   for (let i = 0; i < questTableBronze.length; i++){
-    questsBronze[i] = new Quest(questTableBronze[i][0], questTableBronze[i][1], questTableBronze[i][2], questTableBronze[i][3], questTableBronze[i][4], questTableBronze[i][5], questTableBronze[i][6], questTableBronze[i][7], questTableBronze[i][8], questTableBronze[i][9], questTableBronze[i][10], questTableBronze[i][11], questTableBronze[i][12], questTableBronze[i][13], questTableBronze[i][14], questTableBronze[i][15]);
+    questsBronze[i] = new Quest(questTableBronze[i].questType, questTableBronze[i].questOfferer, questTableBronze[i].questMiddleman, questTableBronze[i].questReceiver, questTableBronze[i].regions.questRegion, questTableBronze[i].regions.questDeliverRegion, questTableBronze[i].questRewardGood, questTableBronze[i].questRewardBad, questTableBronze[i].questRewardDeny, questTableBronze[i].optionGood, questTableBronze[i].optionBad, questTableBronze[i].optionDeny, questTableBronze[i].questMonster, questTableBronze[i].questMonsterText, questTableBronze[i].questImpact, questTableBronze[i].optionGoodSecond, questTableBronze[i].optionBadSecond);
   }
   for (let i = 0; i < questTableSilver.length; i++){
-    questsSilver[i] = new Quest(questTableSilver[i][0], questTableSilver[i][1], questTableSilver[i][2], questTableSilver[i][3], questTableSilver[i][4], questTableSilver[i][5], questTableSilver[i][6], questTableSilver[i][7], questTableSilver[i][8], questTableSilver[i][9], questTableSilver[i][10], questTableSilver[i][11], questTableSilver[i][12], questTableSilver[i][13], questTableSilver[i][14], questTableSilver[i][15]);
+    questsSilver[i] = new Quest(questTableSilver[i].questType, questTableSilver[i].questOfferer, questTableSilver[i].questMiddleman, questTableSilver[i].questReceiver, questTableSilver[i].regions.questRegion, questTableSilver[i].regions.questDeliverRegion, questTableSilver[i].questRewardGood, questTableSilver[i].questRewardBad, questTableSilver[i].questRewardDeny, questTableSilver[i].optionGood, questTableSilver[i].optionBad, questTableSilver[i].optionDeny, questTableSilver[i].questMonster, questTableSilver[i].questMonsterText, questTableSilver[i].questImpact, questTableSilver[i].optionGoodSecond, questTableSilver[i].optionBadSecond);
   } 
   for (let i = 0; i < questTableGold.length; i++){
-    questsGold[i] = new Quest(questTableGold[i][0], questTableGold[i][1], questTableGold[i][2], questTableGold[i][3], questTableGold[i][4], questTableGold[i][5], questTableGold[i][6], questTableGold[i][7], questTableGold[i][8], questTableGold[i][9], questTableGold[i][10], questTableGold[i][11], questTableGold[i][12], questTableGold[i][13], questTableGold[i][14], questTableGold[i][15]);
+    questsGold[i] = new Quest(questTableGold[i].questType, questTableGold[i].questOfferer, questTableGold[i].questMiddleman, questTableGold[i].questReceiver, questTableGold[i].regions.questRegion, questTableGold[i].regions.questDeliverRegion, questTableGold[i].questRewardGood, questTableGold[i].questRewardBad, questTableGold[i].questRewardDeny, questTableGold[i].optionGood, questTableGold[i].optionBad, questTableGold[i].optionDeny, questTableGold[i].questMonster, questTableGold[i].questMonsterText, questTableGold[i].questImpact, questTableGold[i].optionGoodSecond, questTableGold[i].optionBadSecond);
   }  
 }
 
@@ -470,6 +470,7 @@ function manageQuest(socket, activePlayer){
       case "ReturnMonster":
         if(activePlayer.quest.questFlag == false){
           activePlayer.quest.questFlag = true
+          activePlayer.quest.questStep = "ReturnMonster"
           let activeMonster = Object.assign({}, monsterTableQuests[activePlayer.quest.questMonster]);
           startFight(activePlayer, activeMonster);
           socket.emit("updatePlayer", activePlayer);
@@ -479,47 +480,63 @@ function manageQuest(socket, activePlayer){
           socket.emit("updatePlayer", activePlayer);
         }
         break;
-      case "ReturnDecision":
-        // Code for "ReturnDecision" option
-        break;
-      case "Fight":
-        // Code for "Fight" option
-        break;
     }
   }
   if(activePlayer.quest.optionPicked == "Bad"){
     switch(activePlayer.quest.optionBad[1]) {
       case "Deliver":
-        // Code for "Deliver" option
+        activePlayer.quest.questStep = "Deliver"
+        socket.emit("updatePlayer", activePlayer);
         break;
       case "DeliverMonster":
-        // Code for "DeliverMonster" option
-        break;
-      case "DeliverDecision":
-        // Code for "DeliverDecision" option
+        activePlayer.quest.questStep = "Fight"
+        let activeMonster = Object.assign({}, monsterTableQuests[activePlayer.quest.questMonster]);
+        startFight(activePlayer, activeMonster);
+        socket.emit("updatePlayer", activePlayer);
         break;
       case "Return":
-        // Code for "Return" option
+        if(activePlayer.quest.questFlag == false){
+          activePlayer.quest.questFlag = true
+          activePlayer.quest.questStep = "Middleman"
+          socket.emit("updatePlayer", activePlayer);
+        }
+        else{
+          activePlayer.quest.questStep = "Return"
+          socket.emit("updatePlayer", activePlayer);
+        }
         break;
       case "ReturnMonster":
-        // Code for "ReturnMonster" option
-        break;
-      case "ReturnDecision":
-        // Code for "ReturnDecision" option
-        break;
-      case "Fight":
-        // Code for "Fight" option
+        if(activePlayer.quest.questFlag == false){
+          activePlayer.quest.questFlag = true
+          let activeMonster = Object.assign({}, monsterTableQuests[activePlayer.quest.questMonster]);
+          startFight(activePlayer, activeMonster);
+          socket.emit("updatePlayer", activePlayer);
+        }
+        else{
+          activePlayer.quest.questStep = "Return"
+          socket.emit("updatePlayer", activePlayer);
+        }
         break;
     }
   }
 }
 
-function completeQuest(){
+function completeQuest(activePlayer){
   if(activePlayer.quest.optionPicked == "Good"){
-    activePlayer.gold += activePlayer.quest.rewardGood[0]
-    activePlayer.reputation += activePlayer.quest.rewardGood[1]
-    activePlayer.health += activePlayer.quest.rewardGood[2]
-    activePlayer.victoryPoints += activePlayer.quest.rewardGood[3];
+    activePlayer.reputation += activePlayer.quest.rewardGood[0]
+    activePlayer.gold += activePlayer.quest.rewardGood[1]
+    //activePlayer.moves += activePlayer.quest.rewardGood[3];
+    //activePlayer.victoryPoints += activePlayer.quest.rewardGood[3];
+    activePlayer.questsSolved += 1;
+    activePlayer.probability.questProbability = 0.2;
+    activePlayer.quest = null;
+    return
+  }
+  else{
+    activePlayer.reputation += activePlayer.quest.rewardBad[0]
+    activePlayer.gold += activePlayer.quest.rewardBad[1]
+    //activePlayer.moves += activePlayer.quest.rewardGood[3];
+    //activePlayer.victoryPoints += activePlayer.quest.rewardGood[3];
     activePlayer.questsSolved += 1;
     activePlayer.probability.questProbability = 0.2;
     activePlayer.quest = null;
