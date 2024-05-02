@@ -49,7 +49,8 @@ class Player {
     this.reflect = 0;
     this.damageNextRound = 0;
     this.picture = "src/assets/img/player/player.webp";
-    this.moves = [[1,[]],[1,[]],[1,[]],[1,[]],[1,[]],[,[]]];
+    //SwordSword, SwordMagic, MagicMagic, MagicSkull, SkullSkull, SkullClaw
+    this.moves = [[1,[]],[1,[]],[1,[]],[1,[]],[1,[]],[1,[]]];
     this.clawLevel = 1;
     this.skullLevel = 1;
     this.magicLevel = 1;
@@ -64,7 +65,7 @@ class Player {
 }
 
 class Monster {
-  constructor(name, type, victoryPoints, health, rewardGold, picture, moves) {
+  constructor(name, type, health, rewardGold, victoryPoints, image, moves) {
     this.name = name;
     this.type = type;
     this.health = health;
@@ -74,7 +75,7 @@ class Monster {
     this.dot = 0;
     this.reflect = 0;
     this.damageNextRound = 0;
-    this.picture = picture;
+    this.image = image;
     this.moves = moves;
   }
 }
@@ -287,13 +288,13 @@ initGame();
 
 function initMonsters(){
   for (let i = 0; i < monsterTableBronze.length; i++){
-    monstersBronze[i] = new Monster(monsterTableBronze[i][0], monsterTableBronze[i][1], monsterTableBronze[i][2], monsterTableBronze[i][3], monsterTableBronze[i][4], monsterTableBronze[i][5], monsterTableBronze[i][6]);
+    monstersBronze[i] = new Monster(monsterTableBronze[i].name, monsterTableBronze[i].type, monsterTableBronze[i].health, monsterTableBronze[i].gold, monsterTableBronze[i].victoryPoints, monsterTableBronze[i].image, monsterTableBronze[i].moves);
   }
   for (let i = 0; i < monsterTableSilver.length; i++){
-    monstersSilver[i] = new Monster(monsterTableSilver[i][0], monsterTableSilver[i][1], monsterTableSilver[i][2], monsterTableSilver[i][3], monsterTableSilver[i][4], monsterTableSilver[i][5], monsterTableBronze[i][6]);
+    monstersSilver[i] = new Monster(monsterTableSilver[i].name, monsterTableSilver[i].type, monsterTableSilver[i].health, monsterTableSilver[i].gold, monsterTableSilver[i].victoryPoints, monsterTableSilver[i].image, monsterTableSilver[i].moves);
   } 
   for (let i = 0; i < monsterTableGold.length; i++){
-    monstersGold[i] = new Monster(monsterTableGold[i][0], monsterTableGold[i][1], monsterTableGold[i][2], monsterTableGold[i][3], monsterTableGold[i][4], monsterTableGold[i][5], monsterTableGold[i][6]);
+    monstersGold[i] = new Monster(monsterTableGold[i].name, monsterTableGold[i].type, monsterTableGold[i].health, monsterTableGold[i].gold, monsterTableGold[i].victoryPoints, monsterTableGold[i].image, monsterTableGold[i].moves);
   }
   for (let i = 0; i < monsterTableGold.length; i++){
     questMonsters[i] = new Monster(monsterTableQuests[i][0], monsterTableQuests[i][1], monsterTableQuests[i][2], monsterTableQuests[i][3], monsterTableQuests[i][4], monsterTableQuests[i][5], monsterTableQuests[i][6]);

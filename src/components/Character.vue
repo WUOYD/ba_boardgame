@@ -40,10 +40,10 @@
     </div>
     <div id="movesPlayer">
         <div v-for="(option, index) in optionsPlayer" :key="index" class="movesCombinationPlayer">
-            <div class="movesPlayerLeft">
+            <div class="movesContentLeft">
                 <div class="movesImages">
-                    <img :src="moveImages[index][0]" width="48" height="48" />
-                    <img :src="moveImages[index][1]" width="48" height="48" />
+                    <img :src="moveImages[index][0]" width="100" height="100" />
+                    <img :src="moveImages[index][1]" width="100" height="100" />
                 </div>
             </div>
             <div class="movesContentRight">
@@ -120,16 +120,16 @@ export default {
             this.playerMagicLevel = activePlayer.magicLevel;
             this.playerSkullLevel = activePlayer.skullLevel;
             this.moveNamePlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].name
-            this.moveNamePlayer[1] = this.movesTableCombinationMagicMagic[activePlayer.moves[1][0]].name
-            this.moveNamePlayer[2] = this.movesTableCombinationSkullSkull[activePlayer.moves[2][0]].name
-            this.moveNamePlayer[3] = this.movesTableCombinationSwordMagic[activePlayer.moves[3][0]].name
-            this.moveNamePlayer[4] = this.movesTableCombinationMagicSkull[activePlayer.moves[4][0]].name
-            this.moveNamePlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].name
             this.moveTextPlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].text
-            this.moveTextPlayer[1] = this.movesTableCombinationMagicMagic[activePlayer.moves[1][0]].text
-            this.moveTextPlayer[2] = this.movesTableCombinationSkullSkull[activePlayer.moves[2][0]].text
-            this.moveTextPlayer[3] = this.movesTableCombinationSwordMagic[activePlayer.moves[3][0]].text
-            this.moveTextPlayer[4] = this.movesTableCombinationMagicSkull[activePlayer.moves[4][0]].text
+            this.moveNamePlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].name
+            this.moveTextPlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].text
+            this.moveNamePlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].name
+            this.moveTextPlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].text
+            this.moveNamePlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].name
+            this.moveTextPlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].text
+            this.moveNamePlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].name
+            this.moveTextPlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].text
+            this.moveNamePlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].name
             this.moveTextPlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].text
         })
         socket.emit("getMovesTables");
@@ -206,9 +206,11 @@ td p {
     flex-basis: calc(50% - 5px);
     box-sizing: border-box;
     padding: 5px;
-    background-color: #6b6b6b;
+    background-color: rgba(50, 50, 50, 0.2);
     border-radius: 10px;
     height: 120px;
+    display: flex;
+    flex-direction: row;
 }
 
 #movesPlayer .movesCombinationPlayer:nth-child(even) {
@@ -221,14 +223,46 @@ td p {
     justify-content: flex-end;
 }
 
-#movesPlayer .moveName {
-    width: 50%;
-    justify-content: flex-start;
-    font-size: 20px;
-}
-
 #movesPlayer img {
     border-radius: 5px;
     margin: 5px;
 }
+
+.movesContentLeft{
+    width: 50%;
+    height: 100%;
+    align-items: center;
+}
+
+.movesContentRight{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.movesImages{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.moveName{
+    display: flex;
+    width: 100%;
+    height: 50%;
+    font-size: 20px;
+    align-items: center;
+}
+
+.moveText{
+    display: flex;
+    width: 100%;
+    height: 50%;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+}
+
 </style>

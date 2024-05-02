@@ -7,7 +7,7 @@ let movesTableCombinationSwordSword = {
       heal: 0,
       dot: 0,
       reflect: 0,
-      aftereffect: 0,
+      damageNextRound: 0,
   }
 }
 
@@ -20,7 +20,7 @@ let movesTableCombinationSwordMagic = {
       heal: 0,
       dot: 0,
       reflect: 0,
-      aftereffect: 0,
+      damageNextRound: 0,
   }
 }
 
@@ -33,7 +33,7 @@ let movesTableCombinationMagicMagic = {
       heal: 0,
       dot: 0,
       reflect: 0,
-      aftereffect: 0,
+      damageNextRound: 0,
   }
 }
 
@@ -46,7 +46,7 @@ let movesTableCombinationMagicSkull = {
       heal: 0,
       dot: 0,
       reflect: 0,
-      aftereffect: 0,
+      damageNextRound: 0,
   }
 }
 
@@ -59,7 +59,7 @@ let movesTableCombinationSkullSkull = {
       heal: 0,
       dot: 0,
       reflect: 0,
-      aftereffect: 0,
+      damageNextRound: 0,
   }
 }
 
@@ -72,7 +72,7 @@ let movesTableCombinationSwordSkull = {
       heal: 0,
       dot: 0,
       reflect: 0,
-      aftereffect: 0,
+      damageNextRound: 0,
   }
 }
 
