@@ -38,41 +38,20 @@
             </tbody>
         </table>
     </div>
-    <div id="combinationPlayer">
-        <div v-for="(option, index) in optionsPlayer" :key="index" class="combinationPlayer">
-            <div class="playerTop">
-                <div class="playerImages">
-                    <img :src="combinationImages[index][0]" width="48" height="48" />
-                    <img :src="combinationImages[index][1]" width="48" height="48" />
-                </div>
-                <div class="playerName">
-                    {{ combinationNamePlayer[index] }}
+    <div id="movesPlayer">
+        <div v-for="(option, index) in optionsPlayer" :key="index" class="movesCombinationPlayer">
+            <div class="movesPlayerLeft">
+                <div class="movesImages">
+                    <img :src="moveImages[index][0]" width="48" height="48" />
+                    <img :src="moveImages[index][1]" width="48" height="48" />
                 </div>
             </div>
-            <div class="playerBottom">
-                <div class="playerLittle">
-                    <div>Schaden</div>
-                    <div>{{ combinationDamagePlayer[index] }}</div>
+            <div class="movesContentRight">
+                <div class="moveName">
+                    {{ moveNamePlayer[index] }}
                 </div>
-                <div class="playerLittle">
-                    <div>Block</div>
-                    <div>{{ combinationBlockPlayer[index] }}</div>
-                </div>
-                <div class="playerLittle">
-                    <div>Heilen</div>
-                    <div>{{ combinationHealPlayer[index] }}</div>
-                </div>
-                <div class="playerLittle">
-                    <div>Dot</div>
-                    <div>{{ combinationDotPlayer[index] }}</div>
-                </div>
-                <div class="playerBig">
-                    <div>Reflektieren</div>
-                    <div>{{ combinationReflectPlayer[index] }}</div>
-                </div>
-                <div class="playerBig">
-                    <div>Nachwirkung</div>
-                    <div>{{ combinationDamageNextRoundPlayer[index] }}</div>
+                <div class="moveText">
+                    {{ moveTextPlayer[index] }}
                 </div>
             </div>
         </div>
@@ -93,15 +72,10 @@ export default {
             playerHealth: null,
             playerReputation: null,
             playerGold: null,
-            combinationNamePlayer: ["", "", "", "", "", ""],
-            combinationDamagePlayer: ["", "", "", "", "", ""],
-            combinationBlockPlayer: ["", "", "", "", "", ""],
-            combinationHealPlayer: ["", "", "", "", "", ""],
-            combinationDotPlayer: ["", "", "", "", "", ""],
-            combinationReflectPlayer: ["", "", "", "", "", ""],
-            combinationDamageNextRoundPlayer: ["", "", "", "", "", ""],
+            moveNamePlayer: ["", "", "", "", "", ""],
+            moveTextPlayer: ["", "", "", "", "", ""],
             optionsPlayer: [1, 2, 3, 4, 5, 6],
-            combinationImages: [
+            moveImages: [
                 ["src/assets/icons/claw.png", "src/assets/icons/claw.png"],
                 ["src/assets/icons/claw.png", "src/assets/icons/magic.png"],
                 ["src/assets/icons/magic.png", "src/assets/icons/magic.png"],
@@ -115,9 +89,23 @@ export default {
             playerClawLevel: 0,
             playerMagicLevel: 0,
             playerSkullLevel: 0,
+            movesTableCombinationSwordSword: null, 
+            movesTableCombinationMagicMagic: null, 
+            movesTableCombinationSkullSkull: null, 
+            movesTableCombinationSwordMagic: null, 
+            movesTableCombinationMagicSkull: null, 
+            movesTableCombinationSwordSkull: null,
         }
     },
     mounted() {
+        socket.on("setMovesTables", movesTables => {
+            this.movesTableCombinationSwordSword = movesTables.movesTableCombinationSwordSword
+            this.movesTableCombinationMagicMagic = movesTables.movesTableCombinationMagicMagic
+            this.movesTableCombinationSkullSkull = movesTables.movesTableCombinationSkullSkull
+            this.movesTableCombinationSwordMagic = movesTables.movesTableCombinationSwordMagic
+            this.movesTableCombinationMagicSkull = movesTables.movesTableCombinationMagicSkull
+            this.movesTableCombinationSwordSkull = movesTables.movesTableCombinationSwordSkull
+        })
         socket.on("updatePlayer", activePlayer => {
             this.playerName = activePlayer.name;
             this.playerPicture = activePlayer.picture;
@@ -131,17 +119,20 @@ export default {
             this.playerClawLevel = activePlayer.clawLevel;
             this.playerMagicLevel = activePlayer.magicLevel;
             this.playerSkullLevel = activePlayer.skullLevel;
-            for (let i = 0; i < 6; i++) {
-                this.combinationNamePlayer[i] = activePlayer.moves[i][0];
-                this.combinationDamagePlayer[i] = activePlayer.moves[i][1] + activePlayer.clawLevel;
-                this.combinationBlockPlayer[i] = activePlayer.moves[i][2] + activePlayer.magicLevel;
-                this.combinationHealPlayer[i] = activePlayer.moves[i][3];
-                this.combinationDotPlayer[i] = activePlayer.moves[i][4];
-                this.combinationReflectPlayer[i] = activePlayer.moves[i][5];
-                this.combinationDamageNextRoundPlayer[i] = activePlayer.moves[i][6];
-            }
-
+            this.moveNamePlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].name
+            this.moveNamePlayer[1] = this.movesTableCombinationMagicMagic[activePlayer.moves[1][0]].name
+            this.moveNamePlayer[2] = this.movesTableCombinationSkullSkull[activePlayer.moves[2][0]].name
+            this.moveNamePlayer[3] = this.movesTableCombinationSwordMagic[activePlayer.moves[3][0]].name
+            this.moveNamePlayer[4] = this.movesTableCombinationMagicSkull[activePlayer.moves[4][0]].name
+            this.moveNamePlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].name
+            this.moveTextPlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].text
+            this.moveTextPlayer[1] = this.movesTableCombinationMagicMagic[activePlayer.moves[1][0]].text
+            this.moveTextPlayer[2] = this.movesTableCombinationSkullSkull[activePlayer.moves[2][0]].text
+            this.moveTextPlayer[3] = this.movesTableCombinationSwordMagic[activePlayer.moves[3][0]].text
+            this.moveTextPlayer[4] = this.movesTableCombinationMagicSkull[activePlayer.moves[4][0]].text
+            this.moveTextPlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].text
         })
+        socket.emit("getMovesTables");
         socket.emit("getActivePlayer");
     },
     methods: {},
@@ -204,14 +195,14 @@ td p {
     font-size: 16px;
 }
 
-#combinationPlayer {
+#movesPlayer {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     /* Adding gap between the divs */
 }
 
-#combinationPlayer .combinationPlayer {
+#movesPlayer .movesCombinationPlayer {
     flex-basis: calc(50% - 5px);
     box-sizing: border-box;
     padding: 5px;
@@ -220,92 +211,24 @@ td p {
     height: 120px;
 }
 
-#combinationPlayer .combinationPlayer:nth-child(even) {
+#movesPlayer .movesCombinationPlayer:nth-child(even) {
     margin-right: 0px;
     /* Adding right margin for even-numbered divs */
 }
 
-#combinationPlayer .playerTop,
-#combinationPlayer .playerBottom {
-    width: 100%;
-    height: 6rem;
-    display: flex;
-    flex-direction: row;
-}
-
-#combinationPlayer .playerImages {
+#movesPlayer .moveImages {
     width: 50%;
     justify-content: flex-end;
 }
 
-#combinationPlayer .playerName {
+#movesPlayer .moveName {
     width: 50%;
     justify-content: flex-start;
     font-size: 20px;
 }
 
-#combinationPlayer .playerBottom {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-#combinationPlayer .playerBottom .playerLittle {
-    width: 14%;
-}
-
-#combinationPlayer .playerBig {
-    width: 22%;
-}
-
-#combinationPlayer img {
+#movesPlayer img {
     border-radius: 5px;
     margin: 5px;
-}
-
-.upgrade-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.gold-section {
-    margin-bottom: 20px;
-}
-
-.upgrade-options,
-.player-levels {
-    display: flex;
-    width: 100%;
-}
-
-.upgrade-option {
-    width: 33.3333%;
-    text-align: center;
-    justify-content: center;
-}
-
-.upgrade-option img {
-    width: 200px;
-    height: 200px;
-}
-
-.upgrade-option button {
-    margin-top: 10px;
-}
-
-.upgrade-buttons,
-.upgrade-costs {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 10px;
-}
-
-.button-option,
-.gold-required,
-.player-level {
-    width: 33.3333%
 }
 </style>

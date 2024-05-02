@@ -1,6 +1,7 @@
 //import
 const monsterTables = require("./monsters.js");
 const questTables = require("./quests.js");
+const moveTables = require("./moves.js");
 
 // Express Setup
 const express = require('express');
@@ -22,6 +23,7 @@ let questsGold = [];
 
 const { monsterTableBronze, monsterTableSilver, monsterTableGold, monsterTableQuests } = monsterTables;
 const { questTableBronze, questTableSilver, questTableGold } = questTables;
+const { movesTableCombinationSwordSword, movesTableCombinationMagicMagic, movesTableCombinationSkullSkull, movesTableCombinationSwordMagic, movesTableCombinationMagicSkull, movesTableCombinationSwordSkull, } = moveTables;
 
 // Classes
 class Game {
@@ -47,14 +49,7 @@ class Player {
     this.reflect = 0;
     this.damageNextRound = 0;
     this.picture = "src/assets/img/player/player.webp";
-    this.moves = [
-      ["Leicheter Hieb", 1, 0, 0, 0, 0, 0],
-      ["Gedeckter Angriff", 1, 1, 0, 0, 0, 0],
-      ["Schildwall", 0, 3, 0, 0, 0, 0],
-      ["Magischer Schild", 0, 3, 0, 0, 0, 0],
-      ["Magisches Eis", 2, 1, 0, 0, 0, 0],
-      ["Schwerer Hieb", 2, 0, 0, 0, 0, 0]
-    ];
+    this.moves = [[1,[]],[1,[]],[1,[]],[1,[]],[1,[]],[,[]]];
     this.clawLevel = 1;
     this.skullLevel = 1;
     this.magicLevel = 1;
@@ -160,6 +155,11 @@ io.on('connection', (socket) => {
   socket.on("getActiveMonster", function() {
     socket.emit("updateMonster", lobby[socket.id]);
   });
+
+  socket.on("getMovesTables", function() {
+    socket.emit("setMovesTables", moveTables);
+  });
+  
 
   // Upgrades
   socket.on("upgradeClaw", function() {
@@ -362,7 +362,7 @@ function investigate(activePlayer){
   }
   else if(encounter == "Loot"){
     activePlayer.goldLoot = generateLoot();
-    activePlayer.gold += goldLoot;
+    activePlayer.gold += activePlayer.goldLoot;
   }
   else if(encounter == "Quest"){
     startQuest(activePlayer);
@@ -569,6 +569,12 @@ function diceRollPlayer(socket, activePlayer, rollPlayer) {
   socket.emit("updatePlayer", activePlayer);
   socket.emit("updateMonster", activePlayer);
   if (winner) {
+    activePlayer.monstersKilled += 1;
+    activePlayer.victoryPoints += activeMonster.victoryPoints;
+    activePlayer.gold += activeMonster.rewardGold;
+    activePlayer.dot = 0;
+    activePlayer.reflect = 0;
+    activePlayer.damageNextRound = 0;
     socket.emit("fightWinner", true)
     return
   }
@@ -588,10 +594,39 @@ function diceRollMonster(socket, activePlayer, rollMonster) {
 
 
 function fightPlayer(activePlayer, activeMonster, playerRoll){
-  let playerDamage = activePlayer.moves[playerRoll-1][1];
+  let move
+  let moveIndex
+  switch (playerRoll){
+    case 1:
+      moveIndex = activePlayer.moves[1][1]
+      move = movesTableCombinationSwordSword[moveIndex]
+      break
+    case 2:
+      moveIndex = activePlayer.moves[2][1]
+      move = movesTableCombinationSwordMagic[moveIndex]
+      break
+    case 3:
+      moveIndex = activePlayer.moves[3][1]
+      move = movesTableCombinationMagicMagic[moveIndex]
+      break
+    case 4:
+      moveIndex = activePlayer.moves[4][1]
+      move = movesTableCombinationMagicSkull[moveIndex]
+      break
+    case 5:
+      moveIndex = activePlayer.moves[5][1]
+      move = movesTableCombinationSkullSkull[moveIndex]
+      break
+    case 6:
+      moveIndex = activePlayer.moves[6][1]
+      move = movesTableCombinationMagicSkull[moveIndex]
+      break
+  }
+  let playerDamage = move.damage;
+  
   //dot
-  if(activePlayer.moves[playerRoll-1][4] > activePlayer.dot){
-    activePlayer.dot = activePlayer.moves[playerRoll-1][4]
+  if(move.dot > activePlayer.dot){
+    activePlayer.dot = move.dot
   }
   if(activePlayer.dot > 0){
     playerDamage += activePlayer.dot
@@ -615,9 +650,10 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
     }
   }
   //apply damage next round
-  if(activePlayer.moves[playerRoll-1][6] > 0){
-    activePlayer.damageNextRound = activePlayer.moves[playerRoll-1][6];
+  if(move.damageNextRound > 0){
+    activePlayer.damageNextRound = move.damageNextRound ;
   }
+
   // reflect 
   if(activeMonster.reflect > 0){
     if(playerDamage >= activeMonster.reflect){
@@ -631,19 +667,13 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
   }
   
   //apply heal
-  activePlayer.health += activePlayer.moves[playerRoll-1][3]
+  activePlayer.health += move.health
   // set blocks
-  activePlayer.blocks = activePlayer.moves[playerRoll-1][2]
+  activePlayer.blocks = move.block
   //reflect
-  activePlayer.reflect = activePlayer.moves[playerRoll-1][5]
+  activePlayer.reflect = move.reflect
   //check for win
   if(activeMonster.health <= 0){
-    activePlayer.monstersKilled += 1;
-    activePlayer.victoryPoints += activeMonster.victoryPoints;
-    activePlayer.gold += activeMonster.rewardGold;
-    activePlayer.dot = 0;
-    activePlayer.reflect = 0;
-    activePlayer.damageNextRound = 0;
     return true
   }
   return false
