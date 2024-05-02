@@ -45,7 +45,7 @@
             <img :src="imageChangeIsland"/>
             <p>Insel wechseln</p>
         </div>
-        <div class="action" @click="heal()">
+        <div v-if="playerHealth != 10" class="action" @click="heal()">
             <img :src="imageHeal"/>
             <p>Heilen</p>
         </div>
@@ -93,8 +93,6 @@ export default {
             else{
                 this.playerHasQuest = false
             }
-        })
-        socket.on("updatePlayer", activePlayer => {
             this.generateCells(parseInt(activePlayer.actions))
         })
         socket.emit("getActivePlayer");
@@ -123,9 +121,11 @@ export default {
             socket.emit("updateView", 3);
         },
         heal() {
+            socket.emit("updateActions");
             socket.emit("healPlayer");
         },
         quest() {
+            socket.emit("updateActions");
             socket.emit("manageQuest");
         },
         updateView(comp) {
@@ -143,10 +143,11 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .action {
-    width: 33.3333%;
+    width: calc(100%/5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -242,7 +243,6 @@ export default {
 #playerHealth {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
 }
 

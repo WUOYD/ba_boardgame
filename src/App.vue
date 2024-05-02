@@ -1,6 +1,7 @@
 <script setup>
 import Titlescreen from './components/Titlescreen.vue'
 import Header from './components/Header.vue'
+import HeaderEmpty from './components/HeaderEmpty.vue'
 import Footer from './components/Footer.vue'
 import Actions from './components/Actions.vue'
 import Character from './components/Character.vue'
@@ -16,7 +17,8 @@ import Upgrades from './components/Upgrades.vue'
 
 <template>
 <Titlescreen v-if="title" />
-<component :is="Header"></component>
+<component :is="Header" v-if="comp == 'Map' || comp == 'Character' || comp == 'Quest' || comp == 'Options' || comp == 'Upgrades' || comp == 'MapOverview'"></component>
+<component :is="HeaderEmpty" v-else></component>
 <component :is="comp"></component>
 <Footer />
 </template>
@@ -42,6 +44,7 @@ export default {
   data() {
     return {
       comp: "",
+      header: "",
       title: true
     }
   },

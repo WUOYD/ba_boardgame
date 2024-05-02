@@ -543,8 +543,7 @@ td {
     left: 25%;
     width: 50%;
     height: 50%;
-    background-color: rgba(19, 7, 33, 0.9);
-    z-index: 999;
+    background-color: rgba(71, 15, 15, 0.9);
     overflow: auto;
     padding: 20px;
     border-radius: 25px;
@@ -556,7 +555,7 @@ td {
     left: 25%;
     width: 50%;
     height: 50%;
-    background-color: rgba(19, 7, 33, 0.9);
+    background-color: rgba(71, 15, 15, 0.9);
     z-index: 999;
     overflow: auto;
     padding: 20px;

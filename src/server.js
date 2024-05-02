@@ -38,6 +38,7 @@ class Player {
     this.health = 10;
     this.reputation = 0;
     this.gold = 20;
+    this.goldLoot = 0;
     this.monstersKilled = 0;
     this.questsSolved = 0;
     this.victoryPoints = 0;
@@ -151,14 +152,6 @@ io.on('connection', (socket) => {
     socket.emit('updateClientView', comp);
   });
 
-  socket.on("diceRollPlayer", (rollPlayer) => {
-    diceRollPlayer(socket, lobby[socket.id], rollPlayer); 
-  });
-
-  socket.on("diceRollMonster", (rollMonster) => {
-    diceRollMonster(socket, lobby[socket.id], rollMonster); 
-  });
-
   // Get Active Player
   socket.on("getActivePlayer", function() {
     socket.emit("updatePlayer", lobby[socket.id]);
@@ -241,10 +234,30 @@ io.on('connection', (socket) => {
     socket.emit("updatePlayer", lobby[socket.id]);
   });
 
-  // Change Region
-  socket.on("healPlayer", function() { 
-    lobby[socket.id].health = lobby[socket.id].health + ((10-lobby[socket.id].health)/2 + 2)
+  socket.on("updateActions", function() { 
+    lobby[socket.id].actions -= 1;
     socket.emit("updatePlayer", lobby[socket.id]);
+  });
+
+  // heal player
+  socket.on("healPlayer", function() {
+    if(lobby[socket.id].health <= 8) {
+      lobby[socket.id].health = lobby[socket.id].health + ((10-lobby[socket.id].health)/2 + 2)
+    }
+    else if(lobby[socket.id].health == 9){
+      lobby[socket.id].health = lobby[socket.id].health + 1
+    }
+    else{}
+    socket.emit("updatePlayer", lobby[socket.id]);
+  });
+
+  // Dice roll
+  socket.on("diceRollPlayer", (rollPlayer) => {
+    diceRollPlayer(socket, lobby[socket.id], rollPlayer); 
+  });
+
+  socket.on("diceRollMonster", (rollMonster) => {
+    diceRollMonster(socket, lobby[socket.id], rollMonster); 
   });
 
 
@@ -348,7 +361,8 @@ function investigate(activePlayer){
     startFight(activePlayer, activeMonster);
   }
   else if(encounter == "Loot"){
-    generateLoot(activePlayer);
+    activePlayer.goldLoot = generateLoot();
+    activePlayer.gold += goldLoot;
   }
   else if(encounter == "Quest"){
     startQuest(activePlayer);
@@ -740,8 +754,19 @@ function changeRegion(activePlayer, region){
   }
 }
 
-function generateLoot(activePlayer){
-  return
+function generateLoot(){
+  let gold
+  if(game.round == 1){
+    gold = randomNumber(1,2)
+  }
+  else if(game.round == 2){
+    gold = randomNumber(2,3)
+  }
+  else if(game.round == 3){
+    gold = randomNumber(3,4)
+  }
+  else{}
+  return gold
 }
 
  //help functions

@@ -1,7 +1,6 @@
 <template>
     <div id="header">
       <div class="menu-wrapper">
-        <div class="menu-item" id="character" @click="updateView(2)"><p>Zurück</p></div>
       </div>
     </div>
 </template>

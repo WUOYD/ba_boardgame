@@ -51,11 +51,13 @@
         </div>
         <div v-if="questStep == 'Return'" class="quest">
             <div class="questPicture">
-                <img :src="this.questPictureReceiver" />
+                <img v-if="this.optionPicked == 'Good'" :src="this.questPictureReceiverGood" />
+                <img v-if="this.optionPicked == 'Bad'" :src="this.questPictureReceiverBad" />
             </div>
             <div class="questInfos">
                 <div class="questOfferer">
-                    <p>{{ questNameReceiver }}</p>
+                    <p v-if="this.optionPicked == 'Good'">{{ questNameReceiverGood }}</p>
+                    <p v-else>{{ questNameReceiverBad }}</p>
                 </div>
                 <div class="questContent">
                     <div class="questText">
@@ -200,8 +202,10 @@ export default {
                 this.questPictureMiddleman = activePlayer.quest.questMiddleman.image
                 this.questTextMiddlemanGood = activePlayer.quest.questMiddleman.textGood
                 this.questTextMiddlemanBad = activePlayer.quest.questMiddleman.textBad
-                this.questNameReceiver = activePlayer.quest.questReceiver.name
-                this.questPictureReceiver= activePlayer.quest.questReceiver.image
+                this.questNameReceiverGood = activePlayer.quest.questReceiver.nameGood
+                this.questNameReceiverBad = activePlayer.quest.questReceiver.nameBad
+                this.questPictureReceiverGood= activePlayer.quest.questReceiver.imageGood
+                this.questPictureReceiverBad= activePlayer.quest.questReceiver.imageBad
                 this.questTextReceiverGood = activePlayer.quest.questReceiver.textGood
                 this.questTextReceiverBad = activePlayer.quest.questReceiver.textBad
                 this.regionQuest = activePlayer.quest.regionQuest

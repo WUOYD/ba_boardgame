@@ -26,7 +26,8 @@
         <button @click="changeView(4)">Kämpfe gegen das Monster</button>
     </div>
     <div class="encounter" id="loot" v-if="currentEncounter == 'Loot'">
-        <p>Loot XY</p>
+        <img :src="src/assets/img/misc/treasure.webp" />
+        <p>Du hast {{ goldLoot }} Gold gefunden</p>
         <button @click="changeView(2)">Zurück zur Übersicht</button>
     </div>
     <div class="encounter" id="quest" v-if="currentEncounter == 'Quest'">
@@ -83,6 +84,7 @@ export default {
             monsterPicture: "src/assets/img/placeholder.webp",
             monsterName: null,
             monsterType: null,
+            goldLoot: null
         }
     },
     mounted() {
@@ -105,6 +107,7 @@ export default {
                 this.questOffererName = activePlayer.quest.questOfferer.name
                 this.questOffererPicture = activePlayer.quest.questOfferer.image
                 this.questOffererText = activePlayer.quest.questOfferer.text
+                this.goldLoot = activePlayer.goldLoot
             }
         })
         socket.on("updateMonster", activePlayer => {
@@ -215,4 +218,19 @@ p {
     margin-top: 1%;
     margin-bottom: 1%;
 }
+
+table {
+    margin-bottom: 10px;
+}
+
+td p{
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+tr {
+    height: 40px;
+}
+
+
 </style>

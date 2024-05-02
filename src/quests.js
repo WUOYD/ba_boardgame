@@ -24,7 +24,7 @@ let questTableBronze = [
             textBad: "TextBad"
         },
         questReceiver: {
-            name: "Bjorn, Jäger",
+            nameGood: "Bjorn, Jäger",
             image: "src/assets/img/quest/placeholder_quest.webp",
             textGood: "TextGood",
             textBad: "TextBad"
