@@ -50,7 +50,7 @@ class Player {
     this.damageNextRound = 0;
     this.picture = "src/assets/img/player/player.webp";
     //SwordSword, SwordMagic, MagicMagic, MagicSkull, SkullSkull, SkullClaw
-    this.moves = [[1,[]],[1,[]],[1,[]],[1,[]],[1,[]],[1,[]]];
+    this.moves = [[1,[2,3,4,5]],[1,[2,3]],[1,[2,3]],[1,[2,3]],[1,[2,3]],[1,[2,3]]];
     this.clawLevel = 1;
     this.skullLevel = 1;
     this.magicLevel = 1;
@@ -160,7 +160,23 @@ io.on('connection', (socket) => {
   socket.on("getMovesTables", function() {
     socket.emit("setMovesTables", moveTables);
   });
+
+  socket.on("getChangeMoves", function() {
+    socket.emit("updateChangeMoves", lobby[socket.id]);
+  });
   
+  socket.on("changeMove", function(data) {
+    let index = data.moveIndextoChange -1
+    let indexNew = data.moveIndexNew
+    lobby[socket.id].moves[index][1].push(lobby[socket.id].moves[index][0])
+    let indexRemove = lobby[socket.id].moves[index][1].indexOf(indexNew);
+    if (indexRemove !== -1) {
+      lobby[socket.id].moves[index][1].splice(indexRemove, 1);
+    }
+    lobby[socket.id].moves[index][0] = indexNew;
+    socket.emit("updatePlayer", lobby[socket.id]);
+    socket.emit("updateChangeMoves", lobby[socket.id]);
+  });
 
   // Upgrades
   socket.on("upgradeClaw", function() {
@@ -599,28 +615,28 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
   let moveIndex
   switch (playerRoll){
     case 1:
-      moveIndex = activePlayer.moves[1][1]
+      moveIndex = activePlayer.moves[0][0]
       move = movesTableCombinationSwordSword[moveIndex]
       break
     case 2:
-      moveIndex = activePlayer.moves[2][1]
+      moveIndex = activePlayer.moves[1][0]
       move = movesTableCombinationSwordMagic[moveIndex]
       break
     case 3:
-      moveIndex = activePlayer.moves[3][1]
+      moveIndex = activePlayer.moves[2][0]
       move = movesTableCombinationMagicMagic[moveIndex]
       break
     case 4:
-      moveIndex = activePlayer.moves[4][1]
+      moveIndex = activePlayer.moves[3][0]
       move = movesTableCombinationMagicSkull[moveIndex]
       break
     case 5:
-      moveIndex = activePlayer.moves[5][1]
+      moveIndex = activePlayer.moves[4][0]
       move = movesTableCombinationSkullSkull[moveIndex]
       break
     case 6:
-      moveIndex = activePlayer.moves[6][1]
-      move = movesTableCombinationMagicSkull[moveIndex]
+      moveIndex = activePlayer.moves[5][0]
+      move = movesTableCombinationSwordSkull[moveIndex]
       break
   }
   let playerDamage = move.damage;
@@ -647,7 +663,7 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
       activeMonster.blocks = 0;
     }
     else{
-      activeMonster.health = activeMonster.health -  playerDamage;
+      activeMonster.health = activeMonster.health - playerDamage;
     }
   }
   //apply damage next round
@@ -668,7 +684,7 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
   }
   
   //apply heal
-  activePlayer.health += move.health
+  activePlayer.health += move.heal
   // set blocks
   activePlayer.blocks = move.block
   //reflect
@@ -682,11 +698,12 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
  
  function fightMonster(activePlayer, activeMonster, monsterRoll){
   //apply damage
-  let monsterDamage = activeMonster.moves[monsterRoll-1][1];
+  let moveIndex = monsterRoll-1
+  let monsterDamage = activeMonster.moves[moveIndex].damage;
 
   //dot
-  if(activeMonster.moves[monsterRoll-1][4] > 0){
-    activeMonster.dot = activeMonster.moves[monsterRoll-1][4]
+  if(activeMonster.moves[monsterRoll-1].dot > 0){
+    activeMonster.dot = activeMonster.moves[moveIndex].dot
   }
   if(activeMonster.dot > 0){
     monsterDamage += activeMonster.dot
@@ -709,8 +726,8 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
     }
   }
   //apply damage next round
-  if(activeMonster.moves[monsterRoll-1][6] > 0){
-    activeMonster.damageNextRound = activeMonster.moves[monsterRoll-1][6];
+  if(activeMonster.moves[moveIndex].damageNextRound > 0){
+    activeMonster.damageNextRound = activeMonster.moves[moveIndex].damageNextRound;
   }
   // reflect 
   if(activePlayer.reflect > 0){
@@ -724,11 +741,11 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
     }
   }
   //apply heal
-  activeMonster.health += activeMonster.moves[monsterRoll-1][3]
+  activeMonster.health += activeMonster.moves[moveIndex].heal
   // set blocks
-  activeMonster.blocks = activeMonster.moves[monsterRoll-1][2]
+  activeMonster.blocks = activeMonster.moves[moveIndex].block
   //reflect
-  activeMonster.reflect = activeMonster.moves[monsterRoll-1][5]
+  activeMonster.reflect = activeMonster.moves[moveIndex].reflect
   //check for win
   if(activePlayer.health <= 0){
     return true

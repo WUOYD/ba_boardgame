@@ -19,112 +19,78 @@
     <h1>Fight</h1>
     <div id="statistics">
         <div id="playerStatistics">
-            <h2>Player</h2>
             <div class="staticticsContent">
-                <div class="statisticsImage">
-                    <img :src="playerPicture" width="250" height="250" />
-                </div>
                 <div class="statisticsTable">
                     <table>
+                        <h2>{{ playerName }}</h2>
                         <tbody>
                             <tr>
-                                <th>Name</th>
-                                <td>
-                                    <p>{{ playerName }}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Actions</th>
-                                <td>
-                                    <p>{{ playerActions }}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Health</th>
+                                <th>Leben</th>
                                 <td>
                                     <p>{{ playerHealth }}</p>
                                 </td>
                             </tr>
                             <tr>
-                                <th>Blocks</th>
+                                <th>Block</th>
                                 <td>
                                     <p>{{ playerBlocks }}</p>
                                 </td>
                             </tr>
-                            <th>Dot</th>
-                            <td>
-                                <p>{{ playerDot }}</p>
-                            </td>
                             <tr>
-                                <th>Reflect</th>
+                                <th>Reflektieren</th>
                                 <td>
                                     <p>{{ playerReflect }}</p>
                                 </td>
                             </tr>
                             <tr>
-                                <th>Damage next Round</th>
+                                <th>Zusatzschaden</th>
                                 <td>
-                                    <p>{{ playerDamageNextRound }}</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div id="monsterStatistics">
-            <h2>Monster</h2>
-            <div class="staticticsContent">
-                <div class="statisticsTable">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Name</th>
-                                <td>
-                                    <p>{{ monsterName }}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Typ</th>
-                                <td>
-                                    <p>{{ monsterType }}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Health</th>
-                                <td>
-                                    <p>{{ monsterHealth }}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Blocks</th>
-                                <td>
-                                    <p>{{ monsterBlocks }}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Dot</th>
-                                <td>
-                                    <p>{{ monsterDot }}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Reflect</th>
-                                <td>
-                                    <p>{{ monsterReflect }}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Damage next Round</th>
-                                <td>
-                                    <p>{{ monsterDamageNextRound }}</p>
+                                    <p>{{ playerDot + playerDamageNextRound }}</p>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="statisticsImage">
+                    <img :src="playerPicture" width="250" height="250" />
+                </div>
+            </div>
+        </div>
+        <div id="monsterStatistics">
+            <div class="staticticsContent">
+                <div class="statisticsImage">
                     <img :src="monsterImage" width="250" height="250" />
+                </div>
+                <div class="statisticsTable">
+                    <h2>{{ monsterName }}</h2>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Leben</th>
+                                <td>
+                                    <p>{{ monsterHealth }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Block</th>
+                                <td>
+                                    <p>{{ monsterBlocks }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Reflektieren</th>
+                                <td>
+                                    <p>{{ monsterReflect }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Zusatzschaden</th>
+                                <td>
+                                    <p>{{ monsterDot + monsterDamageNextRound }}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -380,7 +346,6 @@ p {
     flex-basis: calc(50% - 5px);
     box-sizing: border-box;
     padding: 5px;
-    background-color: rgba(50, 50, 50, 0.2);
     display: flex;
     flex-direction: row;
 }
@@ -447,12 +412,13 @@ p {
     display: flex;
     flex-direction: row;
     width: 100%;
-    background-color: transparent !important;
+    background-color: rgba(50, 50, 50, 0.2);
     border: none;
+    border-radius: 5px;
 }
 
 .selected {
-    background-color: rgba(50, 50, 50, 1) !important;
+    background-color: rgba(50, 50, 50, 0.8) !important;
 }
 
 .statisticsImage img {
@@ -505,11 +471,11 @@ p {
 td {
     width: 50%;
     border-bottom: #333333 dotted 1px;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .statisticsTable td p {
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .hidden {

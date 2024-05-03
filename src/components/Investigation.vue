@@ -6,7 +6,7 @@
         <button @click="changeView(2)">Zurück zur Übersicht</button>
     </div>
     <div class="encounter" id="monster" v-if="currentEncounter == 'Monster'">
-        <img :src="monsterPicture" width="250" height="250" />
+        <img :src="monsterImage" width="250" height="250" />
         <table>
             <tbody>
                 <tr>
@@ -26,7 +26,7 @@
         <button @click="changeView(4)">Kämpfe gegen das Monster</button>
     </div>
     <div class="encounter" id="loot" v-if="currentEncounter == 'Loot'">
-        <img :src="src/assets/img/misc/treasure.webp" />
+        <img :src="imageTreasure" />
         <p>Du hast {{ goldLoot }} Gold gefunden</p>
         <button @click="changeView(2)">Zurück zur Übersicht</button>
     </div>
@@ -61,6 +61,7 @@ import {
 export default {
     data() {
         return {
+            imageTreasure: "src/assets/img/misc/treasure.webp",
             imageChangeIsland: "/src/assets/img/changeIsland.png",
             imageInvestigate: "/src/assets/img/investigate.png",
             imageMove: "/src/assets/img/move.png",
@@ -81,7 +82,7 @@ export default {
             questOffererPicture: null,
             questOffererName: null,
             questOffererText: null,
-            monsterPicture: "src/assets/img/placeholder.webp",
+            monsterImage: "src/assets/img/placeholder.webp",
             monsterName: null,
             monsterType: null,
             goldLoot: null
@@ -113,7 +114,7 @@ export default {
         socket.on("updateMonster", activePlayer => {
             if (activePlayer.fight != null) {
                 this.monsterName = activePlayer.fight.activeMonster.name;
-                this.monsterPicture = activePlayer.fight.activeMonster.picture;
+                this.monsterImage = activePlayer.fight.activeMonster.image;
                 this.monsterType = activePlayer.fight.activeMonster.type;
             }
         })

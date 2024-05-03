@@ -1,40 +1,57 @@
 <template>
 <div class="content single">
     <h1>Upgrades</h1>
-    <button id="backButton" class="hidden" @click="changeViewAbility(7)">Back</button>
-    <div id="buttons" class="visible">
-        <button v-if="currentView == 'abilities'">Fähigkeiten</button>
-        <button v-if="currentView == 'equipment'" @click="toggleView()">Fähigkeiten</button>
-        <button v-if="currentView == 'equipment'">Ausrüstung</button>
-        <button v-if="currentView == 'abilities'" @click="toggleView()">Ausrüstung</button>
+    <div v-if="this.currentView === 'abilities' || this.currentView === 'equipment'" id="buttons">
+        <button v-if="this.currentView === 'abilities'">Fähigkeiten</button>
+        <button v-else @click="this.currentView = 'abilities'">Fähigkeiten</button>
+        <button v-if="this.currentView === 'equipment'">Ausrüstung</button>
+        <button v-else @click="this.currentView = 'equipment'">Ausrüstung</button>
     </div>
-    <div id="abilities" class="visible">
+    <div id="abilities" v-if="currentView === 'abilities'">
         <h2>Fähigkeiten</h2>
         <div class="gold-section">
             <p>Gold: {{ playerGold }}</p>
         </div>
         <div id="movesPlayer">
-        <div v-for="(option, index) in optionsPlayer" :key="index" class="movesCombinationPlayer">
-            <div class="movesContentLeft">
-                <div class="movesImages">
-                    <img :src="moveImages[index][0]" width="64" height="64" />
-                    <img :src="moveImages[index][1]" width="64" height="64" />
+            <div v-for="index in optionsPlayer" :key="index" class="movesCombinationPlayer" @click="changeMove(index)">
+                <div class="movesContentLeft">
+                    <div class="movesImages">
+                        <img :src="moveImages[index - 1][0]" width="64" height="64" />
+                        <img :src="moveImages[index - 1][1]" width="64" height="64" />
+                    </div>
                 </div>
-            </div>
-            <div class="movesContentRight">
-                <div class="moveName">
-                    {{ moveNamePlayer[index] }}
-                </div>
-                <div class="moveText">
-                    {{ moveTextPlayer[index] }}
+                <div class="movesContentRight">
+                    <div class="moveName">
+                        {{ moveNamePlayer[index - 1] }}
+                    </div>
+                    <div class="moveText">
+                        {{ moveTextPlayer[index - 1] }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="hidden" id="upgradeAbility">
-    </div>
-    </div>
-    <div id="equipment" class="hidden">
+    <div v-if="moveIndexChange !== null && currentView === 'changeMoveSection'" id="changeMoveSection">
+                <button @click="updateView(7)">Zurück</button>
+                <p>Aktuelle Fähigkeit</p>
+                <div id="changeMoveInfos">
+                    <div id="changeMoveImages">
+                        <img :src="moveImages[moveIndexChange-1][0]" width="64" height="64" />
+                        <img :src="moveImages[moveIndexChange-1][1]" width="64" height="64" />
+                    </div>
+                    <div id="changeMoveCurrent">
+                        <p>{{ moveNamePlayer[moveIndexChange-1] }}</p>
+                        <p>{{ moveTextPlayer[moveIndexChange-1] }}</p>
+                    </div>
+                </div>
+                <div id="changeMoveAvailable">
+                    <div v-for="(move, index) in changeMovesAvailable" :key="index" class="movesAvailablePlayer" @click="changeMoveToCurrent(move[0])">
+                        <p>{{ move[1] }}</p>
+                        <p>{{ move[2] }}</p>
+                    </div>
+                </div>
+            </div>
+    <div v-if="currentView === 'equipment'" id="equipment" >
         <div class="upgrade-section">
             <div class="gold-section">
                 <p>Gold: {{ playerGold }}</p>
@@ -52,8 +69,9 @@
                     </div>
                     <div class="upgradeButtons">
                         <button @click="upgradeClaw()">
-                            <p>{{ playerClawLevel*3}} Gold</p> 
-                            <p>Upgrade Claw</p></button>
+                            <p>{{ playerClawLevel * 3 }} Gold</p>
+                            <p>Upgrade Claw</p>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -70,7 +88,7 @@
                     </div>
                     <div class="upgradeButtons">
                         <button @click="upgradeMagic()">
-                            <p>{{ playerMagicLevel*3}} Gold </p> 
+                            <p>{{ playerMagicLevel * 3 }} Gold </p>
                             <p>Upgrade Magic</p>
                         </button>
                     </div>
@@ -89,8 +107,9 @@
                     </div>
                     <div class="upgradeButtons">
                         <button @click="upgradeSkull()">
-                            <p>{{ playerSkullLevel*3}} Gold </p> 
-                            <p>Upgrade Skull</p></button>
+                            <p>{{ playerSkullLevel * 3 }} Gold </p>
+                            <p>Upgrade Skull</p>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -108,14 +127,6 @@ export default {
     data() {
         return {
             currentView: 'abilities',
-            activeAbility: 'none',
-            combinationImagesUpgrade: 'none',
-            combinationNamePlayerUpgrade: 'none',
-            combinationTextPlayerUpgrade: 'none',
-            playerName: null,
-            playerActions: null,
-            playerHealth: null,
-            playerReputation: null,
             playerGold: null,
             moveNamePlayer: ["", "", "", "", "", ""],
             moveTextPlayer: ["", "", "", "", "", ""],
@@ -131,42 +142,47 @@ export default {
             playerClawLevel: 0,
             playerMagicLevel: 0,
             playerSkullLevel: 0,
-            clawIcons: [
-                { value: false },
-                { value: false },
-                { value: false },
-                { value: false }
-            ],
+            clawIcons: [{
+                value: false
+            }, {
+                value: false
+            }, {
+                value: false
+            }, {
+                value: false
+            }],
             imagePathsClaw: {
                 trueImage: "src/assets/icons/claw.png",
                 falseImage: "src/assets/icons/clawGray.png"
             },
-            magicIcons: [
-                { value: false },
-                { value: false },
-                { value: false },
-                { value: false }
-            ],
+            magicIcons: [{
+                value: false
+            }, {
+                value: false
+            }, {
+                value: false
+            }, {
+                value: false
+            }],
             imagePathsMagic: {
                 trueImage: "src/assets/icons/magic.png",
                 falseImage: "src/assets/icons/magicGray.png"
             },
-            skullIcons: [
-                { value: false },
-                { value: false },
-                { value: false },
-                { value: false }
-            ],
+            skullIcons: [{
+                value: false
+            }, {
+                value: false
+            }, {
+                value: false
+            }, {
+                value: false
+            }],
             imagePathsSkull: {
                 trueImage: "src/assets/icons/skull.png",
                 falseImage: "src/assets/icons/skullGray.png"
             },
-            movesTableCombinationSwordSword: null, 
-            movesTableCombinationMagicMagic: null, 
-            movesTableCombinationSkullSkull: null, 
-            movesTableCombinationSwordMagic: null, 
-            movesTableCombinationMagicSkull: null, 
-            movesTableCombinationSwordSkull: null,
+            changeMovesAvailable: [],
+            moveIndexChange: null,
         }
     },
     mounted() {
@@ -203,66 +219,91 @@ export default {
             this.moveTextPlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].text
             this.moveNamePlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].name
             this.moveTextPlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].text
-            for(let i = 0; i < this.playerClawLevel; i++){
+            for (let i = 0; i < this.playerClawLevel; i++) {
                 this.clawIcons[i].value = true;
             }
-            for(let i = 0; i < this.playerMagicLevel; i++){
+            for (let i = 0; i < this.playerMagicLevel; i++) {
                 this.magicIcons[i].value = true;
             }
-            for(let i = 0; i < this.playerSkullLevel; i++){
+            for (let i = 0; i < this.playerSkullLevel; i++) {
                 this.skullIcons[i].value = true;
+            }
+        })
+        socket.on("updateChangeMoves", activePlayer => {
+            this.changeMovesAvailable = [];
+            switch (this.moveIndexChange) {
+                case 1:
+                    activePlayer.moves[0][1].forEach(index => {
+                        this.changeMovesAvailable.push([index, this.movesTableCombinationSwordSword[index].name, this.movesTableCombinationSwordSword[index].text])
+                    })
+                    break
+                case 2:
+                    activePlayer.moves[1][1].forEach(index => {
+                        this.changeMovesAvailable.push([index, this.movesTableCombinationSwordMagic[index].name, this.movesTableCombinationSwordMagic[index].text])
+                    })
+                    break
+                case 3:
+                    activePlayer.moves[2][1].forEach(index => {
+                        this.changeMovesAvailable.push([index, this.movesTableCombinationMagicMagic[index].name, this.movesTableCombinationMagicMagic[index].text])
+                    })
+                    break
+                case 4:
+                    activePlayer.moves[3][1].forEach(index => {
+                        this.changeMovesAvailable.push([index, this.movesTableCombinationMagicSkull[index].name, this.movesTableCombinationMagicSkull[index].text])
+                    })
+                    break
+                case 5:
+                    activePlayer.moves[4][1].forEach(index => {
+                        this.changeMovesAvailable.push([index, this.movesTableCombinationSkullSkull[index].name, this.movesTableCombinationSkullSkull[index].text])
+                    })
+                    break
+                case 6:
+                    activePlayer.moves[5][1].forEach(index => {
+                        this.changeMovesAvailable.push([index, this.movesTableCombinationSwordSkull[index].name, this.movesTableCombinationSwordSkull[index].text])
+                    })
+                    break
             }
         })
         socket.emit("getMovesTables");
         socket.emit("getActivePlayer");
     },
     methods: {
-        toggleView() {
-            if (this.currentView == "abilities") {
-                this.currentView = "equipment"
-            } else {
-                this.currentView = "abilities"
-            }
-            this.toggleVisibility("abilities");
-            this.toggleVisibility("equipment");
-        },
-        toggleVisibility(elementId) {
-            var element = document.getElementById(elementId);
-            if (element.classList.contains('visible')) {
-                element.classList.remove('visible');
-                element.classList.add('hidden');
-            } else {
-                element.classList.remove('hidden');
-                element.classList.add('visible');
-            }
-        },
         getImageClaw(value) {
-                return value ? this.imagePathsClaw.trueImage : this.imagePathsClaw.falseImage;
+            return value ? this.imagePathsClaw.trueImage : this.imagePathsClaw.falseImage;
         },
         getImageMagic(value) {
-                return value ? this.imagePathsMagic.trueImage : this.imagePathsMagic.falseImage;
+            return value ? this.imagePathsMagic.trueImage : this.imagePathsMagic.falseImage;
         },
         getImageSkull(value) {
-                return value ? this.imagePathsSkull.trueImage : this.imagePathsSkull.falseImage;
+            return value ? this.imagePathsSkull.trueImage : this.imagePathsSkull.falseImage;
         },
-        upgradeClaw(){
+        upgradeClaw() {
             socket.emit("upgradeClaw");
         },
-        upgradeMagic(){
+        upgradeMagic() {
             socket.emit("upgradeMagic");
         },
-        upgradeSkull(){
+        upgradeSkull() {
             socket.emit("upgradeSkull");
         },
-        changeViewAbility(index){
+        changeViewMove(index) {
             this.combinationImagesUpgrade = moveImages[index];
             this.combinationNamePlayerUpgrade = moveNamePlayer[index];
             this.combinationNameTextUpgrade = moveTextPlayer[index];
-            this.toggleVisibility("abilities")
-            this.toggleVisibility("upgradeAbility")
-            this.toggleVisibility("buttons")
-            this.toggleVisibility("backButton")
         },
+        changeMove(index) {
+            this.moveIndexChange = index
+            this.currentView = "changeMoveSection"
+            socket.emit("getChangeMoves")
+        },
+        changeMoveToCurrent(index){
+            let data = { moveIndextoChange: this.moveIndexChange, moveIndexNew: index}
+            socket.emit("changeMove", (data));
+        },
+        updateView(comp) {
+            this.currentView = "abilities"
+            socket.emit("updateView", comp);
+        }
     },
     beforeUnmount() {
         this.mounted = false;
@@ -326,26 +367,26 @@ td p {
     margin: 5px;
 }
 
-.movesContentLeft{
+.movesContentLeft {
     width: 50%;
     height: 100%;
     align-items: center;
 }
 
-.movesContentRight{
+.movesContentRight {
     width: 50%;
     display: flex;
     flex-direction: column;
 }
 
-.movesImages{
+.movesImages {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.moveName{
+.moveName {
     display: flex;
     width: 100%;
     height: 50%;
@@ -353,7 +394,7 @@ td p {
     align-items: center;
 }
 
-.moveText{
+.moveText {
     display: flex;
     width: 100%;
     height: 50%;
@@ -398,26 +439,26 @@ td p {
     justify-content: center;
 }
 
-.player-level{
+.player-level {
     display: flex;
     flex-direction: row;
     width: 100%;
 }
 
-.player-level-icons{
+.player-level-icons {
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 50%;
 }
 
-.player-level-icon img{
+.player-level-icon img {
     border-radius: 10px;
     margin-right: 2.5px;
     margin-left: 2.5px;
 }
 
-.player-level-infos{
+.player-level-infos {
     display: flex;
     flex-direction: column;
     width: 40%;
@@ -425,7 +466,7 @@ td p {
     align-items: center;
 }
 
-.upgradeButtons{
+.upgradeButtons {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -452,4 +493,86 @@ img {
     flex-direction: row;
     margin-bottom: 10px;
 }
+
+#changeMoveSection {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#changeMoveSection button{
+    width: 20%
+}
+
+#changeMoveSection p {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+#changeMoveImages {
+    display: flex;
+    width: 50%;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+
+#changeMoveImages img{
+    border-radius: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#changeMoveCurrent{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: flex-start;
+    padding-left: 10px;
+}
+
+#changeMoveCurrent p{
+    display: flex;
+    height: 50%;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+#changeMoveInfos{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+#changeMoveAvailable{
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.movesAvailablePlayer{
+    display: flex;
+    flex-direction: column;
+    flex-basis: calc(50% - 5px);
+    box-sizing: border-box;
+    padding: 5px;
+    background-color: rgba(50, 50, 50, 0.2);
+    border-radius: 10px;
+    height: 120px;
+    display: flex;
+    padding-left: 10px;
+}
+
+.movesAvailablePlayer p{
+    display: flex;
+    height: 50%;
+    align-items: center;
+    margin-bottom: 0px !important;
+}
+
+
 </style>
