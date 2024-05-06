@@ -54,6 +54,9 @@
             <p>Quest</p>
         </div>
     </div>
+    <div v-if="playerActive != false" id="endAction" @click="endAction()">
+        <p>Zug Beenden</p>
+    </div>
 </div>
 </template>
 
@@ -80,6 +83,7 @@ export default {
             cells: [],
             playerHasQuest: false,
             playerActive: false,
+            actionUsed: false,
         }
     },
     mounted() {
@@ -116,26 +120,47 @@ export default {
             }
         },
         investigate() {
+            if(this.actionUsed != true){
             socket.emit("updateActions");
             socket.emit("updateView", 6);
+            this.actionUsed = true
+            }
         },
         move() {
+            if(this.actionUsed != true){
             socket.emit("updateActions");
+            this.actionUsed = true
+            }
         },
         changeIsland() {
+            if(this.actionUsed != true){
             socket.emit("updateActions");
             socket.emit("updateView", 3);
+            this.actionUsed = true
+            }
         },
         heal() {
+            if(this.actionUsed != true){
             socket.emit("updateActions");
             socket.emit("healPlayer");
+            this.actionUsed = true
+            }
         },
         quest() {
+            if(this.actionUsed != true){
             socket.emit("updateActions");
             socket.emit("manageQuest");
+            this.actionUsed = true
+            }
         },
         updateView(comp) {
             socket.emit("updateView", comp);
+        },
+        endAction() {
+            if(this.actionUsed == true){
+                socket.emit("endAction");
+                this.actionUsed = false;
+            }
         }
     },
     beforeUnmount() {

@@ -182,13 +182,14 @@ io.on('connection', (socket) => {
     io.emit("setReadyState", playerState);
   });
 
-  // Get Active Player
+  // startGame
   socket.on("hostStartGame", function() {
     const allPlayersReady = playerReadyList.every(playerReady => playerReady === true);
     if (allPlayersReady) {
       io.emit("startGame");
       const identifiers = Object.keys(lobby);
       const randomIndex = randomNumber(0, playerList.length-1)
+      activePlayer = randomIndex
       const randomIdentifier = identifiers[randomIndex];
       io.to(randomIdentifier).emit("setPlayerActive") 
     }
@@ -340,6 +341,22 @@ io.on('connection', (socket) => {
       console.log(`No player associated with socket ${socket.id}.`);
     }
     io.emit("userCount", Object.keys(lobby).length); 
+  });
+
+  socket.on("endAction", () => {
+    const identifiers = Object.keys(lobby);
+    let oldPlayer = identifiers[activePlayer]
+    let newPlayer
+    if(activePlayer < playerList.length-1){
+      newPlayer = identifiers[activePlayer+1];
+      activePlayer += 1;
+    }
+    else{
+      newPlayer = identifiers[0]
+      activePlayer = 0
+    }
+    io.to(oldPlayer).emit("setPlayerInactive")
+    io.to(newPlayer).emit("setPlayerActive")
   });
 });
 
