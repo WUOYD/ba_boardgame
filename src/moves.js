@@ -224,15 +224,3 @@ module.exports = {
   movesTableCombinationMagicSkull,
   movesTableCombinationSwordSkull,
 };
-
-
-
-
-module.exports = {
-  movesTableCombinationSwordSword,
-  movesTableCombinationMagicMagic,
-  movesTableCombinationSkullSkull,
-  movesTableCombinationSwordMagic,
-  movesTableCombinationMagicSkull,
-  movesTableCombinationSwordSkull,
-  };

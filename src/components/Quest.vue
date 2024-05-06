@@ -5,19 +5,19 @@
         <h2>Quest</h2>
         <div v-if="questStep == 'Deliver'" class="quest">
             <div class="questPicture">
-                <img :src="this.questPictureOfferer" />
+                <img :src="this.questPictureDeliver" />
             </div>
             <div class="questInfos">
                 <div class="questOfferer">
-                    <p>{{ questNameOfferer }}</p>
+                    <p>{{ questNameReceiver }}</p>
                 </div>
                 <div class="questContent">
                     <div class="questText">
                         <div v-if="optionPicked == 'Good'">
-                            <p>{{ questTextOffererGood }}</p>
+                            <p>{{ questTextReceiverGood }}</p>
                         </div>
                         <div v-else>
-                            <p>{{ questTextOffererBad }}</p> 
+                            <p>{{ questTextReceiverBad }}</p> 
                         </div>
                     </div>
                     <div class="questButtons">

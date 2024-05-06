@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div id="actions">
+    <div v-if="playerActive == true" id="actions">
         <div class="action" @click="investigate()">
             <img :src="imageInvestigate">
             <p>Untersuchen </p>
@@ -79,6 +79,7 @@ export default {
             playerGold: null,
             cells: [],
             playerHasQuest: false,
+            playerActive: false,
         }
     },
     mounted() {
@@ -95,8 +96,13 @@ export default {
             }
             this.generateCells(parseInt(activePlayer.actions))
         })
+        socket.on("setPlayerActive", () => {
+            this.playerActive = true;
+        })
+        socket.on("setPlayerInactive", () => {
+            this.playerActive = false;
+        })
         socket.emit("getActivePlayer");
-
     },
     methods: {
         generateCells(number) {

@@ -11,8 +11,12 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 
 // Global Variables
-const lobby = {};
+const lobby = [];
 let game;
+let playerList = new Array();
+let viewerList = new Array();
+let playerReadyList = new Array(); 
+let activePlayer = 0;
 
 let monstersBronze = [];
 let monstersSilver = [];
@@ -27,8 +31,9 @@ const { movesTableCombinationSwordSword, movesTableCombinationMagicMagic, movesT
 
 // Classes
 class Game {
-  constructor(playerCount) {
+  constructor(playerCount, playerList) {
     this.playerCount = playerCount;
+    this.playerList = playerList
     this.round = 1;
   }
 }
@@ -36,6 +41,7 @@ class Game {
 class Player {
   constructor(name) {
     this.name = name;
+    this.host = false;
     this.actions = 10;
     this.health = 10;
     this.reputation = 0;
@@ -136,11 +142,56 @@ io.on('connection', (socket) => {
   console.log('new connection: ' + socket.id);
   lobby[socket.id] = { socket: socket };
   
-  socket.on('join', (playerName) => {
+  socket.on('joinPlayer', (playerName) => {
       const playerObject = new Player(playerName);
       lobby[socket.id] = playerObject;
+      playerList.push(lobby[socket.id]);
+      playerReadyList.push(false);
+      if(playerList.length == 1){
+        lobby[socket.id].host = true;
+      }
       socket.emit('join', playerName);
       console.log('Player joined: ', playerName);
+      socket.emit("updatePlayer", lobby[socket.id]);
+  });
+
+  socket.on('joinViewer', function() {
+    socket.emit('join', socket);
+    console.log('Viewer joined: ', socket);
+    //viewerList.append(lobby[socket.id]);
+  });
+
+  // Get change Ready State
+  socket.on("changeReadyState", function() {
+    let playerState = {};
+    if(playerReadyList[playerList.indexOf(lobby[socket.id])] == true){
+      playerReadyList[playerList.indexOf(lobby[socket.id])] = false
+    }
+    else{
+      playerReadyList[playerList.indexOf(lobby[socket.id])] = true
+    }
+    playerState.readyList = playerReadyList
+    playerState.playerList = playerList
+    io.emit("setReadyState", playerState);
+  });
+
+  socket.on("getReadyState", function() {
+    let playerState = {}
+    playerState.readyList = playerReadyList
+    playerState.playerList = playerList
+    io.emit("setReadyState", playerState);
+  });
+
+  // Get Active Player
+  socket.on("hostStartGame", function() {
+    const allPlayersReady = playerReadyList.every(playerReady => playerReady === true);
+    if (allPlayersReady) {
+      io.emit("startGame");
+      const identifiers = Object.keys(lobby);
+      const randomIndex = randomNumber(0, playerList.length-1)
+      const randomIdentifier = identifiers[randomIndex];
+      io.to(randomIdentifier).emit("setPlayerActive") 
+    }
   });
 
   // Update View
@@ -296,7 +347,7 @@ io.on('connection', (socket) => {
 function initGame() {
   initMonsters();
   initQuests();
-  game = new Game(1);
+  game = new Game(playerList.length, playerList);
 }
 
 initGame();

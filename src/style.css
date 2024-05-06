@@ -115,6 +115,15 @@ button {
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
+  background-color: #6b6b6b;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.selected {
+  border: none;
+  background-color: #353535;
 }
 
 #app {

@@ -12,7 +12,9 @@ import MapOverview from './components/MapOverview.vue'
 import Options from './components/Options.vue'
 import Quest from './components/Quest.vue'
 import Investigation from './components/Investigation.vue'
+import Intro from './components/Intro.vue'
 import Upgrades from './components/Upgrades.vue'
+
 </script>
 
 <template>
@@ -27,6 +29,7 @@ import Upgrades from './components/Upgrades.vue'
 import { socket } from './client.js'
 export default {
   components: {
+    Intro,
     Map,
     Character,
     Actions,
@@ -79,7 +82,10 @@ export default {
     })
     socket.on('join', (join) => {
       this.title = false;
-      this.comp = "Actions"
+      this.comp = "Intro";
+    })
+    socket.on("startGame", () => {
+      this.comp = "Actions";
     })
   },
   methods: {
@@ -90,6 +96,5 @@ export default {
   beforeUnmount() {
     socket.disconnect();
   }
-
 }
 </script>
