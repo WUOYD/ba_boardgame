@@ -43,6 +43,7 @@ class Player {
     this.name = name;
     this.host = false;
     this.actions = 10;
+    this.actionUsed = false;
     this.health = 10;
     this.reputation = 0;
     this.gold = 20;
@@ -190,9 +191,34 @@ io.on('connection', (socket) => {
       const identifiers = Object.keys(lobby);
       const randomIndex = randomNumber(0, playerList.length-1)
       activePlayer = randomIndex
+      console.log(activePlayer)
       const randomIdentifier = identifiers[randomIndex];
-      io.to(randomIdentifier).emit("setPlayerActive") 
+      lobby[randomIdentifier].playerIsActive = true;
+      io.to(randomIdentifier).emit("updatePlayer", lobby[randomIdentifier]);
     }
+  });
+
+  socket.on("endAction", function() {
+    const identifiers = Object.keys(lobby);
+    let oldPlayer = identifiers[activePlayer]
+    oldPlayer.actionUsed = false;
+    let newPlayer
+    if(activePlayer < playerList.length-1){
+      activePlayer += 1;
+      newPlayer = identifiers[activePlayer];
+    }
+    else{
+      newPlayer = identifiers[0];
+      activePlayer = 0;
+    }
+    console.log(activePlayer)
+    lobby[oldPlayer].playerIsActive = false;
+    lobby[oldPlayer].actionUsed = false;
+    lobby[newPlayer].playerIsActive = true;
+    io.to(oldPlayer).emit('updateClientView', "Actions");
+    io.to(oldPlayer).emit("updatePlayer", lobby[oldPlayer]);
+    io.to(newPlayer).emit('updateClientView', "Actions");
+    io.to(newPlayer).emit("updatePlayer", lobby[newPlayer]);
   });
 
   // Update View
@@ -304,6 +330,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on("updateActions", function() { 
+    lobby[socket.id].actionUsed = true; 
     lobby[socket.id].actions -= 1;
     socket.emit("updatePlayer", lobby[socket.id]);
   });
@@ -343,21 +370,7 @@ io.on('connection', (socket) => {
     io.emit("userCount", Object.keys(lobby).length); 
   });
 
-  socket.on("endAction", () => {
-    const identifiers = Object.keys(lobby);
-    let oldPlayer = identifiers[activePlayer]
-    let newPlayer
-    if(activePlayer < playerList.length-1){
-      newPlayer = identifiers[activePlayer+1];
-      activePlayer += 1;
-    }
-    else{
-      newPlayer = identifiers[0]
-      activePlayer = 0
-    }
-    io.to(oldPlayer).emit("setPlayerInactive")
-    io.to(newPlayer).emit("setPlayerActive")
-  });
+
 });
 
 // Game Initialization
@@ -655,8 +668,8 @@ function diceRollPlayer(socket, activePlayer, rollPlayer) {
   socket.emit("updateMonster", activePlayer);
   if (winner) {
     activePlayer.monstersKilled += 1;
-    activePlayer.victoryPoints += activeMonster.victoryPoints;
-    activePlayer.gold += activeMonster.rewardGold;
+    activePlayer.victoryPoints += activePlayer.fight.activeMonster.victoryPoints;
+    activePlayer.gold += activePlayer.fight.activeMonster.rewardGold;
     activePlayer.dot = 0;
     activePlayer.reflect = 0;
     activePlayer.damageNextRound = 0;

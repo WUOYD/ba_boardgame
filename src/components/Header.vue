@@ -34,6 +34,7 @@ export default {
   methods: {
     updateView(comp) {
             socket.emit("updateView", comp);
+            socket.emit("getActivePlayer");
         }
   }
 }

@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div v-if="playerActive == true" id="actions">
+    <div v-if="playerIsActive" id="actions">
         <div class="action" @click="investigate()">
             <img :src="imageInvestigate">
             <p>Untersuchen </p>
@@ -54,7 +54,7 @@
             <p>Quest</p>
         </div>
     </div>
-    <div v-if="playerActive != false" id="endAction" @click="endAction()">
+    <div v-if="actionUsed != false" id="endAction" @click="endAction()">
         <p>Zug Beenden</p>
     </div>
 </div>
@@ -82,7 +82,7 @@ export default {
             playerGold: null,
             cells: [],
             playerHasQuest: false,
-            playerActive: false,
+            playerIsActive: false,
             actionUsed: false,
         }
     },
@@ -90,6 +90,8 @@ export default {
         socket.on("updatePlayer", activePlayer => {
             this.playerName = activePlayer.name;
             this.playerActions = activePlayer.actions;
+            this.actionUsed = activePlayer.actionUsed;
+            this.playerIsActive = activePlayer.playerIsActive
             this.playerHealth = activePlayer.health;
             this.playerGold = activePlayer.gold;
             if(activePlayer.quest != null){
@@ -100,13 +102,6 @@ export default {
             }
             this.generateCells(parseInt(activePlayer.actions))
         })
-        socket.on("setPlayerActive", () => {
-            this.playerActive = true;
-        })
-        socket.on("setPlayerInactive", () => {
-            this.playerActive = false;
-        })
-        socket.emit("getActivePlayer");
     },
     methods: {
         generateCells(number) {
@@ -123,34 +118,29 @@ export default {
             if(this.actionUsed != true){
             socket.emit("updateActions");
             socket.emit("updateView", 6);
-            this.actionUsed = true
             }
         },
         move() {
             if(this.actionUsed != true){
             socket.emit("updateActions");
-            this.actionUsed = true
             }
         },
         changeIsland() {
             if(this.actionUsed != true){
             socket.emit("updateActions");
             socket.emit("updateView", 3);
-            this.actionUsed = true
             }
         },
         heal() {
             if(this.actionUsed != true){
             socket.emit("updateActions");
             socket.emit("healPlayer");
-            this.actionUsed = true
             }
         },
         quest() {
             if(this.actionUsed != true){
             socket.emit("updateActions");
             socket.emit("manageQuest");
-            this.actionUsed = true
             }
         },
         updateView(comp) {
@@ -280,5 +270,10 @@ export default {
 #playerHealth p,
 #playerGold p {
     margin-bottom: 0px !important;
+}
+
+#endAction {
+    display: flex;
+    align-items: flex-end;
 }
 </style>

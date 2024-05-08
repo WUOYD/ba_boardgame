@@ -74,7 +74,6 @@ export default {
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background: var(--color-main);
     padding: 15vh 5vw 10vh 5vh;
     box-sizing: border-box;
 }
@@ -85,7 +84,7 @@ export default {
     box-sizing: border-box;
 }
 
-.text-wrapper h1 {
+.text-wrapper {
     margin-bottom: 25px;
 }
 
