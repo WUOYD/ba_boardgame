@@ -18,7 +18,24 @@ let viewerList = new Array();
 let playerReadyList = new Array(); 
 let activePlayer = 0;
 
-let monstersBronze = [];
+let monstersBronzeNythoria = [];
+let monstersBronzeDrakan = [];
+let monstersBronzeTalvar = [];
+let monstersBronzeFrosgar = [];
+let monstersBronzeAthos = [];
+let monstersBronzeAridora = [];
+let monstersSilverNythoria = [];
+let monstersSilverDrakan = [];
+let monstersSilverTalvar = [];
+let monstersSilverFrosgar = [];
+let monstersSilverAthos = [];
+let monstersSilverAridora = [];
+let monstersGoldNythoria = [];
+let monstersGoldDrakan = [];
+let monstersGoldTalvar = [];
+let monstersGoldFrosgar = [];
+let monstersGoldAthos = [];
+let monstersGoldAridora = [];
 let monstersSilver = [];
 let monstersGold = [];
 let questsBronze = [];
@@ -26,6 +43,9 @@ let questsSilver = [];
 let questsGold = [];
 
 const { monsterTableBronze, monsterTableSilver, monsterTableGold, monsterTableQuests } = monsterTables;
+const { monsterTableBronzeNythoria, monsterTableBronzeDrakan, monsterTableBronzeTalvar, monsterTableBronzeFrosgar, monsterTableBronzeAthos, monsterTableBronzeAridora} = monsterTableBronze
+const { monsterTableSilverNythoria, monsterTableSilverDrakan, monsterTableSilverTalvar, monsterTableSilverFrosgar, monsterTableSilverAthos, monsterTableSilverAridora} = monsterTableSilver
+const { monsterTableGoldNythoria, monsterTableGoldDrakan, monsterTableGoldTalvar, monsterTableGoldFrosgar, monsterTableGoldAthos, monsterTableGoldAridora} = monsterTableGold
 const { questTableBronze, questTableSilver, questTableGold } = questTables;
 const { movesTableCombinationSwordSword, movesTableCombinationMagicMagic, movesTableCombinationSkullSkull, movesTableCombinationSwordMagic, movesTableCombinationMagicSkull, movesTableCombinationSwordSkull, } = moveTables;
 
@@ -383,40 +403,154 @@ function initGame() {
 initGame();
 
 
-function initMonsters(){
-  for (let i = 0; i < monsterTableBronze.length; i++){
-    monstersBronze[i] = new Monster(monsterTableBronze[i].name, monsterTableBronze[i].type, monsterTableBronze[i].health, monsterTableBronze[i].gold, monsterTableBronze[i].victoryPoints, monsterTableBronze[i].image, monsterTableBronze[i].moves);
+function initMonsters() {
+  let monsterCount = 5;  // Adjust this if the count varies
+  
+  // Initialize Bronze monsters
+  for (let i = 0; i < monsterCount; i++) {
+    monstersBronzeNythoria.push(new Monster(monsterTableBronzeNythoria[i].name, monsterTableBronzeNythoria[i].type, monsterTableBronzeNythoria[i].health, monsterTableBronzeNythoria[i].gold, monsterTableBronzeNythoria[i].victoryPoints, monsterTableBronzeNythoria[i].image, monsterTableBronzeNythoria[i].moves));
+    monstersBronzeDrakan.push(new Monster(monsterTableBronzeDrakan[i].name, monsterTableBronzeDrakan[i].type, monsterTableBronzeDrakan[i].health, monsterTableBronzeDrakan[i].gold, monsterTableBronzeDrakan[i].victoryPoints, monsterTableBronzeDrakan[i].image, monsterTableBronzeDrakan[i].moves));
+    monstersBronzeTalvar.push(new Monster(monsterTableBronzeTalvar[i].name, monsterTableBronzeTalvar[i].type, monsterTableBronzeTalvar[i].health, monsterTableBronzeTalvar[i].gold, monsterTableBronzeTalvar[i].victoryPoints, monsterTableBronzeTalvar[i].image, monsterTableBronzeTalvar[i].moves));
+    monstersBronzeFrosgar.push(new Monster(monsterTableBronzeFrosgar[i].name, monsterTableBronzeFrosgar[i].type, monsterTableBronzeFrosgar[i].health, monsterTableBronzeFrosgar[i].gold, monsterTableBronzeFrosgar[i].victoryPoints, monsterTableBronzeFrosgar[i].image, monsterTableBronzeFrosgar[i].moves));
+    monstersBronzeAthos.push(new Monster(monsterTableBronzeAthos[i].name, monsterTableBronzeAthos[i].type, monsterTableBronzeAthos[i].health, monsterTableBronzeAthos[i].gold, monsterTableBronzeAthos[i].victoryPoints, monsterTableBronzeAthos[i].image, monsterTableBronzeAthos[i].moves));
+    monstersBronzeAridora.push(new Monster(monsterTableBronzeAridora[i].name, monsterTableBronzeAridora[i].type, monsterTableBronzeAridora[i].health, monsterTableBronzeAridora[i].gold, monsterTableBronzeAridora[i].victoryPoints, monsterTableBronzeAridora[i].image, monsterTableBronzeAridora[i].moves));
   }
-  for (let i = 0; i < monsterTableSilver.length; i++){
-    monstersSilver[i] = new Monster(monsterTableSilver[i].name, monsterTableSilver[i].type, monsterTableSilver[i].health, monsterTableSilver[i].gold, monsterTableSilver[i].victoryPoints, monsterTableSilver[i].image, monsterTableSilver[i].moves);
-  } 
-  for (let i = 0; i < monsterTableGold.length; i++){
-    monstersGold[i] = new Monster(monsterTableGold[i].name, monsterTableGold[i].type, monsterTableGold[i].health, monsterTableGold[i].gold, monsterTableGold[i].victoryPoints, monsterTableGold[i].image, monsterTableGold[i].moves);
+
+  // Initialize Silver monsters
+  for (let i = 0; i < monsterCount; i++) {
+    monstersSilverNythoria.push(new Monster(monsterTableSilverNythoria[i].name, monsterTableSilverNythoria[i].type, monsterTableSilverNythoria[i].health, monsterTableSilverNythoria[i].gold, monsterTableSilverNythoria[i].victoryPoints, monsterTableSilverNythoria[i].image, monsterTableSilverNythoria[i].moves));
+    monstersSilverDrakan.push(new Monster(monsterTableSilverDrakan[i].name, monsterTableSilverDrakan[i].type, monsterTableSilverDrakan[i].health, monsterTableSilverDrakan[i].gold, monsterTableSilverDrakan[i].victoryPoints, monsterTableSilverDrakan[i].image, monsterTableSilverDrakan[i].moves));
+    monstersSilverTalvar.push(new Monster(monsterTableSilverTalvar[i].name, monsterTableSilverTalvar[i].type, monsterTableSilverTalvar[i].health, monsterTableSilverTalvar[i].gold, monsterTableSilverTalvar[i].victoryPoints, monsterTableSilverTalvar[i].image, monsterTableSilverTalvar[i].moves));
+    monstersSilverFrosgar.push(new Monster(monsterTableSilverFrosgar[i].name, monsterTableSilverFrosgar[i].type, monsterTableSilverFrosgar[i].health, monsterTableSilverFrosgar[i].gold, monsterTableSilverFrosgar[i].victoryPoints, monsterTableSilverFrosgar[i].image, monsterTableSilverFrosgar[i].moves));
+    monstersSilverAthos.push(new Monster(monsterTableSilverAthos[i].name, monsterTableSilverAthos[i].type, monsterTableSilverAthos[i].health, monsterTableSilverAthos[i].gold, monsterTableSilverAthos[i].victoryPoints, monsterTableSilverAthos[i].image, monsterTableSilverAthos[i].moves));
+    monstersSilverAridora.push(new Monster(monsterTableSilverAridora[i].name, monsterTableSilverAridora[i].type, monsterTableSilverAridora[i].health, monsterTableSilverAridora[i].gold, monsterTableSilverAridora[i].victoryPoints, monsterTableSilverAridora[i].image, monsterTableSilverAridora[i].moves));
   }
-  for (let i = 0; i < monsterTableGold.length; i++){
-    questMonsters[i] = new Monster(monsterTableQuests[i][0], monsterTableQuests[i][1], monsterTableQuests[i][2], monsterTableQuests[i][3], monsterTableQuests[i][4], monsterTableQuests[i][5], monsterTableQuests[i][6]);
-  }    
+
+  // Initialize Gold monsters
+  for (let i = 0; i < monsterCount; i++) {
+    monstersGoldNythoria.push(new Monster(monsterTableGoldNythoria[i].name, monsterTableGoldNythoria[i].type, monsterTableGoldNythoria[i].health, monsterTableGoldNythoria[i].gold, monsterTableGoldNythoria[i].victoryPoints, monsterTableGoldNythoria[i].image, monsterTableGoldNythoria[i].moves));
+    monstersGoldDrakan.push(new Monster(monsterTableGoldDrakan[i].name, monsterTableGoldDrakan[i].type, monsterTableGoldDrakan[i].health, monsterTableGoldDrakan[i].gold, monsterTableGoldDrakan[i].victoryPoints, monsterTableGoldDrakan[i].image, monsterTableGoldDrakan[i].moves));
+    monstersGoldTalvar.push(new Monster(monsterTableGoldTalvar[i].name, monsterTableGoldTalvar[i].type, monsterTableGoldTalvar[i].health, monsterTableGoldTalvar[i].gold, monsterTableGoldTalvar[i].victoryPoints, monsterTableGoldTalvar[i].image, monsterTableGoldTalvar[i].moves));
+    monstersGoldFrosgar.push(new Monster(monsterTableGoldFrosgar[i].name, monsterTableGoldFrosgar[i].type, monsterTableGoldFrosgar[i].health, monsterTableGoldFrosgar[i].gold, monsterTableGoldFrosgar[i].victoryPoints, monsterTableGoldFrosgar[i].image, monsterTableGoldFrosgar[i].moves));
+    monstersGoldAthos.push(new Monster(monsterTableGoldAthos[i].name, monsterTableGoldAthos[i].type, monsterTableGoldAthos[i].health, monsterTableGoldAthos[i].gold, monsterTableGoldAthos[i].victoryPoints, monsterTableGoldAthos[i].image, monsterTableGoldAthos[i].moves));
+    monstersGoldAridora.push(new Monster(monsterTableGoldAridora[i].name, monsterTableGoldAridora[i].type, monsterTableGoldAridora[i].health, monsterTableGoldAridora[i].gold, monsterTableGoldAridora[i].victoryPoints, monsterTableGoldAridora[i].image, monsterTableGoldAridora[i].moves));
+  }
+
+  // Initialize Quest monsters
+  for (let i = 0; i < monsterTableQuests.length; i++) {
+    questMonsters.push(new Monster(monsterTableQuests[i][0], monsterTableQuests[i][1], monsterTableQuests[i][2], monsterTableQuests[i][3], monsterTableQuests[i][4], monsterTableQuests[i][5], monsterTableQuests[i][6]));
+  }
 }
 
-function getRandomMonster(round){
-  let monster
-  let rndNumber
-  switch (round) {
-    case 1:
-      rndNumber = randomNumber(0,monstersBronze.length-1);
-      monster = monstersBronze[rndNumber];
-      break;
-    case 2:
-      rndNumber = randomNumber(0,monstersSilver.length-1);
-      monster = monstersSilver[rndNumber];
-      break;
-    case 3:
-      rndNumber = randomNumber(0,monstersGold.length-1);
-      monster = monstersGold[rndNumber];
-      break;
+function getRandomMonster(playerRegion, round) {
+  let monster;
+  let rndNumber;
+
+  switch (playerRegion) {
+      case "Nythoria":
+          switch (round) {
+              case 1:
+                  rndNumber = randomNumber(0, monstersBronzeNythoria.length - 1);
+                  monster = monstersBronzeNythoria[rndNumber];
+                  break;
+              case 2:
+                  rndNumber = randomNumber(0, monstersSilverNythoria.length - 1);
+                  monster = monstersSilverNythoria[rndNumber];
+                  break;
+              case 3:
+                  rndNumber = randomNumber(0, monstersGoldNythoria.length - 1);
+                  monster = monstersGoldNythoria[rndNumber];
+                  break;
+          }
+          break;
+      case "Drakan":
+          switch (round) {
+              case 1:
+                  rndNumber = randomNumber(0, monstersBronzeDrakan.length - 1);
+                  monster = monstersBronzeDrakan[rndNumber];
+                  break;
+              case 2:
+                  rndNumber = randomNumber(0, monstersSilverDrakan.length - 1);
+                  monster = monstersSilverDrakan[rndNumber];
+                  break;
+              case 3:
+                  rndNumber = randomNumber(0, monstersGoldDrakan.length - 1);
+                  monster = monstersGoldDrakan[rndNumber];
+                  break;
+          }
+          break;
+      case "Talvar":
+          switch (round) {
+              case 1:
+                  rndNumber = randomNumber(0, monstersBronzeTalvar.length - 1);
+                  monster = monstersBronzeTalvar[rndNumber];
+                  break;
+              case 2:
+                  rndNumber = randomNumber(0, monstersSilverTalvar.length - 1);
+                  monster = monstersSilverTalvar[rndNumber];
+                  break;
+              case 3:
+                  rndNumber = randomNumber(0, monstersGoldTalvar.length - 1);
+                  monster = monstersGoldTalvar[rndNumber];
+                  break;
+          }
+          break;
+      case "Frosgar":
+          switch (round) {
+              case 1:
+                  rndNumber = randomNumber(0, monstersBronzeFrosgar.length - 1);
+                  monster = monstersBronzeFrosgar[rndNumber];
+                  break;
+              case 2:
+                  rndNumber = randomNumber(0, monstersSilverFrosgar.length - 1);
+                  monster = monstersSilverFrosgar[rndNumber];
+                  break;
+              case 3:
+                  rndNumber = randomNumber(0, monstersGoldFrosgar.length - 1);
+                  monster = monstersGoldFrosgar[rndNumber];
+                  break;
+          }
+          break;
+      case "Athos":
+          switch (round) {
+              case 1:
+                  rndNumber = randomNumber(0, monstersBronzeAthos.length - 1);
+                  monster = monstersBronzeAthos[rndNumber];
+                  break;
+              case 2:
+                  rndNumber = randomNumber(0, monstersSilverAthos.length - 1);
+                  monster = monstersSilverAthos[rndNumber];
+                  break;
+              case 3:
+                  rndNumber = randomNumber(0, monstersGoldAthos.length - 1);
+                  monster = monstersGoldAthos[rndNumber];
+                  break;
+          }
+          break;
+      case "Aridora":
+          switch (round) {
+              case 1:
+                  rndNumber = randomNumber(0, monstersBronzeAridora.length - 1);
+                  monster = monstersBronzeAridora[rndNumber];
+                  break;
+              case 2:
+                  rndNumber = randomNumber(0, monstersSilverAridora.length - 1);
+                  monster = monstersSilverAridora[rndNumber];
+                  break;
+              case 3:
+                  rndNumber = randomNumber(0, monstersGoldAridora.length - 1);
+                  monster = monstersGoldAridora[rndNumber];
+                  break;
+          }
+          break;
+      default:
+          console.error("Invalid player region:", playerRegion);
+          monster = null;
+          break;
   }
-  return monster
+  return monster;
 }
+
 
 function initQuests(){
   for (let i = 0; i < questTableBronze.length; i++){
@@ -455,7 +589,7 @@ function getRandomQuest(round){
 function investigate(activePlayer){
   let encounter = generateEncounter(activePlayer);
   if(encounter == "Monster"){
-    let activeMonster = Object.assign({}, getRandomMonster(game.round));
+    let activeMonster = Object.assign({}, getRandomMonster(activePlayer.region, game.round));
     startFight(activePlayer, activeMonster);
   }
   else if(encounter == "Loot"){
