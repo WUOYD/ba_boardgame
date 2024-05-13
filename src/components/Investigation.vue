@@ -129,16 +129,19 @@ export default {
             socket.emit("optionQuestGood");
             this.currentEncounter = null;
             this.changeView(5)
+            socket.emit("getActivePlayer");
         },
         optionQuestBad() {
             socket.emit("optionQuestBad");
             this.currentEncounter = null;
             this.changeView(5)
+            socket.emit("getActivePlayer");
         },
         optionQuestDeny() {
             socket.emit("optionQuestDeny");
             this.currentEncounter = null;
-            this.changeView(5)
+            this.changeView(2)
+            socket.emit("getActivePlayer");
         },
         changeView(comp) {
             socket.emit("updateView", comp);

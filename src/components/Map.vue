@@ -107,9 +107,12 @@ export default {
             if (region == 7) {
                 socket.emit("changeRegion", region);
                 socket.emit("updateView", 7);
+                socket.emit("getActivePlayer");
+                
             } else {
                 socket.emit("changeRegion", region);
                 socket.emit("updateView", 2);
+                socket.emit("getActivePlayer");
             }
         }
     }

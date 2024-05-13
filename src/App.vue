@@ -86,6 +86,7 @@ export default {
     })
     socket.on("startGame", () => {
       this.comp = "Actions";
+      socket.emit("getActivePlayer");
     })
   },
   methods: {

@@ -472,6 +472,11 @@ td p {
     align-items: center;
 }
 
+#buttons button{
+    margin-right: 2.5px;
+    margin-left: 2.5px;
+}
+
 .upgrade-option img {
     width: 50px;
     height: 50px;

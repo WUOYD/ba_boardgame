@@ -138,13 +138,24 @@
     </div>
     <div v-else>
         <div class="activeQuest" v-if="playerHasQuest">
-            <div class=""></div>
-            <p>Quest type: {{ questType }}</p>
-            <p>Quest region: {{ regionQuest }}</p>
-            <p>Quest region deliver: {{ regionDeliver }}</p>
-            <p v-if="optionPicked == 'Good'">Quest reward good: {{ rewardGood }}</p>
-            <p v-else>Quest reward bad: {{ rewardBad }}</p>
-            <p>Quest Text: {{ questTextOfferer }}</p>
+            <div class="questPicture">
+                <img :src="this.questPictureOfferer" />
+            </div>
+            <div class="questInfos">
+                <div class="questOfferer">
+                    <p>{{ questNameOfferer }}</p>
+                </div>
+                <div class="questContent">
+                    <div class="questText">
+                        <p>{{ questTextOfferer }}</p>
+                        <p v-if="optionPicked == 'Good'">{{ optionGoodText }}</p>
+                        <p v-else>{{ optionBadText }}</p>
+                    </div>
+                    <div id="questMap">
+                        <img :src="this.mapIcon"/>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="activeQuest" v-else>
             <p>Player has no quest</p>
@@ -170,6 +181,8 @@ export default {
             questView: false,
             questStep: null,
             optionPicked: null,
+            optionGood: null,
+            optionBad: null,
             questPictureOfferer: null,
             questNameOfferer: null,
             questTextOffererGood: null,
@@ -186,6 +199,9 @@ export default {
             questTextMonster: null,
             questTextOptionSecondGood: null,
             questTextOptionSecondBad: null,
+            optionGoodText: null,
+            optionBadText: null,
+            mapIcon: "src/assets/icons/map_icon.webp",
         }
     },
     mounted() {
@@ -195,6 +211,8 @@ export default {
                 this.optionPicked = activePlayer.quest.optionPicked
                 this.questStep = activePlayer.quest.questStep
                 this.questType = activePlayer.quest.questType
+                this.optionGoodText = activePlayer.quest.optionGood.optionText
+                this.optionBadText = activePlayer.quest.optionBad.optionText
                 this.questNameOfferer = activePlayer.quest.questOfferer.name
                 this.questPictureOfferer = activePlayer.quest.questOfferer.image
                 this.questTextOfferer = activePlayer.quest.questOfferer.text
@@ -214,20 +232,11 @@ export default {
                 this.questTextOptionSecondBad = activePlayer.quest.optionBadSecond.text
                 this.rewardGood = activePlayer.quest.rewardGood
                 this.rewardBad = activePlayer.quest.rewardBad
-
-                //this.questNameMonster = activePlayer.quest.questMonster.name
-                //this.questPictureMonster = activePlayer.quest.questMonster.picture
-                //this.questTextMonster = activePlayer.quest.questMonsterText
+                this.optionGood = activePlayer.quest.optionGood
+                this.optionBad = activePlayer.quest.optionBad
             }
             else{
                 this.playerHasQuest = false
-            }
-        })
-        socket.on("changeQuestView", () => {
-            if (this.questView == false) {
-                this.questView = true
-            } else {
-                this.questView = false
             }
         })
         socket.on("updateQuestDecision", questOption => {
@@ -239,16 +248,6 @@ export default {
         socket.emit("getActivePlayer")
     },
     methods: {
-        toggleVisibility(elementId) {
-            var element = document.getElementById(elementId);
-            if (element.classList.contains('visible')) {
-                element.classList.remove('visible');
-                element.classList.add('hidden');
-            } else {
-                element.classList.remove('hidden');
-                element.classList.add('visible');
-            }
-        },
         desicionGood() {
             socket.emit("decisionGood")
         },
@@ -282,11 +281,11 @@ export default {
     height: 100%;
 }
 
-.quest {
+.quest, .activeQuest {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 80%;
+    height: 80vh;
 }
 
 .questPicture {
@@ -328,7 +327,7 @@ export default {
 
 .questText{
     width: 100%;
-    height: 60%;
+    height: 40%;
     text-align: left;
 }
 
@@ -344,5 +343,17 @@ export default {
     width: 100%;
     margin-top: 1%;
     margin-bottom: 1%;
+}
+
+#questMap {
+    width: auto;
+    height: 40%;
+    box-sizing: border-box
+}
+
+#questMap img{
+    width: auto;
+    height: 100%;
+
 }
 </style>

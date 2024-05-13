@@ -775,9 +775,9 @@ let questTableBronzeTalvar = [
             text: "Oiii, riechst du das? Es stinkt nach Fisch! Klar sind wir ein Fischerdorf, aber ich kann den Gestank kaum noch ertragen. Ich habe ein Gerücht gehört, dass die Tintenfresser von Nythoria ein Artefakt entwickelt haben, welches einen wohligen Duft versprüht und sogar den Gestank von verbrannten Haaren überdecken kann! Wir haben gemeinsam gesammelt und konnten 10 Gold zusammenkratzen. Kannst du für mein Dorf eines dieser Artefakte auf Nythoria beschaffen?"
         },
         questMiddleman: {
-            name: "-",
-            image: "-",
-            textGood: "-",
+            name: "Priscilla",
+            image: "src/assets/img/quest/placeholder_quest.webp",
+            textGood: "Du bist also den weiten Weg von Talvar hierergekommen, um mir meine neuste Erfindung abzukaufen? Nun gut ich mache dir einen fairen Preis, ich wusste sowieso nie was ich mit dm Ding anfangen soll.",
             textBad: "-"
         },
         questReceiver: {
@@ -894,7 +894,7 @@ let questTableBronzeTalvar = [
             optionText: "Finde und bekämpfe die Banditen"
         },
         optionBad: {
-            hasOption: 1,
+            hasOption: "-",
             optionType: "-",
             optionText: "-"
         },
@@ -971,7 +971,7 @@ let questTableBronzeTalvar = [
             optionText: "Bringe das Gold nach Drakan"
         },
         optionBad: {
-            hasOption: 1,
+            hasOption: "-",
             optionType: "-",
             optionText: "-"
         },

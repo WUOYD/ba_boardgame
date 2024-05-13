@@ -32,10 +32,10 @@
             </div>
         </div>
     </div>
-    <div v-if="playerIsActive" id="actions">
+    <div v-if="playerIsActive && actionUsed == false" class="actions">
         <div class="action" @click="investigate()">
             <img :src="imageInvestigate">
-            <p>Untersuchen </p>
+            <p>Untersuchen</p>
         </div>
         <div class="action" @click="move()">
             <img :src="imageMove"/>
@@ -54,8 +54,11 @@
             <p>Quest</p>
         </div>
     </div>
-    <div v-if="actionUsed != false" id="endAction" @click="endAction()">
-        <p>Zug Beenden</p>
+    <div v-if="playerIsActive && actionUsed == true" class="actions">
+        <div class="action" @click="endAction()">
+            <img :src="imageInvestigate">
+            <p>Zug Beenden</p>
+        </div>
     </div>
 </div>
 </template>
@@ -102,6 +105,7 @@ export default {
             }
             this.generateCells(parseInt(activePlayer.actions))
         })
+        socket.emit("getActivePlayer");
     },
     methods: {
         generateCells(number) {
@@ -161,7 +165,7 @@ export default {
 </script>
 
 <style>
-#actions {
+.actions {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -219,7 +223,7 @@ export default {
     border: 3px solid #f7e4c2;
 }
 
-#actions img{
+.actions img{
     width: 100%;
 }
 
