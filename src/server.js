@@ -398,8 +398,14 @@ io.on('connection', (socket) => {
 
   // heal player
   socket.on("healPlayer", function() {
-    if(lobby[socket.id].health <= 8) {
-      lobby[socket.id].health = lobby[socket.id].health + ((10-lobby[socket.id].health)/2 + 2)
+    if(lobby[socket.id].health <= 6) {
+      lobby[socket.id].health = lobby[socket.id].health + ((ceil(10-lobby[socket.id].health)/2) + 2)
+    }
+    else if(lobby[socket.id].health == 7){
+      lobby[socket.id].health = lobby[socket.id].health + 3
+    }
+    else if(lobby[socket.id].health == 8){
+      lobby[socket.id].health = lobby[socket.id].health + 2
     }
     else if(lobby[socket.id].health == 9){
       lobby[socket.id].health = lobby[socket.id].health + 1
