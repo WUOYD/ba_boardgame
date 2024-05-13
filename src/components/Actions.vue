@@ -18,7 +18,7 @@
             </div>
         </div>
         <div id="headerSectionMiddle">
-            <h2>Spieler Aktionen</h2>
+            <h2>{{ playerName }} Aktionen</h2>
             <div id="playerActions">
                 <div v-for="cell in cells" :key="cell.id" :class="{ 'cell': true, 'colored': cell.colored }"></div>
             </div>
@@ -140,6 +140,7 @@ export default {
         quest() {
             if(this.actionUsed != true){
             socket.emit("updateActions");
+            socket.emit("updateView", 5);
             socket.emit("manageQuest");
             }
         },
@@ -273,6 +274,7 @@ export default {
 }
 
 #endAction {
+    cursor: pointer;
     display: flex;
     align-items: flex-end;
 }

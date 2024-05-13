@@ -312,10 +312,12 @@ export default {
         closeFightPlayer() {
             this.toggleVisibility("playerWon")
             this.updateView(2);
+            socket.emit("getActivePlayer");
         },
         closeFightMonster() {
             this.toggleVisibility("monsterWon")
             this.updateView(2);
+            socket.emit("getActivePlayer");
         }
     },
     beforeUnmount() {

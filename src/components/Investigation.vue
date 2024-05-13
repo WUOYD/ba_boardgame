@@ -129,7 +129,6 @@ export default {
             socket.emit("optionQuestGood");
             this.currentEncounter = null;
             this.changeView(5)
-
         },
         optionQuestBad() {
             socket.emit("optionQuestBad");
@@ -143,6 +142,7 @@ export default {
         },
         changeView(comp) {
             socket.emit("updateView", comp);
+            socket.emit("getActivePlayer");
         }
     },
     beforeUnmount() {
@@ -233,5 +233,9 @@ tr {
     height: 40px;
 }
 
+#loot img {
+    width: 50%;
+    border-radius: 20px;
+}
 
 </style>
