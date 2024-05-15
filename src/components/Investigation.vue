@@ -27,7 +27,7 @@
     </div>
     <div class="encounter" id="loot" v-if="currentEncounter == 'Loot'">
         <img :src="imageTreasure" />
-        <p>Du hast {{ goldLoot }} Gold gefunden</p>
+        <p>Du hast {{ this.goldLoot }} Gold gefunden</p>
         <button @click="changeView(2)">Zurück zur Übersicht</button>
     </div>
     <div class="encounter" id="quest" v-if="currentEncounter == 'Quest'">

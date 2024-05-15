@@ -7,11 +7,11 @@
             <div class="titleText" id="changeType">
                 <p>Wähle den Typ aus:</p>
                 <div class="buttons">
-                    <button @click="setClientType('client')" :class="{ selected: clientType === 'client' }">Spieler</button>
+                    <button @click="setClientType('player')" :class="{ selected: clientType === 'player' }">Spieler</button>
                     <button @click="setClientType('viewer')" :class="{ selected: clientType === 'viewer' }">Viewer</button>
                 </div>
             </div>
-            <div v-if="clientType === 'client'">
+            <div v-if="clientType === 'player'">
                 <div class="titleText" id="playerName">
                     <p>Gib deinen Namen ein:</p>
                     <input type="text" v-model="playerName" placeholder="Gib deinen Namen ein">
@@ -35,7 +35,7 @@ export default {
     data() {
         return {
             playerName: '',
-            clientType: '',
+            clientType: 'player',
         }
     },
     methods: {
@@ -49,7 +49,6 @@ export default {
                 this.clientType = type;
         }
     },
-    
 }
 </script>
 

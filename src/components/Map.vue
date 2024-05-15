@@ -97,6 +97,7 @@ export default {
             this.travelDestinationPicture = this.islands[island][2];
         },
         acceptedChoice() {
+            socket.emit("updateActions");
             this.changeRegion(this.travelDestination);
             this.toggleVisibility("changeRegionPopUp");
         },

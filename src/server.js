@@ -101,11 +101,6 @@ class Player {
     this.clawLevel = 1;
     this.skullLevel = 1;
     this.magicLevel = 1;
-    this.probability = {
-      monsterProbability: 0.2,
-      lootProbability: 0.1,
-      questProbability: 0.2,
-    };
     this.quest = null;
 
   }
@@ -351,19 +346,16 @@ io.on('connection', (socket) => {
   // Option good
   socket.on("optionQuestGood", function() { 
     lobby[socket.id].quest.optionPicked = "Good";
-    modifyProbability(lobby[socket.id], "Quest"); 
   });
 
   // Option bad
   socket.on("optionQuestBad", function() { 
     lobby[socket.id].quest.optionPicked = "Bad";
-    modifyProbability(lobby[socket.id], "Quest"); 
   });
 
   // Deny quest
   socket.on("optionQuestDeny", function() { 
     lobby[socket.id].quest = null;
-    modifyProbability(lobby[socket.id], "Quest"); 
   });
 
   socket.on("manageQuest", function() { 
@@ -376,13 +368,11 @@ io.on('connection', (socket) => {
   socket.on("decisionGood", function() {
     lobby[socket.id].quest.optionPicked = "Good"
     manageQuest(socket, lobby[socket.id]);
-    modifyProbability(lobby[socket.id], "Quest"); 
   });
 
   socket.on("decisionBad", function() { 
     lobby[socket.id].quest.optionPicked = "Bad"
     manageQuest(socket, lobby[socket.id]);
-    modifyProbability(lobby[socket.id], "Quest"); 
   });
 
   socket.on("questComplete", function() { 
@@ -398,19 +388,18 @@ io.on('connection', (socket) => {
 
   // heal player
   socket.on("healPlayer", function() {
-    if(lobby[socket.id].health <= 6) {
-      lobby[socket.id].health = lobby[socket.id].health + ((ceil(10-lobby[socket.id].health)/2) + 2)
-    }
-    else if(lobby[socket.id].health == 7){
-      lobby[socket.id].health = lobby[socket.id].health + 3
+    if(lobby[socket.id].health == 9){
+      lobby[socket.id].health = lobby[socket.id].health + 1
     }
     else if(lobby[socket.id].health == 8){
       lobby[socket.id].health = lobby[socket.id].health + 2
     }
-    else if(lobby[socket.id].health == 9){
-      lobby[socket.id].health = lobby[socket.id].health + 1
+    else if(lobby[socket.id].health == 7){
+      lobby[socket.id].health = lobby[socket.id].health + 3
     }
-    else{}
+    else {
+      lobby[socket.id].health = lobby[socket.id].health + ((Math.ceil(10-lobby[socket.id].health)/2) + 2)
+    }
     socket.emit("updatePlayer", lobby[socket.id]);
   });
 
@@ -609,9 +598,6 @@ function initQuests(){
     questsBronzeAridora.push(new Quest(questTableBronzeAridora[i].questType, questTableBronzeAridora[i].questOfferer, questTableBronzeAridora[i].questMiddleman, questTableBronzeAridora[i].questReceiver,  questTableBronzeAridora[i].regions.questRegion, questTableBronzeAridora[i].regions.questRegionDeliverGood, questTableBronzeAridora[i].regions.questRegionDeliverBad, questTableBronzeAridora[i].rewardGood, questTableBronzeAridora[i].rewardBad, questTableBronzeAridora[i].rewardDeny, questTableBronzeAridora[i].optionGood, questTableBronzeAridora[i].optionBad, questTableBronzeAridora[i].optionDeny, questTableBronzeAridora[i].questMonster, questTableBronzeAridora[i].questMonsterText, questTableBronzeAridora[i].questImpact, questTableBronzeAridora[i].optionGoodSecond, questTableBronzeAridora[i].optionBadSecond));
     questsBronzeAthos.push(new Quest(questTableBronzeAthos[i].questType, questTableBronzeAthos[i].questOfferer, questTableBronzeAthos[i].questMiddleman, questTableBronzeAthos[i].questReceiver, questTableBronzeAthos[i].regions.questRegion, questTableBronzeAthos[i].regions.questRegionDeliverGood, questTableBronzeAthos[i].regions.questRegionDeliverBad, questTableBronzeAthos[i].rewardGood, questTableBronzeAthos[i].rewardBad, questTableBronzeAthos[i].rewardDeny, questTableBronzeAthos[i].optionGood, questTableBronzeAthos[i].optionBad, questTableBronzeAthos[i].optionDeny, questTableBronzeAthos[i].questMonster, questTableBronzeAthos[i].questMonsterText, questTableBronzeAthos[i].questImpact, questTableBronzeAthos[i].optionGoodSecond, questTableBronzeAthos[i].optionBadSecond));
     questsBronzeNythoria.push(new Quest(questTableBronzeNythoria[i].questType, questTableBronzeNythoria[i].questOfferer, questTableBronzeNythoria[i].questMiddleman, questTableBronzeNythoria[i].questReceiver, questTableBronzeNythoria[i].regions.questRegion, questTableBronzeNythoria[i].regions.questRegionDeliverGood, questTableBronzeNythoria[i].regions.questRegionDeliverBad, questTableBronzeNythoria[i].rewardGood, questTableBronzeNythoria[i].rewardBad, questTableBronzeNythoria[i].rewardDeny, questTableBronzeNythoria[i].optionGood, questTableBronzeNythoria[i].optionBad, questTableBronzeNythoria[i].optionDeny, questTableBronzeNythoria[i].questMonster, questTableBronzeNythoria[i].questMonsterText, questTableBronzeNythoria[i].questImpact, questTableBronzeNythoria[i].optionGoodSecond, questTableBronzeNythoria[i].optionBadSecond));
-  }
-
-  for (let i = 0; i < questCount+2; i++) {
     questsBronzeFrosgar.push(new Quest(questTableBronzeFrosgar[i].questType, questTableBronzeFrosgar[i].questOfferer, questTableBronzeFrosgar[i].questMiddleman, questTableBronzeFrosgar[i].questReceiver, questTableBronzeFrosgar[i].regions.questRegion, questTableBronzeFrosgar[i].regions.questRegionDeliverGood, questTableBronzeFrosgar[i].regions.questRegionDeliverBad, questTableBronzeFrosgar[i].rewardGood, questTableBronzeFrosgar[i].rewardBad, questTableBronzeFrosgar[i].rewardDeny, questTableBronzeFrosgar[i].optionGood, questTableBronzeFrosgar[i].optionBad, questTableBronzeFrosgar[i].optionDeny, questTableBronzeFrosgar[i].questMonster, questTableBronzeFrosgar[i].questMonsterText, questTableBronzeFrosgar[i].questImpact, questTableBronzeFrosgar[i].optionGoodSecond, questTableBronzeFrosgar[i].optionBadSecond));
   }
 
@@ -760,18 +746,28 @@ function investigate(activePlayer){
   else if(encounter == "Quest"){
     startQuest(activePlayer);
   }
-  modifyProbability(activePlayer, encounter)
   return encounter
 }
 
 function generateEncounter(activePlayer) {
   const random = Math.random();
-  let monsterProbability = activePlayer.probability.monsterProbability
-  let lootProbability = activePlayer.probability.lootProbability
-  let questProbability = activePlayer.probability.questProbability
+  let monsterProbability 
+  let lootProbability
+  let questProbability 
+
+  if (activePlayer.quest != null){
+    monsterProbability = 0.8
+    lootProbability = 0.2
+    questProbability = 0.0
+  }
+  else{
+    monsterProbability = 0.2
+    lootProbability = 0.1
+    questProbability = 0.7
+  }
+
   
   let encounters = [
-    { type: "Nothing", probability: 1 - (monsterProbability + lootProbability + questProbability) },
     { type: "Monster", probability: monsterProbability },
     { type: "Loot", probability: lootProbability },
     { type: "Quest", probability: questProbability },
@@ -790,49 +786,6 @@ function generateEncounter(activePlayer) {
   
 }
 
-function modifyProbability(activePlayer, choice) {
-  let standardAmountMonster = 0.1;
-  let standardAmountLoot = 0.05;
-  let amountMonster = 0.1;
-  let amountLoot = 0.05;
-  let amountQuest = 0.1;
-
-  if (choice == "Nothing"){
-    activePlayer.probability.monsterProbability += amountMonster;
-    activePlayer.probability.lootProbability += amountLoot;
-    if(activePlayer.quest == null){
-      activePlayer.probability.questProbability += amountQuest;
-    }
-    return
-  }
-  else if (choice == "Monster") {
-    activePlayer.probability.monsterProbability = standardAmountMonster;
-    activePlayer.probability.lootProbability += amountLoot;
-    if(activePlayer.quest == null){
-      activePlayer.probability.questProbability += amountQuest;
-    }
-    return
-  } 
-  else if (choice == "Loot") {
-    activePlayer.probability.monsterProbability += amountMonster;
-    activePlayer.probability.lootProbability = standardAmountLoot;
-    if(activePlayer.quest == null){
-      activePlayer.probability.questProbability += amountQuest;
-    }
-    return
-  } 
-  else if (choice == "Quest") {
-    activePlayer.probability.monsterProbability += amountMonster;
-    activePlayer.probability.lootProbability += amountLoot;
-    if(activePlayer.quest == null){
-      activePlayer.probability.questProbability += amountQuest;
-    }
-    else{
-      activePlayer.probability.questProbability = 0;
-    }
-    return
-  }
-}
 
 //start quest
 function startQuest(activePlayer){

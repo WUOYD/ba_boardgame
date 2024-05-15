@@ -22,6 +22,9 @@
             <div id="playerActions">
                 <div v-for="cell in cells" :key="cell.id" :class="{ 'cell': true, 'colored': cell.colored }"></div>
             </div>
+            <div id="currentIsland">
+                <p>Current Island: {{ this.playerRegion }}</p>
+            </div>
         </div>
         <div id="headerSectionRight">
             <div class="headerItem">
@@ -33,13 +36,9 @@
         </div>
     </div>
     <div v-if="playerIsActive && actionUsed == false" class="actions">
-        <div class="action" @click="investigate()">
+        <div v-if="this.playerRegion != 'Elysora'" class="action" @click="investigate()">
             <img :src="imageInvestigate">
             <p>Untersuchen</p>
-        </div>
-        <div class="action" @click="move()">
-            <img :src="imageMove"/>
-            <p>Reisen</p>
         </div>
         <div class="action" @click="changeIsland()">
             <img :src="imageChangeIsland"/>
@@ -83,6 +82,7 @@ export default {
             playerActions: null,
             playerHealth: null,
             playerGold: null,
+            playerRegion: null,
             cells: [],
             playerHasQuest: false,
             playerIsActive: false,
@@ -91,6 +91,7 @@ export default {
     },
     mounted() {
         socket.on("updatePlayer", activePlayer => {
+            this.playerRegion = activePlayer.region;
             this.playerName = activePlayer.name;
             this.playerActions = activePlayer.actions;
             this.actionUsed = activePlayer.actionUsed;
@@ -124,14 +125,8 @@ export default {
             socket.emit("updateView", 6);
             }
         },
-        move() {
-            if(this.actionUsed != true){
-            socket.emit("updateActions");
-            }
-        },
         changeIsland() {
             if(this.actionUsed != true){
-            socket.emit("updateActions");
             socket.emit("updateView", 3);
             }
         },
@@ -188,6 +183,7 @@ export default {
 
 #playerActions {
     display: flex;
+    margin-bottom: 20px;
 }
 
 #playerStatisticsActions {
@@ -240,9 +236,12 @@ export default {
 }
 
 .headerItem {
+    display: flex;
     margin-right: 2%;
     margin-left: 2%;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
 }
 
 #playerStatisticsActions{
