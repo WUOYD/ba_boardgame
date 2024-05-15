@@ -1,5 +1,5 @@
 <template>
-<div id="playerWon" class="hidden">
+<div v-if="this.winner == 'player'" id="playerWon" class="hidden">
     <div class="overlay-content">
         <h2>Player won</h2>
         <p>{{ playerName }} has slayn {{ monsterName }}</p>
@@ -8,7 +8,7 @@
         <button class="close-btn" v-on:click="closeFightPlayer()">Zurück zu Übersicht</button>
     </div>
 </div>
-<div id="monsterWon" class="hidden">
+<div v-if="this.winner == 'monster'" id="monsterWon" class="hidden">
     <div class="overlay-content">
         <h2>Monster</h2>
         <p>{{ monsterName }} has slayn {{ playerName }}</p>
@@ -18,7 +18,7 @@
 <div class="content single">
     <h1>Fight</h1>
     <div id="statistics">
-        <div id="playerStatistics">
+        <div :class="{ 'activeFighter': this.fightTurn == 'player' }" id="playerStatistics">
             <div class="staticticsContent">
                 <div class="statisticsTable">
                     <table>
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div id="monsterStatistics">
+        <div :class="{ 'activeFighter': this.fightTurn == 'monster' }" id="monsterStatistics">
             <div class="staticticsContent">
                 <div class="statisticsImage">
                     <img :src="monsterImage" width="250" height="250" />
@@ -95,7 +95,7 @@
             </div>
         </div>
     </div>
-    <div class="visible" id="diceCombinationsPlayer">
+    <div v-if="this.fightTurn == 'player'" id="diceCombinationsPlayer">
         <h2>Player</h2>
         <div id="movesPlayer">
             <div v-for="(option, index) in optionsPlayer" :key="index" class="movesCombinationPlayer">
@@ -118,18 +118,18 @@
             </div>
         </div>
             <div class="enterCombination">
-                <button @click="readSelectedOptionPlayer()">Ausgewählte Option lesen</button>
+                <button @click="readSelectedOptionPlayer()">Bestätigen</button>
             </div>
         </div>
-        <div class="hidden" id="diceCombinationsMonster">
+        <div v-if="this.fightTurn == 'monster'" id="diceCombinationsMonster">
             <h2>Monster</h2>
             <div id="movesMonster">
             <div v-for="(option, index) in optionsMonster" :key="index" class="movesCombinationMonster">
                 <button :class="{ selected: selectedOptionMonster === option }" @click="selectOptionMonster(option)">
                 <div class="movesContentLeft">
                     <div class="movesImages">
-                        <img :src="moveImages[index][0]" width="100" height="100" />
-                        <img :src="moveImages[index][1]" width="100" height="100" />
+                        <img :src="moveImages[index][0]" />
+                        <img :src="moveImages[index][1]" />
                     </div>
                 </div>
                 <div class="movesContentRight">
@@ -144,7 +144,7 @@
             </div>
         </div>
             <div class="enterCombination">
-                <button @click="readSelectedOptionMonster()">Ausgewählte Option lesen</button>
+                <button @click="readSelectedOptionMonster()">Bestätigen</button>
             </div>
         </div>
     </div>
@@ -201,6 +201,8 @@ export default {
             movesTableCombinationSwordMagic: null,
             movesTableCombinationMagicSkull: null,
             movesTableCombinationSwordSkull: null,
+            fightTurn: "player",
+            winner: null,
         }
     },
     mounted() {
@@ -214,10 +216,9 @@ export default {
         })
         socket.on("fightWinner", status => {
             if (status) {
-                this.toggleVisibility("playerWon")
+                this.winner = "player"
             } else {
-                console.log("test")
-                this.toggleVisibility("monsterWon")
+                this.winner = "monster"
             }
         })
         socket.on("updateMonster", activePlayer => {
@@ -287,36 +288,24 @@ export default {
         readSelectedOptionPlayer() {
             socket.emit("diceRollPlayer", this.selectedOptionPlayer)
             this.selectedOptionPlayer = null;
-            this.toggleVisibility("diceCombinationsPlayer");
-            this.toggleVisibility("diceCombinationsMonster");
+            this.fightTurn = "monster"
         },
         readSelectedOptionMonster() {
             socket.emit("diceRollMonster", this.selectedOptionMonster)
             this.selectedOptionMonster = null;
-            this.toggleVisibility("diceCombinationsPlayer");
-            this.toggleVisibility("diceCombinationsMonster");
-        },
-        toggleVisibility(elementId) {
-            var element = document.getElementById(elementId);
-            if (element.classList.contains('visible')) {
-                element.classList.remove('visible');
-                element.classList.add('hidden');
-            } else {
-                element.classList.remove('hidden');
-                element.classList.add('visible');
-            }
+            this.fightTurn = "player"
         },
         updateView(comp) {
             socket.emit("updateView", comp);
         },
         closeFightPlayer() {
-            this.toggleVisibility("playerWon")
             this.updateView(2);
+            this.winner = "null"
             socket.emit("getActivePlayer");
         },
         closeFightMonster() {
-            this.toggleVisibility("monsterWon")
             this.updateView(2);
+            this.winner = "null"
             socket.emit("getActivePlayer");
         }
     },
@@ -332,7 +321,8 @@ p {
 }
 
 #movesPlayer, #movesMonster {
-    width: 100%;
+    width: 95%;
+    height: 70%;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -340,8 +330,13 @@ p {
 
 #diceCombinationsPlayer, #diceCombinationsMonster{
     width: 100%;
+    height: 60%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(50, 50, 50, 0.3);
+    border-radius: 10px;
 }
 
 #movesPlayer .movesCombinationPlayer, #movesMonster .movesCombinationMonster {
@@ -391,6 +386,11 @@ p {
     justify-content: center;
 }
 
+.movesImages img {
+    width: 30%;
+    height: auto;
+}
+
 .moveName {
     display: flex;
     width: 100%;
@@ -414,7 +414,7 @@ p {
     display: flex;
     flex-direction: row;
     width: 100%;
-    background-color: rgba(50, 50, 50, 0.2);
+    background-color: rgba(50, 50, 50, 0.5);
     border: none;
     border-radius: 5px;
 }
@@ -424,8 +424,19 @@ p {
 }
 
 .statisticsImage img {
+    height: 100%;
+    width: 100%;
     border-radius: 5px;
-    margin: 5px;
+    overflow: hidden;
+    object-fit: cover;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.activeFighter{
+    background-color: rgba(50, 50, 50, 0.3);
+    border-radius: 10px;
 }
 
 .buttonCombinationImages img {
@@ -435,20 +446,25 @@ p {
 
 #statistics {
     width: 100%;
+    height: 30%;
     display: flex;
     flex-direction: row;
     position: relative;
 }
 
 #playerStatistics {
-    width: 47.5%;
     display: flex;
-    flex-direction: column;
+    width: 45%;
+    height: 80%;
+    display: flex;
+    padding: 1%;
 }
 
 #monsterStatistics {
-    width: 47.5%;
+    height: 80%;
+    width: 45%;
     display: flex;
+    padding: 1%;
     flex-direction: column;
     position: absolute;
     right: 0;
@@ -456,8 +472,17 @@ p {
 
 .statisticsImage,
 .statisticsTable {
+    display: flex;
     width: 50% !important;
+    margin-left: 2%;
+    margin-right: 2%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
+
+
 
 .staticticsContent {
     width: 100%;
@@ -467,17 +492,18 @@ p {
 
 .statisticsTable table {
     width: 100%;
+    margin-bottom: 0px !important;
 }
 
 .statisticsTable th,
 td {
     width: 50%;
     border-bottom: #333333 dotted 1px;
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .statisticsTable td p {
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .hidden {
@@ -490,6 +516,15 @@ td {
 
 .enterCombination {
     width: 100%;
+    height: 10%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.enterCombination  button{
+    width: 20%;
+    height: 100%;
     justify-content: center;
     align-items: center;
 }
@@ -500,7 +535,7 @@ td {
     left: 25%;
     width: 50%;
     height: 50%;
-    background-color: rgba(71, 15, 15, 0.9);
+    background-color: rgba(0, 0, 0, 0.9);
     overflow: auto;
     padding: 20px;
     border-radius: 25px;
@@ -512,7 +547,7 @@ td {
     left: 25%;
     width: 50%;
     height: 50%;
-    background-color: rgba(71, 15, 15, 0.9);
+    background-color: rgba(0, 0, 0, 0.9);
     z-index: 999;
     overflow: auto;
     padding: 20px;

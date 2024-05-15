@@ -205,7 +205,7 @@ p {
 
 .questText{
     width: 100%;
-    height: 60%;
+    height: 40%;
     text-align: left;
 }
 
@@ -213,7 +213,7 @@ p {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 40%;
+    height: 60%;
     justify-content: center;
 }
 
@@ -234,6 +234,19 @@ td p{
 
 tr {
     height: 40px;
+}
+
+#monster{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#monster img{
+    width: 100%;
+    overflow: hidden;
+    object-fit: cover;
 }
 
 #loot img {

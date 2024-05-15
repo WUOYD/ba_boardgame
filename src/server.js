@@ -82,11 +82,17 @@ class Player {
     this.name = name;
     this.region = region;
     this.host = false;
-    this.actions = 10;
-    this.actionUsed = false;
-    this.health = 10;
+    this.actions = 2;
+    this.actionsUsed = {
+      investigate: false,
+      heal: false,
+      changeIsland: false,
+      quest: false,
+      boss: false,
+    }
+    this.health = 10; 
     this.reputation = 0;
-    this.gold = 20;
+    this.gold = 0;
     this.goldLoot = 0;
     this.monstersKilled = 0;
     this.questsSolved = 0;
@@ -268,8 +274,13 @@ io.on('connection', (socket) => {
       newPlayer = identifiers[0];
       activePlayer = 0;
     }
+    lobby[oldPlayer].actionsUsed.investigate = false;
+    lobby[oldPlayer].actionsUsed.heal = false;
+    lobby[oldPlayer].actionsUsed.quest = false;
+    lobby[oldPlayer].actionsUsed.changeIsland = false;
+    lobby[oldPlayer].actionsUsed.boss = false;
+    lobby[oldPlayer].actions = 2;
     lobby[oldPlayer].playerIsActive = false;
-    lobby[oldPlayer].actionUsed = false;
     lobby[newPlayer].playerIsActive = true;
     io.to(oldPlayer).emit('updateClientView', "Actions");
     io.to(oldPlayer).emit("updatePlayer", lobby[oldPlayer]);
@@ -380,9 +391,25 @@ io.on('connection', (socket) => {
     socket.emit("updatePlayer", lobby[socket.id]);
   });
 
-  socket.on("updateActions", function() { 
-    lobby[socket.id].actionUsed = true; 
+  socket.on("updateActions", (action) => { 
     lobby[socket.id].actions -= 1;
+    switch (action) {
+      case "investigate": 
+        lobby[socket.id].actionsUsed.investigate = true
+        break;
+      case "heal": 
+        lobby[socket.id].actionsUsed.heal = true
+        break;
+      case "quest": 
+        lobby[socket.id].actionsUsed.quest = true
+        break;
+      case "changeIsland": 
+        lobby[socket.id].actionsUsed.changeIsland = true
+        break;
+      case "boss": 
+        lobby[socket.id].actionsUsed.boss = true
+        break;
+    }
     socket.emit("updatePlayer", lobby[socket.id]);
   });
 
@@ -453,14 +480,14 @@ function initMonsters() {
   }
 
   // Initialize Silver monsters
-  for (let i = 0; i < monsterCount; i++) {
-    monstersSilverNythoria.push(new Monster(monsterTableSilverNythoria[i].name, monsterTableSilverNythoria[i].type, monsterTableSilverNythoria[i].health, monsterTableSilverNythoria[i].gold, monsterTableSilverNythoria[i].victoryPoints, monsterTableSilverNythoria[i].image, monsterTableSilverNythoria[i].moves));
-    monstersSilverDrakan.push(new Monster(monsterTableSilverDrakan[i].name, monsterTableSilverDrakan[i].type, monsterTableSilverDrakan[i].health, monsterTableSilverDrakan[i].gold, monsterTableSilverDrakan[i].victoryPoints, monsterTableSilverDrakan[i].image, monsterTableSilverDrakan[i].moves));
-    monstersSilverTalvar.push(new Monster(monsterTableSilverTalvar[i].name, monsterTableSilverTalvar[i].type, monsterTableSilverTalvar[i].health, monsterTableSilverTalvar[i].gold, monsterTableSilverTalvar[i].victoryPoints, monsterTableSilverTalvar[i].image, monsterTableSilverTalvar[i].moves));
-    monstersSilverFrosgar.push(new Monster(monsterTableSilverFrosgar[i].name, monsterTableSilverFrosgar[i].type, monsterTableSilverFrosgar[i].health, monsterTableSilverFrosgar[i].gold, monsterTableSilverFrosgar[i].victoryPoints, monsterTableSilverFrosgar[i].image, monsterTableSilverFrosgar[i].moves));
-    monstersSilverAthos.push(new Monster(monsterTableSilverAthos[i].name, monsterTableSilverAthos[i].type, monsterTableSilverAthos[i].health, monsterTableSilverAthos[i].gold, monsterTableSilverAthos[i].victoryPoints, monsterTableSilverAthos[i].image, monsterTableSilverAthos[i].moves));
-    monstersSilverAridora.push(new Monster(monsterTableSilverAridora[i].name, monsterTableSilverAridora[i].type, monsterTableSilverAridora[i].health, monsterTableSilverAridora[i].gold, monsterTableSilverAridora[i].victoryPoints, monsterTableSilverAridora[i].image, monsterTableSilverAridora[i].moves));
-  }
+  // for (let i = 0; i < monsterCount; i++) {
+  //   monstersSilverNythoria.push(new Monster(monsterTableSilverNythoria[i].name, monsterTableSilverNythoria[i].type, monsterTableSilverNythoria[i].health, monsterTableSilverNythoria[i].gold, monsterTableSilverNythoria[i].victoryPoints, monsterTableSilverNythoria[i].image, monsterTableSilverNythoria[i].moves));
+  //   monstersSilverDrakan.push(new Monster(monsterTableSilverDrakan[i].name, monsterTableSilverDrakan[i].type, monsterTableSilverDrakan[i].health, monsterTableSilverDrakan[i].gold, monsterTableSilverDrakan[i].victoryPoints, monsterTableSilverDrakan[i].image, monsterTableSilverDrakan[i].moves));
+  //   monstersSilverTalvar.push(new Monster(monsterTableSilverTalvar[i].name, monsterTableSilverTalvar[i].type, monsterTableSilverTalvar[i].health, monsterTableSilverTalvar[i].gold, monsterTableSilverTalvar[i].victoryPoints, monsterTableSilverTalvar[i].image, monsterTableSilverTalvar[i].moves));
+  //   monstersSilverFrosgar.push(new Monster(monsterTableSilverFrosgar[i].name, monsterTableSilverFrosgar[i].type, monsterTableSilverFrosgar[i].health, monsterTableSilverFrosgar[i].gold, monsterTableSilverFrosgar[i].victoryPoints, monsterTableSilverFrosgar[i].image, monsterTableSilverFrosgar[i].moves));
+  //   monstersSilverAthos.push(new Monster(monsterTableSilverAthos[i].name, monsterTableSilverAthos[i].type, monsterTableSilverAthos[i].health, monsterTableSilverAthos[i].gold, monsterTableSilverAthos[i].victoryPoints, monsterTableSilverAthos[i].image, monsterTableSilverAthos[i].moves));
+  //   monstersSilverAridora.push(new Monster(monsterTableSilverAridora[i].name, monsterTableSilverAridora[i].type, monsterTableSilverAridora[i].health, monsterTableSilverAridora[i].gold, monsterTableSilverAridora[i].victoryPoints, monsterTableSilverAridora[i].image, monsterTableSilverAridora[i].moves));
+  // }
 
   // Initialize Gold monsters
   // for (let i = 0; i < monsterCount; i++) {

@@ -18,7 +18,7 @@
             </div>
         </div>
         <div id="headerSectionMiddle">
-            <h2>{{ playerName }} Aktionen</h2>
+            <h2>{{ playerName }}</h2>
             <div id="playerActions">
                 <div v-for="cell in cells" :key="cell.id" :class="{ 'cell': true, 'colored': cell.colored }"></div>
             </div>
@@ -35,30 +35,38 @@
             </div>
         </div>
     </div>
-    <div v-if="playerIsActive && actionUsed == false" class="actions">
+    <div v-if="playerIsActive" class="actions">
         <div v-if="this.playerRegion != 'Elysora'" class="action" @click="investigate()">
             <img :src="imageInvestigate">
             <p>Untersuchen</p>
+            <p v-if="this.actionsUsedInvestigate == true">used</p>
         </div>
         <div class="action" @click="changeIsland()">
             <img :src="imageChangeIsland"/>
             <p>Insel wechseln</p>
+            <p v-if="this.actionsUsedChangeIsland == true">used</p>
         </div>
-        <div v-if="playerHealth != 10" class="action" @click="heal()">
+        <div v-if="this.playerHealth != 10" class="action" @click="heal()">
             <img :src="imageHeal"/>
             <p>Heilen</p>
+            <p v-if="this.actionsUsedHeal == true">used</p>
         </div>
-        <div v-if="playerHasQuest" class="action" @click="quest()">
+        <div v-if="this.playerHasQuest" class="action" @click="quest()">
             <img :src="imageQuest"/>
             <p>Quest</p>
+            <p v-if="this.actionsUsedQuest == true">used</p>
         </div>
-    </div>
-    <div v-if="playerIsActive && actionUsed == true" class="actions">
+        <div class="action" @click="boss()">
+            <img :src="imageQuest"/>
+            <p>Boss</p>
+            <p v-if="this.actionsUsedBoss == true">used</p>
+        </div>
         <div class="action" @click="endAction()">
             <img :src="imageInvestigate">
             <p>Zug Beenden</p>
         </div>
     </div>
+
 </div>
 </template>
 
@@ -86,7 +94,11 @@ export default {
             cells: [],
             playerHasQuest: false,
             playerIsActive: false,
-            actionUsed: false,
+            actionsUsedInvestigate: false,
+            actionsUsedHeal: false,
+            actionsUsedChangeIsland: false,
+            actionsUsedQuest: false,
+            actionsUsedBoss: false,
         }
     },
     mounted() {
@@ -94,7 +106,11 @@ export default {
             this.playerRegion = activePlayer.region;
             this.playerName = activePlayer.name;
             this.playerActions = activePlayer.actions;
-            this.actionUsed = activePlayer.actionUsed;
+            this.actionsUsedInvestigate = activePlayer.actionsUsed.investigate;
+            this.actionsUsedHeal = activePlayer.actionsUsed.investigate;
+            this.actionsUsedChangeIsland = activePlayer.actionsUsed.changeIsland;
+            this.actionsUsedQuest = activePlayer.actionsUsed.quest;
+            this.actionsUsedBoss = activePlayer.actionsUsed.boss;
             this.playerIsActive = activePlayer.playerIsActive
             this.playerHealth = activePlayer.health;
             this.playerGold = activePlayer.gold;
@@ -111,7 +127,7 @@ export default {
     methods: {
         generateCells(number) {
             this.cells = []; // Clear existing cells
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 2; i++) {
                 const cell = {
                     id: i,
                     colored: i < number
@@ -120,25 +136,32 @@ export default {
             }
         },
         investigate() {
-            if(this.actionUsed != true){
-            socket.emit("updateActions");
+            if(this.actionsUsedInvestigate == false && this.playerActions > 0){
+            socket.emit("updateActions", "investigate");
             socket.emit("updateView", 6);
             }
         },
         changeIsland() {
-            if(this.actionUsed != true){
+            if(this.actionsUsedChangeIsland == false && this.playerActions > 0){
             socket.emit("updateView", 3);
             }
         },
         heal() {
-            if(this.actionUsed != true){
-            socket.emit("updateActions");
+            if(this.actionsUsedHeal == false && this.playerActions > 0){
+            socket.emit("updateActions", "heal");
             socket.emit("healPlayer");
             }
         },
         quest() {
-            if(this.actionUsed != true){
-            socket.emit("updateActions");
+            if(this.actionsUsedQuest == false && this.playerActions > 0){
+            socket.emit("updateActions", "quest");
+            socket.emit("updateView", 5);
+            socket.emit("manageQuest");
+            }
+        },
+        boss() {
+            if(this.actionsUsedBoss != true && this.playerActions > 0){
+            socket.emit("updateActions", "boss");
             socket.emit("updateView", 5);
             socket.emit("manageQuest");
             }
@@ -147,10 +170,8 @@ export default {
             socket.emit("updateView", comp);
         },
         endAction() {
-            if(this.actionUsed == true){
-                socket.emit("endAction");
-                this.actionUsed = false;
-            }
+            socket.emit("endAction");
+            this.actionUsed = false;
         }
     },
     beforeUnmount() {
@@ -184,6 +205,7 @@ export default {
 #playerActions {
     display: flex;
     margin-bottom: 20px;
+    justify-content: center;
 }
 
 #playerStatisticsActions {
