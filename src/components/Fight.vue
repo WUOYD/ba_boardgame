@@ -1,18 +1,18 @@
 <template>
-<div v-if="this.winner == 'player'" id="playerWon" class="hidden">
+<div v-if="this.winner == 'player'" class="winner">
     <div class="overlay-content">
         <h2>Player won</h2>
         <p>{{ playerName }} has slayn {{ monsterName }}</p>
         <p>Victory Points: {{ monsterVictoryPoints }}</p>
         <p>Gold: {{ monsterRewardGold }}</p>
-        <button class="close-btn" v-on:click="closeFightPlayer()">Zurück zu Übersicht</button>
+        <button class="close-btn" v-on:click="closeFight()">Zurück zu Übersicht</button>
     </div>
 </div>
-<div v-if="this.winner == 'monster'" id="monsterWon" class="hidden">
+<div v-if="this.winner == 'monster'" class="winner">
     <div class="overlay-content">
         <h2>Monster</h2>
         <p>{{ monsterName }} has slayn {{ playerName }}</p>
-        <button class="close-btn" @click="closeFightMonster()">Zurück zu Übersicht</button>
+        <button class="close-btn" @click="closeFight()">Zurück zu Übersicht</button>
     </div>
 </div>
 <div class="content single">
@@ -100,54 +100,54 @@
         <div id="movesPlayer">
             <div v-for="(option, index) in optionsPlayer" :key="index" class="movesCombinationPlayer">
                 <button :class="{ selected: selectedOptionPlayer === option }" @click="selectOptionPlayer(option)">
-                <div class="movesContentLeft">
-                    <div class="movesImages">
-                        <img :src="moveImages[index][0]" width="100" height="100" />
-                        <img :src="moveImages[index][1]" width="100" height="100" />
+                    <div class="movesContentLeft">
+                        <div class="movesImages">
+                            <img :src="moveImages[index][0]" width="100" height="100" />
+                            <img :src="moveImages[index][1]" width="100" height="100" />
+                        </div>
                     </div>
-                </div>
-                <div class="movesContentRight">
-                    <div class="moveName">
-                        {{ moveNamePlayer[index] }}
+                    <div class="movesContentRight">
+                        <div class="moveName">
+                            {{ moveNamePlayer[index] }}
+                        </div>
+                        <div class="moveText">
+                            {{ moveTextPlayer[index] }}
+                        </div>
                     </div>
-                    <div class="moveText">
-                        {{ moveTextPlayer[index] }}
-                    </div>
-                </div>
                 </button>
             </div>
         </div>
-            <div class="enterCombination">
-                <button @click="readSelectedOptionPlayer()">Bestätigen</button>
-            </div>
-        </div>
-        <div v-if="this.fightTurn == 'monster'" id="diceCombinationsMonster">
-            <h2>Monster</h2>
-            <div id="movesMonster">
-            <div v-for="(option, index) in optionsMonster" :key="index" class="movesCombinationMonster">
-                <button :class="{ selected: selectedOptionMonster === option }" @click="selectOptionMonster(option)">
-                <div class="movesContentLeft">
-                    <div class="movesImages">
-                        <img :src="moveImages[index][0]" />
-                        <img :src="moveImages[index][1]" />
-                    </div>
-                </div>
-                <div class="movesContentRight">
-                    <div class="moveName">
-                        {{ moveNameMonster[index] }}
-                    </div>
-                    <div class="moveText">
-                        {{ moveTextMonster[index] }}
-                    </div>
-                </div>
-                </button>
-            </div>
-        </div>
-            <div class="enterCombination">
-                <button @click="readSelectedOptionMonster()">Bestätigen</button>
-            </div>
+        <div class="enterCombination">
+            <button @click="readSelectedOptionPlayer()">Bestätigen</button>
         </div>
     </div>
+    <div v-if="this.fightTurn == 'monster'" id="diceCombinationsMonster">
+        <h2>Monster</h2>
+        <div id="movesMonster">
+            <div v-for="(option, index) in optionsMonster" :key="index" class="movesCombinationMonster">
+                <button :class="{ selected: selectedOptionMonster === option }" @click="selectOptionMonster(option)">
+                    <div class="movesContentLeft">
+                        <div class="movesImages">
+                            <img :src="moveImages[index][0]" />
+                            <img :src="moveImages[index][1]" />
+                        </div>
+                    </div>
+                    <div class="movesContentRight">
+                        <div class="moveName">
+                            {{ moveNameMonster[index] }}
+                        </div>
+                        <div class="moveText">
+                            {{ moveTextMonster[index] }}
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="enterCombination">
+            <button @click="readSelectedOptionMonster()">Bestätigen</button>
+        </div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -169,7 +169,7 @@ export default {
             ],
             optionsPlayer: [1, 2, 3, 4, 5, 6],
             playerPicture: "",
-            playerName: null,
+            playerName: "playerName",
             playerActions: null,
             playerHealth: null,
             playerReputation: null,
@@ -246,28 +246,47 @@ export default {
             this.moveTextMonster[5] = activePlayer.fight.activeMonster.moves[5].text
         })
         socket.on("updatePlayer", activePlayer => {
-            this.playerName = activePlayer.name;
-            this.playerPicture = activePlayer.picture;
-            this.playerActions = activePlayer.actions;
-            this.playerHealth = activePlayer.health;
-            this.playerReputation = activePlayer.reputation;
-            this.playerGold = activePlayer.gold;
-            this.playerBlocks = activePlayer.blocks;
-            this.playerDot = activePlayer.dot;
-            this.playerReflect = activePlayer.reflect;
-            this.moveNamePlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].name
-            this.moveTextPlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].text
-            this.moveNamePlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].name
-            this.moveTextPlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].text
-            this.moveNamePlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].name
-            this.moveTextPlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].text
-            this.moveNamePlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].name
-            this.moveTextPlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].text
-            this.moveNamePlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].name
-            this.moveTextPlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].text
-            this.moveNamePlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].name
-            this.moveTextPlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].text
-        })
+            if (activePlayer && activePlayer.moves) {
+                this.playerName = activePlayer.name;
+                this.playerPicture = activePlayer.picture;
+                this.playerActions = activePlayer.actions;
+                this.playerHealth = activePlayer.health;
+                this.playerReputation = activePlayer.reputation;
+                this.playerGold = activePlayer.gold;
+                this.playerBlocks = activePlayer.blocks;
+                this.playerDot = activePlayer.dot;
+                this.playerReflect = activePlayer.reflect;
+
+                // Check if moves array and the necessary tables are defined before accessing them
+                if (activePlayer.moves[0] && this.movesTableCombinationSwordSword[activePlayer.moves[0][0]]) {
+                    this.moveNamePlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].name;
+                    this.moveTextPlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].text;
+                }
+                if (activePlayer.moves[1] && this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]]) {
+                    this.moveNamePlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].name;
+                    this.moveTextPlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].text;
+                }
+                if (activePlayer.moves[2] && this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]]) {
+                    this.moveNamePlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].name;
+                    this.moveTextPlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].text;
+                }
+                if (activePlayer.moves[3] && this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]]) {
+                    this.moveNamePlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].name;
+                    this.moveTextPlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].text;
+                }
+                if (activePlayer.moves[4] && this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]]) {
+                    this.moveNamePlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].name;
+                    this.moveTextPlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].text;
+                }
+                if (activePlayer.moves[5] && this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]]) {
+                    this.moveNamePlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].name;
+                    this.moveTextPlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].text;
+                }
+            } else {
+                console.error('Active player or move tables are not defined');
+            }
+        });
+
         socket.emit("getMovesTables");
         socket.emit("getActivePlayer");
         socket.emit("getActiveMonster");
@@ -298,12 +317,7 @@ export default {
         updateView(comp) {
             socket.emit("updateView", comp);
         },
-        closeFightPlayer() {
-            this.updateView(2);
-            this.winner = "null"
-            socket.emit("getActivePlayer");
-        },
-        closeFightMonster() {
+        closeFight() {
             this.updateView(2);
             this.winner = "null"
             socket.emit("getActivePlayer");
@@ -320,7 +334,8 @@ p {
     white-space: pre-line;
 }
 
-#movesPlayer, #movesMonster {
+#movesPlayer,
+#movesMonster {
     width: 95%;
     height: 70%;
     display: flex;
@@ -328,7 +343,8 @@ p {
     gap: 10px;
 }
 
-#diceCombinationsPlayer, #diceCombinationsMonster{
+#diceCombinationsPlayer,
+#diceCombinationsMonster {
     width: 100%;
     height: 60%;
     display: flex;
@@ -337,9 +353,11 @@ p {
     align-items: center;
     background-color: rgba(50, 50, 50, 0.3);
     border-radius: 10px;
+    border: 1px solid #f7e4c2;
 }
 
-#movesPlayer .movesCombinationPlayer, #movesMonster .movesCombinationMonster {
+#movesPlayer .movesCombinationPlayer,
+#movesMonster .movesCombinationMonster {
     flex-basis: calc(50% - 5px);
     box-sizing: border-box;
     padding: 5px;
@@ -355,12 +373,14 @@ p {
     margin-right: 0px;
 }
 
-#movesPlayer .moveImages, #movesMonster .moveImages {
+#movesPlayer .moveImages,
+#movesMonster .moveImages {
     width: 50%;
     justify-content: flex-end;
 }
 
-#movesPlayer img, #movesMonster img {
+#movesPlayer img,
+#movesMonster img {
     border-radius: 10px;
     margin: 5px;
 }
@@ -376,7 +396,6 @@ p {
     display: flex;
     flex-direction: column;
     height: 100%
-
 }
 
 .movesImages {
@@ -387,7 +406,7 @@ p {
 }
 
 .movesImages img {
-    width: 30%;
+    width: 25%;
     height: auto;
 }
 
@@ -409,8 +428,8 @@ p {
     font-size: 14px;
 }
 
-
-.movesCombinationPlayer button, .movesCombinationMonster button {
+.movesCombinationPlayer button,
+.movesCombinationMonster button {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -433,10 +452,10 @@ p {
     align-items: center;
 }
 
-
-.activeFighter{
+.activeFighter {
     background-color: rgba(50, 50, 50, 0.3);
     border-radius: 10px;
+    border: 1px solid #f7e4c2;
 }
 
 .buttonCombinationImages img {
@@ -482,10 +501,9 @@ p {
     flex-direction: column;
 }
 
-
-
 .staticticsContent {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
 }
@@ -506,14 +524,6 @@ td {
     font-size: 18px;
 }
 
-.hidden {
-    display: none !important;
-}
-
-.visible {
-    display: flex;
-}
-
 .enterCombination {
     width: 100%;
     height: 10%;
@@ -522,36 +532,25 @@ td {
     margin-top: 20px;
 }
 
-.enterCombination  button{
+.enterCombination button {
     width: 20%;
     height: 100%;
     justify-content: center;
     align-items: center;
 }
 
-#playerWon {
+.winner {
     position: fixed !important;
     top: 25%;
     left: 25%;
     width: 50%;
     height: 50%;
     background-color: rgba(0, 0, 0, 0.9);
+    border: 1px solid #f7e4c2;
     overflow: auto;
     padding: 20px;
     border-radius: 25px;
-}
-
-#monsterWon {
-    position: fixed !important;
-    top: 25%;
-    left: 25%;
-    width: 50%;
-    height: 50%;
-    background-color: rgba(0, 0, 0, 0.9);
     z-index: 999;
-    overflow: auto;
-    padding: 20px;
-    border-radius: 25px;
 }
 
 .overlay-content {

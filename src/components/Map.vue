@@ -34,7 +34,7 @@
             <p>Elysora</p>
         </div>
     </div>
-    <div id="changeRegionPopUp" class="hidden">
+    <div v-if="acceptChoicePopUp == true" id="changeRegionPopUp">
         <img :src="travelDestinationPicture" />
         <div class="overlay-content">
             <p>Möchtest du wirklich auf {{ travelDestinationText }} reisen?</p>
@@ -55,6 +55,7 @@ import {
 export default {
     data() {
         return {
+            acceptChoicePopUp: false,
             currentIsland: null,
             travelDestination: null,
             travelDestinationText: null,
@@ -80,18 +81,8 @@ export default {
         socket.emit("getActivePlayer");
     },
     methods: {
-        toggleVisibility(elementId) {
-            var element = document.getElementById(elementId);
-            if (element.classList.contains('visible')) {
-                element.classList.remove('visible');
-                element.classList.add('hidden');
-            } else {
-                element.classList.remove('hidden');
-                element.classList.add('visible');
-            }
-        },
         acceptChoice(island) {
-            this.toggleVisibility("changeRegionPopUp");
+            this.acceptChoicePopUp = true
             this.travelDestination = this.islands[island][0];
             this.travelDestinationText = this.islands[island][1];
             this.travelDestinationPicture = this.islands[island][2];
@@ -99,10 +90,10 @@ export default {
         acceptedChoice() {
             socket.emit("updateActions", "changeIsland");
             this.changeRegion(this.travelDestination);
-            this.toggleVisibility("changeRegionPopUp");
+            this.acceptChoicePopUp = false
         },
         deniedChoice() {
-            this.toggleVisibility("changeRegionPopUp");
+            this.acceptChoicePopUp = false
         },
         changeRegion(region) {
             if (region == 7) {

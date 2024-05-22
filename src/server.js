@@ -793,7 +793,6 @@ function generateEncounter(activePlayer) {
     questProbability = 0.7
   }
 
-  
   let encounters = [
     { type: "Monster", probability: monsterProbability },
     { type: "Loot", probability: lootProbability },
@@ -1020,11 +1019,12 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
     }
     else{
       activeMonster.health = activeMonster.health - playerDamage;
+      activeMonster.blocks = 0;
     }
   }
   //apply damage next round
   if(move.damageNextRound > 0){
-    activePlayer.damageNextRound = move.damageNextRound ;
+    activePlayer.damageNextRound = move.damageNextRound;
   }
 
   // reflect 
@@ -1058,7 +1058,7 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
   let monsterDamage = activeMonster.moves[moveIndex].damage;
 
   //dot
-  if(activeMonster.moves[monsterRoll-1].dot > 0){
+  if(activeMonster.moves[moveIndex].dot > 0){
     activeMonster.dot = activeMonster.moves[moveIndex].dot
   }
   if(activeMonster.dot > 0){
@@ -1075,16 +1075,18 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
     }
     else if(activePlayer.blocks < monsterDamage){
       activePlayer.health = activePlayer.health + (activePlayer.blocks - monsterDamage)
-      activePlayer.blocks = 0
+      activePlayer.blocks = 0;
     }
     else{
       activePlayer.health = activePlayer.health - monsterDamage;
+      activePlayer.blocks = 0;
     }
   }
   //apply damage next round
   if(activeMonster.moves[moveIndex].damageNextRound > 0){
     activeMonster.damageNextRound = activeMonster.moves[moveIndex].damageNextRound;
   }
+
   // reflect 
   if(activePlayer.reflect > 0){
     if(monsterDamage >= activePlayer.reflect){
