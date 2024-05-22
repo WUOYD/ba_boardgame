@@ -526,6 +526,170 @@ const monsterTableGoldAridora = []
 
 
 
+let monsterTableQuests = [
+    {
+        "name": "Template",
+        "type": "Bronze",
+        "health": 5,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "",
+        "moves": [
+            { "name": "-", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "-", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "-", "text": "2 Heilung", "damage": 0, "block": 0, "heal": 2, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "-", "text": "2 Block, 1 Schaden nächste Runde", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
+            { "name": "-", "text": "2 Schaden, 1 Schaden jede Runde", "damage": 2, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
+            { "name": "-", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        ]
+    },
+    {
+        "name": "Eiswolf",
+        "type": "Bronze",
+        "health": 5,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/eiswolf.webp",
+        "moves": [
+            { "name": "Krallenhieb", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Sprungangriff", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Eisige Aura", "text": "2 Heilung", "damage": 0, "block": 0, "heal": 2, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Winterschlaf", "text": "2 Block, 1 Schaden nächste Runde", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
+            { "name": "Eisiger Biss", "text": "2 Schaden, 1 Schaden jede Runde", "damage": 2, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Frostatem", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        ]
+    },
+    {
+        "name": "Ragnar",
+        "type": "Bronze",
+        "health": 6,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/ragnar.webp",
+        "moves": [
+            { "name": "Axtangriff", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Kraftvoller Hieb", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Zorn", "text": "1 Heilung, 2 Schaden nächste Runde", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 2 },
+            { "name": "Wille der Barbaren", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Blutung", "text": "1 Schaden jede Runde", "damage": 0, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Todesstoss", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        ]
+    },
+    {
+        "name": "Sandkrabbe",
+        "type": "Bronze",
+        "health": 6,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/sandkrabbe.webp",
+        "moves": [
+            { "name": "Klauenschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Rolle", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Eingraben", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Sandpanzer", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
+            { "name": "Aufspiessen", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Fangzahn", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        ]
+    },
+    {
+        "name": "Banditen",
+        "type": "Bronze",
+        "health": 5,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/banditen.webp",
+        "moves": [
+            { "name": "Dolchstoss", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Blutklinge", "text": "1 Schaden pro Runde", "damage": 0, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Täuschung", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Rauchbombe", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
+            { "name": "Heiltrank", "text": "2 Heilung", "damage": 0, "block": 0, "heal": 2, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Hinterhalt", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        ]
+    },
+    {
+        "name": "Gorr",
+        "type": "Bronze",
+        "health": 5,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/gorr.webp",
+        "moves": [
+            { "name": "Knüppelschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Messerangriff", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Ausweichen", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Kopfstoss", "text": "2 Schaden, 1 Selbstschaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 1 },
+            { "name": "Giftwolke", "text": "1 Schaden, 1 Schaden pro Runde", "damage": 1, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Versteckte Klinge", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        ]
+    },
+    {
+        "name": "Drache",
+        "type": "Bronze",
+        "health": 6,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/drache.webp",
+        "moves": [
+            { "name": "Flügelschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Ascheregen", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Herz der Flammen", "text": "1 Heilung", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Drachengebrüll", "text": "1 Heilung, 2 Schaden nächste Runde", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 2 },
+            { "name": "Verbrannte Erde", "text": "1 Schaden pro Runde", "damage": 0, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Feueratem", "text": "4 Schaden", "damage": 4, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        ]
+    },
+    {
+        "name": "Geisterwache",
+        "type": "Bronze",
+        "health": 5,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/geisterwache.webp",
+        "moves": [
+            { "name": "Geisterhand", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Wächteraura", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
+            { "name": "Furcht", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Todesrasseln", "text": "1 Heilung, 1 Schaden", "damage": 1, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Seelenernte", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Fluch des Wächters", "text": "2 Schaden pro Runde", "damage": 0, "block": 0, "heal": 0, "dot": 2, "reflect": 0, "damageNextRound": 0 }
+        ]
+    },
+    {
+        "name": "Grunthar",
+        "type": "Bronze",
+        "health": 8,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/grunthar.webp",
+        "moves": [
+            { "name": "Faustschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Rülpser", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Bier trinken", "text": "1 Heilung", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Kopfstoss", "text": "2 Schaden, 2 Selbstschaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 },
+            { "name": "Unkontrollierter Schlag", "text": "3 Schaden, 2 Selbstschaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 },
+            { "name": "Torkeln", "text": "4 Selbstschaden", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 4 }
+        ]
+    },
+    {
+        "name": "Olafur",
+        "type": "Bronze",
+        "health": 8,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/olafur.webp",
+        "moves": [
+            { "name": "Faustschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Rülpser", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Bier trinken", "text": "1 Heilung", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Kopfstoss", "text": "2 Schaden, 2 Selbstschaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 },
+            { "name": "Unkontrollierter Schlag", "text": "3 Schaden, 2 Selbstschaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 },
+            { "name": "Torkeln", "text": "4 Selbstschaden", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 4 }
+        ]
+    }
+  ];
+
+
 const monsterTableBronze = {
     monsterTableBronzeNythoria,
     monsterTableBronzeDrakan,
@@ -553,13 +717,6 @@ const monsterTableGold = {
     monsterTableGoldAridora,
 }
 
-let monsterTableQuests = [
-  "monsterBjörn",
-  "Freya",
-  "Dieb",
-  "Grimgar",
-  "BruderHilda"
-];
 
 
 module.exports = {

@@ -198,24 +198,22 @@ let questTableBronzeFrosgar = [
             optionText: "Den Dieb finden und das Amulett zurückbringen"
         },
         optionBad: {
-            hasOption: 1,
-            optionType: "Fight",
-            optionText: "Ablehnen"
-        },
-        optionDeny: {
             hasOption: "-",
             optionType: "-",
             optionText: "-"
+        },
+        optionDeny: {
+            hasOption: 1,
+            optionType: "None",
+            optionText: "Ablehnen"
         },
         questImpact: {
             name: "-",
             image: "-",
             text: "-"
         },
-        questMonster: 3,
-        questSecondMonster: 3,
+        questMonster: 2,
         questMonsterText: "Ah, ein weiterer Narr, der sich in meine Angelegenheiten einmischt. Du glaubst wohl, du könntest mich besiegen und mir mein wohlverdientes Beutegut wieder abnehmen? Nun, komm und versuche es doch, wenn du dich traust.",
-        questSecondMonsterText: "Du bist der gleiche Abschaum wie diese Diebe! Ich werde dir eine Lektion erteilen!",
         optionGoodSecond: {
             hasOption: "-",
             optionType: "-",
@@ -597,7 +595,7 @@ let questTableBronzeAridora = [
             image: "-",
             text: "-"
         },
-        questMonster: "-",
+        questMonster: 3,
         questMonsterText: "Vor dir erhebt sich eine majestätische Düne, als plötzlich der Sand unter deinen Füßen zu beben beginnt. Ein dumpfes Grollen erfüllt die Luft, gefolgt von einem gewaltigen Zischen, das dich erstarren lässt. Aus dem goldenen Sand vor dir bricht eine Kreatur hervor, die jeden Gedanken an Flucht aus deinem Verstand verbannt",
         optionGoodSecond: {
             hasOption: "-",
@@ -908,7 +906,7 @@ let questTableBronzeTalvar = [
             image: "-",
             text: "-"
         },
-        questMonster: "Bandit",
+        questMonster: 4,
         questMonsterText: "Na, wen haben wir denn hier? Ein neugieriger Abenteurer, der sich in unsere Angelegenheiten einmischt. Du hast dich wohl für die falsche Seite entschieden, mein Freund. Aber keine Sorge, wir werden uns um dich kümmern, genauso wie wir es mit den anderen tun, die sich uns in den Weg stellen.",
         optionGoodSecond: {
             hasOption: "-",
@@ -1062,7 +1060,7 @@ let questTableBronzeTalvar = [
             image: "-",
             text: "-"
         },
-        questMonster: "Gorr",
+        questMonster: 5,
         questMonsterText: "Du dreckiger Verräter! Dafür wirst du büssen!",
        
         optionGoodSecond: {
@@ -1221,9 +1219,8 @@ let questTableBronzeDrakan = [
             image: "-",
             text: "-"
         },
-        questMonster: "-",
+        questMonster: 6,
         questMonsterText: "Als der Drache heranfliegt, erfüllt sein brüllendes Echo die Luft und seine gewaltigen Schwingen werfen einen düsteren Schatten über das Land. Die Hitze seines Atems verursacht ein Flimmern in der Luft, während er mit drohendem Blick über die Landschaft blickt.",
-       
         optionGoodSecond: {
             hasOption: "-",
             optionType: "-",
@@ -1299,9 +1296,8 @@ let questTableBronzeDrakan = [
             image: "-",
             text: "-"
         },
-        questMonster: "-",
+        questMonster: 7,
         questMonsterText: "Wer wagt es, in mein Reich einzudringen und meinen Schatz zu stehlen? Seid gewarnt, Eindringling, denn ihr werdet nicht ungestraft davonkommen.",
-       
         optionGoodSecond: {
             hasOption: "-",
             optionType: "-",
@@ -1323,16 +1319,16 @@ let questTableBronzeDrakan = [
         questMiddleman: {
             name: "Olafur",
             image: "-",
-            textGood: "Was willst du hier?... Was Grunthar hat dich geschickt?! Dieser Mistkerl versucht bereits seit Jahren, mir mein Geheimes Braurezept zu klauen. Er ist ein Betrüger, der mir mein Geschäft streitig machen will!",
+            textGood: "-",
             textBad: "-"
         },
         questReceiver: {
-            nameGood: "Grunthar",
+            nameGood: "Olafur",
             nameBad: "Olafur",
             imageGood: "-",
             imageBad: "-",
-            textGood: "Du bist mir also auf die Schliche gekommen. Du hättest dem alten Mann besser nicht glauben sollen und mir das Braurezept beschafft. Nun gut das bringt mich in eine zugegeben unschöne Situation, ich werde dich zu Schweigen bringen, bevor jedmand davon erfährt. ",
-            textBad: "Ich werde dir mein Rezept nicht freiwillig geben! Wenn du es willst komm und hol es dir...!"
+            textGood: "Was willst du hier?... Was Grunthar hat dich geschickt?! Dieser Mistkerl versucht bereits seit Jahren, mir mein Geheimes Braurezept zu klauen. Er ist ein Betrüger, der mir mein Geschäft streitig machen will!",
+            textBad: "-"
         },
         regions: {
             questRegion: "Drakan",
@@ -1343,7 +1339,8 @@ let questTableBronzeDrakan = [
             reputation: 1,
             gold: 5,
             move: "-",
-            impact: "-"
+            impact: "-",
+            text: "Weist du was? Eigentlich bin ich zu alt für dieses Geschäft. Du scheinst mir ehrenhaft zu sein, nimm das Braurezept, aber versprich mir, dass du es für dich behälst."
         },
         questRewardBad: {
             reputation: -1,
@@ -1359,13 +1356,13 @@ let questTableBronzeDrakan = [
         },
         optionGood: {
             hasOption: 1,
-            optionType: "ReturnMonster",
+            optionType: "DeliverDecision",
             optionText: "Suche Olafur"
         },
         optionBad: {
-            hasOption: 1,
-            optionType: "DeliverMonster",
-            optionText: "Hol den Schatz aus der Mine und beanspruche ihn für dich"
+            hasOption: "-",
+            optionType: "-",
+            optionText: "-"
         },
         optionDeny: {
             hasOption: 1,
@@ -1377,17 +1374,17 @@ let questTableBronzeDrakan = [
             image: "-",
             text: "-"
         },
-        questMonster: "-",
-        questMonsterText: "-",
+        questMonster: 8,
+        questMonsterText: "'Ich werde dir mein Rezept nicht freiwillig geben! Wenn du es willst komm und hol es dir...!' Olafur nimmt das Rezept und wirft es in seinen Ofen",
         optionGoodSecond: {
             hasOption: 1,
-            optionType: "DeliverMonster",
-            optionText: "Geh und stelle Grunthar zur Rede."
+            optionType: "Reward",
+            optionText: "Glaube Olafur und lasse ihn in Ruhe"
         },
         optionBadSecond: {
             hasOption: 1,
-            optionType: "Fight and return",
-            optionText: "Stiehl das rezept von Olafur"
+            optionType: "Fight",
+            optionText: "Stiehl das Rezept von Olafur"
         },
     },
     {
