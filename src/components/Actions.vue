@@ -36,30 +36,25 @@
         </div>
     </div>
     <div v-if="playerIsActive" class="actions">
-        <div v-if="this.playerRegion != 'Elysora'" class="action" @click="investigate()">
+        <div :class="{ actionUsed: this.actionsUsedInvestigate == true }" v-if="this.playerRegion != 'Elysora'" class="action" @click="investigate()">
             <img :src="imageInvestigate">
             <p>Untersuchen</p>
-            <p v-if="this.actionsUsedInvestigate == true">used</p>
         </div>
-        <div class="action" @click="changeIsland()">
+        <div :class="{ actionUsed: this.actionsUsedChangeIsland == true }" class="action" @click="changeIsland()">
             <img :src="imageChangeIsland"/>
             <p>Insel wechseln</p>
-            <p v-if="this.actionsUsedChangeIsland == true">used</p>
         </div>
-        <div v-if="this.playerHealth != 10" class="action" @click="heal()">
+        <div :class="{ actionUsed: this.actionsUsedHeal == true }" v-if="this.playerHealth != 10" class="action" @click="heal()">
             <img :src="imageHeal"/>
             <p>Heilen</p>
-            <p v-if="this.actionsUsedHeal == true">used</p>
         </div>
-        <div v-if="this.playerHasQuest" class="action" @click="quest()">
+        <div :class="{ actionUsed: this.actionsUsedQuest == true }" v-if="this.playerHasQuest && this.playerRegion != 'Elysora'" class="action" @click="quest()">
             <img :src="imageQuest"/>
             <p>Quest</p>
-            <p v-if="this.actionsUsedQuest == true">used</p>
         </div>
-        <div class="action" @click="boss()">
+        <div :class="{ actionUsed: this.actionsUsedBoss == true }" v-if="this.playerRegion != 'Elysora'" class="action" @click="boss()">
             <img :src="imageQuest"/>
             <p>Boss</p>
-            <p v-if="this.actionsUsedBoss == true">used</p>
         </div>
         <div class="action" @click="endAction()">
             <img :src="imageInvestigate">
@@ -87,6 +82,7 @@ export default {
             imageGold: "/src/assets/icons/gold.png",
             imageMap: "/src/assets/icons/map.png",
             imagePlayer: "/src/assets/img/player/player.webp",
+            playerName: null,
             playerActions: null,
             playerHealth: null,
             playerGold: null,
@@ -99,6 +95,9 @@ export default {
             actionsUsedChangeIsland: false,
             actionsUsedQuest: false,
             actionsUsedBoss: false,
+            questRegion: null,
+            questRegionDeliverGood: null,
+            questRegionDeliverBad: null,
         }
     },
     mounted() {
@@ -107,7 +106,7 @@ export default {
             this.playerName = activePlayer.name;
             this.playerActions = activePlayer.actions;
             this.actionsUsedInvestigate = activePlayer.actionsUsed.investigate;
-            this.actionsUsedHeal = activePlayer.actionsUsed.investigate;
+            this.actionsUsedHeal = activePlayer.actionsUsed.heal;
             this.actionsUsedChangeIsland = activePlayer.actionsUsed.changeIsland;
             this.actionsUsedQuest = activePlayer.actionsUsed.quest;
             this.actionsUsedBoss = activePlayer.actionsUsed.boss;
@@ -116,6 +115,7 @@ export default {
             this.playerGold = activePlayer.gold;
             if(activePlayer.quest != null){
                 this.playerHasQuest = true
+                this.questRegion = activePlayer.quest.regionQuest
             }
             else{
                 this.playerHasQuest = false
@@ -243,6 +243,10 @@ export default {
 
 .actions img{
     width: 100%;
+}
+
+.actionUsed{
+    filter: grayscale(70%);
 }
 
 #headerSectionLeft {

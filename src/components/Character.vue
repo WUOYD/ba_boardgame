@@ -14,12 +14,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Actions</th>
-                    <td>
-                        <p>{{ playerActions }}</p>
-                    </td>
-                </tr>
-                <tr>
                     <th>Health</th>
                     <td>
                         <p>{{ playerHealth }}</p>
@@ -181,7 +175,7 @@ p {
 }
 
 table {
-    width: 100%;
+    width: 50%;
 }
 
 th,
@@ -199,7 +193,7 @@ td p {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    /* Adding gap between the divs */
+    height: 40%;
 }
 
 #movesPlayer .movesCombinationPlayer {

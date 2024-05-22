@@ -119,14 +119,14 @@
                     </div>
                     <div>
                         <div v-if="this.optionPicked == 'Good'">
-                            <p v-if="rewardGood.reputation!='-'">{{ rewardGood.reputation }} Ehre</p>
-                            <p v-if="rewardGood.gold!='-'">{{ rewardGood.gold }} Gold</p>
-                            <p v-if="rewardGood.move!='-'">{{ rewardGood.move }} Move</p>
+                            <p v-if="rewardGoodReputation!='-'">{{ rewardGoodReputation }} Ehre</p>
+                            <p v-if="rewardGoodGold!='-'">{{ rewardGoodGold }} Gold</p>
+                            <p v-if="rewardGoodMove!='-'">{{ rewardGoodMove }} Move</p>
                         </div>
                         <div v-else>
-                            <p v-if="rewardBad.reputation!='-'">{{ rewardBad.reputation }} Ehre</p>
-                            <p v-if="rewardBad.gold!='-'">{{ rewardBad.gold }} Gold</p>
-                            <p v-if="rewardBad.move!='-'">{{ rewardBad.move }} Move</p>
+                            <p v-if="rewardBadReputation!='-'">{{ rewardBadReputation }} Ehre</p>
+                            <p v-if="rewardBadGold!='-'">{{ rewardBadGold }} Gold</p>
+                            <p v-if="rewardBadMove!='-'">{{ rewardBadMove }} Move</p>
                         </div>
                     </div>
                     <div class="questButtons">
@@ -176,8 +176,12 @@ export default {
             questType: null,
             regionQuest: null,
             regionDeliver: null,
-            rewardGood: null,
-            rewardBad: null,
+            rewardGoodReputation: null,
+            rewardGoodGold: null,
+            rewardGoodMove: null,
+            rewardBadReputation: null,
+            rewardBadGold: null,
+            rewardBadMove: null,
             questView: false,
             questStep: null,
             optionPicked: null,
@@ -230,8 +234,12 @@ export default {
                 this.regionDeliver = activePlayer.quest.regionDeliver
                 this.questTextOptionSecondGood = activePlayer.quest.optionGoodSecond.text
                 this.questTextOptionSecondBad = activePlayer.quest.optionBadSecond.text
-                this.rewardGood = activePlayer.quest.rewardGood
-                this.rewardBad = activePlayer.quest.rewardBad
+                this.rewardGoodReputation = activePlayer.quest.rewardGood.reputation 
+                this.rewardGoodGold = activePlayer.quest.rewardGood.gold
+                this.rewardGoodMove = activePlayer.quest.rewardGood.move
+                this.rewardBadReputation = activePlayer.quest.rewardBad.reputation
+                this.rewardBadGold = activePlayer.quest.rewardBad.gold
+                this.rewardBadMove = activePlayer.quest.rewardBad.move
                 this.optionGood = activePlayer.quest.optionGood
                 this.optionBad = activePlayer.quest.optionBad
             }
@@ -245,20 +253,27 @@ export default {
             }
             else{}
         })
+        socket.on("updateQuestView", () => {
+            this.questView = true;
+        })
         socket.emit("getActivePlayer")
     },
     methods: {
         desicionGood() {
             socket.emit("decisionGood")
+            this.questView = false;
         },
         desicionBad() {
             socket.emit("decisionBad")
+            this.questView = false;
         },
         questContinue() {
             socket.emit("updateView", 2)
+            this.questView = false;
         },
         questContinueFight() {
             socket.emit("updateView", 4)
+            this.questView = false;
         },
         questReward() {
             this.questStep = "Reward"
@@ -266,6 +281,7 @@ export default {
         questComplete() {
             socket.emit("updateView", 2)
             socket.emit("questComplete")
+            this.questView = false;
         },
 
     },

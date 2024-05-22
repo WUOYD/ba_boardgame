@@ -1,6 +1,7 @@
 <template>
     <div class="content">
         <div class="intro">
+            <button id="resetButton" @click="reset()">Reset</button>
             <div class="text-wrapper">
                 <h1>Legenden von Synn</h1>
             </div>
@@ -47,6 +48,9 @@ export default {
         },
         setClientType(type) {
                 this.clientType = type;
+        },
+        reset(){
+            socket.emit("resetGame");
         }
     },
 }
@@ -120,6 +124,10 @@ input {
 
 ::placeholder {
     text-align: center; 
+}
+
+#resetButton{
+    margin-bottom: 100px;
 }
 
 </style> 
