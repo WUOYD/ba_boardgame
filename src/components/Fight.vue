@@ -318,9 +318,17 @@ export default {
             socket.emit("updateView", comp);
         },
         closeFight() {
-            this.updateView(2);
-            this.winner = "null"
-            socket.emit("getActivePlayer");
+            if(this.monsterType == "Quest"){
+                this.winner = "null"
+                this.changeView(5)
+                this.questStep = "Reward"
+                socket.emit("getActivePlayer")
+            }
+            else{
+                this.winner = "null"
+                this.updateView(2);
+                socket.emit("getActivePlayer")
+            }
         }
     },
     beforeUnmount() {

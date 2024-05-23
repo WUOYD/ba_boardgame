@@ -1,9 +1,11 @@
 <template>
     <div class="content">
         <div class="intro">
-            <button id="resetButton" @click="reset()">Reset</button>
+            <div id="resetButton">
+                <button @click="reset()">Reset</button>
+            </div>
             <div class="text-wrapper">
-                <h1>Legenden von Synn</h1>
+                <img :src="logo">
             </div>
             <div class="titleText" id="changeType">
                 <p>Wähle den Typ aus:</p>
@@ -37,6 +39,7 @@ export default {
         return {
             playerName: '',
             clientType: 'player',
+            logo: "src/assets/logo/Logo.png"
         }
     },
     methods: {
@@ -60,36 +63,32 @@ export default {
 .content {
     /* display: none !important; */
     position: relative;
-    height: 100vh;
-    width: 100vw;
+    height: 90%;
+    width: 100%;
     z-index: 1;
 }
 
 /* ================== INTRO ====================== */
 
 .intro {
-    position: absolute;
+    position: relative;
+    width: 100%;
     top: 0;
     left: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
-    padding: 15vh 5vw 10vh 5vh;
     box-sizing: border-box;
 }
 
 .text-wrapper {
     padding: 0 15vw;
     width: 100%;
-    box-sizing: border-box;
-}
-
-.text-wrapper {
+    box-sizing: border-box;    
     margin-bottom: 25px;
 }
+
 
 p {
     margin-bottom: 20px;
@@ -128,6 +127,14 @@ input {
 
 #resetButton{
     margin-bottom: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.text-wrapper img {
+    height: auto;
+    width: 60%;
 }
 
 </style> 

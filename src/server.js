@@ -349,9 +349,9 @@ io.on('connection', (socket) => {
   // Generate Encounter
   socket.on("investigate", function() {
     encounter = investigate(lobby[socket.id]); 
-    socket.emit("updateEncounter", encounter);
     socket.emit("updatePlayer", lobby[socket.id])
     socket.emit("updateMonster", lobby[socket.id])
+    socket.emit("updateEncounter", encounter);
   });
   
 

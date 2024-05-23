@@ -36,23 +36,23 @@
         </div>
     </div>
     <div v-if="playerIsActive" class="actions">
-        <div :class="{ actionUsed: this.actionsUsedInvestigate == true }" v-if="this.playerRegion != 'Elysora'" class="action" @click="investigate()">
+        <div :class="{ actionUsed: this.actionsUsedInvestigate == true || this.playerActions == 0}" v-if="this.playerRegion != 'Elysora'" class="action" @click="investigate()">
             <img :src="imageInvestigate">
             <p>Untersuchen</p>
         </div>
-        <div :class="{ actionUsed: this.actionsUsedChangeIsland == true }" class="action" @click="changeIsland()">
+        <div :class="{ actionUsed: this.actionsUsedChangeIsland == true || this.playerActions == 0}" class="action" @click="changeIsland()">
             <img :src="imageChangeIsland"/>
             <p>Insel wechseln</p>
         </div>
-        <div :class="{ actionUsed: this.actionsUsedHeal == true }" v-if="this.playerHealth != 10" class="action" @click="heal()">
+        <div :class="{ actionUsed: this.actionsUsedHeal == true || this.playerActions == 0}" v-if="this.playerHealth != 10" class="action" @click="heal()">
             <img :src="imageHeal"/>
             <p>Heilen</p>
         </div>
-        <div :class="{ actionUsed: this.actionsUsedQuest == true }" v-if="this.playerHasQuest && this.playerRegion != 'Elysora'" class="action" @click="quest()">
+        <div :class="{ actionUsed: this.actionsUsedQuest == true || this.playerActions == 0}" v-if="this.playerHasQuest && this.playerRegion != 'Elysora'" class="action" @click="quest()">
             <img :src="imageQuest"/>
             <p>Quest</p>
         </div>
-        <div :class="{ actionUsed: this.actionsUsedBoss == true }" v-if="this.playerRegion != 'Elysora'" class="action" @click="boss()">
+        <div :class="{ actionUsed: this.actionsUsedBoss == true || this.playerActions == 0}" v-if="this.playerRegion != 'Elysora'" class="action" @click="boss()">
             <img :src="imageQuest"/>
             <p>Boss</p>
         </div>

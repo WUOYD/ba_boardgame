@@ -158,8 +158,8 @@ let questTableBronzeFrosgar = [
         questMiddleman: {
             name: "-",
             image: "-",
-            textGood: "TextGood",
-            textBad: "TextBad"
+            textGood: "-",
+            textBad: "-"
         },
         questReceiver: {
             nameGood: "Grimgar",
@@ -1451,9 +1451,8 @@ let questTableBronzeDrakan = [
             image: "-",
             text: "-"
         },
-        questMonster: "-",
+        questMonster: 9,
         questMonsterText: "Du steigst ab in das Tor zur Hölle, unten angekommen steht dir eine furchterregende Bestie gegenüber. Die Zeit ist gekommen, deine Kraft unter Beweis zu stellen!",
-       
         optionGoodSecond: {
             hasOption: "-",
             optionType: "-",
@@ -1610,7 +1609,7 @@ let questTableBronzeNythoria = [
             image: "-",
             text: "-"
         },
-        questMonster: "-",
+        questMonster: 11,
         questMonsterText: "Hier kommt das Nebelemonster",
        
         optionGoodSecond: {
@@ -1688,9 +1687,8 @@ let questTableBronzeNythoria = [
             image: "-",
             text: "-"
         },
-        questMonster: "-",
-        questMonsterText: "-",
-       
+        questMonster: 12,
+        questMonsterText: "*Knack* *Knack* *Knack*",
         optionGoodSecond: {
             hasOption: 1,
             optionType: "Fight",
@@ -1766,7 +1764,7 @@ let questTableBronzeNythoria = [
             image: "-",
             text: "-"
         },
-        questMonster: "Tempelwächter",
+        questMonster: 10,
         questMonsterText: "Nicht ein weiterer sterblicher Narr, der die heiligen Hallen betreten will, um das Artefakt zu beanspruchen! Das Artefakt gehört den Göttern und es wird nur denjenigen gewährt, die würdig sind, es zu empfangen. Kein Sterblicher wird es ungestraft beanspruchen können.",
        
         optionGoodSecond: {
@@ -1847,8 +1845,8 @@ let questTableBronzeAthos = [
             image: "-",
             text: "-"
         },
-        questMonster: "-",
-        questMonsterText: "-",
+        questMonster: 14,
+        questMonsterText: "*Krach* *Knartsch* *Quitsch*",
        
         optionGoodSecond: {
             hasOption: "-",
@@ -1925,7 +1923,7 @@ let questTableBronzeAthos = [
             image: "-",
             text: "-"
         },
-        questMonster: "-",
+        questMonster: 15,
         questMonsterText: "-",
        
         optionGoodSecond: {
@@ -2159,7 +2157,7 @@ let questTableBronzeAthos = [
             image: "-",
             text: "-"
         },
-        questMonster: "-",
+        questMonster: 16,
         questMonsterText: "-",
        
         optionGoodSecond: {

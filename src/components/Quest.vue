@@ -17,7 +17,7 @@
                             <p>{{ questTextReceiverGood }}</p>
                         </div>
                         <div v-else>
-                            <p>{{ questTextReceiverBad }}</p> 
+                            <p>{{ questTextReceiverBad }}</p>
                         </div>
                     </div>
                     <div class="questButtons">
@@ -40,7 +40,7 @@
                             <p>{{ questTextMiddlemanGood }}</p>
                         </div>
                         <div v-else>
-                            <p>{{ questTextMiddlemanBad }}</p> 
+                            <p>{{ questTextMiddlemanBad }}</p>
                         </div>
                     </div>
                     <div class="questButtons">
@@ -65,7 +65,7 @@
                             <p>{{ questTextReceiverGood }}</p>
                         </div>
                         <div v-else>
-                            <p>{{ questTextReceiverBad }}</p> 
+                            <p>{{ questTextReceiverBad }}</p>
                         </div>
                     </div>
                     <div class="questButtons">
@@ -80,11 +80,21 @@
             </div>
             <div class="questInfos">
                 <div class="questOfferer">
-                    <p>{{ questNameReceiver }}</p>
+                    <div v-if="optionPicked == 'Good'">
+                        <p>{{ questNameReceiverGood }}</p>
+                    </div>
+                    <div v-else>
+                        <p>{{ questNameReceiverBad }}</p>
+                    </div>
                 </div>
                 <div class="questContent">
                     <div class="questText">
-                        <p>{{ questTextReceiver }}</p>
+                        <div v-if="optionPicked == 'Good'">
+                            <p>{{ questTextReceiverGood }}</p>
+                        </div>
+                        <div v-else>
+                            <p>{{ questTextReceiverBad }}</p>
+                        </div>
                     </div>
                     <div class="questButtons">
                         <button @click="this.desicionGood()">{{ questTextOptionSecondGood }}</button>
@@ -113,9 +123,9 @@
         </div>
         <div v-if="questStep == 'Reward'" class="quest">
             <div class="questInfos">
-                <div>
+                <div id="reward">
                     <div>
-                        <img :src="this.treasurePicture" />
+                        <img :src="this.imageTreasure" />
                     </div>
                     <div>
                         <div v-if="this.optionPicked == 'Good'">
@@ -136,7 +146,7 @@
             </div>
         </div>
     </div>
-    <div v-else>
+    <div v-else class="quest">
         <div class="activeQuest" v-if="playerHasQuest">
             <div class="questPicture">
                 <img :src="this.questPictureOfferer" />
@@ -152,7 +162,7 @@
                         <p v-else>{{ optionBadText }}</p>
                     </div>
                     <div id="questMap">
-                        <img :src="this.mapIcon"/>
+                        <img :src="this.mapIcon" />
                     </div>
                 </div>
             </div>
@@ -195,7 +205,8 @@ export default {
             questTextMiddlemanGood: null,
             questTextMiddlemanBad: null,
             questPictureReceiver: null,
-            questNameReceiver: null,
+            questNameReceiverGood: null,
+            questNameReceiverBad: null,
             questTextReceiverGood: null,
             questTextReceiverBad: null,
             questPictureMonster: null,
@@ -206,6 +217,7 @@ export default {
             optionGoodText: null,
             optionBadText: null,
             mapIcon: "src/assets/icons/map_icon.webp",
+            imageTreasure: "src/assets/img/misc/treasure.webp"
         }
     },
     mounted() {
@@ -226,15 +238,15 @@ export default {
                 this.questTextMiddlemanBad = activePlayer.quest.questMiddleman.textBad
                 this.questNameReceiverGood = activePlayer.quest.questReceiver.nameGood
                 this.questNameReceiverBad = activePlayer.quest.questReceiver.nameBad
-                this.questPictureReceiverGood= activePlayer.quest.questReceiver.imageGood
-                this.questPictureReceiverBad= activePlayer.quest.questReceiver.imageBad
+                this.questPictureReceiverGood = activePlayer.quest.questReceiver.imageGood
+                this.questPictureReceiverBad = activePlayer.quest.questReceiver.imageBad
                 this.questTextReceiverGood = activePlayer.quest.questReceiver.textGood
                 this.questTextReceiverBad = activePlayer.quest.questReceiver.textBad
                 this.regionQuest = activePlayer.quest.regionQuest
                 this.regionDeliver = activePlayer.quest.regionDeliver
-                this.questTextOptionSecondGood = activePlayer.quest.optionGoodSecond.text
-                this.questTextOptionSecondBad = activePlayer.quest.optionBadSecond.text
-                this.rewardGoodReputation = activePlayer.quest.rewardGood.reputation 
+                this.questTextOptionSecondGood = activePlayer.quest.optionGoodSecond.optionText
+                this.questTextOptionSecondBad = activePlayer.quest.optionBadSecond.optionText
+                this.rewardGoodReputation = activePlayer.quest.rewardGood.reputation
                 this.rewardGoodGold = activePlayer.quest.rewardGood.gold
                 this.rewardGoodMove = activePlayer.quest.rewardGood.move
                 this.rewardBadReputation = activePlayer.quest.rewardBad.reputation
@@ -242,16 +254,18 @@ export default {
                 this.rewardBadMove = activePlayer.quest.rewardBad.move
                 this.optionGood = activePlayer.quest.optionGood
                 this.optionBad = activePlayer.quest.optionBad
-            }
-            else{
+                if (activePlayer.quest.questMonster != null) {
+                    this.questNameMonster = activePlayer.quest.questMonster.name
+                    this.questTextMonster = activePlayer.quest.questMonsterText
+                }
+            } else {
                 this.playerHasQuest = false
             }
         })
         socket.on("updateQuestDecision", questOption => {
-            if(questOption == "Good"){
-                
-            }
-            else{}
+            if (questOption == "Good") {
+
+            } else {}
         })
         socket.on("updateQuestView", () => {
             this.questView = true;
@@ -261,11 +275,9 @@ export default {
     methods: {
         desicionGood() {
             socket.emit("decisionGood")
-            this.questView = false;
         },
         desicionBad() {
             socket.emit("decisionBad")
-            this.questView = false;
         },
         questContinue() {
             socket.emit("updateView", 2)
@@ -292,16 +304,19 @@ export default {
 </script>
 
 <style>
-
-#questView{
-    height: 100%;
+#questView {
+    height: 80%;
+    width: 100%;
 }
 
-.quest, .activeQuest {
+.quest,
+.activeQuest {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 80vh;
+    height: 90%;
+    justify-content: center;
+    align-items: center;
 }
 
 .questPicture {
@@ -332,22 +347,22 @@ export default {
     text-align: left;
 }
 
-.questOfferer p{
+.questOfferer p {
     font-size: 24px;
 }
 
-.questContent{
+.questContent {
     width: 100%;
     height: 90%;
 }
 
-.questText{
+.questText {
     width: 100%;
     height: 40%;
     text-align: left;
 }
 
-.questButtons{
+.questButtons {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -355,7 +370,7 @@ export default {
     justify-content: center;
 }
 
-.questButtons button{
+.questButtons button {
     width: 100%;
     margin-top: 1%;
     margin-bottom: 1%;
@@ -367,9 +382,18 @@ export default {
     box-sizing: border-box
 }
 
-#questMap img{
+#questMap img {
     width: auto;
     height: 100%;
 
+}
+
+#reward{
+    justify-content: center;
+}
+
+#reward img {
+    width: 50%;
+    border-radius: 20px;
 }
 </style>
