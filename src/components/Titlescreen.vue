@@ -89,6 +89,11 @@ export default {
     margin-bottom: 25px;
 }
 
+.text-wrapper img {
+    height: auto;
+    width: 60%;
+}
+
 
 p {
     margin-bottom: 20px;
@@ -132,9 +137,6 @@ input {
     justify-content: flex-start;
 }
 
-.text-wrapper img {
-    height: auto;
-    width: 60%;
-}
+
 
 </style> 

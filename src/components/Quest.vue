@@ -123,12 +123,36 @@
         </div>
         <div v-if="questStep == 'Reward'" class="quest">
             <div class="questInfos">
-                <div id="reward">
+                <div class="reward">
                     <div>
                         <img :src="this.imageTreasure" />
                     </div>
                     <div>
                         <div v-if="this.optionPicked == 'Good'">
+                            <p v-if="rewardGoodReputation!='-'">{{ rewardGoodReputation }} Ehre</p>
+                            <p v-if="rewardGoodGold!='-'">{{ rewardGoodGold }} Gold</p>
+                            <p v-if="rewardGoodMove!='-'">{{ rewardGoodMove }} Move</p>
+                        </div>
+                        <div v-else>
+                            <p v-if="rewardBadReputation!='-'">{{ rewardBadReputation }} Ehre</p>
+                            <p v-if="rewardBadGold!='-'">{{ rewardBadGold }} Gold</p>
+                            <p v-if="rewardBadMove!='-'">{{ rewardBadMove }} Move</p>
+                        </div>
+                    </div>
+                    <div class="questButtons">
+                        <button @click="this.questComplete()">Weiter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="questStep == 'RewardDesicion'" class="quest">
+            <div class="questInfos">
+                <div class="reward">
+                    <div>
+                        <img :src="this.imageTreasure" />
+                    </div>
+                    <div>
+                        <div v-if="this.optionPickedDecision == 'Good'">
                             <p v-if="rewardGoodReputation!='-'">{{ rewardGoodReputation }} Ehre</p>
                             <p v-if="rewardGoodGold!='-'">{{ rewardGoodGold }} Gold</p>
                             <p v-if="rewardGoodMove!='-'">{{ rewardGoodMove }} Move</p>
@@ -195,6 +219,7 @@ export default {
             questView: false,
             questStep: null,
             optionPicked: null,
+            optionPickedDecision: null,
             optionGood: null,
             optionBad: null,
             questPictureOfferer: null,
@@ -225,6 +250,7 @@ export default {
             if (activePlayer.quest != null) {
                 this.playerHasQuest = true
                 this.optionPicked = activePlayer.quest.optionPicked
+                this.optionPickedDecision = activePlayer.quest.optionPickedDecision
                 this.questStep = activePlayer.quest.questStep
                 this.questType = activePlayer.quest.questType
                 this.optionGoodText = activePlayer.quest.optionGood.optionText
@@ -262,10 +288,8 @@ export default {
                 this.playerHasQuest = false
             }
         })
-        socket.on("updateQuestDecision", questOption => {
-            if (questOption == "Good") {
-
-            } else {}
+        socket.on("questReward", () => {
+            this.questReward()
         })
         socket.on("updateQuestView", () => {
             this.questView = true;
@@ -288,7 +312,12 @@ export default {
             this.questView = false;
         },
         questReward() {
-            this.questStep = "Reward"
+            console.log("test")
+            if (this.optionPickedDecision != null) {
+                this.questStep = "RewardDecision"
+            } else {
+                this.questStep = "Reward"
+            }
         },
         questComplete() {
             socket.emit("updateView", 2)
@@ -309,8 +338,7 @@ export default {
     width: 100%;
 }
 
-.quest,
-.activeQuest {
+.quest {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -319,8 +347,18 @@ export default {
     align-items: center;
 }
 
+.activeQuest {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
 .questPicture {
     display: flex;
+    height: 100%;
     width: 30%;
     justify-content: center;
     align-items: center;
@@ -337,6 +375,7 @@ export default {
 .questInfos {
     display: flex;
     flex-direction: column;
+    height: 100%;
     width: 70%;
     padding: 2%;
 }
@@ -358,7 +397,7 @@ export default {
 
 .questText {
     width: 100%;
-    height: 40%;
+    height: 50%;
     text-align: left;
 }
 
@@ -378,21 +417,21 @@ export default {
 
 #questMap {
     width: auto;
-    height: 40%;
+    height: 50%;
     box-sizing: border-box
 }
 
 #questMap img {
     width: auto;
-    height: 100%;
+    height: 50%;
 
 }
 
-#reward{
+.reward {
     justify-content: center;
 }
 
-#reward img {
+.reward img {
     width: 50%;
     border-radius: 20px;
 }

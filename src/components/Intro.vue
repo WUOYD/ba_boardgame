@@ -2,7 +2,7 @@
 <div class="content">
     <div class="intro">
         <div class="text-wrapper">
-            <h1>Legenden von Synn</h1>
+            <img :src="logo">
         </div>
         <div style="display: none;">
             <p>Hier kommt ein Video</p>
@@ -45,6 +45,7 @@ export default {
             playerList: null,
             playerReadyList: null,
             host: false,
+            logo: "src/assets/logo/Logo.png"
         }
     },
     mounted() {
@@ -87,8 +88,16 @@ export default {
     box-sizing: border-box;
 }
 
-.text-wrapper h1 {
+.text-wrapper {
+    padding: 0 15vw;
+    width: 100%;
+    box-sizing: border-box;    
     margin-bottom: 25px;
+}
+
+.text-wrapper img {
+    height: auto;
+    width: 60%;
 }
 
 p {

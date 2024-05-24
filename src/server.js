@@ -11,11 +11,11 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 
 // Global Variables
-let lobby = new Array();
+let lobby = [];
 let game;
-let playerList = new Array();
-let viewerList = new Array();
-let playerReadyList = new Array(); 
+let playerList = [];
+let viewerList = [];
+let playerReadyList = []; 
 let activePlayer = 0;
 
 let monstersBronzeNythoria = [];
@@ -54,9 +54,8 @@ let questsGoldTalvar = [];
 let questsGoldFrosgar = [];
 let questsGoldAthos = [];
 let questsGoldAridora = [];
-let questsBronze = [];
-let questsSilver = [];
-let questsGold = [];
+let questMonsters = [];
+
 
 const { monsterTableBronze, monsterTableSilver, monsterTableGold, monsterTableQuests } = monsterTables;
 const { monsterTableBronzeNythoria, monsterTableBronzeDrakan, monsterTableBronzeTalvar, monsterTableBronzeFrosgar, monsterTableBronzeAthos, monsterTableBronzeAridora} = monsterTableBronze
@@ -108,7 +107,6 @@ class Player {
     this.skullLevel = 1;
     this.magicLevel = 1;
     this.quest = null;
-
   }
 }
 
@@ -149,12 +147,13 @@ class Quest {
     this.rewardGood = questRewardGood;
     this.rewardBad = questRewardBad;
     this.rewardDeny = questRewardDeny;
-    this.questMonster = monsterTableQuests[questMonster];
+    this.questMonster = questMonster;
     this.questMonsterText = questMonsterText;
     this.questImpact = questImpact;
     this.optionGoodSecond = optionGoodSecond;
     this.optionBadSecond = optionBadSecond;
     this.optionPicked = null;
+    this.optionPickedDecision = null;
     this.questFlag = false;
     this.questStep = null;
   }
@@ -187,9 +186,8 @@ io.on('connection', (socket) => {
   
   socket.on('resetGame', function() {
     lobby = [];
-    playerList = new Array(); 
-    playerReadyList = new Array(); 
-
+    playerList = []; 
+    playerReadyList = []; 
   });
 
   socket.on('joinPlayer', (playerName) => {
@@ -300,6 +298,37 @@ io.on('connection', (socket) => {
     socket.emit('updateClientView', comp);
   });
 
+  socket.on('questFight', () => {
+    if(lobby[socket.id].optionPicked == "Good"){
+      if(lobby[socket.id].optionGood.optionType == "ReturnMonster"){
+        socket.emit('updateClientView', 5);
+      }
+      else if(lobby[socket.id].optionGood.optionType == "ReturnDecision"){
+        socket.emit('updateClientView', 5);
+      }
+      else{
+        socket.emit('updateClientView', 5);
+        socket.emit("updatePlayer", lobby[socket.id]);
+        socket.emit("questReward")
+      }
+    }
+    else if(lobby[socket.id].optionPicked == "Bad"){
+      if(lobby[socket.id].optionGood.optionType == "ReturnMonster"){
+        socket.emit('updateClientView', 5);
+      }
+      else if(lobby[socket.id].optionGood.optionType == "ReturnDecision"){
+        socket.emit('updateClientView', 5);
+      }
+      else{
+        socket.emit('updateClientView', 5);
+        socket.emit("updatePlayer", lobby[socket.id]);
+        socket.emit("questReward")
+      }
+    }
+    else{
+    }
+  });
+
   // Get Active Player
   socket.on("getActivePlayer", function() {
     socket.emit("updatePlayer", lobby[socket.id]);
@@ -384,13 +413,13 @@ io.on('connection', (socket) => {
   });
 
   socket.on("decisionGood", function() {
-    lobby[socket.id].quest.optionPicked = "Good"
-    manageQuest(socket, lobby[socket.id]);
+    lobby[socket.id].quest.optionPickedDecision = "Good"
+    manageQuestDesicion(socket, lobby[socket.id]);
   });
 
   socket.on("decisionBad", function() { 
-    lobby[socket.id].quest.optionPicked = "Bad"
-    manageQuest(socket, lobby[socket.id]);
+    lobby[socket.id].quest.optionPickedDecision = "Bad"
+    manageQuestDesicion(socket, lobby[socket.id]);
   });
 
   socket.on("questComplete", function() { 
@@ -501,9 +530,9 @@ function initMonsters() {
   // }
 
   // Initialize Quest monsters
-  // for (let i = 0; i < monsterTableQuests.length; i++) {
-  //   questMonsters.push(new Monster(monsterTableQuests[i][0], monsterTableQuests[i][1], monsterTableQuests[i][2], monsterTableQuests[i][3], monsterTableQuests[i][4], monsterTableQuests[i][5], monsterTableQuests[i][6]));
-  // }
+   for (let i = 0; i < monsterTableQuests.length; i++) {
+     questMonsters.push(new Monster(monsterTableQuests[i].name, monsterTableQuests[i].type, monsterTableQuests[i].health, monsterTableQuests[i].gold, monsterTableQuests[i].victoryPoints, monsterTableQuests[i].image, monsterTableQuests[i].moves));
+    }
 }
 
 function getRandomMonster(playerRegion, round) {
@@ -830,7 +859,7 @@ function manageQuest(socket, activePlayer){
         break;
       case "DeliverMonster":
         activePlayer.quest.questStep = "Fight"
-        let activeMonster = Object.assign({}, monsterTableQuests[activePlayer.quest.questMonster]);
+        let activeMonster = Object.assign({}, questMonsters[activePlayer.quest.questMonster]);
         startFight(activePlayer, activeMonster);
         socket.emit("updatePlayer", activePlayer);
         socket.emit("updateQuestView")
@@ -863,8 +892,8 @@ function manageQuest(socket, activePlayer){
       case "ReturnMonster":
         if(activePlayer.quest.questFlag == false){
           activePlayer.quest.questFlag = true
-          activePlayer.quest.questStep = "ReturnMonster"
-          let activeMonster = Object.assign({}, monsterTableQuests[activePlayer.quest.questMonster]);
+          activePlayer.quest.questStep = "Fight"
+          let activeMonster = Object.assign({}, questMonsters[activePlayer.quest.questMonster]);
           startFight(activePlayer, activeMonster);
           socket.emit("updatePlayer", activePlayer);
           socket.emit("updateQuestView")
@@ -886,7 +915,7 @@ function manageQuest(socket, activePlayer){
         break;
       case "DeliverMonster":
         activePlayer.quest.questStep = "Fight"
-        let activeMonster = Object.assign({}, monsterTableQuests[activePlayer.quest.questMonster]);
+        let activeMonster = Object.assign({}, questMonsters[activePlayer.quest.questMonster]);
         startFight(activePlayer, activeMonster);
         socket.emit("updatePlayer", activePlayer);
         socket.emit("updateQuestView")
@@ -907,7 +936,8 @@ function manageQuest(socket, activePlayer){
       case "ReturnMonster":
         if(activePlayer.quest.questFlag == false){
           activePlayer.quest.questFlag = true
-          let activeMonster = Object.assign({}, monsterTableQuests[activePlayer.quest.questMonster]);
+          activePlayer.quest.questStep = "Fight"
+          let activeMonster = Object.assign({}, questMonsters[activePlayer.quest.questMonster]);
           startFight(activePlayer, activeMonster);
           socket.emit("updatePlayer", activePlayer);
           socket.emit("updateQuestView")
@@ -918,6 +948,44 @@ function manageQuest(socket, activePlayer){
           socket.emit("updateQuestView")
         }
         break;
+    }
+  }
+}
+
+function manageQuestDesicion(socket, activePlayer){
+  if(activePlayer.quest.optionPickedDecision == "Good"){
+    switch(activePlayer.quest.optionGoodSecond.optionType) {
+      case "DeliverMonster":
+        activePlayer.quest.questStep = "Fight"
+        console.log(questMonsters)
+        console.log(activePlayer.quest.questMonster)
+        console.log(questMonsters[activePlayer.quest.questMonster])
+        let activeMonster = Object.assign({}, questMonsters[activePlayer.quest.questMonster]);
+        startFight(activePlayer, activeMonster);
+        socket.emit("updatePlayer", activePlayer);
+        socket.emit("updateQuestView")
+        break
+      case "Reward":
+        activePlayer.quest.questStep = "RewardDesicion"
+        socket.emit("updatePlayer", activePlayer);
+        socket.emit("updateQuestView")
+        break
+    }
+  }
+  else{
+    switch(activePlayer.quest.optionBadSecond.optionType) {
+      case "DeliverMonster":
+        activePlayer.quest.questStep = "Fight"
+        let activeMonster = Object.assign({}, questMonsters[activePlayer.quest.questMonster]);
+        startFight(activePlayer, activeMonster);
+        socket.emit("updatePlayer", activePlayer);
+        socket.emit("updateQuestView")
+        break
+      case "Reward":
+        activePlayer.quest.questStep = "RewardDesicion"
+        socket.emit("updatePlayer", activePlayer);
+        socket.emit("updateQuestView")
+        break
     }
   }
 }

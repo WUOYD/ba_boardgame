@@ -203,6 +203,7 @@ export default {
             movesTableCombinationSwordSkull: null,
             fightTurn: "player",
             winner: null,
+            optionPickedDecision: null,
         }
     },
     mounted() {
@@ -256,8 +257,11 @@ export default {
                 this.playerBlocks = activePlayer.blocks;
                 this.playerDot = activePlayer.dot;
                 this.playerReflect = activePlayer.reflect;
-
-                // Check if moves array and the necessary tables are defined before accessing them
+                if(activePlayer.quest != null){
+                    if(activePlayer.quest.optionPickedDecision != null){
+                        this.optionPickedDecision = activePlayer.quest.optionPickedDecision
+                    }
+                }
                 if (activePlayer.moves[0] && this.movesTableCombinationSwordSword[activePlayer.moves[0][0]]) {
                     this.moveNamePlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].name;
                     this.moveTextPlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].text;
@@ -320,9 +324,7 @@ export default {
         closeFight() {
             if(this.monsterType == "Quest"){
                 this.winner = "null"
-                this.changeView(5)
-                this.questStep = "Reward"
-                socket.emit("getActivePlayer")
+                socket.emit("questFight")
             }
             else{
                 this.winner = "null"

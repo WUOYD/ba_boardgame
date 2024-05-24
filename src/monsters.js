@@ -720,12 +720,12 @@ let monsterTableQuests = [
         ]
     },
     {
-        "name": "Zym",
+        "name": "Dr. Titus Tona",
         "type": "Quest",
         "health": 6,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/zym.webp",
+        "image": "src/assets/img/monster/drtitustona.webp",
         "moves": [
             { "name": "Biss", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Sprungangriff", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },

@@ -788,7 +788,7 @@ let questTableBronzeTalvar = [
         },
         regions: {
             questRegion: "Talvar",
-            questDeliverRegionGood: "Talvar",
+            questDeliverRegionGood: "Nythoria",
             questDeliverRegionBad: "-"
         },
         questRewardGood: {
@@ -987,12 +987,12 @@ let questTableBronzeTalvar = [
         questMonsterText: "-",
         optionGoodSecond: {
             hasOption: 1,
-            optionType: "-",
+            optionType: "Reward",
             optionText: "Übergib Dregan das Gold"
         },
         optionBadSecond: {
             hasOption: 1,
-            optionType: "-",
+            optionType: "Reward",
             optionText: "Übergibt Dregan nur einen Bruchteil des Goldes"
         },
     },
@@ -1065,7 +1065,7 @@ let questTableBronzeTalvar = [
        
         optionGoodSecond: {
             hasOption: 1,
-            optionType: "Fight",
+            optionType: "DeliverMonster",
             optionText: "Verrate Gorr und alarmiere die Wachen"
         },
         optionBadSecond: {
@@ -1383,7 +1383,7 @@ let questTableBronzeDrakan = [
         },
         optionBadSecond: {
             hasOption: 1,
-            optionType: "Fight",
+            optionType: "DeliverMonster",
             optionText: "Stiehl das Rezept von Olafur"
         },
     },
@@ -1422,7 +1422,7 @@ let questTableBronzeDrakan = [
         questRewardBad: {
             reputation: 1,
             gold: 0,
-            move: "Erhalte eine Fähigketit Schwert-Schwert",
+            move: "Erhalte eine Fähigkeit Schwert-Schwert",
             impact: "-"
         },
         questRewardDeny: {
@@ -1610,7 +1610,7 @@ let questTableBronzeNythoria = [
             text: "-"
         },
         questMonster: 11,
-        questMonsterText: "Hier kommt das Nebelemonster",
+        questMonsterText: "Hier kommt das Nebelmonster",
        
         optionGoodSecond: {
             hasOption: "-",
@@ -1691,13 +1691,13 @@ let questTableBronzeNythoria = [
         questMonsterText: "*Knack* *Knack* *Knack*",
         optionGoodSecond: {
             hasOption: 1,
-            optionType: "Fight",
+            optionType: "DeliverMonster",
             optionText: "Beseitige Dr. Titus Tona"
         },
         optionBadSecond: {
             hasOption: 1,
-            optionType: "Fight",
-            optionText: "Beseitige den Eiskobold Jotorun"
+            optionType: "Reward",
+            optionText: "Verschone den Eiskobold Jotorun"
         },
     },
     {
@@ -1827,7 +1827,7 @@ let questTableBronzeAthos = [
         },
         optionGood: {
             hasOption: 1,
-            optionType: "ReturnFight",
+            optionType: "ReturnMonster",
             optionText: "Hole die Axt in Drakan"
         },
         optionBad: {
@@ -2159,15 +2159,14 @@ let questTableBronzeAthos = [
         },
         questMonster: 16,
         questMonsterText: "-",
-       
         optionGoodSecond: {
             hasOption: 1,
-            optionType: "Fight",
+            optionType: "DeliverMonster",
             optionText: "Überwältige den Mann und versuch ihm zu helfen"
         },
         optionBadSecond: {
             hasOption: 1,
-            optionType: "Fight",
+            optionType: "DeliverMonster",
             optionText: "Töte den Mann und plündere anschliessend seine Leiche"
         },
     },
@@ -2220,5 +2219,5 @@ const questTableGold = {
 module.exports = {
     questTableBronze,
     questTableSilver,
-    questTableGold
+    questTableGold,
   };

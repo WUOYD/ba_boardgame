@@ -108,8 +108,8 @@ export default {
                 this.questOffererName = activePlayer.quest.questOfferer.name
                 this.questOffererPicture = activePlayer.quest.questOfferer.image
                 this.questOffererText = activePlayer.quest.questOfferer.text
-                this.goldLoot = activePlayer.goldLoot
             }
+            this.goldLoot = activePlayer.goldLoot
         })
         socket.on("updateMonster", activePlayer => {
             if (activePlayer.fight != null) {
