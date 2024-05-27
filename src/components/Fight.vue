@@ -5,14 +5,14 @@
         <p>{{ playerName }} has slayn {{ monsterName }}</p>
         <p>Victory Points: {{ monsterVictoryPoints }}</p>
         <p>Gold: {{ monsterRewardGold }}</p>
-        <button class="close-btn" v-on:click="closeFight()">Zurück zu Übersicht</button>
+        <button class="close-btn" v-on:click="this.closeFight()">Zurück</button>
     </div>
 </div>
 <div v-if="this.winner == 'monster'" class="winner">
     <div class="overlay-content">
         <h2>Monster</h2>
         <p>{{ monsterName }} has slayn {{ playerName }}</p>
-        <button class="close-btn" @click="closeFight()">Zurück zu Übersicht</button>
+        <button class="close-btn" @click="this.closeFight()">Zurück</button>
     </div>
 </div>
 <div class="content single">
@@ -323,11 +323,10 @@ export default {
         },
         closeFight() {
             if(this.monsterType == "Quest"){
-                this.winner = "null"
+                this.updateView(5);
                 socket.emit("questFight")
             }
             else{
-                this.winner = "null"
                 this.updateView(2);
                 socket.emit("getActivePlayer")
             }

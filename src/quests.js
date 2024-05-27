@@ -1925,7 +1925,6 @@ let questTableBronzeAthos = [
         },
         questMonster: 15,
         questMonsterText: "-",
-       
         optionGoodSecond: {
             hasOption: 1,
             optionType: "DeliverMonster",
@@ -1934,7 +1933,7 @@ let questTableBronzeAthos = [
         optionBadSecond: {
             hasOption: 1,
             optionType: "Reward",
-            optionText: "Nimm die Bestechung an un schweige über seine Arbeit"
+            optionText: "Nimm die Bestechung an und schweige über seine Arbeit"
         },
     },
     {   

@@ -298,35 +298,8 @@ io.on('connection', (socket) => {
     socket.emit('updateClientView', comp);
   });
 
-  socket.on('questFight', () => {
-    if(lobby[socket.id].optionPicked == "Good"){
-      if(lobby[socket.id].optionGood.optionType == "ReturnMonster"){
-        socket.emit('updateClientView', 5);
-      }
-      else if(lobby[socket.id].optionGood.optionType == "ReturnDecision"){
-        socket.emit('updateClientView', 5);
-      }
-      else{
-        socket.emit('updateClientView', 5);
-        socket.emit("updatePlayer", lobby[socket.id]);
-        socket.emit("questReward")
-      }
-    }
-    else if(lobby[socket.id].optionPicked == "Bad"){
-      if(lobby[socket.id].optionGood.optionType == "ReturnMonster"){
-        socket.emit('updateClientView', 5);
-      }
-      else if(lobby[socket.id].optionGood.optionType == "ReturnDecision"){
-        socket.emit('updateClientView', 5);
-      }
-      else{
-        socket.emit('updateClientView', 5);
-        socket.emit("updatePlayer", lobby[socket.id]);
-        socket.emit("questReward")
-      }
-    }
-    else{
-    }
+  socket.on('questFight', function() {
+    completeQuestFight(socket);
   });
 
   // Get Active Player
@@ -461,7 +434,7 @@ io.on('connection', (socket) => {
       lobby[socket.id].health = lobby[socket.id].health + 3
     }
     else {
-      lobby[socket.id].health = lobby[socket.id].health + ((Math.ceil(10-lobby[socket.id].health)/2) + 2)
+      lobby[socket.id].health = lobby[socket.id].health + ((Math.ceil((10-lobby[socket.id].health)/2) + 2))
     }
     socket.emit("updatePlayer", lobby[socket.id]);
   });
@@ -1163,6 +1136,7 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
       activePlayer.blocks = 0;
     }
   }
+
   //apply damage next round
   if(activeMonster.moves[moveIndex].damageNextRound > 0){
     activeMonster.damageNextRound = activeMonster.moves[moveIndex].damageNextRound;
@@ -1191,6 +1165,25 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
   }
   return false
  }
+
+ function completeQuestFight(socket){   
+  if(lobby[socket.id].optionPicked == "Good"){
+    if(lobby[socket.id].quest.optionGood.optionType == "ReturnMonster"){
+      socket.emit("updatePlayer", lobby[socket.id]);
+    }
+    else{
+      socket.emit("updatePlayer", lobby[socket.id]);
+      socket.emit("questReward")
+    }
+  }
+  else {
+    if(lobby[socket.id].quest.optionBad.optionType == "ReturnMonster"){
+      socket.emit("updatePlayer", lobby[socket.id]);
+    }
+      socket.emit("updatePlayer", lobby[socket.id]);
+      socket.emit("questReward")
+    }
+}
 
  // update skills
 function updateSkills(activePlayer, skill){

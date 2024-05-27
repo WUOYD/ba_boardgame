@@ -312,7 +312,6 @@ export default {
             this.questView = false;
         },
         questReward() {
-            console.log("test")
             if (this.optionPickedDecision != null) {
                 this.questStep = "RewardDecision"
             } else {
