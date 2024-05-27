@@ -4,7 +4,7 @@ import Header from './components/Header.vue'
 import HeaderEmpty from './components/HeaderEmpty.vue'
 import Actions from './components/Actions.vue'
 import Character from './components/Character.vue'
-import Cutscenes from './components/Cutscenes.vue'
+import Viewer from './components/Viewer.vue'
 import Fight from './components/Fight.vue'
 import Map from './components/Map.vue'
 import MapOverview from './components/MapOverview.vue'
@@ -32,7 +32,7 @@ export default {
     Character,
     Actions,
     Quest,
-    Cutscenes,
+    Viewer,
     Fight,
     Options,
     Investigation,
@@ -81,6 +81,10 @@ export default {
     socket.on('join', (join) => {
       this.title = false;
       this.comp = "Intro";
+    })
+    socket.on('joinViewerClient', () => {
+      this.title = false;
+      this.comp = "Viewer";
     })
     socket.on("startGame", () => {
       this.comp = "Actions";

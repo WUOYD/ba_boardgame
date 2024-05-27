@@ -88,7 +88,7 @@ class Player {
       changeIsland: false,
       quest: false,
       boss: false,
-    }
+    };
     this.health = 10; 
     this.reputation = 0;
     this.gold = 0;
@@ -101,8 +101,7 @@ class Player {
     this.reflect = 0;
     this.damageNextRound = 0;
     this.picture = "src/assets/img/player/player.webp";
-    //SwordSword, SwordMagic, MagicMagic, MagicSkull, SkullSkull, SkullClaw
-    this.moves = [[1,[2,3,4,5]],[1,[2,3]],[1,[2,3]],[1,[2,3]],[1,[2,3]],[1,[2,3]]];
+    this.moves = [[1, [2, 3, 4, 5]], [1, [2, 3]], [1, [2, 3]], [1, [2, 3]], [1, [2, 3]], [1, [2, 3]]];
     this.clawLevel = 1;
     this.skullLevel = 1;
     this.magicLevel = 1;
@@ -188,47 +187,50 @@ io.on('connection', (socket) => {
     lobby = [];
     playerList = []; 
     playerReadyList = []; 
+    viewerList = [];
   });
 
   socket.on('joinPlayer', (playerName) => {
-      let rndNumber = randomNumber(0,5)
-      let region
-      switch (rndNumber) {
-        case 0:
-          region = "Frosgar"
-          break
-        case 1:
-          region = "Aridora"
-          break
-        case 2:
-          region = "Athos"
-          break
-        case 3:
-          region = "Nythoria"
-          break
-        case 4:
-          region = "Talvar"
-          break
-        case 5:
-          region = "Drakan"
-          break
-      }
-      const playerObject = new Player(playerName, region);
-      lobby[socket.id] = playerObject;
-      playerList.push(lobby[socket.id]);
-      playerReadyList.push(false);
-      if(playerList.length == 1){
-        lobby[socket.id].host = true;
-      }
-      socket.emit('join', playerName);
-      console.log('Player joined: ', playerName);
-      socket.emit("updatePlayer", lobby[socket.id]);
+    let rndNumber = randomNumber(0, 5);
+    let region;
+    switch (rndNumber) {
+      case 0:
+        region = "Frosgar";
+        break;
+      case 1:
+        region = "Aridora";
+        break;
+      case 2:
+        region = "Athos";
+        break;
+      case 3:
+        region = "Nythoria";
+        break;
+      case 4:
+        region = "Talvar";
+        break;
+      case 5:
+        region = "Drakan";
+        break;
+    }
+    const playerObject = new Player(playerName, region);
+    lobby[socket.id] = playerObject;
+    playerList.push(lobby[socket.id]);
+    playerReadyList.push(false);
+    if (playerList.length == 1) {
+      lobby[socket.id].host = true;
+    }
+    socket.emit('join', playerName);
+    console.log('Player joined: ', playerName);
+    socket.emit("updatePlayer", lobby[socket.id]);
   });
+  
+
 
   socket.on('joinViewer', function() {
-    socket.emit('join', socket);
-    console.log('Viewer joined: ', socket);
-    //viewerList.append(lobby[socket.id]);
+    socket.emit('joinViewerClient', socket.id);
+    console.log('Viewer joined: ', socket.id);
+    viewerList.push(socket.id);
   });
 
   // Get change Ready State
@@ -256,15 +258,21 @@ io.on('connection', (socket) => {
   socket.on("hostStartGame", function() {
     const allPlayersReady = playerReadyList.every(playerReady => playerReady === true);
     if (allPlayersReady) {
-      io.emit("startGame");
-      const identifiers = Object.keys(lobby);
-      const randomIndex = randomNumber(0, playerList.length-1)
-      activePlayer = randomIndex
+      const identifiers = Object.keys(lobby).filter(id => lobby[id] instanceof Player);
+      const randomIndex = randomNumber(0, playerList.length - 1);
+      activePlayer = randomIndex;
       const randomIdentifier = identifiers[randomIndex];
-      lobby[randomIdentifier].playerIsActive = true;
-      io.to(randomIdentifier).emit("updatePlayer", lobby[randomIdentifier]);
+      // Set the active player
+      identifiers.forEach(id => {
+        lobby[id].playerIsActive = (id === randomIdentifier);
+      });
+      identifiers.forEach(id => {
+        io.to(id).emit("startGame");
+        io.to(id).emit("updatePlayer", sanitizePlayer(lobby[id]));
+      });
     }
   });
+  
 
   socket.on("endAction", function() {
     const identifiers = Object.keys(lobby);
@@ -350,29 +358,56 @@ io.on('connection', (socket) => {
 
   // Generate Encounter
   socket.on("investigate", function() {
-    encounter = investigate(lobby[socket.id]); 
-    socket.emit("updatePlayer", lobby[socket.id])
-    socket.emit("updateMonster", lobby[socket.id])
+    const encounter = investigate(lobby[socket.id]);
+    socket.emit("updatePlayer", sanitizePlayer(lobby[socket.id]));
+    socket.emit("updateMonster", lobby[socket.id]);
     socket.emit("updateEncounter", encounter);
+  
+    viewerList.forEach(viewerSocketId => {
+      const viewerSocket = io.sockets.sockets.get(viewerSocketId);  // Fetch the socket object
+      if (viewerSocket) {
+        viewerSocket.emit("updateEncounter", encounter);
+        viewerSocket.emit("updatePlayer", sanitizePlayer(lobby[socket.id]));
+        viewerSocket.emit("updateMonster", lobby[socket.id]);
+      }
+    });
   });
+  
   
 
   // Change Region
   socket.on("changeRegion", (region) => { 
     changeRegion(lobby[socket.id], region); 
     socket.emit("currentRegion", lobby[socket.id]);
+    viewerList.forEach(viewerSocketId => {
+      const viewerSocket = io.sockets.sockets.get(viewerSocketId);  // Fetch the socket object
+      if (viewerSocket) {
+        viewerSocket.emit("changeRegion", lobby[socket.id].region);
+      }
+    });
   });
 
   // Option good
   socket.on("optionQuestGood", function() { 
     lobby[socket.id].quest.optionPicked = "Good";
+    viewerList.forEach(viewerSocketId => {
+      const viewerSocket = io.sockets.sockets.get(viewerSocketId);  // Fetch the socket object
+      if (viewerSocket) {
+        viewerSocket.emit("updateEncounter", "Logo");
+      }
+    });
   });
 
   // Option bad
   socket.on("optionQuestBad", function() { 
     lobby[socket.id].quest.optionPicked = "Bad";
+    viewerList.forEach(viewerSocketId => {
+      const viewerSocket = io.sockets.sockets.get(viewerSocketId);  // Fetch the socket object
+      if (viewerSocket) {
+        viewerSocket.emit("updateEncounter", "Logo");
+      }
+    });
   });
-
   // Deny quest
   socket.on("optionQuestDeny", function() { 
     lobby[socket.id].quest = null;
@@ -400,26 +435,30 @@ io.on('connection', (socket) => {
     socket.emit("updatePlayer", lobby[socket.id]);
   });
 
-  socket.on("updateActions", (action) => { 
-    lobby[socket.id].actions -= 1;
-    switch (action) {
-      case "investigate": 
-        lobby[socket.id].actionsUsed.investigate = true
-        break;
-      case "heal": 
-        lobby[socket.id].actionsUsed.heal = true
-        break;
-      case "quest": 
-        lobby[socket.id].actionsUsed.quest = true
-        break;
-      case "changeIsland": 
-        lobby[socket.id].actionsUsed.changeIsland = true
-        break;
-      case "boss": 
-        lobby[socket.id].actionsUsed.boss = true
-        break;
+  socket.on("updateActions", (action) => {
+    if (lobby[socket.id] && lobby[socket.id].actionsUsed) {
+      lobby[socket.id].actions -= 1;
+      switch (action) {
+        case "investigate":
+          lobby[socket.id].actionsUsed.investigate = true;
+          break;
+        case "heal":
+          lobby[socket.id].actionsUsed.heal = true;
+          break;
+        case "quest":
+          lobby[socket.id].actionsUsed.quest = true;
+          break;
+        case "changeIsland":
+          lobby[socket.id].actionsUsed.changeIsland = true;
+          break;
+        case "boss":
+          lobby[socket.id].actionsUsed.boss = true;
+          break;
+      }
+      socket.emit("updatePlayer", sanitizePlayer(lobby[socket.id]));
+    } else {
+      console.error(`Player with socket ID ${socket.id} is not properly initialized.`);
     }
-    socket.emit("updatePlayer", lobby[socket.id]);
   });
 
   // heal player
@@ -994,6 +1033,14 @@ function diceRollPlayer(socket, activePlayer, rollPlayer) {
   let winner = fightPlayer(activePlayer, activePlayer.fight.activeMonster, rollPlayer);
   socket.emit("updatePlayer", activePlayer);
   socket.emit("updateMonster", activePlayer);
+  viewerList.forEach(viewerSocketId => {
+    const viewerSocket = io.sockets.sockets.get(viewerSocketId);  // Fetch the socket object
+    if (viewerSocket) {
+      viewerSocket.emit("updatePlayer", activePlayer)
+      viewerSocket.emit("updateMonster", activePlayer)
+      viewerSocket.emit("changeTurn")
+    }
+  });
   if (winner) {
     activePlayer.monstersKilled += 1;
     activePlayer.victoryPoints += activePlayer.fight.activeMonster.victoryPoints;
@@ -1010,6 +1057,14 @@ function diceRollMonster(socket, activePlayer, rollMonster) {
   let winner = fightMonster(activePlayer, activePlayer.fight.activeMonster, rollMonster);
   socket.emit("updatePlayer", activePlayer);
   socket.emit("updateMonster", activePlayer);
+  viewerList.forEach(viewerSocketId => {
+    const viewerSocket = io.sockets.sockets.get(viewerSocketId);  // Fetch the socket object
+    if (viewerSocket) {
+      viewerSocket.emit("updatePlayer", activePlayer)
+      viewerSocket.emit("updateMonster", activePlayer)
+      viewerSocket.emit("changeTurn")
+    }
+  });
   if (winner) {
     socket.emit("fightWinner", false)
     return
@@ -1252,4 +1307,32 @@ function generateLoot(){
  //help functions
  function randomNumber(min, max) { // min and max included 
   return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function sanitizePlayer(player) {
+  return {
+    name: player.name,
+    region: player.region,
+    host: player.host,
+    actions: player.actions,
+    actionsUsed: player.actionsUsed,
+    health: player.health,
+    reputation: player.reputation,
+    gold: player.gold,
+    goldLoot: player.goldLoot,
+    monstersKilled: player.monstersKilled,
+    questsSolved: player.questsSolved,
+    victoryPoints: player.victoryPoints,
+    blocks: player.blocks,
+    dot: player.dot,
+    reflect: player.reflect,
+    damageNextRound: player.damageNextRound,
+    picture: player.picture,
+    moves: player.moves,
+    clawLevel: player.clawLevel,
+    skullLevel: player.skullLevel,
+    magicLevel: player.magicLevel,
+    quest: player.quest,
+    playerIsActive: player.playerIsActive
+  };
 }

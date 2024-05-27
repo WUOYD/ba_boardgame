@@ -18,7 +18,7 @@
                 <div class="titleText" id="playerName">
                     <p>Gib deinen Namen ein:</p>
                     <input type="text" v-model="playerName" placeholder="Gib deinen Namen ein">
-                    <button @click="join()">Starten</button>
+                    <button @click="joinPlayer()">Starten</button>
                 </div>
             </div>
             <div v-if="clientType === 'viewer'">
@@ -43,7 +43,7 @@ export default {
         }
     },
     methods: {
-        join() {
+        joinPlayer() {
             socket.emit("joinPlayer", this.playerName);
         },
         joinViewer() {

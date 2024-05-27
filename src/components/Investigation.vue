@@ -1,10 +1,6 @@
 <template>
 <div class="content single">
     <h1>Investigation</h1>
-    <div class="encounter" id="nothing" v-if="currentEncounter == 'Nothing'">
-        <p>Nothing happens...</p>
-        <button @click="changeView(2)">Zurück zur Übersicht</button>
-    </div>
     <div class="encounter" id="monster" v-if="currentEncounter == 'Monster'">
         <img :src="monsterImage" width="250" height="250" />
         <table>
