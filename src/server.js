@@ -188,6 +188,7 @@ io.on('connection', (socket) => {
     playerList = []; 
     playerReadyList = []; 
     viewerList = [];
+    console.log("reset game data")
   });
 
   socket.on('joinPlayer', (playerName) => {
@@ -356,6 +357,10 @@ io.on('connection', (socket) => {
     socket.emit("updatePlayer", lobby[socket.id]);
   });
 
+  socket.on("updateViewer", (encounter) => {
+    emitChangeViewToViewer(encounter, socket)
+  });
+
   // Generate Encounter
   socket.on("investigate", function() {
     const encounter = investigate(lobby[socket.id]);
@@ -376,38 +381,33 @@ io.on('connection', (socket) => {
   
 
   // Change Region
-  socket.on("changeRegion", (region) => { 
+  socket.on("changeRegion", async (region) => { 
     changeRegion(lobby[socket.id], region); 
     socket.emit("currentRegion", lobby[socket.id]);
-    viewerList.forEach(viewerSocketId => {
-      const viewerSocket = io.sockets.sockets.get(viewerSocketId);  // Fetch the socket object
+  
+    for (const viewerSocketId of viewerList) {
+      const viewerSocket = io.sockets.sockets.get(viewerSocketId);
       if (viewerSocket) {
         viewerSocket.emit("changeRegion", lobby[socket.id].region);
+        viewerSocket.emit("updateEncounter", "changeIsland");
+        await sleep(5000);
+        viewerSocket.emit("updateEncounter", "Logo");
       }
-    });
+    }
   });
 
   // Option good
   socket.on("optionQuestGood", function() { 
     lobby[socket.id].quest.optionPicked = "Good";
-    viewerList.forEach(viewerSocketId => {
-      const viewerSocket = io.sockets.sockets.get(viewerSocketId);  // Fetch the socket object
-      if (viewerSocket) {
-        viewerSocket.emit("updateEncounter", "Logo");
-      }
-    });
+    emitChangeViewToViewer("Logo", socket)
   });
 
   // Option bad
   socket.on("optionQuestBad", function() { 
     lobby[socket.id].quest.optionPicked = "Bad";
-    viewerList.forEach(viewerSocketId => {
-      const viewerSocket = io.sockets.sockets.get(viewerSocketId);  // Fetch the socket object
-      if (viewerSocket) {
-        viewerSocket.emit("updateEncounter", "Logo");
-      }
-    });
+    emitChangeViewToViewer("Logo", socket)
   });
+  
   // Deny quest
   socket.on("optionQuestDeny", function() { 
     lobby[socket.id].quest = null;
@@ -418,6 +418,7 @@ io.on('connection', (socket) => {
     socket.emit('changeQuestView');
     manageQuest(socket, lobby[socket.id]);
     socket.emit("updatePlayer", lobby[socket.id]);
+    emitChangeViewToViewer("Quest", socket)
   });
 
   socket.on("decisionGood", function() {
@@ -858,6 +859,7 @@ function generateEncounter(activePlayer) {
 //start quest
 function startQuest(activePlayer){
   activePlayer.quest = Object.assign({}, getRandomQuest(activePlayer.region, game.round));
+  activePlayer.quest.questStep = "Offer"
 }
 
 //manage Quest
@@ -1307,6 +1309,20 @@ function generateLoot(){
  //help functions
  function randomNumber(min, max) { // min and max included 
   return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function emitChangeViewToViewer(encounter, socket){
+  viewerList.forEach(viewerSocketId => {
+    const viewerSocket = io.sockets.sockets.get(viewerSocketId);  // Fetch the socket object
+    if (viewerSocket) {
+      viewerSocket.emit("updateEncounter", encounter);
+      viewerSocket.emit("updatePlayer", sanitizePlayer(lobby[socket.id]));
+    }
+  });
 }
 
 function sanitizePlayer(player) {

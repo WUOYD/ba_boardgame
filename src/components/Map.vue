@@ -133,6 +133,10 @@ export default {
     margin: 5px;
 }
 
+.island img{
+    border-radius: 20px;
+}
+
 .island p {
     font-size: 20px;
 }

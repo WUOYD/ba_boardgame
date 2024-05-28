@@ -2,7 +2,7 @@
 <div class="content">
     <div v-if="currentEncounter == 'Loot'" class="viewer" id="lootViewer">
         <img :src="imageTreasure" />
-        <p>{{ this.activePlayerName }} hat {{ this.goldLoot }} Gold gefunden</p>
+        <p>{{ this.playerName }} hat {{ this.goldLoot }} Gold gefunden</p>
     </div>
     <div v-if="currentEncounter == 'Quest'" class="viewer" id="questViewer">
         <div v-if="questStep == 'Deliver'" class="quest">
@@ -149,7 +149,7 @@
                 </div>
             </div>
         </div>
-        <div v-else class="quest">
+        <div v-else v-if="questStep == 'Offer'" class="quest">
             <div class="questPicture">
                 <img :src="questPictureOfferer" />
             </div>
@@ -297,31 +297,31 @@
         </div>
     </div>
     <div v-if="currentEncounter == 'changeIsland'" class="viewer" id="islandViewer">
-        <div class="island" v-if="travelDestination == 'Frosgar'">
+        <div class="islandViewer" v-if="travelDestination == 'Frosgar'">
             <img :src="islands[0][2]" width="250" height="250" />
             <p>Frosgar</p>
         </div>
-        <div class="island" v-if="travelDestination == 'Aridora'">
+        <div class="islandViewer" v-if="travelDestination == 'Aridora'">
             <img :src="islands[1][2]" />
             <p>Aridora</p>
         </div>
-        <div class="island" v-if="travelDestination == 'Athos'">
+        <div class="islandViewer" v-if="travelDestination == 'Athos'">
             <img :src="islands[2][2]" />
             <p>Athos</p>
         </div>
-        <div class="island" v-if="travelDestination == 'Drakan'">
+        <div class="islandViewer" v-if="travelDestination == 'Drakan'">
             <img :src="islands[3][2]" />
             <p>Drakan</p>
         </div>
-        <div class="island" v-if="travelDestination == 'Talvar'">
+        <div class="islandViewer" v-if="travelDestination == 'Talvar'">
             <img :src="islands[4][2]" />
             <p>Talvar</p>
         </div>
-        <div class="island" v-if="travelDestination == 'Nythoria'">
+        <div class="islandViewer" v-if="travelDestination == 'Nythoria'">
             <img :src="islands[5][2]" />
             <p>Nythoria</p>
         </div>
-        <div class="island" v-if="travelDestination == 'Elysora'">
+        <div class="islandViewer" v-if="travelDestination == 'Elysora'">
             <img :src="islands[6][2]" />
             <p>Elysora</p>
         </div>
@@ -344,7 +344,6 @@ export default {
     data() {
         return {
             logo: "src/assets/logo/Logo.png",
-            activePlayerName: null,
             goldLoot: null,
             rewardGoodReputation: null,
             rewardGoodGold: null,
@@ -449,7 +448,8 @@ export default {
         })
         socket.on("changeRegion", region => {
             this.travelDestination = region
-            this.currentEncounter = "changeIsland"
+            
+            //this.currentEncounter = "Logo"
         })
         socket.on("updateEncounter", message => {
             this.currentEncounter = message
@@ -499,6 +499,7 @@ export default {
                 this.playerBlocks = activePlayer.blocks;
                 this.playerDot = activePlayer.dot;
                 this.playerReflect = activePlayer.reflect;
+                this.goldLoot = activePlayer.goldLoot
                 if (activePlayer.quest) {
                     if (activePlayer.quest.optionPickedDecision != null) {
                         this.optionPickedDecision = activePlayer.quest.optionPickedDecision
@@ -573,7 +574,6 @@ export default {
         socket.emit("getMovesTables");
     },
     methods: {
-
     },
     beforeUnmount() {
         this.mounted = false;
@@ -595,7 +595,15 @@ export default {
     flex-direction: column;
 }
 
-#logoViewer {
+#lootViewer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#islandViewer{
     display: flex;
     width: 100%;
     height: 100%;
@@ -603,15 +611,29 @@ export default {
     align-items: center;
 }
 
-#logoViewer img {
-    width: auto;
-    height: 40%;
+#islandViewer img{
+    width: 50%;
+    height: 50%;
 }
 
 #lootViewer img {
     width: 50%;
     border-radius: 20px;
 }
+
+#logoViewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+#logoViewer img {
+    width: 50%;
+    height: auto
+}
+
 
 .questPicture {
     display: flex;
@@ -883,7 +905,7 @@ td {
     font-size: 18px;
 }
 
-.island img {
+.islandViewer img {
     width: auto;
     height: 80%;
 }

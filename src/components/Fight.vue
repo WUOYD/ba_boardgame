@@ -322,6 +322,8 @@ export default {
             socket.emit("updateView", comp);
         },
         closeFight() {
+            socket.emit("updateViewer", "Logo")
+            socket.emit("getActivePlayer")
             if(this.monsterType == "Quest"){
                 this.updateView(5);
                 socket.emit("questFight")
