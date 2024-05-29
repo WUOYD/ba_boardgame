@@ -242,10 +242,24 @@ export default {
             optionGoodText: null,
             optionBadText: null,
             mapIcon: "src/assets/icons/map_icon.webp",
-            imageTreasure: "src/assets/img/misc/treasure.webp"
+            imageTreasure: "src/assets/img/misc/treasure.webp",
+            movesTableCombinationSwordSword: null,
+            movesTableCombinationMagicMagic: null,
+            movesTableCombinationSkullSkull: null,
+            movesTableCombinationSwordMagic: null,
+            movesTableCombinationMagicSkull: null,
+            movesTableCombinationSwordSkull: null,
         }
     },
     mounted() {
+        socket.on("setMovesTables", movesTables => {
+            this.movesTableCombinationSwordSword = movesTables.movesTableCombinationSwordSword
+            this.movesTableCombinationMagicMagic = movesTables.movesTableCombinationMagicMagic
+            this.movesTableCombinationSkullSkull = movesTables.movesTableCombinationSkullSkull
+            this.movesTableCombinationSwordMagic = movesTables.movesTableCombinationSwordMagic
+            this.movesTableCombinationMagicSkull = movesTables.movesTableCombinationMagicSkull
+            this.movesTableCombinationSwordSkull = movesTables.movesTableCombinationSwordSkull
+        })
         socket.on("updatePlayer", activePlayer => {
             if (activePlayer.quest != null) {
                 this.playerHasQuest = true
@@ -295,6 +309,7 @@ export default {
             this.questView = true;
         })
         socket.emit("getActivePlayer")
+        socket.emit("getMovesTables");
     },
     methods: {
         desicionGood() {

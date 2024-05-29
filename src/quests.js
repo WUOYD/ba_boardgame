@@ -1190,7 +1190,7 @@ let questTableBronzeDrakan = [
         questRewardBad: {
             reputation: -1,
             gold: 0,
-            move: "Drachensegen, Schil-Schild",
+            move: ["MagicMagic", 2],
             impact: "-"
         },
         questRewardDeny: {
@@ -1422,7 +1422,7 @@ let questTableBronzeDrakan = [
         questRewardBad: {
             reputation: 1,
             gold: 0,
-            move: "Erhalte eine Fähigkeit Schwert-Schwert",
+            move: ["SwordSword", 3],
             impact: "-"
         },
         questRewardDeny: {
@@ -1496,7 +1496,7 @@ let questTableBronzeNythoria = [
         questRewardGood: {
             reputation: 1,
             gold: 0,
-            move: "Erhalte eine Fähigkeit",
+            move: ["SwordSkull", 3],
             impact: "-"
         },
         questRewardBad: {
@@ -1965,7 +1965,7 @@ let questTableBronzeAthos = [
         questRewardGood: {
             reputation: 1,
             gold: 0,
-            move: "Erhalte eine Fähigkeit",
+            move: ["SwordMagic", 2],
             impact: "-"
         },
         questRewardBad: {

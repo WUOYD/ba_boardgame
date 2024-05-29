@@ -90,7 +90,14 @@ class Player {
       boss: false,
     };
     this.health = 10; 
-    this.reputation = 0;
+    this.reputation = {
+      athos: 0,
+      aridora: 0,
+      nythoria: 0,
+      drakan: 0,
+      talvar: 0,
+      frosgar: 0,
+    };
     this.gold = 0;
     this.goldLoot = 0;
     this.monstersKilled = 0;
@@ -101,7 +108,7 @@ class Player {
     this.reflect = 0;
     this.damageNextRound = 0;
     this.picture = "src/assets/img/player/player.webp";
-    this.moves = [[1, [2, 3, 4, 5]], [1, [2, 3]], [1, [2, 3]], [1, [2, 3]], [1, [2, 3]], [1, [2, 3]]];
+    this.moves = [[1, []], [1, []], [1, []], [1, []], [1, []], [1, []]];
     this.clawLevel = 1;
     this.skullLevel = 1;
     this.magicLevel = 1;
@@ -339,6 +346,11 @@ io.on('connection', (socket) => {
     lobby[socket.id].moves[index][0] = indexNew;
     socket.emit("updatePlayer", lobby[socket.id]);
     socket.emit("updateChangeMoves", lobby[socket.id]);
+  });
+
+  socket.on("getPlayerStandings", function() {
+    let playerStandings = getPlayerStandings()
+    socket.emit("setPlayerStandings", playerStandings);
   });
 
   // Upgrades
@@ -1006,19 +1018,75 @@ function manageQuestDesicion(socket, activePlayer){
 
 function completeQuest(activePlayer){
   if(activePlayer.quest.optionPicked == "Good"){
-    activePlayer.reputation += activePlayer.quest.rewardGood[0]
-    activePlayer.gold += activePlayer.quest.rewardGood[1]
-    //activePlayer.moves += activePlayer.quest.rewardGood[3];
-    //activePlayer.victoryPoints += activePlayer.quest.rewardGood[3];
+    activePlayer.gold += activePlayer.quest.rewardGood.gold
+    switch (activePlayer.quest.regionQuest){
+      case "Athos":
+        activePlayer.reputation.athos += activePlayer.quest.rewardGood.reputation
+        break
+      case "Aridora":
+        activePlayer.reputation.aridora += activePlayer.quest.rewardGood.reputation
+        break
+      case "Nythoria":
+        activePlayer.reputation.nythoria += activePlayer.quest.rewardGood.reputation
+        break
+      case "Drakan":
+        activePlayer.reputation.drakan += activePlayer.quest.rewardGood.reputation
+        break
+      case "Talvar":
+        activePlayer.reputation.talvar += activePlayer.quest.rewardGood.reputation
+        break
+      case "Frosgar":
+        activePlayer.reputation.frosgar += activePlayer.quest.rewardGood.reputation
+        break
+    }
+    if(activePlayer.quest.rewardGood.move != "-"){
+      switch (activePlayer.quest.rewardGood.move[0]){
+        case "SwordSword":
+          activePlayer.moves[0][1].push(movesTableCombinationSwordSword[activePlayer.quest.rewardGood.move[1]])
+          break
+        case "SwordMagic":
+          activePlayer.moves[1][1].push(movesTableCombinationSwordMagic[activePlayer.quest.rewardGood.move[1]])
+          break
+        case "MagicMagic":
+          activePlayer.moves[2][1].push(movesTableCombinationMagicMagic[activePlayer.quest.rewardGood.move[1]])
+          break
+        case "MagicSkull":
+          activePlayer.moves[3][1].push(movesTableCombinationMagicSkull[activePlayer.quest.rewardGood.move[1]])
+          break
+        case "SkullSkull":
+          activePlayer.moves[4][1].push(movesTableCombinationSkullSkull[activePlayer.quest.rewardGood.move[1]])
+          break
+        case "SwordSkull":
+          activePlayer.moves[5][1].push(movesTableCombinationSwordSkull[activePlayer.quest.rewardGood.move[1]])
+          break
+      }
+    }
     activePlayer.questsSolved += 1;
     activePlayer.quest = null;
     return
   }
   else{
-    activePlayer.reputation += activePlayer.quest.rewardBad[0]
-    activePlayer.gold += activePlayer.quest.rewardBad[1]
-    //activePlayer.moves += activePlayer.quest.rewardGood[3];
-    //activePlayer.victoryPoints += activePlayer.quest.rewardGood[3];
+    activePlayer.gold += activePlayer.quest.rewardBad.gold
+    switch (activePlayer.quest.regionQuest){
+      case "Athos":
+        activePlayer.reputation.athos += activePlayer.quest.rewardBad.reputation
+        break
+      case "Aridora":
+        activePlayer.reputation.aridora += activePlayer.quest.rewardBad.reputation
+        break
+      case "Nythoria":
+        activePlayer.reputation.nythoria += activePlayer.quest.rewardBad.reputation
+        break
+      case "Drakan":
+        activePlayer.reputation.drakan += activePlayer.quest.rewardBad.reputation
+        break
+      case "Talvar":
+        activePlayer.reputation.talvar += activePlayer.quest.rewardBad.reputation
+        break
+      case "Frosgar":
+        activePlayer.reputation.frosgar += activePlayer.quest.rewardBad.reputation
+        break
+    }
     activePlayer.questsSolved += 1;
     activePlayer.quest = null;
     return
@@ -1323,6 +1391,39 @@ function emitChangeViewToViewer(encounter, socket){
       viewerSocket.emit("updatePlayer", sanitizePlayer(lobby[socket.id]));
     }
   });
+}
+
+function getPlayerStandings(){
+  const playerStandings = {
+    athos: [],
+    aridora: [],
+    nythoria: [],
+    drakan: [],
+    talvar: [],
+    frosgar: []
+  };
+  
+  for (const socketId in lobby) {
+    if (lobby.hasOwnProperty(socketId )) {
+      const player = lobby[socketId];
+      for (const island in player.reputation) {
+        if (player.reputation.hasOwnProperty(island)) {
+          playerStandings[island].push({
+            name: player.name,
+            reputation: player.reputation[island]
+          });
+        }
+      }
+    }
+  }
+
+  for (const island in playerStandings) {
+    if (playerStandings.hasOwnProperty(island)) {
+      playerStandings[island].sort((a, b) => b.reputation - a.reputation);
+    }
+  }
+
+  return playerStandings
 }
 
 function sanitizePlayer(player) {

@@ -60,6 +60,7 @@ export default {
           break;
         case 3:
           this.updateView("Map")
+          socket.emit("getPlayerStandings");
           break;
         case 4:
           this.updateView("Fight")

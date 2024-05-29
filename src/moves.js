@@ -63,7 +63,7 @@ let movesTableCombinationMagicMagic = {
       damageNextRound: 0,
   },
   2: {
-      name: "Magischer Blitz",
+      name: "Drachensegen",
       text: "2 Schaden, 2 Block",
       damage: 2,
       block: 2,
