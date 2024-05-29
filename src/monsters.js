@@ -549,7 +549,7 @@ let monsterTableQuests = [
         "health": 5,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/eiswolf.webp",
+        "image": "src/assets/img/monster/Eiswolf.webp",
         "moves": [
             { "name": "Krallenhieb", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Sprungangriff", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -565,7 +565,7 @@ let monsterTableQuests = [
         "health": 6,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/ragnar.webp",
+        "image": "src/assets/img/monster/Ragnar.webp",
         "moves": [
             { "name": "Axtangriff", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Kraftvoller Hieb", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -581,7 +581,7 @@ let monsterTableQuests = [
         "health": 6,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/sandkrabbe.webp",
+        "image": "src/assets/img/monster/Aldric-Sandkrabbe.webp",
         "moves": [
             { "name": "Klauenschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Rolle", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -597,7 +597,7 @@ let monsterTableQuests = [
         "health": 5,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/banditen.webp",
+        "image": "src/assets/img/monster/Bran-Banditen.webp",
         "moves": [
             { "name": "Dolchstoss", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Blutklinge", "text": "1 Schaden pro Runde", "damage": 0, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
@@ -613,7 +613,7 @@ let monsterTableQuests = [
         "health": 5,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/gorr.webp",
+        "image": "src/assets/img/monster/Gorr2.webp",
         "moves": [
             { "name": "Knüppelschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Messerangriff", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -629,7 +629,7 @@ let monsterTableQuests = [
         "health": 6,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/drache.webp",
+        "image": "src/assets/img/monster/Drache.webp",
         "moves": [
             { "name": "Flügelschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Ascheregen", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -645,7 +645,7 @@ let monsterTableQuests = [
         "health": 5,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/geisterwache.webp",
+        "image": "src/assets/img/monster/Jorund-Geisterwache.webp",
         "moves": [
             { "name": "Geisterhand", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Wächteraura", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
@@ -661,7 +661,7 @@ let monsterTableQuests = [
         "health": 8,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/grunthar.webp",
+        "image": "src/assets/img/monster/Grunthar.webp",
         "moves": [
             { "name": "Faustschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Rülpser", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -677,7 +677,7 @@ let monsterTableQuests = [
         "health": 8,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/olafur.webp",
+        "image": "src/assets/img/monster/Olafur.webp",
         "moves": [
             { "name": "Faustschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Rülpser", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -693,7 +693,7 @@ let monsterTableQuests = [
         "health": 6,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/lavagolem.webp",
+        "image": "src/assets/img/monster/Morana-Bestie.webp",
         "moves": [
             { "name": "Feuerschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Inferno", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -709,7 +709,7 @@ let monsterTableQuests = [
         "health": 7,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/tempelwaechter.webp",
+        "image": "src/assets/img/monster/Dr.-Alrdich-Tempelwaechter.webp",
         "moves": [
             { "name": "Lanzenhieb", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Ansturm", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -720,12 +720,12 @@ let monsterTableQuests = [
         ]
     },
     {
-        "name": "Dr. Titus Tona",
+        "name": "Hanto",
         "type": "Quest",
         "health": 6,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/drtitustona.webp",
+        "image": "src/assets/img/monster/Leta-Wolf.webp",
         "moves": [
             { "name": "Biss", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Sprungangriff", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -741,7 +741,7 @@ let monsterTableQuests = [
         "health": 5,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/jotorun.webp",
+        "image": "src/assets/img/monster/Dr.-Titus-Tona-Jotorun.webp",
         "moves": [
             { "name": "Faustschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Steinwurf", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -757,7 +757,7 @@ let monsterTableQuests = [
         "health": 5,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/titus.webp",
+        "image": "src/assets/img/monster/Dr.Titus-Tona.webp",
         "moves": [
             { "name": "Elixier der Stärke", "text": "2 Schaden nächse Runde", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
             { "name": "Kosmischer Schild", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
@@ -773,7 +773,7 @@ let monsterTableQuests = [
         "health": 5,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/baumgeist.webp",
+        "image": "src/assets/img/monster/Gulmur-Baumbewohner.webp",
         "moves": [
             { "name": "Durchdringender Ast", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Schneiden der Blätter", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -789,7 +789,7 @@ let monsterTableQuests = [
         "health": 5,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/vito.webp",
+        "image": "src/assets/img/monster/Vito.webp",
         "moves": [
             { "name": "Elixier der Stärke", "text": "2 Schaden nächse Runde", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
             { "name": "Schildtrank", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
@@ -805,7 +805,7 @@ let monsterTableQuests = [
         "health": 5,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/aerendyl.webp",
+        "image": "src/assets/img/monster/Nuala-Aerendyl.webp",
         "moves": [
             { "name": "Faustschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Tritt", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },

@@ -180,7 +180,7 @@ export default {
     align-items: center;
     display: flex;
     flex-direction: row;
-    padding: 40px 10vw 40px 10vw;
+    padding: 7vh 10vw 7vh 10vw;
 }
 
 #reputations {

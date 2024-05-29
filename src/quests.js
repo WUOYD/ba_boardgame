@@ -3,7 +3,7 @@ let questTableBronzeFrosgar = [
         questType: "Bronze",
         questOfferer: {
             name: "Bjorn",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Bjorn.webp",
             text: "Während unserer letzten Jagd wurde eine ungewöhnlich große und gefährliche Bestie gesichtet - ein gigantischer Wolf von beispiellosem Ausmaß. Diese Kreatur hat bereits mehrere unserer erfahrensten Jäger getötet und stellt eine ernsthafte Bedrohung für unser Dorf dar. Finde, diesen übermächtigen Wolf und besiege ihn. Bringe mir einen seiner Reisszähne als Beweis für deine Tat. Für diese gefährliche Aufgabe werde ich dich großzügig belohnen."
         },
         questMiddleman: {
@@ -15,8 +15,8 @@ let questTableBronzeFrosgar = [
         questReceiver: {
             nameGood: "Bjorn",
             nameBad: "Bjorn",
-            imageGood: "src/assets/img/quest/placeholder_quest.webp",
-            imageBad: "src/assets/img/quest/placeholder_quest.webp",
+            imageGood: "src/assets/img/quest/Bjorn.webp",
+            imageBad: "src/assets/img/quest/Bjorn.webp",
             textGood: "Beeindruckend, Abenteurer! Dieser Reißzahn ist ein Beweis für deine Tapferkeit und Entschlossenheit. Mit dem Tod des Wolfes können wir endlich wieder ruhig schlafen. Du hast unserer Gemeinschaft einen großen Dienst erwiesen, und dafür sind wir dir zutiefst dankbar. Nimm diese Belohnung als Zeichen unserer Dankbarkeit.",
             textBad: "-"
         },
@@ -75,20 +75,20 @@ let questTableBronzeFrosgar = [
         questType: "Bronze",
         questOfferer: {
             name: "Freya",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Freya.webp",
             text: "Sei gegrüsst, tapferer Abenteurer! Ich brauche deine Hilfe bei einer wichtigen Angelegenheit. Wie du sehen kannst, habe ich hier eine Lieferung Eisessenz, die dringend zu den zwerigischen Schmieden in Drakan gebracht werden muss.Die Eisessenz wird in den tiefen Höhlen unserer Insel gefunden, wo sie von uralten magischen Quellen gespeist wird. Sie ist von unschätzbarem Wert und wird in Drakan benötigt, um die mächtigsten Schwerter zu schmieden, die jemals geschmiedet wurden. Wenn du diese Aufgabe für mich erledigst, gebe ich dir einen Teil des Gewinnes ab."
         },
         questMiddleman: {
             name: "Bronn",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Bronn.webp",
             textGood: "Aha, endlich ist die Eisessenz angekommen! Ich danke dir, tapferer Abenteurer, dass du diese wichtige Lieferung sicher zu uns gebracht hast. Die Eisessenz ist von unschätzbarem Wert für unsere Schmiedekunst, und ohne sie wären wir nicht in der Lage, die mächtigen Waffen und Rüstungen zu schmieden, die Drakan so dringend benötigt. Hier ist die Bezahlung, die ich mit Freya vereinbart habe.",
             textBad: "-"
         },
         questReceiver: {
             nameGood: "Freya",
             nameBad: "Freya",
-            imageGood: "src/assets/img/quest/placeholder_quest.webp",
-            imageBad: "src/assets/img/quest/placeholder_quest.webp",
+            imageGood: "src/assets/img/quest/Freya.webp",
+            imageBad: "src/assets/img/quest/Freya.webp",
             textGood: "Ah, du bist zurück! Ich sehe, dass du das Gold sicher zurückgebracht hast, das du für die Eisessenz erhalten hast. Das ist sehr großzügig von dir. Ich hoffe, die Belohnung ist deiner Mühe angemessen, aber ich möchte dir persönlich für deine Tapferkeit und Zuverlässigkeit danken.",
             textBad: "Aha, endlich ist die Eisessenz angekommen! Ich danke dir, tapferer Abenteurer, dass du diese wichtige Lieferung sicher zu uns gebracht hast. Die Eisessenz ist von unschätzbarem Wert für unsere Schmiedekunst, und ohne sie wären wir nicht in der Lage, die mächtigen Waffen und Rüstungen zu schmieden, die Drakan so dringend benötigt. Hier ist die Bezahlung, die ich mit Freya vereinbart habe."
         },
@@ -152,7 +152,7 @@ let questTableBronzeFrosgar = [
         questType: "Bronze",
         questOfferer: {
             name: "Grimgar",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Grimgar.webp",
             text: "Unser friedliches Dorf wurde von einem anderen Stamm überfallen, einige unserer Häuser wurden abgebrannt und die Nahrungsmittel wurden gestohlen. Aber all das ist nicht so schlimm wie der Verlust des Amulettes meines Vaters. Hilf mir bitte, den Dieb zu fassen und mir das Amulett wieder zu beschaffen, um den Rest dieser abscheulichen Übeltäter kümmern wir uns später."
         },
         questMiddleman: {
@@ -164,8 +164,8 @@ let questTableBronzeFrosgar = [
         questReceiver: {
             nameGood: "Grimgar",
             nameBad: "Grimgar",
-            imageGood: "src/assets/img/quest/placeholder_quest.webp",
-            imageBad: "src/assets/img/quest/placeholder_quest.webp",
+            imageGood: "src/assets/img/quest/Grimgar.webp",
+            imageBad: "src/assets/img/quest/Grimgar.webp",
             textGood: "TextGood",
             textBad: "TextBad"
         },
@@ -229,7 +229,7 @@ let questTableBronzeFrosgar = [
         questType: "Bronze",
         questOfferer: {
             name: "Hilda",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Hilda.webp",
             text: "Ich habe gehört, dass es in Aridora begabte Handwerker gibt, von denen ich neue Fertigkeiten und Möglichkeiten lernen kann, um meine eigene Handwerkskunst zu verbessern. Die Reise über das Meer ist jedoch alleine viel zu gefährlich. Könntest du mich begleiten und mich sicher nach Aridora bringen?"
         },
         questMiddleman: {
@@ -241,8 +241,8 @@ let questTableBronzeFrosgar = [
         questReceiver: {
             nameGood: "Hilda",
             nameBad: "Hilda",
-            imageGood: "src/assets/img/quest/placeholder_quest.webp",
-            imageBad: "src/assets/img/quest/placeholder_quest.webp",
+            imageGood: "src/assets/img/quest/Hilda.webp",
+            imageBad: "src/assets/img/quest/Hilda.webp",
             textGood: "Ich kann es kaum erwarten, die begabten Handwerker von Aridora kennenzulernen und von ihren Fertigkeiten zu lernen. Du hast mir eine großartige Möglichkeit eröffnet, meine Handwerkskunst zu verbessern und neue Möglichkeiten zu entdecken. Ich werde dir immer dankbar sein für deine Hilfe und deine Bereitschaft, mich auf diesem Abenteuer zu begleiten",
             textBad: "TextBad"
         },
@@ -305,85 +305,8 @@ let questTableBronzeFrosgar = [
     {
         questType: "Bronze",
         questOfferer: {
-            name: "Leyla",
-            image: "src/assets/img/quest/placeholder_quest.webp",
-            text: "Ich verfüge über einige kostbare Edelsteine, die in Drakan benötigt werden, um Waffen zu veredeln. Bringe sie zu den Zwergen, welche in dieser Gegend leben, und tausche sie dort gegen Feueressenz ein. Sobald du die Feueressenz hast, bringe sie zu mir zurück. Ich brauche sie, um meine Schmuckstücke herzustellen."
-        },
-        questMiddleman: {
-            name: "Zwerge",
-            image: "src/assets/img/quest/placeholder_quest.webp",
-            textGood: "Ah, die wertvollen Edelsteine von Leyla! Es ist eine Ehre, solche kostbaren Schätze von einer so geschätzten Verbündeten wie ihr zu erhalten. Die Edelsteine werden wir mit größter Sorgfalt behandeln und nutzen, um unsere Waffen zu veredeln und ihre Macht zu verstärken. Die Feueressenz, die du im Austausch erhälst, ist von unschätzbarem Wert und wird Leyla zweifellos dabei helfen, ihre Schmuckstücke mit magischer Kraft zu versehen.",
-            textBad: "TextBad"
-        },
-        questReceiver: {
-            nameGood: "Leyla",
-            nameBad: "Leyla",
-            imageGood: "src/assets/img/quest/placeholder_quest.webp",
-            imageBad: "src/assets/img/quest/placeholder_quest.webp",
-            textGood: "Die Feueressenz! Endlich bist du zurückgekehrt! Dein Mut und deine Entschlossenheit haben sich als unermesslich wertvoll erwiesen, mein tapferer Freund. Mit dieser mächtigen Zutat kann ich nun meine Schmuckstücke zu wahrhaft magischen Meisterwerken formen.",
-            textBad: "Hehe, Edelsteine, sagst du? Nun, nun, was haben wir denn hier? Du bist mutig, mir diese gestohlene Ware anzubieten, mein Freund, oder vielleicht einfach nur ein bisschen naiv. Aber ich sage dir, ich bin hier, um Geschäfte zu machen, und ich werde dir ein Angebot machen, das du nicht ablehnen kannst."
-        },
-        regions: {
-            questRegion: "Frosgar",
-            questDeliverRegionGood: "Drakan",
-            questDeliverRegionBad: "Aridora"
-        },
-        questRewardGood: {
-            reputation: 1,
-            gold: 5,
-            move: "-",
-            impact: "-"
-        },
-        questRewardBad: {
-            reputation: -1,
-            gold: 10,
-            move: "-",
-            impact: "-"
-        },
-        questRewardDeny: {
-            reputation: "-",
-            gold: "-",
-            move: "-",
-            impact: "-"
-        },
-        optionGood: {
-            hasOption: 1,
-            optionType: "Return",
-            optionText: "Hole die Feueressenz"
-        },
-        optionBad: {
-            hasOption: 1,
-            optionType: "Deliver",
-            optionText: "Stiehl die Diamanten und verkaufe sie am Hafen von Aridora"
-        },
-        optionDeny: {
-            hasOption: 1,
-            optionType: "None",
-            optionText: "Ablehnen"
-        },
-        questImpact: {
-            name: "-",
-            image: "-",
-            text: "-"
-        },
-        questMonster: "-",
-        questMonsterText: "-",
-        optionGoodSecond: {
-            hasOption: "-",
-            optionType: "-",
-            optionText: "-"
-        },
-        optionBadSecond: {
-            hasOption: "-",
-            optionType: "-",
-            optionText: "-"
-        },
-    },
-    {
-        questType: "Bronze",
-        questOfferer: {
             name: "Thorgar",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Thorgar.webp",
             text: "Momentan bin ich im Besitz einiger Bärenfelle, die eigentlich für den Handel mit Athos bestimmt waren. Jedoch kann ich meine Familie momentan nicht verlassen, da ein drohender Konflikt zwischen unseren Stämmen herrscht. Aus diesem Grund muss ich hier bleiben, um unser Dorf zu verteidigen. Kannst du die Bärenfelle für mich an Athos bringen?"
         },    
         questMiddleman: {
@@ -395,8 +318,8 @@ let questTableBronzeFrosgar = [
         questReceiver: {
             nameGood: "Sylar",
             nameBad: "Sylar",
-            imageGood: "src/assets/img/quest/placeholder_quest.webp",
-            imageBad: "src/assets/img/quest/placeholder_quest.webp",
+            imageGood: "src/assets/img/quest/Sylar.webp",
+            imageBad: "src/assets/img/quest/Sylar.webp",
             textGood: "Ach, endlich sind die Bärenfelle angekommen! Diese Felle sind von ausgezeichneter Qualität und werden sich hervorragend für meine Arbeit eignen. Vielen Dank für deine Hilfe.",
             textBad: "-"
         },
@@ -458,20 +381,20 @@ let questTableBronzeAridora = [
         questType: "Bronze",
         questOfferer: {
             name: "Leyla",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Leyla.webp",
             text: "Ich verfüge über einige kostbare Edelsteine, die in Drakan benötigt werden, um Waffen zu veredeln. Bringe sie zu den Zwergen,  welche in dieser Gegend leben, und tausche sie dort gegen Feueressenz ein. Sobald du die Feueressenz hast, bringe sie zu mir zurück. Ich brauche sie, um meine Schmuckstücke herzustellen."
         },
         questMiddleman: {
             name: "Bork",
-            image: "-",
+            image: "src/assets/img/quest/Bork.webp",
             textGood: "Ah, die wertvollen Edelsteine von Leyla! Es ist eine Ehre, solche kostbaren Schätze von einer so geschätzten Verbündeten wie ihr zu erhalten. Die Edelsteine werden wir mit größter Sorgfalt behandeln und nutzen, um unsere Waffen zu veredeln und ihre Macht zu verstärken. Die Feueressenz, die du im Austausch erhälst, ist von unschätzbarem Wert und wird Leyla zweifellos dabei helfen, ihre Schmuckstücke mit magischer Kraft zu versehen.",
             textBad: "-"
         },
         questReceiver: {
             nameGood: "Leyla",
             nameBad: "Ravyn",
-            imageGood: "src/assets/img/quest/placeholder_quest.webp",
-            imageBad: "src/assets/img/quest/placeholder_quest.webp",
+            imageGood: "src/assets/img/quest/Leyla.webp",
+            imageBad: "src/assets/img/quest/Ravyn.webp",
             textGood: "Die Feueressenz! Endlich bist du zurückgekehrt! Dein Mut und deine Entschlossenheit haben sich als unermesslich wertvoll erwiesen, mein tapferer Freund. Mit dieser mächtigen Zutat kann ich nun meine Schmuckstücke zu wahrhaft magischen Meisterwerken formen.",
             textBad: "Hehe, Edelsteine, sagst du? Nun, nun, was haben wir denn hier? Du bist mutig, mir diese gestohlene Ware anzubieten, mein Freund, oder vielleicht einfach nur ein bisschen naiv. Aber ich sage dir, ich bin hier, um Geschäfte zu machen, und ich werde dir ein Angebot machen, das du nicht ablehnen kannst."
         },
@@ -535,7 +458,7 @@ let questTableBronzeAridora = [
         questType: "Bronze",
         questOfferer: {
             name: "Aldric",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Aldric.webp",
             text: "In der Wüste wurden kürzlich auffällige, mysteriöse Löcher und Spuren im Sand entdeckt. Die Bewohner sind besorgt über diese ungewöhnlichen Vorkommnisse. Würdest du dich bereit erklären, näher zu untersuchen, was sich dahinter verbirgt?"
         },
         questMiddleman: {
@@ -612,20 +535,20 @@ let questTableBronzeAridora = [
         questType: "Bronze",
         questOfferer: {
             name: "Aria",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Aria.webp",
             text: "Ich habe eine Karte gefunden, die auf einen Schatz hinweist, der sich in den Ruinen von Aridora befindet. Ich gebe dir die Karte, um ihn  zu finden. Wenn du erfolgreich bist, werden wir beide reich sein und ich kann endlich von dieser verfluchten Insel verschwinden. Die Hitze wird mich eines Tages noch ins Grab bringen."
         },
         questMiddleman: {
             name: "Schatz",
-            image: "-",
+            image: "src/assets/img/quest/Aria-Treasure.webp",
             textGood: "Während du die Ruinen untersuchst stösst du plötzlich auf eine verborgene Kammer, von der die Karte sprach. In der Mitte der Kammer steht eine Truhe, die beim Öffnen Schmuck und Gold offenbart.",
             textBad: "-"
         },
         questReceiver: {
             nameGood: "Aria",
             nameBad: "Schatz",
-            imageGood: "-",
-            imageBad: "-",
+            imageGood: "src/assets/img/quest/Aria.webp",
+            imageBad: "src/assets/img/quest/Aria-Treasure.webp",
             textGood: "Unfassbar! Du hast den Schatz gefunden!Ich kann es kaum glauben! Endlich, nach all diesen Jahren der Suche und des Hoffens. Wir sind reich, mein Freund, reich! Du hast mein Leben verändert, mein Freund. Mit diesem Schatz kann ich endlich von dieser verfluchten Insel verschwinden und ein neues Leben beginnen, weit weg von der unerbittlichen Hitze und den endlosen Sanddünen.",
             textBad: "Während du die Ruinen untersuchst stösst du plötzlich auf eine verborgene Kammer, von der die Karte sprach. In der Mitte der Kammer steht eine Truhe, die beim Öffnen Schmuck und Gold offenbart."
         },
@@ -689,7 +612,7 @@ let questTableBronzeAridora = [
         questType: "Bronze",
         questOfferer: {
             name: "Orion",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Orion.webp",
             text: "Ein unerbittlicher Sandsturm hat die Bewohner der Wüsteninsel heimgesucht und bedroht unsere Existenz. Ich habe von einem Forscher der Insel Nythoria ein magisches Amulett erhalten, welches in der Lage sein soll den Sandsturm aufzuhalten. Das Problem ist, dass man es in das Sturmauge bringen muss, um die gewünschte Wirkung zu erzielen. Du bist ein mächtiger Abenteurer, wenn es jemand schaffen kann, dann du!"
         },
         questMiddleman: {
@@ -701,8 +624,8 @@ let questTableBronzeAridora = [
         questReceiver: {
             nameGood: "Aria",
             nameBad: "Morgrim",
-            imageGood: "-",
-            imageBad: "-",
+            imageGood: "src/assets/img/quest/Aria.webp",
+            imageBad: "src/assets/img/quest/Morgrim.webp",
             textGood: "Unglaublich! Du hast es geschafft, den Sandsturm zu stoppen! Unser aller Dank gebührt dir, tapferer Abenteurer. Nimm bitte diese Belohnung an, es ist nicht viel, aber mehr habe ich leider nicht.",
             textBad: "Ich hörte, du hast da etwas von grossem Wert für mich? Du bist ein gewiefter Geschäftsmann, das muss man dir lassen. Dieses Amulett wird mir sicherlich einen schönen Gewinn einbringen. Du hast den richtigen Riecher für lukrative Geschäfte, das muss ich sagen. Nun, mein Freund, ich hoffe, unsere Wege kreuzen sich wieder, es hat mich gefreut, mit dir Geschäfte zu machen."
         },
@@ -769,12 +692,12 @@ let questTableBronzeTalvar = [
         questType: "Bronze",
         questOfferer: {
             name: "Marelda",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Marelda.webp",
             text: "Oiii, riechst du das? Es stinkt nach Fisch! Klar sind wir ein Fischerdorf, aber ich kann den Gestank kaum noch ertragen. Ich habe ein Gerücht gehört, dass die Tintenfresser von Nythoria ein Artefakt entwickelt haben, welches einen wohligen Duft versprüht und sogar den Gestank von verbrannten Haaren überdecken kann! Wir haben gemeinsam gesammelt und konnten 10 Gold zusammenkratzen. Kannst du für mein Dorf eines dieser Artefakte auf Nythoria beschaffen?"
         },
         questMiddleman: {
             name: "Priscilla",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Priscilla.webp",
             textGood: "Du bist also den weiten Weg von Talvar hierergekommen, um mir meine neuste Erfindung abzukaufen? Nun gut ich mache dir einen fairen Preis, ich wusste sowieso nie was ich mit dm Ding anfangen soll.",
             textBad: "-"
         },
@@ -816,7 +739,7 @@ let questTableBronzeTalvar = [
         },
         optionBad: {
             hasOption: 1,
-            optionType: "Instant Reward",
+            optionType: "Reward",
             optionText: "Nimm das Gold und mach dich aus dem Staub"
         },
         optionDeny: {
@@ -846,7 +769,7 @@ let questTableBronzeTalvar = [
         questType: "Bronze",
         questOfferer: {
             name: "Bran",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Bran.webp",
             text: "Unser Dorf wird in der letzten Zeit immer öfter von einer Gruppe von Banditen überfallen. Wir haben versucht, mit ihnen zu verhandeln, aber sie haben abgelehnt. Finde dieses Pack und beseitige sie!"
         },
         questMiddleman: {
@@ -923,7 +846,7 @@ let questTableBronzeTalvar = [
         questType: "Bronze",
         questOfferer: {
             name: "Ivan",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Ivan.webp",
             text: "Du da! Ja du. Du siehst aus, als kommst du weit herum. Ich schulde den Zwergen auf Drakan noch etwas Gold. Hier nimm die Münzen und bringe sie an den Hafen von Drakan. Ich vertraue dass die Zahlung heil ankommt. Du erhältst natürlich einen kleinen Teil der Transaktion."
         },
         questMiddleman: {
@@ -935,8 +858,8 @@ let questTableBronzeTalvar = [
         questReceiver: {
             nameGood: "Dregan",
             nameBad: "Dregan",
-            imageGood: "-",
-            imageBad: "-",
+            imageGood: "src/assets/img/quest/Dregan.webp",
+            imageBad: "src/assets/img/quest/Dregan.webp",
             textGood: "Ich danke euch für eure Zuverlässigkeit. Geschäfte mit den Bewohnern von Talvar sind immer ein Wagnis, aber es scheint, als hätte ich das richtige Vertrauen gesetzt.Ihr habt euren Teil der Abmachung erfüllt, und ich werde meinen halten. Wenn ihr je wieder Geschäfte mit den Zwergen von Drakan machen wollt, wisst ihr, wo ihr mich findet.",
             textBad: "Was ist das denn?! Das ist nicht das, was vereinbart war. Wo ist der Rest des Goldes? Ivan, dieser Mistkerl! Ich werde ihm eine letzte Chance geben, seinen Fehler zu korrigieren. Bringt mir den Rest des Goldes, den ich verlangt habe, oder es wird Konsequenzen geben. Verlasst diesen Hafen, bis ihr das Problem behoben habt."
         },
@@ -1000,7 +923,7 @@ let questTableBronzeTalvar = [
         questType: "Bronze",
         questOfferer: {
             name: "Gorr",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Gorr.webp",
             text: "Pssst… komm mal her. Ich habe einen kleinen Job für dich, wenn du diskret sein kannst. In einem der Fischerboote hier in Talvar wurde eine seltene und kostbare Perle gefunden. Sie ist in der Vorratshöhle  versteckt, und ich plane, sie zu holen. Bist du dabei? Du musst lediglich die Wächter ablenken. Wir könnten das große Los ziehen."
         },
         questMiddleman: {
@@ -1081,20 +1004,20 @@ let questTableBronzeDrakan = [
         questType: "Bronze",
         questOfferer: {
             name: "Tholrin",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Tholrin.webp",
             text: "Hey, ich habe eine Axt für einen Holzfäller in Athos geschmiedet. Kannst du sie ihm übergeben und mir das dafür Gold bringen?"
         },
         questMiddleman: {
             name: "Roran",
-            image: "-",
+            image: "src/assets/img/quest/Roran.webp",
             textGood: "Ah, endlich ist sie da! Diese Axt ist perfekt für meine Arbeit im Wald von Athos. ",
             textBad: "-"
         },
         questReceiver: {
             nameGood: "Tholrin",
             nameBad: "Roran",
-            imageGood: "-",
-            imageBad: "-",
+            imageGood: "src/assets/img/quest/Tholrin.webp",
+            imageBad: "src/assets/img/quest/Roran.webp",
             textGood: "Du hast deine Sache gut gemacht, mein Freund. Als Zeichen meiner Dankbarkeit möchte ich dir eine kleine Belohnung geben. Bitte akzeptiere sie als Anerkennung für deine Zuverlässigkeit.",
             textBad: "Ah, endlich ist sie da! Diese Axt ist perfekt für meine Arbeit im Wald von Athos. "
         },
@@ -1159,7 +1082,7 @@ let questTableBronzeDrakan = [
         questType: "Bronze",
         questOfferer: {
             name: "Skaldor",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Skaldor.webp",
             text: "Ein Drache treibt sein Unwesen in unserem Land. Er terrorisiert die Gegend um den Vulkan herum und bedroht unsere Existenz. Doch ich weiß, dass du mutig genug bist, um dieser Herausforderung gewachsen zu sein. Bringe mir danach sein Herz, ich kann es gut gebrauchen, um eine mächtige Rüstung herzustellen, die jedem Angriff trotzen kann. "
         },
         questMiddleman: {
@@ -1171,7 +1094,7 @@ let questTableBronzeDrakan = [
         questReceiver: {
             nameGood: "Skaldor",
             nameBad: "-",
-            imageGood: "-",
+            imageGood: "src/assets/img/quest/Skaldor.webp",
             imageBad: "-",
             textGood: "Du bist wahrhaftig ein Held, mein Freund! Du hast nicht nur das Ungeheuer besiegt, sondern auch die Quelle seiner Macht erobert. Durch deine Hilfe bin ich nun in der Lage die mächtigste aller Rüstungen zu schmieden, welche durch die Macht des Drachenherzens verstärkt wird.",
             textBad: "-"
@@ -1236,7 +1159,7 @@ let questTableBronzeDrakan = [
         questType: "Bronze",
         questOfferer: {
             name: "Jorund",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Jorund.webp",
             text: "Ein mysteriöses Leuchten kommt nachts aus dem alten, verlassenen Minenschacht. In der Mine soll der Legende nach ein uralter Schatz liegen. Er soll jedoch von einer geisterhaften Wache beschützt werden. Bisher ist auf jedenfall noch niemand der die Mine betreten hat zurückgekehrt. Aus diesem Grund wurde die Mine vor einiger Zeit verschlossen. Ich kann dir jedoch den Schlüssel zum Tor der Mine geben, um den Schatz zu bergen, wenn du ihn mit mir teilst"
         },
         questMiddleman: {
@@ -1248,7 +1171,7 @@ let questTableBronzeDrakan = [
         questReceiver: {
             nameGood: "Jorund",
             nameBad: "-",
-            imageGood: "-",
+            imageGood: "src/assets/img/quest/Jorund.webp",
             imageBad: "-",
             textGood: "Du bist zurückgekehrt, und mit dir der Schatz aus der alten Mine! Du hast bewiesen, dass du ein wahrer Abenteurer bist. Hier nimm dir deinen Anteil.",
             textBad: "-"
@@ -1313,19 +1236,19 @@ let questTableBronzeDrakan = [
         questType: "Bronze",
         questOfferer: {
             name: "Grunthar",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Grunthar.webp",
             text: "Mein Lehrmeister Olafur ist seit einigen Wochen spurlos verschwunden. Er war ein legendärer Braumeister und hat mir alles beigebracht, was ich über die Kunst des Bierbrauens weis. Jedoch ist mit seinem Verschwinden auch das geheime Braurezept verschwunden. Unser Vorrat geht langsam dem Ende zu und die Kunden erwarten höchste Qualität von uns. Das Rezept könnte sich in seinem Haus in den Bergen von Drakan befinden, kannst du es mir beschaffen?"
         },
         questMiddleman: {
-            name: "Olafur",
+            name: "-",
             image: "-",
             textGood: "-",
             textBad: "-"
         },
         questReceiver: {
             nameGood: "Olafur",
-            nameBad: "Olafur",
-            imageGood: "-",
+            nameBad: ".",
+            imageGood: "src/assets/img/quest/Olafur.webp",
             imageBad: "-",
             textGood: "Was willst du hier?... Was Grunthar hat dich geschickt?! Dieser Mistkerl versucht bereits seit Jahren, mir mein Geheimes Braurezept zu klauen. Er ist ein Betrüger, der mir mein Geschäft streitig machen will!",
             textBad: "-"
@@ -1391,19 +1314,19 @@ let questTableBronzeDrakan = [
         questType: "Bronze",
         questOfferer: {
             name: "Morana",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Morana.webp",
             text: "Eine Reihe ungewöhnlicher Erdbeben hat die Insel erschüttert, verursacht durch eine uralte Bestie, die tief unter der Insel lebt. Steig hinab ins Tor zur Hölle am Fuss vom höchsten Berg von Drakan und stell dich der Bestie. Ich habe ein mächtiges Amulett, welches dir ermöglichen sollte, die Bestie zu zähmen."
         },
         questMiddleman: {
             name: "Bestie der Tiefe",
-            image: "-",
+            image: "src/assets/img/quest/Morana-Bestie.webp",
             textGood: "Du setzt das Amulett von Morana ein, die Bestie wehrt sich gegen den mächtigen Zauber des Amuletts. Nach kurzer Zeit schwindet die Kraft der Bestie und sie wird ruhiger. Mit Hilfe des Amuletts gelang es dir die Bestie zu zähmen.",
             textBad: "-"
         },
         questReceiver: {
             nameGood: "Morana",
             nameBad: "-",
-            imageGood: "-",
+            imageGood: "src/assets/img/quest/Morana.webp",
             imageBad: "-",
             textGood: "-",
             textBad: "-"
@@ -1471,20 +1394,20 @@ let questTableBronzeNythoria = [
         questType: "Bronze",
         questOfferer: {
             name: "Ilyan",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Ilyan.webp",
             text: "Sei gegrüßt! Ich bin Alchemist Ilyan. Eine unerklärliche Energieaktivität hat im Kristallberg begonnen, und ich fürchte um die Sicherheit unserer Insel. Deine Fähigkeiten sind dringend benötigt, um die Ursache zu untersuchen und mögliche Gefahren abzuwenden. Ich werde mich mit den Zwergen auf Drakan zusammensetzen, kannst du mir den Kern der Resonanz nach Drakan bringen?"
         },
         questMiddleman: {
             name: "Energiequelle",
-            image: "-",
+            image: "src/assets/img/quest/Ilyan-Energiequelle.webp",
             textGood: "Als du den Eingang zum Kristallberg betrittst, kommst du in eine riesige Halle. In der Mitte auf einem Altar siehst du die Energiequelle in einem seltsamen Licht erstrahlen. Sie ist aus reinem Gold und strahlt eine beeindruckende Energie aus.",
             textBad: "-"
         },
         questReceiver: {
             nameGood: "Ilyan",
             nameBad: "Energiequelle",
-            imageGood: "-",
-            imageBad: "-",
+            imageGood: "src/assets/img/quest/Ilyan.webp",
+            imageBad: "src/assets/img/quest/Ilyan-Energiequelle.webp",
             textGood: "Vielen Dank für deine Hife, ich habe bereits mit den Zwergen eine Lösung für unser Problem gesucht, leider bisher ohne Erfolg. ",
             textBad: "Als du den Eingang zum Kristallberg betrittst, kommst du in eine riesige Halle. In der Mitte auf einem Altar siehst du die Energiequelle in einem seltsamen Licht erstrahlen. Sie ist aus reinem Gold und strahlt eine beeindruckende Energie aus. Als du sie deaktivierst zerfällt sie in ihre Einzelteile, das Gold steckst du ein und verschwindest."
         },
@@ -1549,7 +1472,7 @@ let questTableBronzeNythoria = [
         questType: "Bronze",
         questOfferer: {
             name: "Leta",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Leta.webp",
             text: "Im Nebelmeer haben mehrere Jäger in den letzten Tagen ein fürchterliches Schnauben gehört und einige der Jäger sind spurlos verschwunden. Kannst du das Gebiet untersuchen und das Monster, was es auch immer ist, erledigen? Ich wäre dir zu tiefstem Dank verpflichtet."
         },
         questMiddleman: {
@@ -1561,7 +1484,7 @@ let questTableBronzeNythoria = [
         questReceiver: {
             nameGood: "Leta",
             nameBad: "-",
-            imageGood: "-",
+            imageGood: "src/assets/img/quest/Leta.webp",
             imageBad: "-",
             textGood: "-",
             textBad: "-"
@@ -1627,7 +1550,7 @@ let questTableBronzeNythoria = [
         questType: "Bronze",
         questOfferer: {
             name: "Dr. Titus Tona",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Dr.Titus-Tona.webp",
             text: "Oh, da bist du ja! Hervorragend, hervorragend! Ich bin Dr. Titus, vielleicht hast du von meinen Studien der kosmischen Windungen gehört? Nein? Nun, macht nichts. Zur Sache: Meine unschätzbar wertvolle Teleskop-Linse, ein Unikat, ist verschwunden! Ich vermute, ein Eiskobold aus Frosgar hat sie entwendet, um sie für ein paar glitzernde Münzen zu verkaufen. Ohne sie ist meine Arbeit so aussichtslos wie die Suche nach Sternenlicht bei Tagesanbruch! Kannst du mich begleiten, um den Eiskobold zu konfrontieren? Ohne diese Linse... oh, diese Katastrophe!"
         },
         questMiddleman: {
@@ -1639,8 +1562,8 @@ let questTableBronzeNythoria = [
         questReceiver: {
             nameGood: "Jotorun",
             nameBad: "Dr. Titus Tona",
-            imageGood: "-",
-            imageBad: "-",
+            imageGood: "src/assets/img/quest/Dr.Titus-Tona.webp",
+            imageBad: "src/assets/img/quest/Dr.-Titus-Tona-Jotorun.webp",
             textGood: "Halt! Bevor du irgendetwas unüberlegtes tust, lass mich sprechen! Ich bin der Jotorun, den der verrückte Titus in ein Versuchstier verwandelt hat. Ja, ich habe die Linse, aber nicht ohne Grund. Titus hat mich für seine Experimente missbraucht, und als ich nicht mehr nützlich war, hat er mich wie Abfall behandelt. Ich bitte dich, gegen den wahren Bösewicht hier vorzugehen – gegen Titus. Hilf mir, und ich verspreche dir eine Belohnung, die deine wildesten Vorstellungen übertrifft. Was sagst du dazu?",
             textBad: "-"
         },
@@ -1704,7 +1627,7 @@ let questTableBronzeNythoria = [
         questType: "Bronze",
         questOfferer: {
             name: "Dr. Aldrich",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Dr.-Aldrich.webp",
             text: "Mein Freund, ich benötige dringend deine Hilfe bei einer wichtigen Aufgabe. Es gibt ein Artefakt, das ich für meine Forschungen dringend benötige. Es ist von unschätzbarem Wert und von entscheidender Bedeutung für meine Arbeit. Das Artefakt wurde zuletzt in den Ruinen des alten Tempels der Erkenntnis gesichtet. Dieser befindet sich in den Wäldern von Athos. Es ist ein gefährliches Unterfangen, dorthin zu gelangen, aber ich bin zuversichtlich, dass du die Fähigkeiten besitzt, um diese Aufgabe zu bewältigen."
         },
         questMiddleman: {
@@ -1716,7 +1639,7 @@ let questTableBronzeNythoria = [
         questReceiver: {
             nameGood: "Dr. Aldrich",
             nameBad: "-",
-            imageGood: "-",
+            imageGood: "src/assets/img/quest/Dr.-Aldrich.webp",
             imageBad: "-",
             textGood: "Du hast es geschafft! Um ehrlich zu sein hätte ich nicht gedacht dass so eine schmächtig gebaute Person in der Lage ist das Artefakt zu holen. Aber nun gut hier ist deine Belohnung.",
             textBad: "-"
@@ -1785,7 +1708,7 @@ let questTableBronzeAthos = [
         questType: "Bronze",
         questOfferer: {
             name: "Thalion",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Thalion.webp",
             text: "Dieser Baum ist wirklich ungewöhnlich... ich bekomme ihn einfach nicht zu Fall. Es fühlt sich an, als ob er durch eine magische Kraft geschützt wird. Meine beste Axt ist sogar daran zerbrochen. Könntest du mir helfen, indem du eine neue Axt von den Zwergen in Drakan besorgst?"
         },
         questMiddleman: {
@@ -1797,7 +1720,7 @@ let questTableBronzeAthos = [
         questReceiver: {
             nameGood: "Thalion",
             nameBad: "-",
-            imageGood: "-",
+            imageGood: "src/assets/img/quest/Thalion.webp",
             imageBad: "-",
             textGood: "Wow das war unerwartet! Vielen Dank für deine Hilfe, ohne dich hätte mich diese Kreatur wohl ins Grab gebracht. Ich werde diesen seltsamen Vorfall gleich dem Stammesoberhaupt melden.",
             textBad: "-"
@@ -1863,7 +1786,7 @@ let questTableBronzeAthos = [
         questType: "Bronze",
         questOfferer: {
             name: "Fenion",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Fenion.webp",
             text: "Ein mysteriöser Alchemist aus Nythoria ist vor Kurzem im Dorf aufgetaucht und hat sich in einer alten Ruine in der Nähe niedergelassen. Seit seiner Ankunft häufen sich seltsame Vorfälle: Tiere verhalten sich ungewöhnlich und Pflanzen wachsen über Nacht. Ich fürchte, dass der Alchemist dunkle Magie praktiziert, die das Gleichgewicht der Natur stört. Kannst du den Alchemisten aufsuchen und mit ihm reden, um herauszufinden, was hier vor sich geht?"
         },
         questMiddleman: {
@@ -1875,7 +1798,7 @@ let questTableBronzeAthos = [
         questReceiver: {
             nameGood: "Vito",
             nameBad: "-",
-            imageGood: "-",
+            imageGood: "src/assets/img/quest/Vito.webp",
             imageBad: "-",
             textGood: "Wer wagt es, mein geheimes Refugium zu stören? Ach, die Dorfbewohner und ihre kleinen Sorgen. Sie verstehen einfach nicht, dass manchmal große Opfer für noch größere Gewinne nötig sind. Meine Experimente sind... nun ja, ein wenig fortgeschrittener als das, was sie als 'natürlich' betrachten würden. Ein wenig Modifikation hier, ein bisschen Energieumleitung dort. Ich nutze die verborgenen Energien dieser Insel, um meine eigenen Kräfte zu verstärken. Bedauerlich, dass die Natur dabei ein wenig aus dem Gleichgewicht geraten ist. Nimm dieses Gold, verlasse diesen Ort und spreche nie wieder darüber, und ich werde sicherstellen, dass deine kleine Gemeinde verschont bleibt. Mischt du dich jedoch weiter ein, kann ich für nichts garantieren.",
             textBad: "-"
@@ -1940,19 +1863,19 @@ let questTableBronzeAthos = [
         questType: "Bronze",
         questOfferer: {
             name: "Elanor",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Elanor.webp",
             text: "Ich stehe vor einem großen Dilemma. Meine Vorräte an wichtigen Heilkräutern, die ich zur Behandlung unserer Dorfbewohner nutze, sind gefährlich zur Neige gegangen. Besonders jetzt, wo eine Krankheitswelle unser Dorf heimsucht, benötige ich diese Kräuter dringender denn je. Leider wachsen einige dieser essenziellen Kräuter nur in einem abgelegenen Teil des nahegelegenen Waldes, bekannt für seine wilden Tiere und launischen Wetterbedingungen. Ich brauche dringend jemanden, der mutig genug ist, diese Kräuter zu sammeln, damit ich die Gesundheit unserer Gemeinschaft aufrechterhalten kann. Bist du bereit, diese Aufgabe zu übernehmen und unser Dorf zu unterstützen?"
         },
         questMiddleman: {
             name: "Heilkräuter",
-            image: "-",
+            image: "src/assets/img/quest/Haulkraeuter.webp",
             textGood: "Du hats die benötigten Heilkräuter gefunden, bringe sie zurück zu Elanor",
             textBad: "Du hats die benötigten Heilkräuter gefunden, bringe sie zurück zu Elanor"
         },
         questReceiver: {
             nameGood: "Elanor",
             nameBad: "-",
-            imageGood: "-",
+            imageGood: "src/assets/img/quest/Elanor.webp",
             imageBad: "-",
             textGood: "Vielen Dank für deine Hilfe. Mit diesen Heilkräutern kann ich unser Dorf retten. Diese magische Perle verleiht dir Kraft, nimm sie als Zeichen meiner Dankbarkeit",
             textBad: "Vielen Dank für deine Hilfe. Mit diesen Heilkräutern kann ich unser Dorf retten, auch wenn dies mein letztes Gold ist."
@@ -2018,7 +1941,7 @@ let questTableBronzeAthos = [
         questType: "Bronze",
         questOfferer: {
             name: "Arwen",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Arwen.webp",
             text: "Ich habe hier eine Ladung Holz, die in Nythoria benötigt wird. Leider ist mein Schiff beim letzten Seegang durch einen Sturm beschädigt worden. Kannst du das Holz für mich nach Nythoria bringen?"
         },
         questMiddleman: {
@@ -2030,8 +1953,8 @@ let questTableBronzeAthos = [
         questReceiver: {
             nameGood: "Gwendolin",
             nameBad: "Tarik",
-            imageGood: "-",
-            imageBad: "-",
+            imageGood: "src/assets/img/quest/Gwendolin.webp",
+            imageBad: "src/assets/img/quest/Tarik.webp",
             textGood: "Ah das Holz, welches ich bestellt habe. Vielen Dank für die Lieferung, ich habe bereits darauf gewartet.",
             textBad: "Du hast also Holz zu verkaufen? Du siehst mir nicht nach einem Holzfäller aus... Gut für dich, dass ich solche Dinge nicht genau hinterfrage, wenn ich ein gutes Angebot rieche. Hier nimm das Gold und verschwinde, bevor ich die Wachen rufe! "
         },
@@ -2096,7 +2019,7 @@ let questTableBronzeAthos = [
         questType: "Bronze",
         questOfferer: {
             name: "Nuala",
-            image: "src/assets/img/quest/placeholder_quest.webp",
+            image: "src/assets/img/quest/Nuala.webp",
             text: "Hey, du! Ich muss dir was erzählen... Also, ich war heute am heiligen See, weißt du? Und da war dieser Mann... Er hat sich total komisch benommen, ganz anders als die Leute hier normalerweise. Er stand nur da und starrte ins Wasser, ohne sich zu bewegen, fast wie verzaubert oder so. Es war echt seltsam. Kannst du nachsehen, was mit ihm los ist? Vielleicht stimmt was nicht, oder er braucht Hilfe."
         },
         questMiddleman: {
@@ -2108,8 +2031,8 @@ let questTableBronzeAthos = [
         questReceiver: {
             nameGood: "Aerendyl",
             nameBad: "Aerendyl",
-            imageGood: "-",
-            imageBad: "-",
+            imageGood: "src/assets/img/quest/Nuala-Aerendyl.webp",
+            imageBad: "src/assets/img/quest/Nuala-Aerendyl.webp",
             textGood: "”Das Wasser, es flüstert... es lügt nicht... es zeigt, was verborgen ist…” Der Mann scheint verwirrt zu sein und geht auf dich los.",
             textBad: "”Das Wasser, es flüstert... es lügt nicht... es zeigt, was verborgen ist…” Der Mann scheint verwirrt zu sein und geht auf dich los."
         },
