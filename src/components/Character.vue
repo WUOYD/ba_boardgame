@@ -19,12 +19,6 @@
                         <p>{{ playerHealth }}</p>
                     </td>
                 </tr>
-                <tr>
-                    <th>Reputation</th>
-                    <td>
-                        <p>{{ playerReputation }}</p>
-                    </td>
-                </tr>
                 <th>Gold</th>
                 <td>
                     <p>{{ playerGold }}</p>

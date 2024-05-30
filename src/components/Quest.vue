@@ -185,14 +185,28 @@
                         <p v-if="optionPicked == 'Good'">{{ optionGoodText }}</p>
                         <p v-else>{{ optionBadText }}</p>
                     </div>
-                    <div id="questMap">
-                        <img :src="this.mapIcon" />
+                    <div id="questMapIcon">
+                        <img :src="this.mapIcon" @click="this.showMap()"/>
                     </div>
                 </div>
             </div>
         </div>
         <div class="activeQuest" v-else>
             <p>Player has no quest</p>
+        </div>
+    </div>
+    <div v-if="this.openMap" id="questMap">
+        <img v-if="optionPicked == 'Good'" :src="this.imageMapGood" @click="this.showMap()"/>
+        <img v-else :src="this.imageMapBad" @click="this.showMap()" />
+        <div v-if="openMapFirstTime == true" id="questMapFirstTime">
+            <div v-if="optionPicked == 'Good'">
+                <p v-if="this.optionGood == 'Deliver' || this.optionGood == 'DeliverMonster' || this.optionGood == 'DeliverDecision'">Platziere einen Marker auf die Angezeigte Position!</p>
+                <p v-else>Platziere einen Marker auf deiner aktuellen Position und einen auf die Angezeigte Position!</p>    
+            </div>
+            <div v-if="optionPicked == 'Bad'">
+                <p v-if="this.optionGood == 'Deliver' || this.optionGood == 'DeliverMonster' || this.optionGood == 'DeliverDecision'">Platziere einen Marker auf die Angezeigte Position!</p>
+                <p v-else>Platziere einen Marker auf deiner aktuellen Position und einen auf die Angezeigte Position!</p>    
+            </div>
         </div>
     </div>
 </div>
@@ -243,12 +257,16 @@ export default {
             optionBadText: null,
             mapIcon: "src/assets/icons/map_icon.webp",
             imageTreasure: "src/assets/img/misc/treasure.webp",
+            imageMapGood: "",
+            imageMapBad: "",
             movesTableCombinationSwordSword: null,
             movesTableCombinationMagicMagic: null,
             movesTableCombinationSkullSkull: null,
             movesTableCombinationSwordMagic: null,
             movesTableCombinationMagicSkull: null,
             movesTableCombinationSwordSkull: null,
+            openMap: false,
+            openMapFirstTime: false,
         }
     },
     mounted() {
@@ -292,8 +310,10 @@ export default {
                 this.rewardBadReputation = activePlayer.quest.rewardBad.reputation
                 this.rewardBadGold = activePlayer.quest.rewardBad.gold
                 this.rewardBadMove = activePlayer.quest.rewardBad.move
-                this.optionGood = activePlayer.quest.optionGood
-                this.optionBad = activePlayer.quest.optionBad
+                this.optionGood = activePlayer.quest.optionGood.type
+                this.optionBad = activePlayer.quest.optionBad.type
+                this.imageMapGood = activePlayer.quest.imageMapGood
+                this.imageMapBad = activePlayer.quest.imageMapBad
                 if (activePlayer.quest.questMonster != null) {
                     this.questNameMonster = activePlayer.quest.questMonster.name
                     this.questTextMonster = activePlayer.quest.questMonsterText
@@ -307,6 +327,11 @@ export default {
         })
         socket.on("updateQuestView", () => {
             this.questView = true;
+        })
+        socket.on("showMapClient", () => {
+            console.log("test")
+            this.openMap = true;
+            this.openMapFirstTime = true;
         })
         socket.emit("getActivePlayer")
         socket.emit("getMovesTables");
@@ -338,7 +363,18 @@ export default {
             socket.emit("questComplete")
             this.questView = false;
         },
-
+        showMap(){
+            if(this.openMap){
+                this.openMap = false;
+                this.openMapFirstTime = false;
+                socket.emit("showMapViewer")
+            }
+            else{
+            this.openMap = true;
+            this.openMapFirstTime = false;
+            socket.emit("showMapViewer")
+            }
+        }
     },
     beforeUnmount() {
         this.mounted = false;
@@ -429,16 +465,52 @@ export default {
     margin-bottom: 1%;
 }
 
-#questMap {
+#questMapIcon {
     width: auto;
     height: 50%;
     box-sizing: border-box
 }
 
-#questMap img {
+#questMapIcon img {
     width: auto;
     height: 50%;
+}
 
+#questMap{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.5) 
+}
+
+#questMap img {
+    display: flex;
+    width: auto;
+    height: 80%;
+    box-sizing: border-box
+}
+
+#questMapFirstTime{
+    display: flex;
+    width: 40%;
+    height: 8%;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #f7e4c2;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.5); 
+    padding: 1%;
+}
+
+#questMapFirstTime p{
+    font-size: 16px;
+    margin-bottom: 0px;
 }
 
 .reward {

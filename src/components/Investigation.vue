@@ -24,7 +24,7 @@
     <div class="encounter" id="loot" v-if="currentEncounter == 'Loot'">
         <img :src="imageTreasure" />
         <p>Du hast {{ this.goldLoot }} Gold gefunden</p>
-        <button @click="changeView(2)">Zurück zur Übersicht</button>
+        <button @click="closeLoot()">Zurück zur Übersicht</button>
     </div>
     <div class="encounter" id="quest" v-if="currentEncounter == 'Quest'">
         <div class="questPicture">
@@ -81,7 +81,9 @@ export default {
             monsterImage: "src/assets/img/placeholder.webp",
             monsterName: null,
             monsterType: null,
-            goldLoot: null
+            goldLoot: null,
+            imageMapGood: "",
+            imageMapBad: "",
         }
     },
     mounted() {
@@ -104,6 +106,8 @@ export default {
                 this.questOffererName = activePlayer.quest.questOfferer.name
                 this.questOffererPicture = activePlayer.quest.questOfferer.image
                 this.questOffererText = activePlayer.quest.questOfferer.text
+                this.imageMapGood = activePlayer.quest.imageMapGood
+                this.imageMapBad = activePlayer.quest.imageMapBad
             }
             this.goldLoot = activePlayer.goldLoot
         })
@@ -122,16 +126,24 @@ export default {
             socket.emit("investigate");
         },
         optionQuestGood() {
-            socket.emit("optionQuestGood");
             this.currentEncounter = null;
             this.changeView(5)
+            socket.emit("optionQuestGood");
             socket.emit("getActivePlayer");
+            setTimeout(() => {
+                socket.emit("showMap");
+                socket.emit("showMapViewer")
+            }, 500);
         },
         optionQuestBad() {
-            socket.emit("optionQuestBad");
             this.currentEncounter = null;
             this.changeView(5)
+            socket.emit("optionQuestBad");
             socket.emit("getActivePlayer");
+            setTimeout(() => {
+                socket.emit("showMap");
+                socket.emit("showMapViewer")
+            }, 500);
         },
         optionQuestDeny() {
             socket.emit("optionQuestDeny");
@@ -142,6 +154,10 @@ export default {
         changeView(comp) {
             socket.emit("updateView", comp);
             socket.emit("getActivePlayer");
+        },
+        closeLoot(){
+            socket.emit("updateViewer", "Logo")
+            this.changeView(2)
         }
     },
     beforeUnmount() {

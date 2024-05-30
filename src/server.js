@@ -17,6 +17,7 @@ let playerList = [];
 let viewerList = [];
 let playerReadyList = []; 
 let activePlayer = 0;
+let playerCount = 0;
 
 let monstersBronzeNythoria = [];
 let monstersBronzeDrakan = [];
@@ -55,9 +56,10 @@ let questsGoldFrosgar = [];
 let questsGoldAthos = [];
 let questsGoldAridora = [];
 let questMonsters = [];
+let bossMonsters = [];
 
 
-const { monsterTableBronze, monsterTableSilver, monsterTableGold, monsterTableQuests } = monsterTables;
+const { monsterTableBronze, monsterTableSilver, monsterTableGold, monsterTableQuests, monsterTableBoss } = monsterTables;
 const { monsterTableBronzeNythoria, monsterTableBronzeDrakan, monsterTableBronzeTalvar, monsterTableBronzeFrosgar, monsterTableBronzeAthos, monsterTableBronzeAridora} = monsterTableBronze
 const { monsterTableSilverNythoria, monsterTableSilverDrakan, monsterTableSilverTalvar, monsterTableSilverFrosgar, monsterTableSilverAthos, monsterTableSilverAridora} = monsterTableSilver
 const { monsterTableGoldNythoria, monsterTableGoldDrakan, monsterTableGoldTalvar, monsterTableGoldFrosgar, monsterTableGoldAthos, monsterTableGoldAridora} = monsterTableGold
@@ -77,7 +79,7 @@ class Game {
 }
 
 class Player {
-  constructor(name, region) {
+  constructor(name, region, playerImage) {
     this.name = name;
     this.region = region;
     this.host = false;
@@ -107,12 +109,13 @@ class Player {
     this.dot = 0;
     this.reflect = 0;
     this.damageNextRound = 0;
-    this.picture = "src/assets/img/player/player.webp";
+    this.picture = playerImage;
     this.moves = [[1, []], [1, []], [1, []], [1, []], [1, []], [1, []]];
     this.clawLevel = 1;
     this.skullLevel = 1;
     this.magicLevel = 1;
     this.quest = null;
+    this.playerIsActive = false;
   }
 }
 
@@ -139,7 +142,7 @@ class Fight {
 }
 
 class Quest {
-  constructor(questType, questOfferer, questMiddleman, questReceiver, questRegion, questRegionDeliverGood, questRegionDeliverBad, questRewardGood, questRewardBad, questRewardDeny, optionGood, optionBad, optionDeny, questMonster, questMonsterText, questImpact, optionGoodSecond, optionBadSecond) {
+  constructor(questType, questOfferer, questMiddleman, questReceiver, questRegion, questRegionDeliverGood, questRegionDeliverBad, questRewardGood, questRewardBad, questRewardDeny, optionGood, optionBad, optionDeny, questMonster, questMonsterText, questImpact, optionGoodSecond, optionBadSecond, imageMapGood, imageMapBad) {
     this.questType = questType;
     this.questOfferer = questOfferer;
     this.questMiddleman = questMiddleman;
@@ -150,6 +153,8 @@ class Quest {
     this.optionGood = optionGood;
     this.optionBad = optionBad;
     this.optionDeny = optionDeny;
+    this.imageMapGood = imageMapGood
+    this.imageMapBad = imageMapBad
     this.rewardGood = questRewardGood;
     this.rewardBad = questRewardBad;
     this.rewardDeny = questRewardDeny;
@@ -195,6 +200,7 @@ io.on('connection', (socket) => {
     playerList = []; 
     playerReadyList = []; 
     viewerList = [];
+    playerCount = 0;
     console.log("reset game data")
   });
 
@@ -221,7 +227,23 @@ io.on('connection', (socket) => {
         region = "Drakan";
         break;
     }
-    const playerObject = new Player(playerName, region);
+    let playerImage
+    switch (playerCount){
+      case 0:
+        playerImage = "src/assets/img/player/PlayerImage_Cervidor.webp"
+        break
+      case 1:
+        playerImage = "src/assets/img/player/PlayerImage_Corvulyn.webp"
+        break
+      case 2:
+        playerImage = "src/assets/img/player/PlayerImage_Bragonar.webp"
+        break
+      case 3:
+        playerImage = "src/assets/img/player/PlayerImage_Pytharion.webp"
+        break
+    }
+    playerCount++
+    const playerObject = new Player(playerName, region, playerImage);
     lobby[socket.id] = playerObject;
     playerList.push(lobby[socket.id]);
     playerReadyList.push(false);
@@ -411,6 +433,7 @@ io.on('connection', (socket) => {
   // Option good
   socket.on("optionQuestGood", function() { 
     lobby[socket.id].quest.optionPicked = "Good";
+    socket.emit("showMapClient")
     emitChangeViewToViewer("Logo", socket)
   });
 
@@ -419,7 +442,25 @@ io.on('connection', (socket) => {
     lobby[socket.id].quest.optionPicked = "Bad";
     emitChangeViewToViewer("Logo", socket)
   });
-  
+
+  socket.on("showMap", function() { 
+      socket.emit("showMapClient");
+  });
+
+  socket.on("showMapViewer", function() { 
+    if(lobby[socket.id].playerIsActive == true) {
+      for (const viewerSocketId of viewerList) {
+        const viewerSocket = io.sockets.sockets.get(viewerSocketId);
+        if (viewerSocket) {
+          viewerSocket.emit("updatePlayer", sanitizePlayer(lobby[socket.id]))
+          viewerSocket.emit("updateEncounter", "Map");
+          viewerSocket.emit("showMapViewer")
+        }
+      }
+    }
+  });
+
+
   // Deny quest
   socket.on("optionQuestDeny", function() { 
     lobby[socket.id].quest = null;
@@ -558,6 +599,11 @@ function initMonsters() {
    for (let i = 0; i < monsterTableQuests.length; i++) {
      questMonsters.push(new Monster(monsterTableQuests[i].name, monsterTableQuests[i].type, monsterTableQuests[i].health, monsterTableQuests[i].gold, monsterTableQuests[i].victoryPoints, monsterTableQuests[i].image, monsterTableQuests[i].moves));
     }
+
+  // Initialize Boss monsters
+   for (let i = 0; i < monsterTableBoss.length; i++) {
+    bossMonsters.push(new Monster(monsterTableBoss[i].name, monsterTableBoss[i].type, monsterTableBoss[i].health, monsterTableBoss[i].gold, monsterTableBoss[i].victoryPoints, monsterTableBoss[i].image, monsterTableBoss[i].moves));
+   }
 }
 
 function getRandomMonster(playerRegion, round) {
@@ -675,12 +721,12 @@ function initQuests(){
   
   // Initialize Bronze monsters
   for (let i = 0; i < questCount; i++) {
-    questsBronzeDrakan.push(new Quest(questTableBronzeDrakan[i].questType, questTableBronzeDrakan[i].questOfferer, questTableBronzeDrakan[i].questMiddleman, questTableBronzeDrakan[i].questReceiver, questTableBronzeDrakan[i].regions.questRegion, questTableBronzeDrakan[i].regions.questRegionDeliverGood, questTableBronzeDrakan[i].regions.questRegionDeliverBad, questTableBronzeDrakan[i].questRewardGood, questTableBronzeDrakan[i].questRewardBad, questTableBronzeDrakan[i].questRewardDeny, questTableBronzeDrakan[i].optionGood, questTableBronzeDrakan[i].optionBad, questTableBronzeDrakan[i].optionDeny, questTableBronzeDrakan[i].questMonster, questTableBronzeDrakan[i].questMonsterText, questTableBronzeDrakan[i].questImpact, questTableBronzeDrakan[i].optionGoodSecond, questTableBronzeDrakan[i].optionBadSecond));
-    questsBronzeTalvar.push(new Quest(questTableBronzeTalvar[i].questType, questTableBronzeTalvar[i].questOfferer, questTableBronzeTalvar[i].questMiddleman, questTableBronzeTalvar[i].questReceiver, questTableBronzeTalvar[i].regions.questRegion, questTableBronzeTalvar[i].regions.questRegionDeliverGood, questTableBronzeTalvar[i].regions.questRegionDeliverBad, questTableBronzeTalvar[i].questRewardGood, questTableBronzeTalvar[i].questRewardBad, questTableBronzeTalvar[i].questRewardDeny, questTableBronzeTalvar[i].optionGood, questTableBronzeTalvar[i].optionBad, questTableBronzeTalvar[i].optionDeny, questTableBronzeTalvar[i].questMonster, questTableBronzeTalvar[i].questMonsterText, questTableBronzeTalvar[i].questImpact, questTableBronzeTalvar[i].optionGoodSecond, questTableBronzeTalvar[i].optionBadSecond));
-    questsBronzeAridora.push(new Quest(questTableBronzeAridora[i].questType, questTableBronzeAridora[i].questOfferer, questTableBronzeAridora[i].questMiddleman, questTableBronzeAridora[i].questReceiver,  questTableBronzeAridora[i].regions.questRegion, questTableBronzeAridora[i].regions.questRegionDeliverGood, questTableBronzeAridora[i].regions.questRegionDeliverBad, questTableBronzeAridora[i].questRewardGood, questTableBronzeAridora[i].questRewardBad, questTableBronzeAridora[i].questRewardDeny, questTableBronzeAridora[i].optionGood, questTableBronzeAridora[i].optionBad, questTableBronzeAridora[i].optionDeny, questTableBronzeAridora[i].questMonster, questTableBronzeAridora[i].questMonsterText, questTableBronzeAridora[i].questImpact, questTableBronzeAridora[i].optionGoodSecond, questTableBronzeAridora[i].optionBadSecond));
-    questsBronzeAthos.push(new Quest(questTableBronzeAthos[i].questType, questTableBronzeAthos[i].questOfferer, questTableBronzeAthos[i].questMiddleman, questTableBronzeAthos[i].questReceiver, questTableBronzeAthos[i].regions.questRegion, questTableBronzeAthos[i].regions.questRegionDeliverGood, questTableBronzeAthos[i].regions.questRegionDeliverBad, questTableBronzeAthos[i].questRewardGood, questTableBronzeAthos[i].questRewardBad, questTableBronzeAthos[i].questRewardDeny, questTableBronzeAthos[i].optionGood, questTableBronzeAthos[i].optionBad, questTableBronzeAthos[i].optionDeny, questTableBronzeAthos[i].questMonster, questTableBronzeAthos[i].questMonsterText, questTableBronzeAthos[i].questImpact, questTableBronzeAthos[i].optionGoodSecond, questTableBronzeAthos[i].optionBadSecond));
-    questsBronzeNythoria.push(new Quest(questTableBronzeNythoria[i].questType, questTableBronzeNythoria[i].questOfferer, questTableBronzeNythoria[i].questMiddleman, questTableBronzeNythoria[i].questReceiver, questTableBronzeNythoria[i].regions.questRegion, questTableBronzeNythoria[i].regions.questRegionDeliverGood, questTableBronzeNythoria[i].regions.questRegionDeliverBad, questTableBronzeNythoria[i].questRewardGood, questTableBronzeNythoria[i].questRewardBad, questTableBronzeNythoria[i].questRewardDeny, questTableBronzeNythoria[i].optionGood, questTableBronzeNythoria[i].optionBad, questTableBronzeNythoria[i].optionDeny, questTableBronzeNythoria[i].questMonster, questTableBronzeNythoria[i].questMonsterText, questTableBronzeNythoria[i].questImpact, questTableBronzeNythoria[i].optionGoodSecond, questTableBronzeNythoria[i].optionBadSecond));
-    questsBronzeFrosgar.push(new Quest(questTableBronzeFrosgar[i].questType, questTableBronzeFrosgar[i].questOfferer, questTableBronzeFrosgar[i].questMiddleman, questTableBronzeFrosgar[i].questReceiver, questTableBronzeFrosgar[i].regions.questRegion, questTableBronzeFrosgar[i].regions.questRegionDeliverGood, questTableBronzeFrosgar[i].regions.questRegionDeliverBad, questTableBronzeFrosgar[i].questRewardGood, questTableBronzeFrosgar[i].questRewardBad, questTableBronzeFrosgar[i].questRewardDeny, questTableBronzeFrosgar[i].optionGood, questTableBronzeFrosgar[i].optionBad, questTableBronzeFrosgar[i].optionDeny, questTableBronzeFrosgar[i].questMonster, questTableBronzeFrosgar[i].questMonsterText, questTableBronzeFrosgar[i].questImpact, questTableBronzeFrosgar[i].optionGoodSecond, questTableBronzeFrosgar[i].optionBadSecond));
+    questsBronzeDrakan.push(new Quest(questTableBronzeDrakan[i].questType, questTableBronzeDrakan[i].questOfferer, questTableBronzeDrakan[i].questMiddleman, questTableBronzeDrakan[i].questReceiver, questTableBronzeDrakan[i].regions.questRegion, questTableBronzeDrakan[i].regions.questRegionDeliverGood, questTableBronzeDrakan[i].regions.questRegionDeliverBad, questTableBronzeDrakan[i].questRewardGood, questTableBronzeDrakan[i].questRewardBad, questTableBronzeDrakan[i].questRewardDeny, questTableBronzeDrakan[i].optionGood, questTableBronzeDrakan[i].optionBad, questTableBronzeDrakan[i].optionDeny, questTableBronzeDrakan[i].questMonster, questTableBronzeDrakan[i].questMonsterText, questTableBronzeDrakan[i].questImpact, questTableBronzeDrakan[i].optionGoodSecond, questTableBronzeDrakan[i].optionBadSecond, questTableBronzeDrakan[i].imageMapGood, questTableBronzeDrakan[i].imageMapBad));
+    questsBronzeTalvar.push(new Quest(questTableBronzeTalvar[i].questType, questTableBronzeTalvar[i].questOfferer, questTableBronzeTalvar[i].questMiddleman, questTableBronzeTalvar[i].questReceiver, questTableBronzeTalvar[i].regions.questRegion, questTableBronzeTalvar[i].regions.questRegionDeliverGood, questTableBronzeTalvar[i].regions.questRegionDeliverBad, questTableBronzeTalvar[i].questRewardGood, questTableBronzeTalvar[i].questRewardBad, questTableBronzeTalvar[i].questRewardDeny, questTableBronzeTalvar[i].optionGood, questTableBronzeTalvar[i].optionBad, questTableBronzeTalvar[i].optionDeny, questTableBronzeTalvar[i].questMonster, questTableBronzeTalvar[i].questMonsterText, questTableBronzeTalvar[i].questImpact, questTableBronzeTalvar[i].optionGoodSecond, questTableBronzeTalvar[i].optionBadSecond, questTableBronzeTalvar[i].imageMapGood, questTableBronzeTalvar[i].imageMapBad));
+    questsBronzeAridora.push(new Quest(questTableBronzeAridora[i].questType, questTableBronzeAridora[i].questOfferer, questTableBronzeAridora[i].questMiddleman, questTableBronzeAridora[i].questReceiver,  questTableBronzeAridora[i].regions.questRegion, questTableBronzeAridora[i].regions.questRegionDeliverGood, questTableBronzeAridora[i].regions.questRegionDeliverBad, questTableBronzeAridora[i].questRewardGood, questTableBronzeAridora[i].questRewardBad, questTableBronzeAridora[i].questRewardDeny, questTableBronzeAridora[i].optionGood, questTableBronzeAridora[i].optionBad, questTableBronzeAridora[i].optionDeny, questTableBronzeAridora[i].questMonster, questTableBronzeAridora[i].questMonsterText, questTableBronzeAridora[i].questImpact, questTableBronzeAridora[i].optionGoodSecond, questTableBronzeAridora[i].optionBadSecond, questTableBronzeAridora[i].imageMapGood, questTableBronzeAridora[i].imageMapBad));
+    questsBronzeAthos.push(new Quest(questTableBronzeAthos[i].questType, questTableBronzeAthos[i].questOfferer, questTableBronzeAthos[i].questMiddleman, questTableBronzeAthos[i].questReceiver, questTableBronzeAthos[i].regions.questRegion, questTableBronzeAthos[i].regions.questRegionDeliverGood, questTableBronzeAthos[i].regions.questRegionDeliverBad, questTableBronzeAthos[i].questRewardGood, questTableBronzeAthos[i].questRewardBad, questTableBronzeAthos[i].questRewardDeny, questTableBronzeAthos[i].optionGood, questTableBronzeAthos[i].optionBad, questTableBronzeAthos[i].optionDeny, questTableBronzeAthos[i].questMonster, questTableBronzeAthos[i].questMonsterText, questTableBronzeAthos[i].questImpact, questTableBronzeAthos[i].optionGoodSecond, questTableBronzeAthos[i].optionBadSecond, questTableBronzeAthos[i].imageMapGood, questTableBronzeAthos[i].imageMapBad));
+    questsBronzeNythoria.push(new Quest(questTableBronzeNythoria[i].questType, questTableBronzeNythoria[i].questOfferer, questTableBronzeNythoria[i].questMiddleman, questTableBronzeNythoria[i].questReceiver, questTableBronzeNythoria[i].regions.questRegion, questTableBronzeNythoria[i].regions.questRegionDeliverGood, questTableBronzeNythoria[i].regions.questRegionDeliverBad, questTableBronzeNythoria[i].questRewardGood, questTableBronzeNythoria[i].questRewardBad, questTableBronzeNythoria[i].questRewardDeny, questTableBronzeNythoria[i].optionGood, questTableBronzeNythoria[i].optionBad, questTableBronzeNythoria[i].optionDeny, questTableBronzeNythoria[i].questMonster, questTableBronzeNythoria[i].questMonsterText, questTableBronzeNythoria[i].questImpact, questTableBronzeNythoria[i].optionGoodSecond, questTableBronzeNythoria[i].optionBadSecond, questTableBronzeNythoria[i].imageMapGood, questTableBronzeNythoria[i].imageMapBad));
+    questsBronzeFrosgar.push(new Quest(questTableBronzeFrosgar[i].questType, questTableBronzeFrosgar[i].questOfferer, questTableBronzeFrosgar[i].questMiddleman, questTableBronzeFrosgar[i].questReceiver, questTableBronzeFrosgar[i].regions.questRegion, questTableBronzeFrosgar[i].regions.questRegionDeliverGood, questTableBronzeFrosgar[i].regions.questRegionDeliverBad, questTableBronzeFrosgar[i].questRewardGood, questTableBronzeFrosgar[i].questRewardBad, questTableBronzeFrosgar[i].questRewardDeny, questTableBronzeFrosgar[i].optionGood, questTableBronzeFrosgar[i].optionBad, questTableBronzeFrosgar[i].optionDeny, questTableBronzeFrosgar[i].questMonster, questTableBronzeFrosgar[i].questMonsterText, questTableBronzeFrosgar[i].questImpact, questTableBronzeFrosgar[i].optionGoodSecond, questTableBronzeFrosgar[i].optionBadSecond, questTableBronzeFrosgar[i].imageMapGood, questTableBronzeFrosgar[i].imageMapBad));
   }
 
   // // Initialize Silver quests

@@ -326,6 +326,13 @@
             <p>Elysora</p>
         </div>
     </div>
+    <div v-if="currentEncounter == 'Map'" id="questMap">
+        <img v-if="optionPicked == 'Good'" :src="this.imageMapGood" @click="this.showMap()"/>
+        <img v-else :src="this.imageMapBad" @click="this.showMap()" />
+        <div v-if="openMapFirstTime == true">
+            <p>Platziere einen Marker auf deiner aktuellen Position und einen auf die Angezeigte Position!</p>
+        </div>
+    </div>
     <div v-if="currentEncounter == 'Story'" class="viewer" id="storyViewer">
 
     </div>
@@ -379,6 +386,10 @@ export default {
             questTextOptionSecondBad: null,
             optionGoodText: null,
             optionBadText: null,
+            openMap: false,
+            openMapFirstTime: false,
+            imageMapGood: "",
+            imageMapBad: "",
             mapIcon: "src/assets/icons/map_icon.webp",
             imageTreasure: "src/assets/img/misc/treasure.webp",
             moveImages: [
@@ -439,6 +450,14 @@ export default {
         }
     },
     mounted() {
+        socket.on("ShowMapViewer", () => {
+            if(this.openMap){
+                this.openMap = false;
+            }
+            else{
+                this.openMap = true;
+            }
+        })
         socket.on("changeTurn", () => {
             if (this.fightTurn == "monster") {
                 this.fightTurn = "player"
@@ -448,11 +467,15 @@ export default {
         })
         socket.on("changeRegion", region => {
             this.travelDestination = region
-            
-            //this.currentEncounter = "Logo"
         })
         socket.on("updateEncounter", message => {
-            this.currentEncounter = message
+            if(this.currentEncounter == "Map"){
+                this.currentEncounter = "Logo"
+            }
+            else{
+                this.currentEncounter = message
+            }
+            
         })
         socket.on("setMovesTables", movesTables => {
             this.movesTableCombinationSwordSword = movesTables.movesTableCombinationSwordSword
@@ -565,6 +588,8 @@ export default {
                 this.rewardBadMove = activePlayer.quest.rewardBad.move
                 this.optionGood = activePlayer.quest.optionGood
                 this.optionBad = activePlayer.quest.optionBad
+                this.imageMapGood = activePlayer.quest.imageMapGood
+                this.imageMapBad = activePlayer.quest.imageMapBad
                 if (activePlayer.quest.questMonster != null) {
                     this.questNameMonster = activePlayer.quest.questMonster.name
                     this.questTextMonster = activePlayer.quest.questMonsterText
@@ -694,13 +719,13 @@ export default {
     margin-bottom: 1%;
 }
 
-#questMap {
+#questMapIcon {
     width: auto;
     height: 50%;
     box-sizing: border-box
 }
 
-#questMap img {
+#questMapIcon img {
     width: auto;
     height: 50%;
 

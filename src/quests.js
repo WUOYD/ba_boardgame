@@ -20,6 +20,8 @@ let questTableBronzeFrosgar = [
             textGood: "Beeindruckend, Abenteurer! Dieser Reißzahn ist ein Beweis für deine Tapferkeit und Entschlossenheit. Mit dem Tod des Wolfes können wir endlich wieder ruhig schlafen. Du hast unserer Gemeinschaft einen großen Dienst erwiesen, und dafür sind wir dir zutiefst dankbar. Nimm diese Belohnung als Zeichen unserer Dankbarkeit.",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Bjorn_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Bjorn_Karte.webp",
         regions: {
             questRegion: "Frosgar",
             questDeliverRegionGood: "Frosgar",
@@ -92,6 +94,8 @@ let questTableBronzeFrosgar = [
             textGood: "Ah, du bist zurück! Ich sehe, dass du das Gold sicher zurückgebracht hast, das du für die Eisessenz erhalten hast. Das ist sehr großzügig von dir. Ich hoffe, die Belohnung ist deiner Mühe angemessen, aber ich möchte dir persönlich für deine Tapferkeit und Zuverlässigkeit danken.",
             textBad: "Aha, endlich ist die Eisessenz angekommen! Ich danke dir, tapferer Abenteurer, dass du diese wichtige Lieferung sicher zu uns gebracht hast. Die Eisessenz ist von unschätzbarem Wert für unsere Schmiedekunst, und ohne sie wären wir nicht in der Lage, die mächtigen Waffen und Rüstungen zu schmieden, die Drakan so dringend benötigt. Hier ist die Bezahlung, die ich mit Freya vereinbart habe."
         },
+        imageMapGood: "src/assets/img/quest/maps/Freya_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Freya_Karte.webp",
         regions: {
             questRegion: "Frosgar",
             questDeliverRegionGood: "Drakan",
@@ -169,6 +173,8 @@ let questTableBronzeFrosgar = [
             textGood: "TextGood",
             textBad: "TextBad"
         },
+        imageMapGood: "src/assets/img/quest/maps/Grimgar_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Grimgar_Karte.webp",
         regions: {
             questRegion: "Frosgar",
             questDeliverRegionGood: "Frosgar",
@@ -246,6 +252,8 @@ let questTableBronzeFrosgar = [
             textGood: "Ich kann es kaum erwarten, die begabten Handwerker von Aridora kennenzulernen und von ihren Fertigkeiten zu lernen. Du hast mir eine großartige Möglichkeit eröffnet, meine Handwerkskunst zu verbessern und neue Möglichkeiten zu entdecken. Ich werde dir immer dankbar sein für deine Hilfe und deine Bereitschaft, mich auf diesem Abenteuer zu begleiten",
             textBad: "TextBad"
         },
+        imageMapGood: "src/assets/img/quest/maps/Hilda_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Hilda_Karte.webp",
         regions: {
             questRegion: "Frosgar",
             questDeliverRegionGood: "Aridora",
@@ -323,6 +331,8 @@ let questTableBronzeFrosgar = [
             textGood: "Ach, endlich sind die Bärenfelle angekommen! Diese Felle sind von ausgezeichneter Qualität und werden sich hervorragend für meine Arbeit eignen. Vielen Dank für deine Hilfe.",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Thorgar_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Thorgar_Karte.webp",
         regions: {
             questRegion: "Frosgar",
             questDeliverRegionGood: "Athos",
@@ -398,6 +408,8 @@ let questTableBronzeAridora = [
             textGood: "Die Feueressenz! Endlich bist du zurückgekehrt! Dein Mut und deine Entschlossenheit haben sich als unermesslich wertvoll erwiesen, mein tapferer Freund. Mit dieser mächtigen Zutat kann ich nun meine Schmuckstücke zu wahrhaft magischen Meisterwerken formen.",
             textBad: "Hehe, Edelsteine, sagst du? Nun, nun, was haben wir denn hier? Du bist mutig, mir diese gestohlene Ware anzubieten, mein Freund, oder vielleicht einfach nur ein bisschen naiv. Aber ich sage dir, ich bin hier, um Geschäfte zu machen, und ich werde dir ein Angebot machen, das du nicht ablehnen kannst."
         },
+        imageMapGood: "src/assets/img/quest/maps/Leyla_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Leyla_Karte_Bad.webp",
         regions: {
             questRegion: "Aridora",
             questDeliverRegionGood: "Aridora",
@@ -475,6 +487,8 @@ let questTableBronzeAridora = [
             textGood: "-",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Aldric_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Aldric_Karte.webp",
         regions: {
             questRegion: "Aridora",
             questDeliverRegionGood: "Aridora",
@@ -552,6 +566,8 @@ let questTableBronzeAridora = [
             textGood: "Unfassbar! Du hast den Schatz gefunden!Ich kann es kaum glauben! Endlich, nach all diesen Jahren der Suche und des Hoffens. Wir sind reich, mein Freund, reich! Du hast mein Leben verändert, mein Freund. Mit diesem Schatz kann ich endlich von dieser verfluchten Insel verschwinden und ein neues Leben beginnen, weit weg von der unerbittlichen Hitze und den endlosen Sanddünen.",
             textBad: "Während du die Ruinen untersuchst stösst du plötzlich auf eine verborgene Kammer, von der die Karte sprach. In der Mitte der Kammer steht eine Truhe, die beim Öffnen Schmuck und Gold offenbart."
         },
+        imageMapGood: "src/assets/img/quest/maps/Aria_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Aria_Karte.webp",
         regions: {
             questRegion: "Aridora",
             questDeliverRegionGood: "Aridora",
@@ -629,6 +645,8 @@ let questTableBronzeAridora = [
             textGood: "Unglaublich! Du hast es geschafft, den Sandsturm zu stoppen! Unser aller Dank gebührt dir, tapferer Abenteurer. Nimm bitte diese Belohnung an, es ist nicht viel, aber mehr habe ich leider nicht.",
             textBad: "Ich hörte, du hast da etwas von grossem Wert für mich? Du bist ein gewiefter Geschäftsmann, das muss man dir lassen. Dieses Amulett wird mir sicherlich einen schönen Gewinn einbringen. Du hast den richtigen Riecher für lukrative Geschäfte, das muss ich sagen. Nun, mein Freund, ich hoffe, unsere Wege kreuzen sich wieder, es hat mich gefreut, mit dir Geschäfte zu machen."
         },
+        imageMapGood: "src/assets/img/quest/maps/Orion_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Orion_Karte_Bad.webp",
         regions: {
             questRegion: "Aridora",
             questDeliverRegionGood: "Talvar",
@@ -709,6 +727,8 @@ let questTableBronzeTalvar = [
             textGood: "Wow, das Ding funktioniert ja wirklich! Ich kann den Fischgestank kaum noch wahrnehmen! Stattdessen riecht es hier nach frischen Blumen und Zimt. Das ist ja fantastisch, die Tintenfresser sind also doch gar nicht so blöd wie ich immer dachte!",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Marelda_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Marelda_Karte.webp",
         regions: {
             questRegion: "Talvar",
             questDeliverRegionGood: "Nythoria",
@@ -786,6 +806,8 @@ let questTableBronzeTalvar = [
             textGood: "-",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Bran_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Bran_Karte.webp",
         regions: {
             questRegion: "Talvar",
             questDeliverRegionGood: "Talvar",
@@ -863,6 +885,8 @@ let questTableBronzeTalvar = [
             textGood: "Ich danke euch für eure Zuverlässigkeit. Geschäfte mit den Bewohnern von Talvar sind immer ein Wagnis, aber es scheint, als hätte ich das richtige Vertrauen gesetzt.Ihr habt euren Teil der Abmachung erfüllt, und ich werde meinen halten. Wenn ihr je wieder Geschäfte mit den Zwergen von Drakan machen wollt, wisst ihr, wo ihr mich findet.",
             textBad: "Was ist das denn?! Das ist nicht das, was vereinbart war. Wo ist der Rest des Goldes? Ivan, dieser Mistkerl! Ich werde ihm eine letzte Chance geben, seinen Fehler zu korrigieren. Bringt mir den Rest des Goldes, den ich verlangt habe, oder es wird Konsequenzen geben. Verlasst diesen Hafen, bis ihr das Problem behoben habt."
         },
+        imageMapGood: "src/assets/img/quest/maps/Ivan_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Ivan_Karte.webp",
         regions: {
             questRegion: "Talvar",
             questDeliverRegionGood: "Drakan",
@@ -940,6 +964,8 @@ let questTableBronzeTalvar = [
             textGood: "-",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Gorr_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Gorr_Karte.webp",
         regions: {
             questRegion: "Talvar",
             questDeliverRegionGood: "Talvar",
@@ -1021,6 +1047,8 @@ let questTableBronzeDrakan = [
             textGood: "Du hast deine Sache gut gemacht, mein Freund. Als Zeichen meiner Dankbarkeit möchte ich dir eine kleine Belohnung geben. Bitte akzeptiere sie als Anerkennung für deine Zuverlässigkeit.",
             textBad: "Ah, endlich ist sie da! Diese Axt ist perfekt für meine Arbeit im Wald von Athos. "
         },
+        imageMapGood: "src/assets/img/quest/maps/Tholrin_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Tholrin_Karte.webp",
         regions: {
             questRegion: "Drakan",
             questDeliverRegionGood: "Athos",
@@ -1099,6 +1127,8 @@ let questTableBronzeDrakan = [
             textGood: "Du bist wahrhaftig ein Held, mein Freund! Du hast nicht nur das Ungeheuer besiegt, sondern auch die Quelle seiner Macht erobert. Durch deine Hilfe bin ich nun in der Lage die mächtigste aller Rüstungen zu schmieden, welche durch die Macht des Drachenherzens verstärkt wird.",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Skaldor_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Skaldor_Karte.webp",
         regions: {
             questRegion: "Drakan",
             questDeliverRegionGood: "Drakan",
@@ -1176,6 +1206,8 @@ let questTableBronzeDrakan = [
             textGood: "Du bist zurückgekehrt, und mit dir der Schatz aus der alten Mine! Du hast bewiesen, dass du ein wahrer Abenteurer bist. Hier nimm dir deinen Anteil.",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Jorund_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Jorund_Karte.webp",
         regions: {
             questRegion: "Drakan",
             questDeliverRegionGood: "Drakan",
@@ -1253,6 +1285,8 @@ let questTableBronzeDrakan = [
             textGood: "Was willst du hier?... Was Grunthar hat dich geschickt?! Dieser Mistkerl versucht bereits seit Jahren, mir mein Geheimes Braurezept zu klauen. Er ist ein Betrüger, der mir mein Geschäft streitig machen will!",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Grunthar_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Grunthar_Karte.webp",
         regions: {
             questRegion: "Drakan",
             questDeliverRegionGood: "Drakan",
@@ -1331,6 +1365,8 @@ let questTableBronzeDrakan = [
             textGood: "-",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Morana_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Morana_Karte.webp",
         regions: {
             questRegion: "Drakan",
             questDeliverRegionGood: "Drakan",
@@ -1411,6 +1447,8 @@ let questTableBronzeNythoria = [
             textGood: "Vielen Dank für deine Hife, ich habe bereits mit den Zwergen eine Lösung für unser Problem gesucht, leider bisher ohne Erfolg. ",
             textBad: "Als du den Eingang zum Kristallberg betrittst, kommst du in eine riesige Halle. In der Mitte auf einem Altar siehst du die Energiequelle in einem seltsamen Licht erstrahlen. Sie ist aus reinem Gold und strahlt eine beeindruckende Energie aus. Als du sie deaktivierst zerfällt sie in ihre Einzelteile, das Gold steckst du ein und verschwindest."
         },
+        imageMapGood: "src/assets/img/quest/maps/Ilyan_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Ilyan_Karte.webp",
         regions: {
             questRegion: "Nythoria",
             questDeliverRegionGood: "Drakan",
@@ -1489,6 +1527,8 @@ let questTableBronzeNythoria = [
             textGood: "-",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Leta_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Leta_Karte.webp",
         regions: {
             questRegion: "Nythoria",
             questDeliverRegionGood: "Nythoria",
@@ -1567,6 +1607,8 @@ let questTableBronzeNythoria = [
             textGood: "Halt! Bevor du irgendetwas unüberlegtes tust, lass mich sprechen! Ich bin der Jotorun, den der verrückte Titus in ein Versuchstier verwandelt hat. Ja, ich habe die Linse, aber nicht ohne Grund. Titus hat mich für seine Experimente missbraucht, und als ich nicht mehr nützlich war, hat er mich wie Abfall behandelt. Ich bitte dich, gegen den wahren Bösewicht hier vorzugehen – gegen Titus. Hilf mir, und ich verspreche dir eine Belohnung, die deine wildesten Vorstellungen übertrifft. Was sagst du dazu?",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Dr._Titus_Tona_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Dr._Titus_Tona_Karte.webp",
         regions: {
             questRegion: "Nythoria",
             questDeliverRegionGood: "Nythoria",
@@ -1644,6 +1686,8 @@ let questTableBronzeNythoria = [
             textGood: "Du hast es geschafft! Um ehrlich zu sein hätte ich nicht gedacht dass so eine schmächtig gebaute Person in der Lage ist das Artefakt zu holen. Aber nun gut hier ist deine Belohnung.",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Dr._Aldrich_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Dr._Aldrich_Karte.webp",
         regions: {
             questRegion: "Nythoria",
             questDeliverRegionGood: "Nythoria",
@@ -1725,6 +1769,8 @@ let questTableBronzeAthos = [
             textGood: "Wow das war unerwartet! Vielen Dank für deine Hilfe, ohne dich hätte mich diese Kreatur wohl ins Grab gebracht. Ich werde diesen seltsamen Vorfall gleich dem Stammesoberhaupt melden.",
             textBad: "-"
         },
+        imageMapGood: "src/assets/img/quest/maps/Thalion_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Thalion_Karte.webp",
         regions: {
             questRegion: "Athos",
             questDeliverRegionGood: "Athos",
@@ -1802,7 +1848,9 @@ let questTableBronzeAthos = [
             imageBad: "-",
             textGood: "Wer wagt es, mein geheimes Refugium zu stören? Ach, die Dorfbewohner und ihre kleinen Sorgen. Sie verstehen einfach nicht, dass manchmal große Opfer für noch größere Gewinne nötig sind. Meine Experimente sind... nun ja, ein wenig fortgeschrittener als das, was sie als 'natürlich' betrachten würden. Ein wenig Modifikation hier, ein bisschen Energieumleitung dort. Ich nutze die verborgenen Energien dieser Insel, um meine eigenen Kräfte zu verstärken. Bedauerlich, dass die Natur dabei ein wenig aus dem Gleichgewicht geraten ist. Nimm dieses Gold, verlasse diesen Ort und spreche nie wieder darüber, und ich werde sicherstellen, dass deine kleine Gemeinde verschont bleibt. Mischt du dich jedoch weiter ein, kann ich für nichts garantieren.",
             textBad: "-"
-        },
+        },        
+        imageMapGood: "src/assets/img/quest/maps/Fenion_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Fenion_Karte.webp",
         regions: {
             questRegion: "Athos",
             questDeliverRegionGood: "Athos",
@@ -1880,6 +1928,8 @@ let questTableBronzeAthos = [
             textGood: "Vielen Dank für deine Hilfe. Mit diesen Heilkräutern kann ich unser Dorf retten. Diese magische Perle verleiht dir Kraft, nimm sie als Zeichen meiner Dankbarkeit",
             textBad: "Vielen Dank für deine Hilfe. Mit diesen Heilkräutern kann ich unser Dorf retten, auch wenn dies mein letztes Gold ist."
         },
+        imageMapGood: "src/assets/img/quest/maps/Elanor_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Elanor_Karte.webp",
         regions: {
             questRegion: "Athos",
             questDeliverRegionGood: "Athos",
@@ -1958,6 +2008,8 @@ let questTableBronzeAthos = [
             textGood: "Ah das Holz, welches ich bestellt habe. Vielen Dank für die Lieferung, ich habe bereits darauf gewartet.",
             textBad: "Du hast also Holz zu verkaufen? Du siehst mir nicht nach einem Holzfäller aus... Gut für dich, dass ich solche Dinge nicht genau hinterfrage, wenn ich ein gutes Angebot rieche. Hier nimm das Gold und verschwinde, bevor ich die Wachen rufe! "
         },
+        imageMapGood: "src/assets/img/quest/maps/Arwen_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Arwen_Karte_Bad.webp",
         regions: {
             questRegion: "Athos",
             questDeliverRegionGood: "Nythoria",
@@ -2003,7 +2055,6 @@ let questTableBronzeAthos = [
         },
         questMonster: "-",
         questMonsterText: "-",
-       
         optionGoodSecond: {
             hasOption: "-",
             optionType: "-",
@@ -2036,6 +2087,8 @@ let questTableBronzeAthos = [
             textGood: "”Das Wasser, es flüstert... es lügt nicht... es zeigt, was verborgen ist…” Der Mann scheint verwirrt zu sein und geht auf dich los.",
             textBad: "”Das Wasser, es flüstert... es lügt nicht... es zeigt, was verborgen ist…” Der Mann scheint verwirrt zu sein und geht auf dich los."
         },
+        imageMapGood: "src/assets/img/quest/maps/Nuala_Karte.webp",
+        imageMapBad: "src/assets/img/quest/maps/Nuala_Karte.webp",
         regions: {
             questRegion: "Athos",
             questDeliverRegionGood: "Athos",

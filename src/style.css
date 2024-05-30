@@ -119,9 +119,8 @@ button {
   background-color: transparent;
   border: 1px solid #f7e4c2;
   cursor: pointer;
+  color: white;
   border-radius: 5px;
-
-
 }
 
 .selected {
