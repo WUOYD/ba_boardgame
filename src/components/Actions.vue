@@ -162,8 +162,8 @@ export default {
         boss() {
             if(this.actionsUsedBoss != true && this.playerActions > 0){
             socket.emit("updateActions", "boss");
-            socket.emit("updateView", 5);
-            socket.emit("manageQuest");
+            socket.emit("bossFight");
+            socket.emit("updateView", 4);
             }
         },
         updateView(comp) {

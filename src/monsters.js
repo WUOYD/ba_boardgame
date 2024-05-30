@@ -477,12 +477,12 @@ const monsterTableBronzeAridora= [
         ]
     },
     {
-        name: "Junger Gnoll",
+        name: "Wüstenhyäne",
         type: "Bronze",
         health: 4,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/junger_gnoll.webp",
+        image: "src/assets/img/monster/Wuestenhyaene.webp",
         moves: [
             { name: "Bissattacke", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Krallenangriff", text: "1 Schaden, 1 Schaden nächste Runde", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
@@ -835,76 +835,12 @@ let monsterTableQuests = [
         ]
     },
     {
-        "name": "Ankalor",
-        "type": "Nythoria",
-        "health": 13,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Ankalor.webp",
-        "moves": [
-            { "name": "Runenhieb", "text": "1 Schaden, 1 Schaden nächste Runde", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
-            { "name": "Magische Ketten", "text": "3 Block", "damage": 0, "block": 3, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Magische Barriere", "text": "2 Block, 2 Reflektieren", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Erderschütterer", "text": "3 Schaden, 1 Selbstschaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 1 },
-            { "name": "Runenheilung", "text": "1 Schaden, 3 Heilung", "damage": 1, "block": 0, "heal": 3, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Runenerruption", "text": "2 Schaden, 1 Schaden jede Runde", "damage": 2, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 1 }
-        ]
-    },
-    {
-        "name": "Igneous",
-        "type": "Drakan",
-        "health": 13,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Igneous.webp",
-        "moves": [
-            { "name": "Lavahieb", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Magmaerruption", "text": "2 Schaden, 1 Schaden nächste Runde", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
-            { "name": "Glühender Panzer", "text": "2 Block, 2 Reflektieren", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Obsidianschild", "text": "4 Block", "damage": 0, "block": 4, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Vulkanische Wut", "text": "1 Schaden, 2 Schaden jede Runde", "damage": 1, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Ascheexplosion", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
-        ]
-    },
-    {
-        "name": "Krogar",
-        "type": "Talvar",
-        "health": 11,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Krogar.webp",
-        "moves": [
-            { "name": "Schädelspalter", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Kriegsgebrüll", "text": "2 Schaden, 1 Schaden nächste Runde", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
-            { "name": "Blutdurst", "text": "1 Schaden, 1 Heilung", "damage": 1, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Schild der Ahnen", "text": "3 Block, 3 Reflektieren", "damage": 0, "block": 3, "heal": 0, "dot": 0, "reflect": 3, "damageNextRound": 0 },
-            { "name": "Wut des Häuptlings", "text": "3 Schaden, 2 Schaden nächste Runde", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Sturmangriff", "text": "4 Schaden, 2 Selbstschaden", "damage": 4, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 }
-        ]
-    },
-    {
-        "name": "Fenral",
-        "type": "Frosgar",
-        "health": 12,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Fenral.webp",
-        "moves": [
-            { "name": "Reisszahnangriff", "text": "1 Schaden, 1 Schaden nächste Runde", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
-            { "name": "Mondschatten", "text": "1 Block, 2 Reflektieren", "damage": 0, "block": 1, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Blutrausch", "text": "1 Schaden, 1 Heilung", "damage": 1, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Heulender Wind", "text": "2 Schaden, 2 Schaden nächste Runde", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Eisklauen", "text": "4 Schaden, 1 Block, 1 Reflektieren", "damage": 4, "block": 1, "heal": 0, "dot": 0, "reflect": 1, "damageNextRound": 0 },
-            { "name": "Rudelruf", "text": "1 Schaden, 3 Schaden nächste Runde", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 3 }
-        ]
-    },
-    {
         "name": "Gnarlgrimm",
-        "type": "Athos",
+        "type": "Boss",
         "health": 12,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/Gnarlgrimm.webp",
+        "image": "src/assets/img/monster/Boss-Gnarlgrimm.webp",
         "moves": [
             { "name": "Astschlag", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
             { "name": "Geisterhieb", "text": "2 Schaden, 1 Block", "damage": 2, "block": 1, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
@@ -916,11 +852,11 @@ let monsterTableQuests = [
     },
     {
         "name": "Xerthok",
-        "type": "Aridora",
+        "type": "Boss",
         "health": 11,
         "victoryPoints": 1,
         "gold": 1,
-        "image": "src/assets/img/monster/Xerthok.webp",
+        "image": "src/assets/img/monster/Boss-Xerthok.webp",
         "moves": [
             { "name": "Dornenfaust", "text": "1 Schaden, 1 Reflektieren", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 1, "damageNextRound": 0 },
             { "name": "Dornenpanzer", "text": "1 Block, 1 Reflektieren", "damage": 0, "block": 1, "heal": 0, "dot": 0, "reflect": 1, "damageNextRound": 0 },
@@ -929,7 +865,71 @@ let monsterTableQuests = [
             { "name": "Dornenessenz", "text": "3 Reflektieren, 2 Schaden", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 3, "damageNextRound": 0 },
             { "name": "Dornenschauer", "text": "2 Schaden, 1 Schaden jede Runde", "damage": 2, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 1 }
         ]
-    }
+    },
+    {
+        "name": "Ankalor",
+        "type": "Boss",
+        "health": 13,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/Boss-Ankalor.webp",
+        "moves": [
+            { "name": "Runenhieb", "text": "1 Schaden, 1 Schaden nächste Runde", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
+            { "name": "Magische Ketten", "text": "3 Block", "damage": 0, "block": 3, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Magische Barriere", "text": "2 Block, 2 Reflektieren", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
+            { "name": "Erderschütterer", "text": "3 Schaden, 1 Selbstschaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 1 },
+            { "name": "Runenheilung", "text": "1 Schaden, 3 Heilung", "damage": 1, "block": 0, "heal": 3, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Runenerruption", "text": "2 Schaden, 1 Schaden jede Runde", "damage": 2, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 1 }
+        ]
+    },
+    {
+        "name": "Igneous",
+        "type": "Boss",
+        "health": 13,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/Boss-Igneous.webp",
+        "moves": [
+            { "name": "Lavahieb", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Magmaerruption", "text": "2 Schaden, 1 Schaden nächste Runde", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
+            { "name": "Glühender Panzer", "text": "2 Block, 2 Reflektieren", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
+            { "name": "Obsidianschild", "text": "4 Block", "damage": 0, "block": 4, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Vulkanische Wut", "text": "1 Schaden, 2 Schaden jede Runde", "damage": 1, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 2 },
+            { "name": "Ascheexplosion", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        ]
+    },
+    {
+        "name": "Krogar",
+        "type": "Boss",
+        "health": 11,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/Boss-Krogar.webp",
+        "moves": [
+            { "name": "Schädelspalter", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Kriegsgebrüll", "text": "2 Schaden, 1 Schaden nächste Runde", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
+            { "name": "Blutdurst", "text": "1 Schaden, 1 Heilung", "damage": 1, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Schild der Ahnen", "text": "3 Block, 3 Reflektieren", "damage": 0, "block": 3, "heal": 0, "dot": 0, "reflect": 3, "damageNextRound": 0 },
+            { "name": "Wut des Häuptlings", "text": "3 Schaden, 2 Schaden nächste Runde", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
+            { "name": "Sturmangriff", "text": "4 Schaden, 2 Selbstschaden", "damage": 4, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 }
+        ]
+    },
+    {
+        "name": "Fenral",
+        "type": "Boss",
+        "health": 12,
+        "victoryPoints": 1,
+        "gold": 1,
+        "image": "src/assets/img/monster/Boss-Fenral.webp",
+        "moves": [
+            { "name": "Reisszahnangriff", "text": "1 Schaden, 1 Schaden nächste Runde", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
+            { "name": "Mondschatten", "text": "1 Block, 2 Reflektieren", "damage": 0, "block": 1, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
+            { "name": "Blutrausch", "text": "1 Schaden, 1 Heilung", "damage": 1, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
+            { "name": "Heulender Wind", "text": "2 Schaden, 2 Schaden nächste Runde", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
+            { "name": "Eisklauen", "text": "4 Schaden, 1 Block, 1 Reflektieren", "damage": 4, "block": 1, "heal": 0, "dot": 0, "reflect": 1, "damageNextRound": 0 },
+            { "name": "Rudelruf", "text": "1 Schaden, 3 Schaden nächste Runde", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 3 }
+        ]
+    },
 ]    
 
 

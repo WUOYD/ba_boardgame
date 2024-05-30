@@ -57,6 +57,14 @@ let questsGoldAthos = [];
 let questsGoldAridora = [];
 let questMonsters = [];
 let bossMonsters = [];
+let bossMonsterState = {
+  aridora: false,
+  athos: false,
+  drakan: false,
+  frosgar: false,
+  nythoria: false,
+  talvar: false,
+}
 
 
 const { monsterTableBronze, monsterTableSilver, monsterTableGold, monsterTableQuests, monsterTableBoss } = monsterTables;
@@ -201,6 +209,14 @@ io.on('connection', (socket) => {
     playerReadyList = []; 
     viewerList = [];
     playerCount = 0;
+    bossMonsterState = {
+      aridora: false,
+      athos: false,
+      drakan: false,
+      frosgar: false,
+      nythoria: false,
+      talvar: false,
+    }
     console.log("reset game data")
   });
 
@@ -338,6 +354,10 @@ io.on('connection', (socket) => {
 
   socket.on('questFight', function() {
     completeQuestFight(socket);
+  });
+
+  socket.on('bossFight', function() {
+    bossFight(socket);
   });
 
   // Get Active Player
@@ -1144,6 +1164,36 @@ function startFight(activePlayer, activeMonster){
   activePlayer.fight = new Fight(activeMonster);
 }
 
+function bossFight(socket){
+  let bossMonster
+  switch (lobby[socket.id].region){
+    case "Athos":
+      bossMonster = Object.assign({}, bossMonsters[1])
+      startFight(lobby[socket.id], bossMonster)
+      break
+    case "Aridora":
+      bossMonster = Object.assign({}, bossMonsters[2])
+      startFight(lobby[socket.id], bossMonster)
+      break
+    case "Nythoria":
+      bossMonster = Object.assign({}, bossMonsters[3])
+      startFight(lobby[socket.id], bossMonster)
+      break
+    case "Drakan":
+      bossMonster = Object.assign({}, bossMonsters[4])
+      startFight(lobby[socket.id], bossMonster)
+      break
+    case "Talvar":
+      bossMonster = Object.assign({}, bossMonsters[5])
+      startFight(lobby[socket.id], bossMonster)
+      break
+    case "Frosgar":
+      bossMonster = Object.assign({}, bossMonsters[6])
+      startFight(lobby[socket.id], bossMonster)
+      break
+  }
+}
+
 //Fight rolls
 function diceRollPlayer(socket, activePlayer, rollPlayer) {
   let winner = fightPlayer(activePlayer, activePlayer.fight.activeMonster, rollPlayer);
@@ -1187,8 +1237,6 @@ function diceRollMonster(socket, activePlayer, rollMonster) {
   }
   return
 }
-
-
 
 function fightPlayer(activePlayer, activeMonster, playerRoll){
   let move
