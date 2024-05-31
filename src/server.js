@@ -18,6 +18,7 @@ let viewerList = [];
 let playerReadyList = []; 
 let activePlayer = 0;
 let playerCount = 0;
+let playerRound = 0;
 
 let monstersBronzeNythoria = [];
 let monstersBronzeDrakan = [];
@@ -341,10 +342,15 @@ io.on('connection', (socket) => {
     lobby[oldPlayer].actions = 2;
     lobby[oldPlayer].playerIsActive = false;
     lobby[newPlayer].playerIsActive = true;
-    io.to(oldPlayer).emit('updateClientView', "Actions");
+    io.to(oldPlayer).emit('updateClientView', 2);
     io.to(oldPlayer).emit("updatePlayer", lobby[oldPlayer]);
-    io.to(newPlayer).emit('updateClientView', "Actions");
+    io.to(newPlayer).emit('updateClientView', 2);
     io.to(newPlayer).emit("updatePlayer", lobby[newPlayer]);
+    playerRound++
+    if(playerRound == playerCount){
+      io.emit('updateClientView', 9);
+      playerRound = 0;
+    }
   });
 
   // Update View
@@ -561,6 +567,9 @@ io.on('connection', (socket) => {
     diceRollMonster(socket, lobby[socket.id], rollMonster); 
   });
 
+  socket.on("moveBossComplete", function() {
+    io.emit('updateClientView', 2);
+  });
 
   // Disconnect Handling
   socket.on('disconnect', () => {

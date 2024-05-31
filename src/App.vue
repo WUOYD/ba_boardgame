@@ -13,6 +13,7 @@ import Quest from './components/Quest.vue'
 import Investigation from './components/Investigation.vue'
 import Intro from './components/Intro.vue'
 import Upgrades from './components/Upgrades.vue'
+import MoveBoss from './components/MoveBoss.vue'
 
 </script>
 
@@ -38,6 +39,7 @@ export default {
     Investigation,
     Upgrades,
     MapOverview,
+    MoveBoss
   },
   created() {
     socket.connect();
@@ -76,6 +78,9 @@ export default {
           break;
         case 8:
           this.updateView("MapOverview")
+          break;
+        case 9:
+          this.updateView("MoveBoss")
           break;
       }
     })
