@@ -1,24 +1,24 @@
 <template>
-<div v-if="this.winner == 'player'" class="winner">
+<div v-if="winner === 'player'" class="winner">
     <div class="overlay-content">
         <h2>Player won</h2>
-        <p>{{ playerName }} has slayn {{ monsterName }}</p>
+        <p>{{ playerName }} has slain {{ monsterName }}</p>
         <p>Victory Points: {{ monsterVictoryPoints }}</p>
         <p>Gold: {{ monsterRewardGold }}</p>
-        <button class="close-btn" v-on:click="this.closeFight()">Zurück</button>
+        <button class="close-btn" @click="closeFight()">Zurück</button>
     </div>
 </div>
-<div v-if="this.winner == 'monster'" class="winner">
+<div v-if="winner === 'monster'" class="winner">
     <div class="overlay-content">
         <h2>Monster</h2>
-        <p>{{ monsterName }} has slayn {{ playerName }}</p>
-        <button class="close-btn" @click="this.closeFight()">Zurück</button>
+        <p>{{ monsterName }} has slain {{ playerName }}</p>
+        <button class="close-btn" @click="closeFight()">Zurück</button>
     </div>
 </div>
 <div class="content single">
     <h1>Fight</h1>
     <div id="statistics">
-        <div :class="{ 'activeFighter': this.fightTurn == 'player' }" id="playerStatistics">
+        <div :class="{ 'activeFighter': fightTurn === 'player' }" id="playerStatistics">
             <div class="staticticsContent">
                 <div class="statisticsTable">
                     <table>
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div :class="{ 'activeFighter': this.fightTurn == 'monster' }" id="monsterStatistics">
+        <div :class="{ 'activeFighter': fightTurn === 'monster' }" id="monsterStatistics">
             <div class="staticticsContent">
                 <div class="statisticsImage">
                     <img :src="monsterImage" width="250" height="250" />
@@ -95,7 +95,7 @@
             </div>
         </div>
     </div>
-    <div v-if="this.fightTurn == 'player'" id="diceCombinationsPlayer">
+    <div v-if="fightTurn === 'player'" id="diceCombinationsPlayer">
         <h2>Player</h2>
         <div id="movesPlayer">
             <div v-for="(option, index) in optionsPlayer" :key="index" class="movesCombinationPlayer">
@@ -110,9 +110,19 @@
                         <div class="moveName">
                             {{ moveNamePlayer[index] }}
                         </div>
-                        <div class="moveText">
-                            {{ moveTextPlayer[index] }}
-                        </div>
+                        <p class="moveText">
+                            <span v-if="moveDamagePlayer[index] !== '-'">{{ moveDamagePlayer[index] + clawLevel + skullLevel}} Schaden</span>
+                            <span id="commaSpan" v-if="moveDamagePlayer[index] !== '-' && moveBlockPlayer[index] !== '-'">,</span>
+                            <span v-if="moveBlockPlayer[index] !== '-'">{{ moveBlockPlayer[index] + magicLevel + skullLevel}} Block</span>
+                            <span id="commaSpan" v-if="moveBlockPlayer[index] !== '-' && moveHealPlayer[index] !== '-'">,</span>
+                            <span v-if="moveHealPlayer[index] !== '-'">{{ moveHealPlayer[index] + magicLevel+ skullLevel }} Heilen</span>
+                            <span id="commaSpan" v-if="moveHealPlayer[index] !== '-' && moveDotPlayer[index] !== '-'">,</span>
+                            <span v-if="moveDotPlayer[index] !== '-'">{{ moveDotPlayer[index] + skullLevel}} Schaden jede Runde</span>
+                            <span id="commaSpan" v-if="moveDotPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
+                            <span v-if="moveReflectPlayer[index] !== '-'">{{ moveReflectPlayer[index] + magicLevel + skullLevel}} Reflektieren</span>
+                            <span id="commaSpan" v-if="moveReflectPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
+                            <span v-if="moveDamageNextRoundPlayer[index] !== '-'">{{ moveDamageNextRoundPlayer[index] + skullLevel}} Schaden nächste Runde</span>
+                        </p>
                     </div>
                 </button>
             </div>
@@ -121,7 +131,7 @@
             <button @click="readSelectedOptionPlayer()">Bestätigen</button>
         </div>
     </div>
-    <div v-if="this.fightTurn == 'monster'" id="diceCombinationsMonster">
+    <div v-if="fightTurn === 'monster'" id="diceCombinationsMonster">
         <h2>Monster</h2>
         <div id="movesMonster">
             <div v-for="(option, index) in optionsMonster" :key="index" class="movesCombinationMonster">
@@ -158,7 +168,6 @@ import {
 export default {
     data() {
         return {
-            fightText: "start fight by making move",
             moveImages: [
                 ["src/assets/icons/claw.png", "src/assets/icons/claw.png"],
                 ["src/assets/icons/claw.png", "src/assets/icons/magic.png"],
@@ -179,7 +188,12 @@ export default {
             playerReflect: null,
             playerDamageNextRound: null,
             moveNamePlayer: ["", "", "", "", "", ""],
-            moveTextPlayer: ["", "", "", "", "", ""],
+            moveDamagePlayer: ["", "", "", "", "", ""],
+            moveBlockPlayer: ["", "", "", "", "", ""],
+            moveHealPlayer: ["", "", "", "", "", ""],
+            moveDotPlayer: ["", "", "", "", "", ""],
+            moveReflectPlayer: ["", "", "", "", "", ""],
+            moveDamageNextRoundPlayer: ["", "", "", "", "", ""],
             optionsMonster: [1, 2, 3, 4, 5, 6],
             monsterPicture: "src/assets/img/placeholder.webp",
             monsterName: null,
@@ -204,48 +218,52 @@ export default {
             fightTurn: "player",
             winner: null,
             optionPickedDecision: null,
-        }
+            moveTables: null,
+            clawLevel: null,
+            skullLevel: null,
+            magicLevel: null,
+        };
     },
     mounted() {
         socket.on("setMovesTables", movesTables => {
-            this.movesTableCombinationSwordSword = movesTables.movesTableCombinationSwordSword
-            this.movesTableCombinationMagicMagic = movesTables.movesTableCombinationMagicMagic
-            this.movesTableCombinationSkullSkull = movesTables.movesTableCombinationSkullSkull
-            this.movesTableCombinationSwordMagic = movesTables.movesTableCombinationSwordMagic
-            this.movesTableCombinationMagicSkull = movesTables.movesTableCombinationMagicSkull
-            this.movesTableCombinationSwordSkull = movesTables.movesTableCombinationSwordSkull
-        })
+            this.movesTableCombinationSwordSword = movesTables.movesTableCombinationSwordSword;
+            this.movesTableCombinationMagicMagic = movesTables.movesTableCombinationMagicMagic;
+            this.movesTableCombinationSkullSkull = movesTables.movesTableCombinationSkullSkull;
+            this.movesTableCombinationSwordMagic = movesTables.movesTableCombinationSwordMagic;
+            this.movesTableCombinationMagicSkull = movesTables.movesTableCombinationMagicSkull;
+            this.movesTableCombinationSwordSkull = movesTables.movesTableCombinationSwordSkull;
+            this.moveTables = [
+                this.movesTableCombinationSwordSword,
+                this.movesTableCombinationSwordMagic,
+                this.movesTableCombinationMagicMagic,
+                this.movesTableCombinationMagicSkull,
+                this.movesTableCombinationSkullSkull,
+                this.movesTableCombinationSwordSkull
+            ]
+        });
+
         socket.on("fightWinner", status => {
-            if (status) {
-                this.winner = "player"
-            } else {
-                this.winner = "monster"
-            }
-        })
+            this.winner = status ? "player" : "monster";
+        });
+
         socket.on("updateMonster", activePlayer => {
             this.monsterName = activePlayer.fight.activeMonster.name;
             this.monsterImage = activePlayer.fight.activeMonster.image;
             this.monsterType = activePlayer.fight.activeMonster.type;
             this.monsterHealth = activePlayer.fight.activeMonster.health;
             this.monsterVictoryPoints = activePlayer.fight.activeMonster.victoryPoints;
-            this.monsterRewardGold = activePlayer.fight.activeMonster.rewardGold
+            this.monsterRewardGold = activePlayer.fight.activeMonster.rewardGold;
             this.monsterBlocks = activePlayer.fight.activeMonster.blocks;
             this.monsterDot = activePlayer.fight.activeMonster.dot;
             this.monsterReflect = activePlayer.fight.activeMonster.reflect;
             this.monsterDamageNextRound = activePlayer.fight.activeMonster.damageNextRound;
-            this.moveNameMonster[0] = activePlayer.fight.activeMonster.moves[0].name
-            this.moveTextMonster[0] = activePlayer.fight.activeMonster.moves[0].text
-            this.moveNameMonster[1] = activePlayer.fight.activeMonster.moves[1].name
-            this.moveTextMonster[1] = activePlayer.fight.activeMonster.moves[1].text
-            this.moveNameMonster[2] = activePlayer.fight.activeMonster.moves[2].name
-            this.moveTextMonster[2] = activePlayer.fight.activeMonster.moves[2].text
-            this.moveNameMonster[3] = activePlayer.fight.activeMonster.moves[3].name
-            this.moveTextMonster[3] = activePlayer.fight.activeMonster.moves[3].text
-            this.moveNameMonster[4] = activePlayer.fight.activeMonster.moves[4].name
-            this.moveTextMonster[4] = activePlayer.fight.activeMonster.moves[4].text
-            this.moveNameMonster[5] = activePlayer.fight.activeMonster.moves[5].name
-            this.moveTextMonster[5] = activePlayer.fight.activeMonster.moves[5].text
-        })
+
+            for (let i = 0; i < 6; i++) {
+                this.moveNameMonster[i] = activePlayer.fight.activeMonster.moves[i].name;
+                this.moveTextMonster[i] = activePlayer.fight.activeMonster.moves[i].text;
+            }
+        });
+
         socket.on("updatePlayer", activePlayer => {
             if (activePlayer && activePlayer.moves) {
                 this.playerName = activePlayer.name;
@@ -257,34 +275,28 @@ export default {
                 this.playerBlocks = activePlayer.blocks;
                 this.playerDot = activePlayer.dot;
                 this.playerReflect = activePlayer.reflect;
-                if(activePlayer.quest != null){
-                    if(activePlayer.quest.optionPickedDecision != null){
-                        this.optionPickedDecision = activePlayer.quest.optionPickedDecision
+                this.clawLevel = activePlayer.clawLevel;
+                this.skullLevel = activePlayer.skullLevel;
+                this.magicLevel = activePlayer.magicLevel;
+
+                if (activePlayer.quest != null && activePlayer.quest.optionPickedDecision != null) {
+                    this.optionPickedDecision = activePlayer.quest.optionPickedDecision;
+                }
+
+                for (let i = 0; i < 6; i++) {
+                    const moveIndex = activePlayer.moves[i][0];
+                    const moveTable = this.moveTables[i];
+
+                    if (moveTable && moveTable[moveIndex]) {
+                        const move = moveTable[moveIndex];
+                        this.moveNamePlayer[i] = move.name || "-";
+                        this.moveDamagePlayer[i] = move.damage !== 0 ? move.damage : "-";
+                        this.moveBlockPlayer[i] = move.block !== 0 ? move.block : "-";
+                        this.moveHealPlayer[i] = move.heal !== 0 ? move.heal : "-";
+                        this.moveDotPlayer[i] = move.dot !== 0 ? move.dot : "-";
+                        this.moveReflectPlayer[i] = move.reflect !== 0 ? move.reflect : "-";
+                        this.moveDamageNextRoundPlayer[i] = move.damageNextRound !== 0 ? move.damageNextRound : "-";
                     }
-                }
-                if (activePlayer.moves[0] && this.movesTableCombinationSwordSword[activePlayer.moves[0][0]]) {
-                    this.moveNamePlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].name;
-                    this.moveTextPlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].text;
-                }
-                if (activePlayer.moves[1] && this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]]) {
-                    this.moveNamePlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].name;
-                    this.moveTextPlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].text;
-                }
-                if (activePlayer.moves[2] && this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]]) {
-                    this.moveNamePlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].name;
-                    this.moveTextPlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].text;
-                }
-                if (activePlayer.moves[3] && this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]]) {
-                    this.moveNamePlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].name;
-                    this.moveTextPlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].text;
-                }
-                if (activePlayer.moves[4] && this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]]) {
-                    this.moveNamePlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].name;
-                    this.moveTextPlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].text;
-                }
-                if (activePlayer.moves[5] && this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]]) {
-                    this.moveNamePlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].name;
-                    this.moveTextPlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].text;
                 }
             } else {
                 console.error('Active player or move tables are not defined');
@@ -309,35 +321,34 @@ export default {
             this.selectedOptionMonster = option;
         },
         readSelectedOptionPlayer() {
-            socket.emit("diceRollPlayer", this.selectedOptionPlayer)
+            socket.emit("diceRollPlayer", this.selectedOptionPlayer);
             this.selectedOptionPlayer = null;
-            this.fightTurn = "monster"
+            this.fightTurn = "monster";
         },
         readSelectedOptionMonster() {
-            socket.emit("diceRollMonster", this.selectedOptionMonster)
+            socket.emit("diceRollMonster", this.selectedOptionMonster);
             this.selectedOptionMonster = null;
-            this.fightTurn = "player"
+            this.fightTurn = "player";
         },
         updateView(comp) {
             socket.emit("updateView", comp);
         },
         closeFight() {
-            socket.emit("updateViewer", "Logo")
-            socket.emit("getActivePlayer")
-            if(this.monsterType == "Quest"){
+            socket.emit("updateViewer", "Logo");
+            socket.emit("getActivePlayer");
+            if (this.monsterType === "Quest") {
                 this.updateView(5);
-                socket.emit("questFight")
-            }
-            else{
+                socket.emit("questFight");
+            } else {
                 this.updateView(2);
-                socket.emit("getActivePlayer")
+                socket.emit("getActivePlayer");
             }
         }
     },
     beforeUnmount() {
         this.mounted = false;
     }
-}
+};
 </script>
 
 <style>
@@ -574,6 +585,7 @@ td {
     align-items: center;
 }
 
+
 .overlay-content h2 {
     width: auto;
 }
@@ -585,5 +597,9 @@ td {
     font-size: 16px;
     color: white;
     border-width: 1px;
+}
+
+#commaSpan {
+    margin-right: 10px;
 }
 </style>

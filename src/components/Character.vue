@@ -39,7 +39,17 @@
                     {{ moveNamePlayer[index] }}
                 </div>
                 <div class="moveText">
-                    {{ moveTextPlayer[index] }}
+                    <span v-if="moveDamagePlayer[index] !== '-'">{{ moveDamagePlayer[index] + clawLevel + skullLevel}} Schaden</span>
+                    <span id="commaSpan" v-if="moveDamagePlayer[index] !== '-' && moveBlockPlayer[index] !== '-'">,</span>
+                    <span v-if="moveBlockPlayer[index] !== '-'">{{ moveBlockPlayer[index] + magicLevel + skullLevel}} Block</span>
+                    <span id="commaSpan" v-if="moveBlockPlayer[index] !== '-' && moveHealPlayer[index] !== '-'">,</span>
+                    <span v-if="moveHealPlayer[index] !== '-'">{{ moveHealPlayer[index] + magicLevel+ skullLevel }} Heilen</span>
+                    <span id="commaSpan" v-if="moveHealPlayer[index] !== '-' && moveDotPlayer[index] !== '-'">,</span>
+                    <span v-if="moveDotPlayer[index] !== '-'">{{ moveDotPlayer[index] + skullLevel}} Schaden jede Runde</span>
+                    <span id="commaSpan" v-if="moveDotPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
+                    <span v-if="moveReflectPlayer[index] !== '-'">{{ moveReflectPlayer[index] + magicLevel + skullLevel}} Reflektieren</span>
+                    <span id="commaSpan" v-if="moveReflectPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
+                    <span v-if="moveDamageNextRoundPlayer[index] !== '-'">{{ moveDamageNextRoundPlayer[index] + skullLevel}} Schaden nächste Runde</span>
                 </div>
             </div>
         </div>
@@ -61,7 +71,12 @@ export default {
             playerReputation: null,
             playerGold: null,
             moveNamePlayer: ["", "", "", "", "", ""],
-            moveTextPlayer: ["", "", "", "", "", ""],
+            moveDamagePlayer: ["", "", "", "", "", ""],
+            moveBlockPlayer: ["", "", "", "", "", ""],
+            moveHealPlayer: ["", "", "", "", "", ""],
+            moveDotPlayer: ["", "", "", "", "", ""],
+            moveReflectPlayer: ["", "", "", "", "", ""],
+            moveDamageNextRoundPlayer: ["", "", "", "", "", ""],
             optionsPlayer: [1, 2, 3, 4, 5, 6],
             moveImages: [
                 ["src/assets/icons/claw.png", "src/assets/icons/claw.png"],
@@ -71,17 +86,15 @@ export default {
                 ["src/assets/icons/skull.png", "src/assets/icons/skull.png"],
                 ["src/assets/icons/skull.png", "src/assets/icons/claw.png"],
             ],
-            goldRequiredClaw: 0,
-            goldRequiredMagic: 0,
-            goldRequiredSkull: 0,
-            playerClawLevel: 0,
-            playerMagicLevel: 0,
-            playerSkullLevel: 0,
-            movesTableCombinationSwordSword: null, 
-            movesTableCombinationMagicMagic: null, 
-            movesTableCombinationSkullSkull: null, 
-            movesTableCombinationSwordMagic: null, 
-            movesTableCombinationMagicSkull: null, 
+            moveTables: null,
+            clawLevel: 0,
+            magicLevel: 0,
+            skullLevel: 0,
+            movesTableCombinationSwordSword: null,
+            movesTableCombinationMagicMagic: null,
+            movesTableCombinationSkullSkull: null,
+            movesTableCombinationSwordMagic: null,
+            movesTableCombinationMagicSkull: null,
             movesTableCombinationSwordSkull: null,
         }
     },
@@ -93,6 +106,14 @@ export default {
             this.movesTableCombinationSwordMagic = movesTables.movesTableCombinationSwordMagic
             this.movesTableCombinationMagicSkull = movesTables.movesTableCombinationMagicSkull
             this.movesTableCombinationSwordSkull = movesTables.movesTableCombinationSwordSkull
+            this.moveTables = [
+                this.movesTableCombinationSwordSword,
+                this.movesTableCombinationSwordMagic,
+                this.movesTableCombinationMagicMagic,
+                this.movesTableCombinationMagicSkull,
+                this.movesTableCombinationSkullSkull,
+                this.movesTableCombinationSwordSkull
+            ]
         })
         socket.on("updatePlayer", activePlayer => {
             this.playerName = activePlayer.name;
@@ -104,21 +125,26 @@ export default {
             this.goldRequiredClaw = activePlayer.clawLevel * 3;
             this.goldRequiredMagic = activePlayer.magicLevel * 3;
             this.goldRequiredSkull = activePlayer.skullLevel * 3;
-            this.playerClawLevel = activePlayer.clawLevel;
-            this.playerMagicLevel = activePlayer.magicLevel;
-            this.playerSkullLevel = activePlayer.skullLevel;
-            this.moveNamePlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].name
-            this.moveTextPlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].text
-            this.moveNamePlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].name
-            this.moveTextPlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].text
-            this.moveNamePlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].name
-            this.moveTextPlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].text
-            this.moveNamePlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].name
-            this.moveTextPlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].text
-            this.moveNamePlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].name
-            this.moveTextPlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].text
-            this.moveNamePlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].name
-            this.moveTextPlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].text
+            this.clawLevel = activePlayer.clawLevel;
+            this.magicLevel = activePlayer.magicLevel;
+            this.skullLevel = activePlayer.skullLevel;
+
+            for (let i = 0; i < 6; i++) {
+                    const moveIndex = activePlayer.moves[i][0];
+                    const moveTable = this.moveTables[i];
+
+                    if (moveTable && moveTable[moveIndex]) {
+                        const move = moveTable[moveIndex];
+                        this.moveNamePlayer[i] = move.name || "-";
+                        this.moveDamagePlayer[i] = move.damage !== 0 ? move.damage : "-";
+                        this.moveBlockPlayer[i] = move.block !== 0 ? move.block : "-";
+                        this.moveHealPlayer[i] = move.heal !== 0 ? move.heal : "-";
+                        this.moveDotPlayer[i] = move.dot !== 0 ? move.dot : "-";
+                        this.moveReflectPlayer[i] = move.reflect !== 0 ? move.reflect : "-";
+                        this.moveDamageNextRoundPlayer[i] = move.damageNextRound !== 0 ? move.damageNextRound : "-";
+                    }
+                }
+
         })
         socket.emit("getMovesTables");
         socket.emit("getActivePlayer");
@@ -216,27 +242,27 @@ td p {
     margin: 5px;
 }
 
-.movesContentLeft{
+.movesContentLeft {
     width: 50%;
     height: 100%;
     align-items: center;
 }
 
-.movesContentRight{
+.movesContentRight {
     width: 50%;
     display: flex;
     flex-direction: column;
 
 }
 
-.movesImages{
+.movesImages {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.moveName{
+.moveName {
     display: flex;
     width: 100%;
     height: 50%;
@@ -244,7 +270,7 @@ td p {
     align-items: center;
 }
 
-.moveText{
+.moveText {
     display: flex;
     width: 100%;
     height: 50%;
@@ -253,4 +279,7 @@ td p {
     font-size: 14px;
 }
 
+#commaSpan {
+    margin-right: 10px;
+}
 </style>

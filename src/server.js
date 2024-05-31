@@ -120,9 +120,9 @@ class Player {
     this.damageNextRound = 0;
     this.picture = playerImage;
     this.moves = [[1, []], [1, []], [1, []], [1, []], [1, []], [1, []]];
-    this.clawLevel = 1;
-    this.skullLevel = 1;
-    this.magicLevel = 1;
+    this.clawLevel = 0;
+    this.skullLevel = 0;
+    this.magicLevel = 0;
     this.quest = null;
     this.playerIsActive = false;
   }
@@ -1248,33 +1248,46 @@ function diceRollMonster(socket, activePlayer, rollMonster) {
 function fightPlayer(activePlayer, activeMonster, playerRoll){
   let move
   let moveIndex
+  let moveType
   switch (playerRoll){
     case 1:
       moveIndex = activePlayer.moves[0][0]
+      moveType = "SwordSword"
       move = movesTableCombinationSwordSword[moveIndex]
       break
     case 2:
       moveIndex = activePlayer.moves[1][0]
+      moveType = "SwordMagic"
       move = movesTableCombinationSwordMagic[moveIndex]
       break
     case 3:
       moveIndex = activePlayer.moves[2][0]
+      moveType = "MagicMagic"
       move = movesTableCombinationMagicMagic[moveIndex]
       break
     case 4:
       moveIndex = activePlayer.moves[3][0]
+      moveType = "MagicSkull"
       move = movesTableCombinationMagicSkull[moveIndex]
       break
     case 5:
       moveIndex = activePlayer.moves[4][0]
+      moveType = "SkullSkull"
       move = movesTableCombinationSkullSkull[moveIndex]
       break
     case 6:
       moveIndex = activePlayer.moves[5][0]
+      moveType = "SwordSkull"
       move = movesTableCombinationSwordSkull[moveIndex]
       break
   }
   let playerDamage = move.damage;
+
+  // if(moveType == "SwordSword" || moveType == "SwordMagic" || moveType == "SwordSkull"){
+  //   if(move.damage > 0){
+  //     activePlayer.clawLevel
+  //   }
+  // }
   
   //dot
   if(move.dot > activePlayer.dot){

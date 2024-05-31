@@ -174,10 +174,10 @@ let movesTableCombinationMagicSkull = {
   3: {
       name: "Schneesturm",
       text: "2 Schaden, 4 Block",
-      damage: 2,
-      block: 4,
-      heal: 0,
-      dot: 0,
+      damage: 2, 
+      block: 4, 
+      heal: 0, 
+      dot: 0, 
       reflect: 0,
       damageNextRound: 0,
   }

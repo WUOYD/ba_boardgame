@@ -265,7 +265,17 @@
                                 {{ moveNamePlayer[index] }}
                             </div>
                             <div class="moveText">
-                                {{ moveTextPlayer[index] }}
+                                <span v-if="moveDamagePlayer[index] !== '-'">{{ moveDamagePlayer[index] + clawLevel + skullLevel}} Schaden</span>
+                                <span id="commaSpan" v-if="moveDamagePlayer[index] !== '-' && moveBlockPlayer[index] !== '-'">,</span>
+                                <span v-if="moveBlockPlayer[index] !== '-'">{{ moveBlockPlayer[index] + magicLevel + skullLevel}} Block</span>
+                                <span id="commaSpan" v-if="moveBlockPlayer[index] !== '-' && moveHealPlayer[index] !== '-'">,</span>
+                                <span v-if="moveHealPlayer[index] !== '-'">{{ moveHealPlayer[index] + magicLevel+ skullLevel }} Heilen</span>
+                                <span id="commaSpan" v-if="moveHealPlayer[index] !== '-' && moveDotPlayer[index] !== '-'">,</span>
+                                <span v-if="moveDotPlayer[index] !== '-'">{{ moveDotPlayer[index] + skullLevel}} Schaden jede Runde</span>
+                                <span id="commaSpan" v-if="moveDotPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
+                                <span v-if="moveReflectPlayer[index] !== '-'">{{ moveReflectPlayer[index] + magicLevel + skullLevel}} Reflektieren</span>
+                                <span id="commaSpan" v-if="moveReflectPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
+                                <span v-if="moveDamageNextRoundPlayer[index] !== '-'">{{ moveDamageNextRoundPlayer[index] + skullLevel}} Schaden nächste Runde</span>            
                             </div>
                         </div>
                     </button>
@@ -412,7 +422,13 @@ export default {
             playerReflect: null,
             playerDamageNextRound: null,
             moveNamePlayer: ["", "", "", "", "", ""],
-            moveTextPlayer: ["", "", "", "", "", ""],
+            moveDamagePlayer: ["", "", "", "", "", ""],
+            moveBlockPlayer: ["", "", "", "", "", ""],
+            moveHealPlayer: ["", "", "", "", "", ""],
+            moveDotPlayer: ["", "", "", "", "", ""],
+            moveReflectPlayer: ["", "", "", "", "", ""],
+            moveDamageNextRoundPlayer: ["", "", "", "", "", ""],
+            moveTables: null,
             optionsMonster: [1, 2, 3, 4, 5, 6],
             monsterPicture: "src/assets/img/placeholder.webp",
             monsterName: null,
@@ -484,6 +500,14 @@ export default {
             this.movesTableCombinationSwordMagic = movesTables.movesTableCombinationSwordMagic
             this.movesTableCombinationMagicSkull = movesTables.movesTableCombinationMagicSkull
             this.movesTableCombinationSwordSkull = movesTables.movesTableCombinationSwordSkull
+            this.moveTables = [
+                this.movesTableCombinationSwordSword,
+                this.movesTableCombinationSwordMagic,
+                this.movesTableCombinationMagicMagic,
+                this.movesTableCombinationMagicSkull,
+                this.movesTableCombinationSkullSkull,
+                this.movesTableCombinationSwordSkull
+            ]
         })
         socket.on("updateMonster", activePlayer => {
             if (activePlayer && activePlayer.fight) {
@@ -528,29 +552,21 @@ export default {
                         this.optionPickedDecision = activePlayer.quest.optionPickedDecision
                     }
                 }
-                if (activePlayer.moves[0] && this.movesTableCombinationSwordSword[activePlayer.moves[0][0]]) {
-                    this.moveNamePlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].name;
-                    this.moveTextPlayer[0] = this.movesTableCombinationSwordSword[activePlayer.moves[0][0]].text;
-                }
-                if (activePlayer.moves[1] && this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]]) {
-                    this.moveNamePlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].name;
-                    this.moveTextPlayer[1] = this.movesTableCombinationSwordMagic[activePlayer.moves[1][0]].text;
-                }
-                if (activePlayer.moves[2] && this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]]) {
-                    this.moveNamePlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].name;
-                    this.moveTextPlayer[2] = this.movesTableCombinationMagicMagic[activePlayer.moves[2][0]].text;
-                }
-                if (activePlayer.moves[3] && this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]]) {
-                    this.moveNamePlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].name;
-                    this.moveTextPlayer[3] = this.movesTableCombinationMagicSkull[activePlayer.moves[3][0]].text;
-                }
-                if (activePlayer.moves[4] && this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]]) {
-                    this.moveNamePlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].name;
-                    this.moveTextPlayer[4] = this.movesTableCombinationSkullSkull[activePlayer.moves[4][0]].text;
-                }
-                if (activePlayer.moves[5] && this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]]) {
-                    this.moveNamePlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].name;
-                    this.moveTextPlayer[5] = this.movesTableCombinationSwordSkull[activePlayer.moves[5][0]].text;
+                
+                for (let i = 0; i < 6; i++) {
+                    const moveIndex = activePlayer.moves[i][0];
+                    const moveTable = this.moveTables[i];
+
+                    if (moveTable && moveTable[moveIndex]) {
+                        const move = moveTable[moveIndex];
+                        this.moveNamePlayer[i] = move.name || "-";
+                        this.moveDamagePlayer[i] = move.damage !== 0 ? move.damage : "-";
+                        this.moveBlockPlayer[i] = move.block !== 0 ? move.block : "-";
+                        this.moveHealPlayer[i] = move.heal !== 0 ? move.heal : "-";
+                        this.moveDotPlayer[i] = move.dot !== 0 ? move.dot : "-";
+                        this.moveReflectPlayer[i] = move.reflect !== 0 ? move.reflect : "-";
+                        this.moveDamageNextRoundPlayer[i] = move.damageNextRound !== 0 ? move.damageNextRound : "-";
+                    }
                 }
             }
             if (activePlayer && activePlayer.quest) {
@@ -933,5 +949,9 @@ td {
 .islandViewer img {
     width: auto;
     height: 80%;
+}
+
+#commaSpan {
+    margin-right: 10px;
 }
 </style>
