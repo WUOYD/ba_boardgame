@@ -1,7 +1,7 @@
 {
-  "name": "boardgame-companion",
+  "name": "legenden_von_synn",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "howler": "^2.2.3",
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
     "vue": "^3.2.47"
