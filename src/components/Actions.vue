@@ -48,11 +48,11 @@
             <img :src="imageHeal"/>
             <p>Heilen</p>
         </div>
-        <div :class="{ actionUsed: this.actionsUsedQuest == true || this.playerActions == 0}" v-if="this.playerHasQuest && this.playerRegion != 'Elysora'" class="action" @click="quest()">
+        <div :class="{ actionUsed: this.actionsUsedQuest == true || this.playerActions == 0}" v-if="this.playerHasQuest && this.playerRegion != 'Elysora'" class="action" @click="confirmationPopup('Quest')">
             <img :src="imageQuest"/>
             <p>Quest</p>
         </div>
-        <div :class="{ actionUsed: this.actionsUsedBoss == true || this.playerActions == 0}" v-if="this.playerRegion != 'Elysora'" class="action" @click="boss()">
+        <div :class="{ actionUsed: this.actionsUsedBoss == true || this.playerActions == 0}" v-if="this.playerRegion != 'Elysora'" class="action" @click="confirmationPopup('Boss')">
             <img :src="imageQuest"/>
             <p>Boss</p>
         </div>
@@ -61,7 +61,22 @@
             <p>Zug Beenden</p>
         </div>
     </div>
-
+    <div v-if="this.confirmation == 'Quest' || this.confirmation == 'Boss'" id="confirmationPopup">
+        <div v-if="this.confirmation == 'Quest'" class="confirmationElement">
+            <p>Bestätige das du auf dem Questfeld bist.</p>
+            <div id="buttons">
+                <button @click="quest()">Bestätigen</button>
+                <button @click="this.confirmation == 'none'">Ablehnen</button>
+            </div>
+        </div>
+        <div v-if="this.confirmation == 'Boss'" class="confirmationElement">
+            <p>Bestätige das du auf dem Bossfeld bist.</p>
+            <div id="buttons">
+                <button @click="boss()">Bestätigen</button>
+                <button @click="this.confirmation == 'none'">Ablehnen</button>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -98,6 +113,7 @@ export default {
             questRegion: null,
             questRegionDeliverGood: null,
             questRegionDeliverBad: null,
+            confirmation: null,
         }
     },
     mounted() {
@@ -153,6 +169,7 @@ export default {
             }
         },
         quest() {
+            this.confirmation = null
             if(this.actionsUsedQuest == false && this.playerActions > 0){
             socket.emit("updateActions", "quest");
             socket.emit("updateView", 5);
@@ -160,10 +177,23 @@ export default {
             }
         },
         boss() {
+            this.confirmation = null
             if(this.actionsUsedBoss != true && this.playerActions > 0){
             socket.emit("updateActions", "boss");
             socket.emit("bossFight");
             socket.emit("updateView", 4);
+            }
+        },
+        confirmationPopup(action) {
+            if(action == "Quest"){
+                if(this.actionsUsedQuest != true && this.playerActions > 0){
+                    this.confirmation = "Quest"
+                }
+            }
+            if(action == "Boss"){
+                if(this.actionsUsedBoss != true && this.playerActions > 0){
+                    this.confirmation = "Boss"
+                }
             }
         },
         updateView(comp) {
@@ -234,6 +264,28 @@ export default {
     justify-content: space-between;
     width: 100%;
     margin-bottom: 5%;
+}
+
+#confirmationPopup{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.5) 
+}
+
+.confirmationElement{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid #f7e4c2;
+    border-radius: 10px;
+    width: 30%;
+    height: 20%;
+    background-color: rgba(0,0,0,0.5) 
 }
 
 #headerActions img {

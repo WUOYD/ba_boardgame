@@ -577,8 +577,6 @@ io.on('connection', (socket) => {
     delete lobby[socket.id];
     io.emit("userCount", Object.keys(lobby).length); 
   });
-
-
 });
 
 // Game Initialization

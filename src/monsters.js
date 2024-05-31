@@ -6,7 +6,7 @@ const monsterTableBronzeNythoria = [
         health: 4,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/wilder_ghul.webp",
+        image: "src/assets/img/monster/Wilder_Ghul.webp",
         moves: [
             { name: "Kratzer", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Schrei des Todes", text: "1 Block, 1 Schaden nächste Runde", damage: 0, block: 1, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
@@ -23,7 +23,7 @@ const monsterTableBronzeNythoria = [
         health: 6,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/seelenfresser.webp",
+        image: "src/assets/img/monster/Seelenfresser.webp",
         moves: [
             { name: "Klingenhieb", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Schattenklinge", text: "1 Schaden, 1 Schaden nächste Runde", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
@@ -40,7 +40,7 @@ const monsterTableBronzeNythoria = [
         health: 7,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/kuenstlicher_golem.webp",
+        image: "src/assets/img/monster/Kuenstlicher_Golem.webp",
         moves: [
             { name: "Trümmerer", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Kraftstoss", text: "1 Schaden, 1 Block", damage: 1, block: 1, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -57,7 +57,7 @@ const monsterTableBronzeNythoria = [
         health: 5,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/traumspinner.webp",
+        image: "src/assets/img/monster/Traumspinner.webp",
         moves: [
             { name: "Traum", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Magischer Traum", text: "1 Reflektieren", damage: 0, block: 0, heal: 0, dot: 0, reflect: 1, damageNextRound: 0 },
@@ -74,7 +74,7 @@ const monsterTableBronzeNythoria = [
         health: 8,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/traumspinner_koenigin.webp",
+        image: "src/assets/img/monster/Traumspinner_Koenigin.webp",
         moves: [
             { name: "Traumwanderer", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Traumweben", text: "1 Schaden, 1 Reflektieren", damage: 1, block: 0, heal: 0, dot: 0, reflect: 1, damageNextRound: 0 },
@@ -93,7 +93,7 @@ const monsterTableBronzeDrakan = [
         health: 6,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/salamander.webp",
+        image: "src/assets/img/monster/Salamander.webp",
         moves: [
             { name: "Biss", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Glühende Berührung", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -109,7 +109,7 @@ const monsterTableBronzeDrakan = [
         health: 4,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/aschengeist.webp",
+        image: "src/assets/img/monster/Aschengeist.webp",
         moves: [
             { name: "Flämmchen", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Flämmchen", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -125,7 +125,7 @@ const monsterTableBronzeDrakan = [
         health: 5,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/drachenjunges.webp",
+        image: "src/assets/img/monster/Drachenjunges.webp",
         moves: [
             { name: "Feuerstoss", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Drachengebrüll", text: "1 Block, 1 Schaden nächste Runde", damage: 0, block: 1, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
@@ -141,7 +141,7 @@ const monsterTableBronzeDrakan = [
         health: 8,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/obsidian_golem.webp",
+        image: "src/assets/img/monster/Obsidiangolem.webp",
         moves: [
             { name: "Schwerer Schlag", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Bereitschaft", text: "1 Schaden, 1 Schaden nächste Runde, 1 Block", damage: 1, block: 1, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
@@ -157,7 +157,7 @@ const monsterTableBronzeDrakan = [
         health: 4,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/feuerkobold.webp",
+        image: "src/assets/img/monster/Feuerkobold.webp",
         moves: [
             { name: "Klauenangriff", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Feueratem", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -177,7 +177,7 @@ const monsterTableBronzeTalvar= [
         health: 6,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/bentrunkener_goblin.webp",
+        image: "src/assets/img/monster/Betrunkener_Goblin.webp",
         moves: [
             { name: "Kratzer", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Biss", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -194,7 +194,7 @@ const monsterTableBronzeTalvar= [
         health: 6,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/goblin_jaeger.webp",
+        image: "src/assets/img/monster/Goblin_Jaeger.webp",
         moves: [
             { name: "Steinwurf", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Speerwurf", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -211,7 +211,7 @@ const monsterTableBronzeTalvar= [
         health: 6,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/hogoblin.webp",
+        image: "src/assets/img/monster/Hogoblin.webp",
         moves: [
             { name: "Fauler Atem", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Magisches Ritual", text: "1 Schaden, 1 Schaden nächste Runde", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
@@ -228,7 +228,7 @@ const monsterTableBronzeTalvar= [
         health: 4,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/verwundeter_bandit.webp",
+        image: "src/assets/img/monster/Verwundeter_Bandit.webp",
         moves: [
             { name: "Faustschlag", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Tritt", text: "2 Schaden, 1 Selbstschaden", damage: 2, block: 0, heal: -1, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -245,7 +245,7 @@ const monsterTableBronzeTalvar= [
         health: 6,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/banditenanfuehrer.webp",
+        image: "src/assets/img/monster/Banditen_Anfuehrer.webp",
         moves: [
             { name: "Klingenhieb", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Doppelklingenschlag", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -265,7 +265,7 @@ const monsterTableBronzeFrosgar= [
         health: 4,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/irrlicht.webp",
+        image: "src/assets/img/monster/Irrlicht.webp",
         moves: [
             { name: "Seelenraub", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Aufladung", text: "1 Schaden nächste Runde", damage: 0, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
@@ -282,7 +282,7 @@ const monsterTableBronzeFrosgar= [
         health: 6,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/jaehzorniger_schneehasenkrieger.webp",
+        image: "src/assets/img/monster/Jaehzorniger_Schneehasenkrieger.webp",
         moves: [
             { name: "Klopfer", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Blumenwedler", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -298,7 +298,7 @@ const monsterTableBronzeFrosgar= [
         health: 6,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/.webp",
+        image: "src/assets/img/monster/Eisphoenix.webp",
         moves: [
             { name: "Eisige Briese", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Eissplitter", text: "1 Schaden, 1 Schaden nächste Runde", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
@@ -315,7 +315,7 @@ const monsterTableBronzeFrosgar= [
         health: 6,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/frostgreif.webp",
+        image: "src/assets/img/monster/Frostgreif.webp",
         moves: [
             { name: "Kratzer", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Wolfsruf", text: "2 Schaden nächste Runde", damage: 0, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 2 },
@@ -332,7 +332,7 @@ const monsterTableBronzeFrosgar= [
         health: 8,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/eisgolem.webp",
+        image: "src/assets/img/monster/Eisgolem.webp",
         moves: [
             { name: "Eisige Briese", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Eissplitter", text: "1 Schaden, 1 Schaden nächste Runde", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
@@ -351,7 +351,7 @@ const monsterTableBronzeAthos= [
         health: 8,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/manfred.webp",
+        image: "src/assets/img/monster/Manfred.webp",
         moves: [
             { name: "Dornen", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Blätterpanzer", text: "1 Block", damage: 0, block: 1, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -367,7 +367,7 @@ const monsterTableBronzeAthos= [
         health: 4,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/dryade.webp",
+        image: "src/assets/img/monster/Dryade.webp",
         moves: [
             { name: "Blättermeer", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Blätterschild", text: "1 Block", damage: 0, block: 1, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -383,7 +383,7 @@ const monsterTableBronzeAthos= [
         health: 8,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/dryaden_koenigin.webp",
+        image: "src/assets/img/monster/Dryadenkoenigin.webp",
         moves: [
             { name: "Ästepeitsche", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Blütenstaub", text: "1 Reflektieren, 1 Block", damage: 0, block: 1, heal: 0, dot: 0, reflect: 1, damageNextRound: 0 },
@@ -399,7 +399,7 @@ const monsterTableBronzeAthos= [
         health: 5,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/peter.webp",
+        image: "src/assets/img/monster/Peter.webp",
         moves: [
             { name: "Dornen", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Dornenpanzer", text: "1 Reflektieren", damage: 0, block: 0, heal: 0, dot: 0, reflect: 1, damageNextRound: 0 },
@@ -415,7 +415,7 @@ const monsterTableBronzeAthos= [
         health: 6,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/kleiner_ork.webp",
+        image: "src/assets/img/monster/Kleiner_Ork.webp",
         moves: [
             { name: "Keulenhieb", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Meditation", text: "2 Schaden nächste Runde", damage: 0, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 2 },
@@ -434,7 +434,7 @@ const monsterTableBronzeAridora= [
         health: 5,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/schlangenmagier.webp",
+        image: "src/assets/img/monster/Schlangenmagier.webp",
         moves: [
             { name: "Schlangenbiss", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Vipernvision", text: "2 Schaden nächste Runde", damage: 0, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 2 },
@@ -450,7 +450,7 @@ const monsterTableBronzeAridora= [
         health: 6,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/schlangenkaempfer.webp",
+        image: "src/assets/img/monster/Schlangenkaempfer.webp",
         moves: [
             { name: "Schlängelnder Angriff", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Schlangentanz", text: "1 Schaden nächste Runde, 1 Block", damage: 0, block: 1, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
@@ -466,7 +466,7 @@ const monsterTableBronzeAridora= [
         health: 8,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/guertelwaechter.webp",
+        image: "src/assets/img/monster/Guertelwaechter.webp",
         moves: [
             { name: "Rollenangriff", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Schwingende Panzerplatte", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
@@ -498,7 +498,7 @@ const monsterTableBronzeAridora= [
         health: 6,
         victoryPoints: 1,
         gold: 1,
-        image: "src/assets/img/monster/gnolljaeger.webp",
+        image: "src/assets/img/monster/Gnoll_Jaeger.webp",
         moves: [
             { name: "Schleuderangriff", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Wendigkeit", text: "1 Schaden, 1 Block", damage: 1, block: 1, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },

@@ -129,14 +129,15 @@
                     </div>
                     <div>
                         <div v-if="this.optionPicked == 'Good'">
-                            <p v-if="rewardGoodReputation!='-'">{{ rewardGoodReputation }} Ehre</p>
+                            <p>Du erhälst:</p>
+                            <p v-if="rewardGoodReputation!='-'">{{ rewardGoodReputation }} Ehre auf {{ regionQuest }}</p>
                             <p v-if="rewardGoodGold!='-'">{{ rewardGoodGold }} Gold</p>
-                            <p v-if="rewardGoodMove!='-'">{{ rewardGoodMove }} Move</p>
+                            <p v-if="rewardGoodMove!=null">Neuer Angriff erhalten: {{ rewardGoodMove }} Move</p>
                         </div>
                         <div v-else>
-                            <p v-if="rewardBadReputation!='-'">{{ rewardBadReputation }} Ehre</p>
+                            <p v-if="rewardBadReputation!='-'">{{ rewardBadReputation }} Ehre auf {{ regionQuest }}</p>
                             <p v-if="rewardBadGold!='-'">{{ rewardBadGold }} Gold</p>
-                            <p v-if="rewardBadMove!='-'">{{ rewardBadMove }} Move</p>
+                            <p v-if="rewardBadMove!=null">Neuer Angriff erhalten: {{ rewardBadMove }} Move</p>
                         </div>
                     </div>
                     <div class="questButtons">
@@ -153,14 +154,14 @@
                     </div>
                     <div>
                         <div v-if="this.optionPickedDecision == 'Good'">
-                            <p v-if="rewardGoodReputation!='-'">{{ rewardGoodReputation }} Ehre</p>
+                            <p v-if="rewardGoodReputation!='-'">{{ rewardGoodReputation }} Ehre auf {{ regionQuest }}</p>
                             <p v-if="rewardGoodGold!='-'">{{ rewardGoodGold }} Gold</p>
-                            <p v-if="rewardGoodMove!='-'">{{ rewardGoodMove }} Move</p>
+                            <p v-if="rewardGoodMove!=null">Neuer Angriff erhalten:{{ rewardGoodMove }} </p>
                         </div>
                         <div v-else>
-                            <p v-if="rewardBadReputation!='-'">{{ rewardBadReputation }} Ehre</p>
+                            <p v-if="rewardBadReputation!='-'">{{ rewardBadReputation }} Ehre auf {{ regionQuest }}</p>
                             <p v-if="rewardBadGold!='-'">{{ rewardBadGold }} Gold</p>
-                            <p v-if="rewardBadMove!='-'">{{ rewardBadMove }} Move</p>
+                            <p v-if="rewardBadMove!=null">Neuer Angriff erhalten:{{ rewardBadMove }} Move</p>
                         </div>
                     </div>
                     <div class="questButtons">
@@ -186,7 +187,7 @@
                         <p v-else>{{ optionBadText }}</p>
                     </div>
                     <div id="questMapIcon">
-                        <img :src="this.mapIcon" @click="this.showMap()"/>
+                        <img :src="this.mapIcon" @click="this.showMap()" />
                     </div>
                 </div>
             </div>
@@ -196,16 +197,16 @@
         </div>
     </div>
     <div v-if="this.openMap" id="questMap">
-        <img v-if="optionPicked == 'Good'" :src="this.imageMapGood" @click="this.showMap()"/>
+        <img v-if="optionPicked == 'Good'" :src="this.imageMapGood" @click="this.showMap()" />
         <img v-else :src="this.imageMapBad" @click="this.showMap()" />
         <div v-if="openMapFirstTime == true" id="questMapFirstTime">
             <div v-if="optionPicked == 'Good'">
                 <p v-if="this.optionGood == 'Deliver' || this.optionGood == 'DeliverMonster' || this.optionGood == 'DeliverDecision'">Platziere einen Marker auf die Angezeigte Position!</p>
-                <p v-else>Platziere einen Marker auf deiner aktuellen Position und einen auf die Angezeigte Position!</p>    
+                <p v-else>Platziere einen Marker auf deiner aktuellen Position und einen auf die Angezeigte Position!</p>
             </div>
             <div v-if="optionPicked == 'Bad'">
                 <p v-if="this.optionGood == 'Deliver' || this.optionGood == 'DeliverMonster' || this.optionGood == 'DeliverDecision'">Platziere einen Marker auf die Angezeigte Position!</p>
-                <p v-else>Platziere einen Marker auf deiner aktuellen Position und einen auf die Angezeigte Position!</p>    
+                <p v-else>Platziere einen Marker auf deiner aktuellen Position und einen auf die Angezeigte Position!</p>
             </div>
         </div>
     </div>
@@ -306,10 +307,8 @@ export default {
                 this.questTextOptionSecondBad = activePlayer.quest.optionBadSecond.optionText
                 this.rewardGoodReputation = activePlayer.quest.rewardGood.reputation
                 this.rewardGoodGold = activePlayer.quest.rewardGood.gold
-                this.rewardGoodMove = activePlayer.quest.rewardGood.move
                 this.rewardBadReputation = activePlayer.quest.rewardBad.reputation
                 this.rewardBadGold = activePlayer.quest.rewardBad.gold
-                this.rewardBadMove = activePlayer.quest.rewardBad.move
                 this.optionGood = activePlayer.quest.optionGood.type
                 this.optionBad = activePlayer.quest.optionBad.type
                 this.imageMapGood = activePlayer.quest.imageMapGood
@@ -320,6 +319,51 @@ export default {
                 }
             } else {
                 this.playerHasQuest = false
+            }
+            if (activePlayer.quest.rewardGood.move != "-" || activePlayer.quest.rewardBad.move != "-") {
+                if (activePlayer.quest.rewardGood.move != "-") {
+                    switch (activePlayer.quest.rewardGood.move[0]) {
+                        case "SwordSword":
+                            this.rewardGoodMove = this.movesTableCombinationSwordSword[activePlayer.quest.rewardGood.move[1]]
+                            break
+                        case "SwordMagic":
+                            this.rewardGoodMove = this.movesTableCombinationSwordMagic[activePlayer.quest.rewardGood.move[1]]
+                            break
+                        case "MagicMagic":
+                            this.rewardGoodMove = this.movesTableCombinationMagicMagic[activePlayer.quest.rewardGood.move[1]]
+                            break
+                        case "MagicSkull":
+                            this.rewardGoodMove = this.movesTableCombinationMagicSkull[activePlayer.quest.rewardGood.move[1]]
+                            break
+                        case "SkullSkull":
+                            this.rewardGoodMove = this.movesTableCombinationSkullSkull[activePlayer.quest.rewardGood.move[1]]
+                            break
+                        case "SwordSkull":
+                            this.rewardGoodMove = this.movesTableCombinationSwordSkull[activePlayer.quest.rewardGood.move[1]]
+                            break
+                    }
+                } else {
+                    switch (activePlayer.quest.rewardBad.move[0]) {
+                        case "SwordSword":
+                            this.rewardBadMove = this.movesTableCombinationSwordSword[activePlayer.quest.rewardBad.move[1]]
+                            break
+                        case "SwordMagic":
+                            this.rewardBadMove = this.movesTableCombinationSwordMagic[activePlayer.quest.rewardBad.move[1]]
+                            break
+                        case "MagicMagic":
+                            this.rewardBadMove = this.movesTableCombinationMagicMagic[activePlayer.quest.rewardBad.move[1]]
+                            break
+                        case "MagicSkull":
+                            this.rewardBadMove = this.movesTableCombinationMagicSkull[activePlayer.quest.rewardBad.move[1]]
+                            break
+                        case "SkullSkull":
+                            this.rewardBadMove = this.movesTableCombinationSkullSkull[activePlayer.quest.rewardBad.move[1]]
+                            break
+                        case "SwordSkull":
+                            this.rewardBadMove = this.movesTableCombinationSwordSkull[activePlayer.quest.rewardBad.move[1]]
+                            break
+                    }
+                }
             }
         })
         socket.on("questReward", () => {
@@ -363,16 +407,15 @@ export default {
             socket.emit("questComplete")
             this.questView = false;
         },
-        showMap(){
-            if(this.openMap){
+        showMap() {
+            if (this.openMap) {
                 this.openMap = false;
                 this.openMapFirstTime = false;
                 socket.emit("showMapViewer")
-            }
-            else{
-            this.openMap = true;
-            this.openMapFirstTime = false;
-            socket.emit("showMapViewer")
+            } else {
+                this.openMap = true;
+                this.openMapFirstTime = false;
+                socket.emit("showMapViewer")
             }
         }
     },
@@ -476,7 +519,7 @@ export default {
     height: 50%;
 }
 
-#questMap{
+#questMap {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -484,7 +527,7 @@ export default {
     height: 90%;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0,0,0,0.5) 
+    background-color: rgba(0, 0, 0, 0.5)
 }
 
 #questMap img {
@@ -494,7 +537,7 @@ export default {
     box-sizing: border-box
 }
 
-#questMapFirstTime{
+#questMapFirstTime {
     display: flex;
     width: 40%;
     height: 8%;
@@ -504,11 +547,11 @@ export default {
     margin-top: 20px;
     margin-bottom: 20px;
     border-radius: 10px;
-    background-color: rgba(0,0,0,0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 1%;
 }
 
-#questMapFirstTime p{
+#questMapFirstTime p {
     font-size: 16px;
     margin-bottom: 0px;
 }
