@@ -233,7 +233,7 @@ export default {
     color: #f7e4c2;
 }
 
-h2 {
+#headerSectionMiddle h2 {
     font-size: 32px;
     border-top: 1px solid #f7e4c2;
     border-bottom: 1px solid #f7e4c2;
@@ -364,6 +364,7 @@ h2 {
 #playerHealth p,
 #playerGold p {
     margin-bottom: 0px !important;
+    margin-top: 0px !important;
 }
 
 #endAction {

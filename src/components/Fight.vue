@@ -95,7 +95,6 @@
         </div>
     </div>
     <div v-if="fightTurn === 'player'" id="diceCombinationsPlayer">
-        <h2>Player</h2>
         <div id="movesPlayer">
             <div v-for="(option, index) in optionsPlayer" :key="index" class="movesCombinationPlayer">
                 <button :class="{ selected: selectedOptionPlayer === option }" @click="selectOptionPlayer(option)">
@@ -131,7 +130,6 @@
         </div>
     </div>
     <div v-if="fightTurn === 'monster'" id="diceCombinationsMonster">
-        <h2>Monster</h2>
         <div id="movesMonster">
             <div v-for="(option, index) in optionsMonster" :key="index" class="movesCombinationMonster">
                 <button :class="{ selected: selectedOptionMonster === option }" @click="selectOptionMonster(option)">

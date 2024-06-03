@@ -2,35 +2,35 @@
 <div class="content sequencer">
     <h1>Map</h1>
     <div id="currentIsland">
-        <p>Current Island: {{ currentIsland }}</p>
+        <p>Aktuelle Insel: {{ currentIsland }}</p>
     </div>
     <div id="islands">
         <div class="island" v-if="currentIsland == 'Nythoria' || currentIsland == 'Aridora' || currentIsland == 'Elysora'" @click="acceptChoice(0)">
-            <img :src="islands[0][2]" width="250" height="250" />
+            <img :src="islands[0][2]"/>
             <p>Frosgar</p>
         </div>
         <div class="island" v-if="currentIsland == 'Frosgar' || currentIsland == 'Athos' || currentIsland == 'Elysora'" @click="acceptChoice(1)">
-            <img :src="islands[1][2]" width="250" height="250" />
+            <img :src="islands[1][2]"/>
             <p>Aridora</p>
         </div>
         <div class="island" v-if="currentIsland == 'Aridora' || currentIsland == 'Drakan' || currentIsland == 'Elysora'" @click="acceptChoice(2)">
-            <img :src="islands[2][2]" width="250" height="250" />
+            <img :src="islands[2][2]"/>
             <p>Athos</p>
         </div>
         <div class="island" v-if="currentIsland == 'Athos' || currentIsland == 'Talvar' || currentIsland == 'Elysora'" @click="acceptChoice(3)">
-            <img :src="islands[3][2]" width="250" height="250" />
+            <img :src="islands[3][2]"/>
             <p>Drakan</p>
         </div>
         <div class="island" v-if="currentIsland == 'Drakan' || currentIsland == 'Nythoria' || currentIsland == 'Elysora'" @click="acceptChoice(4)">
-            <img :src="islands[4][2]" width="250" height="250" />
+            <img :src="islands[4][2]"/>
             <p>Talvar</p>
         </div>
         <div class="island" v-if="currentIsland == 'Talvar' || currentIsland == 'Frosgar' || currentIsland == 'Elysora'" @click="acceptChoice(5)">
-            <img :src="islands[5][2]" width="250" height="250" />
+            <img :src="islands[5][2]"/>
             <p>Nythoria</p>
         </div>
         <div class="island" v-if="currentIsland !== 'Elysora'" @click="acceptChoice(6)">
-            <img :src="islands[6][2]" width="250" height="250" />
+            <img :src="islands[6][2]"/>
             <p>Elysora</p>
         </div>
     </div>
@@ -139,6 +139,7 @@ export default {
 
 .island img{
     border-radius: 20px;
+    width: 100%;
 }
 
 .island p {

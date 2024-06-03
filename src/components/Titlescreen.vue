@@ -17,7 +17,7 @@
             <div v-if="clientType === 'player'">
                 <div class="titleText" id="playerName">
                     <p>Gib deinen Namen ein:</p>
-                    <input type="text" v-model="playerName" placeholder="Gib deinen Namen ein">
+                    <input type="text" maxlength="16" v-model="playerName" placeholder="Gib deinen Namen ein">
                     <button @click="joinPlayer()">Starten</button>
                 </div>
             </div>

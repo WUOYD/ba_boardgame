@@ -317,53 +317,53 @@ export default {
                     this.questNameMonster = activePlayer.quest.questMonster.name
                     this.questTextMonster = activePlayer.quest.questMonsterText
                 }
-            } else {
-                this.playerHasQuest = false
-            }
-            if (activePlayer.quest.rewardGood.move != "-" || activePlayer.quest.rewardBad.move != "-") {
-                if (activePlayer.quest.rewardGood.move != "-") {
-                    switch (activePlayer.quest.rewardGood.move[0]) {
-                        case "SwordSword":
-                            this.rewardGoodMove = this.movesTableCombinationSwordSword[activePlayer.quest.rewardGood.move[1]]
-                            break
-                        case "SwordMagic":
-                            this.rewardGoodMove = this.movesTableCombinationSwordMagic[activePlayer.quest.rewardGood.move[1]]
-                            break
-                        case "MagicMagic":
-                            this.rewardGoodMove = this.movesTableCombinationMagicMagic[activePlayer.quest.rewardGood.move[1]]
-                            break
-                        case "MagicSkull":
-                            this.rewardGoodMove = this.movesTableCombinationMagicSkull[activePlayer.quest.rewardGood.move[1]]
-                            break
-                        case "SkullSkull":
-                            this.rewardGoodMove = this.movesTableCombinationSkullSkull[activePlayer.quest.rewardGood.move[1]]
-                            break
-                        case "SwordSkull":
-                            this.rewardGoodMove = this.movesTableCombinationSwordSkull[activePlayer.quest.rewardGood.move[1]]
-                            break
-                    }
-                } else {
-                    switch (activePlayer.quest.rewardBad.move[0]) {
-                        case "SwordSword":
-                            this.rewardBadMove = this.movesTableCombinationSwordSword[activePlayer.quest.rewardBad.move[1]]
-                            break
-                        case "SwordMagic":
-                            this.rewardBadMove = this.movesTableCombinationSwordMagic[activePlayer.quest.rewardBad.move[1]]
-                            break
-                        case "MagicMagic":
-                            this.rewardBadMove = this.movesTableCombinationMagicMagic[activePlayer.quest.rewardBad.move[1]]
-                            break
-                        case "MagicSkull":
-                            this.rewardBadMove = this.movesTableCombinationMagicSkull[activePlayer.quest.rewardBad.move[1]]
-                            break
-                        case "SkullSkull":
-                            this.rewardBadMove = this.movesTableCombinationSkullSkull[activePlayer.quest.rewardBad.move[1]]
-                            break
-                        case "SwordSkull":
-                            this.rewardBadMove = this.movesTableCombinationSwordSkull[activePlayer.quest.rewardBad.move[1]]
-                            break
+                if (activePlayer.quest.rewardGood.move != "-" || activePlayer.quest.rewardBad.move != "-") {
+                    if (activePlayer.quest.rewardGood.move != "-") {
+                        switch (activePlayer.quest.rewardGood.move[0]) {
+                            case "SwordSword":
+                                this.rewardGoodMove = this.movesTableCombinationSwordSword[activePlayer.quest.rewardGood.move[1]]
+                                break
+                            case "SwordMagic":
+                                this.rewardGoodMove = this.movesTableCombinationSwordMagic[activePlayer.quest.rewardGood.move[1]]
+                                break
+                            case "MagicMagic":
+                                this.rewardGoodMove = this.movesTableCombinationMagicMagic[activePlayer.quest.rewardGood.move[1]]
+                                break
+                            case "MagicSkull":
+                                this.rewardGoodMove = this.movesTableCombinationMagicSkull[activePlayer.quest.rewardGood.move[1]]
+                                break
+                            case "SkullSkull":
+                                this.rewardGoodMove = this.movesTableCombinationSkullSkull[activePlayer.quest.rewardGood.move[1]]
+                                break
+                            case "SwordSkull":
+                                this.rewardGoodMove = this.movesTableCombinationSwordSkull[activePlayer.quest.rewardGood.move[1]]
+                                break
+                        }
+                    } else {
+                        switch (activePlayer.quest.rewardBad.move[0]) {
+                            case "SwordSword":
+                                this.rewardBadMove = this.movesTableCombinationSwordSword[activePlayer.quest.rewardBad.move[1]]
+                                break
+                            case "SwordMagic":
+                                this.rewardBadMove = this.movesTableCombinationSwordMagic[activePlayer.quest.rewardBad.move[1]]
+                                break
+                            case "MagicMagic":
+                                this.rewardBadMove = this.movesTableCombinationMagicMagic[activePlayer.quest.rewardBad.move[1]]
+                                break
+                            case "MagicSkull":
+                                this.rewardBadMove = this.movesTableCombinationMagicSkull[activePlayer.quest.rewardBad.move[1]]
+                                break
+                            case "SkullSkull":
+                                this.rewardBadMove = this.movesTableCombinationSkullSkull[activePlayer.quest.rewardBad.move[1]]
+                                break
+                            case "SwordSkull":
+                                this.rewardBadMove = this.movesTableCombinationSwordSkull[activePlayer.quest.rewardBad.move[1]]
+                                break
+                        }
                     }
                 }
+            } else {
+                this.playerHasQuest = false
             }
         })
         socket.on("questReward", () => {

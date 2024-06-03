@@ -6,46 +6,27 @@
         </div>
     </div>
     <div id="contentRight">
-        <h1>{{ playerName }}</h1>
+        <div id="playerName">
+            <h1>{{ playerName }}</h1>
+        </div>
         <div id="playerStatistics">
-            <div class="headerItem" id="playerStatisticsGeneral">
-                <div class="statElementBorder">
-                    <div class="levelElement border">
-                        <img :src="imageGold" />
-                        <p>{{ playerGold }}</p>
-                    </div>
-                    <p>Gold</p>
-                </div>
-                <div class="statElementBorder">
-                    <div class="levelElement border">
-                        <img :src="imageHealth" />
-                        <p>{{ playerHealth }}</p>
-                    </div>
-                    <p>Leben</p>
-                </div>
-            </div>
             <div class="headerItem" id="playerStatisticsLevels">
-                <div class="levelElementBorder">
-                    <div class="levelElement border">
+                    <div class="levelElement">
                         <img :src="imageClaw" />
-                        <p>{{ clawLevel }}</p>
+                        <div class="levelElementText">Schwert</div>
+                        <p>+{{ clawLevel }}</p>
                     </div>
-                    <p>Schwert</p>
-                </div>
-                <div class="levelElementBorder">
-                    <div class="levelElement border">
+                    <div class="levelElement">
                         <img :src="imageMagic" />
-                        <p>{{ magicLevel}}</p>
+                        <div class="levelElementText">Schild</div>
+                        <p>+{{ magicLevel}}</p>
                     </div>
-                    <p>Schild</p>
-                </div>
-                <div class="levelElementBorder">
-                    <div class="levelElement border">
+                    <div class="levelElement">
                         <img :src="imageSkull" />
-                        <p>{{ skullLevel}}</p>
+                        <div class="levelElementText">Totenkopf</div>
+                        <p>+{{ skullLevel}}</p>
                     </div>
-                    <p>Totenkopf</p>
-                </div>
+                    
             </div>
         </div>
         <div id="movesPlayer">
@@ -215,13 +196,14 @@ export default {
     width: 70%;
     height: 100%;
     flex-direction: column;
+    justify-content: center;
 }
 
 #playerStatistics {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 35%;
+    height: 10%;
 }
 
 #playerImage img {
@@ -246,7 +228,16 @@ p {
     margin: 0;
 }
 
-h1 {
+#playerName{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10%;
+}
+
+#playerName h1 {
+    width: 50%;
+    height: 100%;
     border-top: 1px solid #f7e4c2;
     border-bottom: 1px solid #f7e4c2;
 }
@@ -336,6 +327,7 @@ h1 {
 }
 
 .headerItem {
+    cursor: default;
     display: flex;
     height: 100%;
 }
@@ -346,44 +338,49 @@ h1 {
     height: auto;
     margin: 5px;
     padding: 5px;
+    background-color: rgba(50, 50, 50, 0.5);
+    border-radius: 10px;
+    font-size: 18px;
 }
 
 .levelElement img {
     display: flex;
-    width: 50%;
+    width: 20%;
     height: auto;
     border-radius: 10px;
 }
 
+
 .levelElement p {
+    width: 40% !important;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 50%;
-    font-size: 24px;
+    font-size: 16px;
     height: auto;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
 }
 
-#playerStatisticsGeneral {
-    display: flex;
-    justify-content: flex-start;
+.levelElementText{
     width: 100%;
-    height: 50%;
-    margin-right: 0%;
-    margin-left: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #playerStatisticsLevels {
     justify-content: flex-start;
     align-items: flex-end;
     width: 100%;
-    height: 50%;
+    height: 100%;
     margin-right: 0%;
     margin-left: 0%;
 }
 
 .levelElementBorder{
-    width: 15%;
+    width: 33,3333%;
 }
 
 .statElementBorder{
