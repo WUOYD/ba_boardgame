@@ -237,14 +237,17 @@ p {
 
 table {
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 td p{
     margin-bottom: 0px;
     text-align: center;
+    font-size: 16px;
 }
 
 tr {
+    font-size: 16px;
     height: 40px;
 }
 
@@ -257,8 +260,10 @@ tr {
 
 #monster img{
     width: 100%;
+    height: 100%;
     overflow: hidden;
     object-fit: cover;
+    border-radius: 10px;
 }
 
 #loot img {

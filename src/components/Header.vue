@@ -2,7 +2,7 @@
 <div id="header">
     <div class="menu-wrapper">
         <div class="menu-item" id="return" @click="updateView(2)">
-            <p>Zurück</p>
+            <img :src="returnIcon">
         </div>
         <div class="menu-item" id="logo">
             <img :src="logo">
@@ -52,7 +52,8 @@ import {
 export default {
     data() {
         return {
-            logo: "src/assets/logo/Logo.png"
+            logo: "src/assets/logo/Logo.png",
+            returnIcon: "/src/assets/icons/return.png",
         }
     },
     methods: {
@@ -63,3 +64,9 @@ export default {
     }
 }
 </script>
+
+<style>
+#return img{
+ rotate: 180deg;
+}
+</style>

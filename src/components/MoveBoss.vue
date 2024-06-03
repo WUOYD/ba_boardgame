@@ -40,18 +40,18 @@ export default {
 
 <style scoped>
 .content {
-    /* display: none !important; */
     position: relative;
     height: 100vh;
     width: 100vw;
     z-index: 1;
 }
 
-/* ================== INTRO ====================== */
-
 button {
     margin-right: 2%;
     margin-left: 2%;
 }
 
+#moveBossText p{
+    font-size: 20px;
+}
 </style>

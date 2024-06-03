@@ -1,6 +1,5 @@
 <template>
 <div class="content single">
-    <h1>Actions</h1>
     <div id="headerActions">
         <div id="headerSectionLeft">
             <div class="headerItem">
@@ -21,9 +20,6 @@
             <h2>{{ playerName }}</h2>
             <div id="playerActions">
                 <div v-for="cell in cells" :key="cell.id" :class="{ 'cell': true, 'colored': cell.colored }"></div>
-            </div>
-            <div id="currentIsland">
-                <p>Current Island: {{ this.playerRegion }}</p>
             </div>
         </div>
         <div id="headerSectionRight">
@@ -96,7 +92,7 @@ export default {
             imageQuestBig: "/src/assets/icons/quest_big.png",
             imageGold: "/src/assets/icons/gold.png",
             imageMap: "/src/assets/icons/map.png",
-            imagePlayer: "/src/assets/img/player/player.webp",
+            imagePlayer: null,
             playerName: null,
             playerActions: null,
             playerHealth: null,
@@ -126,7 +122,8 @@ export default {
             this.actionsUsedChangeIsland = activePlayer.actionsUsed.changeIsland;
             this.actionsUsedQuest = activePlayer.actionsUsed.quest;
             this.actionsUsedBoss = activePlayer.actionsUsed.boss;
-            this.playerIsActive = activePlayer.playerIsActive
+            this.playerIsActive = activePlayer.playerIsActive;
+            this.imagePlayer = activePlayer.picture;
             this.playerHealth = activePlayer.health;
             this.playerGold = activePlayer.gold;
             if(activePlayer.quest != null){
@@ -232,6 +229,16 @@ export default {
     color: #f7e4c2;
 }
 
+* {
+    color: #f7e4c2;
+}
+
+h2 {
+    font-size: 32px;
+    border-top: 1px solid #f7e4c2;
+    border-bottom: 1px solid #f7e4c2;
+}
+
 #playerActions {
     display: flex;
     margin-bottom: 20px;
@@ -286,6 +293,11 @@ export default {
     width: 30%;
     height: 20%;
     background-color: rgba(0,0,0,0.5) 
+}
+
+.confirmationElement p{
+    font-size: 20px;
+
 }
 
 #headerActions img {
@@ -358,5 +370,24 @@ export default {
     cursor: pointer;
     display: flex;
     align-items: flex-end;
+}
+
+#buttons{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+#buttons button {
+    width: 40%;
+    cursor: pointer;
+    border-width: 1px;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 16px;
+}
+
+#currentIsland p{
+    font-size: 16px
 }
 </style>

@@ -88,7 +88,7 @@ class Game {
 }
 
 class Player {
-  constructor(name, region, playerImage) {
+  constructor(name, region, playerImage, playerImageFull) {
     this.name = name;
     this.region = region;
     this.host = false;
@@ -119,6 +119,7 @@ class Player {
     this.reflect = 0;
     this.damageNextRound = 0;
     this.picture = playerImage;
+    this.pictureFull = playerImageFull;
     this.moves = [[1, []], [1, []], [1, []], [1, []], [1, []], [1, []]];
     this.clawLevel = 0;
     this.skullLevel = 0;
@@ -245,22 +246,27 @@ io.on('connection', (socket) => {
         break;
     }
     let playerImage
+    let playerImageFull
     switch (playerCount){
       case 0:
-        playerImage = "src/assets/img/player/PlayerImage_Cervidor.webp"
+        playerImage = "src/assets/img/player/ranger_portrait.webp"
+        playerImageFull = "src/assets/img/player/ranger_full.webp"
         break
       case 1:
-        playerImage = "src/assets/img/player/PlayerImage_Corvulyn.webp"
+        playerImage = "src/assets/img/player/mage_portrait.webp"
+        playerImageFull = "src/assets/img/player/mage_full.webp"
         break
       case 2:
-        playerImage = "src/assets/img/player/PlayerImage_Bragonar.webp"
+        playerImage = "src/assets/img/player/barbarian_portrait.webp"
+        playerImageFull = "src/assets/img/player/barbarian_full.webp"
         break
       case 3:
-        playerImage = "src/assets/img/player/PlayerImage_Pytharion.webp"
+        playerImage = "src/assets/img/player/thief_portrait.webp"
+        playerImageFull = "src/assets/img/player/thief_full.webp"
         break
     }
     playerCount++
-    const playerObject = new Player(playerName, region, playerImage);
+    const playerObject = new Player(playerName, region, playerImage, playerImageFull);
     lobby[socket.id] = playerObject;
     playerList.push(lobby[socket.id]);
     playerReadyList.push(false);

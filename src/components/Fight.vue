@@ -16,7 +16,6 @@
     </div>
 </div>
 <div class="content single">
-    <h1>Fight</h1>
     <div id="statistics">
         <div :class="{ 'activeFighter': fightTurn === 'player' }" id="playerStatistics">
             <div class="staticticsContent">
@@ -321,14 +320,19 @@ export default {
             this.selectedOptionMonster = option;
         },
         readSelectedOptionPlayer() {
-            socket.emit("diceRollPlayer", this.selectedOptionPlayer);
-            this.selectedOptionPlayer = null;
-            this.fightTurn = "monster";
+            if (this.selectedOptionPlayer != null) {
+                socket.emit("diceRollPlayer", this.selectedOptionPlayer);
+                this.selectedOptionPlayer = null;
+                this.fightTurn = "monster";
+            }
         },
         readSelectedOptionMonster() {
-            socket.emit("diceRollMonster", this.selectedOptionMonster);
-            this.selectedOptionMonster = null;
-            this.fightTurn = "player";
+            if (this.selectedOptionMonster != null) {
+                socket.emit("diceRollMonster", this.selectedOptionMonster);
+                this.selectedOptionMonster = null;
+                this.fightTurn = "player";
+            }
+
         },
         updateView(comp) {
             socket.emit("updateView", comp);
@@ -435,19 +439,25 @@ p {
 .moveName {
     display: flex;
     width: 100%;
-    height: 50%;
+    height: 60%;
     font-size: 20px;
     align-items: center;
-    justify-content: left;
+    justify-content: flex-start;
+    text-align: start;
+    align-items: center;
 }
 
 .moveText {
     display: flex;
     width: 100%;
-    height: 50%;
-    justify-content: flex-start;
-    align-items: center;
+    height: 40%;
     font-size: 14px;
+    margin-bottom: 0px;
+    justify-content: flex-start;
+    text-align: start;
+    align-items: center;
+    font-weight: 300;
+
 }
 
 .movesCombinationPlayer button,
@@ -456,17 +466,18 @@ p {
     flex-direction: row;
     width: 100%;
     background-color: rgba(50, 50, 50, 0.5);
-    border: none;
+    border: 1px solid transparent;
     border-radius: 5px;
 }
 
 .selected {
     background-color: rgba(50, 50, 50, 0.8) !important;
+    border: 1px solid #f7e4c2 !important;
 }
 
 .statisticsImage img {
-    height: 100%;
-    width: 100%;
+    height: 80%;
+    width: auto;
     border-radius: 5px;
     overflow: hidden;
     object-fit: cover;
@@ -477,7 +488,7 @@ p {
 .activeFighter {
     background-color: rgba(50, 50, 50, 0.3);
     border-radius: 10px;
-    border: 1px solid #f7e4c2;
+    border: 1px solid #f7e4c2 !important;
 }
 
 .buttonCombinationImages img {
@@ -487,7 +498,7 @@ p {
 
 #statistics {
     width: 100%;
-    height: 30%;
+    height: 40%;
     display: flex;
     flex-direction: row;
     position: relative;
@@ -495,20 +506,22 @@ p {
 
 #playerStatistics {
     display: flex;
-    width: 45%;
-    height: 80%;
+    width: 47.5%;
+    height: 90%;
     display: flex;
     padding: 1%;
+    border: 1px solid transparent;
 }
 
 #monsterStatistics {
-    height: 80%;
-    width: 45%;
+    height: 90%;
+    width: 47.5%;
     display: flex;
     padding: 1%;
     flex-direction: column;
     position: absolute;
     right: 0;
+    border: 1px solid transparent;
 }
 
 .statisticsImage,
@@ -585,7 +598,6 @@ td {
     align-items: center;
 }
 
-
 .overlay-content h2 {
     width: auto;
 }
@@ -602,4 +614,9 @@ td {
 #commaSpan {
     margin-right: 10px;
 }
+
+span {
+    text-align: left;
+}
+
 </style>

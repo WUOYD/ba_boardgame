@@ -1,55 +1,78 @@
 <template>
-<div class="content single">
-    <h1>Character</h1>
-    <div id="playerInfos">
+<div class="content" id="character">
+    <div id="contentLeft">
         <div id="playerImage">
-            <img :src="playerPicture" width="250" height="250" />
+            <img :src="playerPictureFull" />
         </div>
-        <table>
-            <tbody>
-                <tr>
-                    <th>Name</th>
-                    <td>
-                        <p>{{ playerName }}</p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Health</th>
-                    <td>
-                        <p>{{ playerHealth }}</p>
-                    </td>
-                </tr>
-                <th>Gold</th>
-                <td>
-                    <p>{{ playerGold }}</p>
-                </td>
-            </tbody>
-        </table>
     </div>
-    <div id="movesPlayer">
-        <div v-for="(option, index) in optionsPlayer" :key="index" class="movesCombinationPlayer">
-            <div class="movesContentLeft">
-                <div class="movesImages">
-                    <img :src="moveImages[index][0]" width="100" height="100" />
-                    <img :src="moveImages[index][1]" width="100" height="100" />
+    <div id="contentRight">
+        <h1>{{ playerName }}</h1>
+        <div id="playerStatistics">
+            <div class="headerItem" id="playerStatisticsGeneral">
+                <div class="statElementBorder">
+                    <div class="levelElement border">
+                        <img :src="imageGold" />
+                        <p>{{ playerGold }}</p>
+                    </div>
+                    <p>Gold</p>
+                </div>
+                <div class="statElementBorder">
+                    <div class="levelElement border">
+                        <img :src="imageHealth" />
+                        <p>{{ playerHealth }}</p>
+                    </div>
+                    <p>Leben</p>
                 </div>
             </div>
-            <div class="movesContentRight">
-                <div class="moveName">
-                    {{ moveNamePlayer[index] }}
+            <div class="headerItem" id="playerStatisticsLevels">
+                <div class="levelElementBorder">
+                    <div class="levelElement border">
+                        <img :src="imageClaw" />
+                        <p>{{ clawLevel }}</p>
+                    </div>
+                    <p>Schwert</p>
                 </div>
-                <div class="moveText">
-                    <span v-if="moveDamagePlayer[index] !== '-'">{{ moveDamagePlayer[index] + clawLevel + skullLevel}} Schaden</span>
-                    <span id="commaSpan" v-if="moveDamagePlayer[index] !== '-' && moveBlockPlayer[index] !== '-'">,</span>
-                    <span v-if="moveBlockPlayer[index] !== '-'">{{ moveBlockPlayer[index] + magicLevel + skullLevel}} Block</span>
-                    <span id="commaSpan" v-if="moveBlockPlayer[index] !== '-' && moveHealPlayer[index] !== '-'">,</span>
-                    <span v-if="moveHealPlayer[index] !== '-'">{{ moveHealPlayer[index] + magicLevel+ skullLevel }} Heilen</span>
-                    <span id="commaSpan" v-if="moveHealPlayer[index] !== '-' && moveDotPlayer[index] !== '-'">,</span>
-                    <span v-if="moveDotPlayer[index] !== '-'">{{ moveDotPlayer[index] + skullLevel}} Schaden jede Runde</span>
-                    <span id="commaSpan" v-if="moveDotPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
-                    <span v-if="moveReflectPlayer[index] !== '-'">{{ moveReflectPlayer[index] + magicLevel + skullLevel}} Reflektieren</span>
-                    <span id="commaSpan" v-if="moveReflectPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
-                    <span v-if="moveDamageNextRoundPlayer[index] !== '-'">{{ moveDamageNextRoundPlayer[index] + skullLevel}} Schaden nächste Runde</span>
+                <div class="levelElementBorder">
+                    <div class="levelElement border">
+                        <img :src="imageMagic" />
+                        <p>{{ magicLevel}}</p>
+                    </div>
+                    <p>Schild</p>
+                </div>
+                <div class="levelElementBorder">
+                    <div class="levelElement border">
+                        <img :src="imageSkull" />
+                        <p>{{ skullLevel}}</p>
+                    </div>
+                    <p>Totenkopf</p>
+                </div>
+            </div>
+        </div>
+        <div id="movesPlayer">
+            <div v-for="(option, index) in optionsPlayer" :key="index" class="movesCombinationPlayer">
+                <div class="movesContentLeft">
+                    <div class="movesImages">
+                        <img :src="moveImages[index][0]" />
+                        <img :src="moveImages[index][1]" />
+                    </div>
+                </div>
+                <div class="movesContentRight">
+                    <div class="moveName">
+                        {{ moveNamePlayer[index] }}
+                    </div>
+                    <div class="moveText">
+                        <span v-if="moveDamagePlayer[index] !== '-'">{{ moveDamagePlayer[index] + clawLevel + skullLevel}} Schaden</span>
+                        <span id="commaSpan" v-if="moveDamagePlayer[index] !== '-' && moveBlockPlayer[index] !== '-'">,</span>
+                        <span v-if="moveBlockPlayer[index] !== '-'">{{ moveBlockPlayer[index] + magicLevel + skullLevel}} Block</span>
+                        <span id="commaSpan" v-if="moveBlockPlayer[index] !== '-' && moveHealPlayer[index] !== '-'">,</span>
+                        <span v-if="moveHealPlayer[index] !== '-'">{{ moveHealPlayer[index] + magicLevel+ skullLevel }} Heilen</span>
+                        <span id="commaSpan" v-if="moveHealPlayer[index] !== '-' && moveDotPlayer[index] !== '-'">,</span>
+                        <span v-if="moveDotPlayer[index] !== '-'">{{ moveDotPlayer[index] + skullLevel}} Schaden jede Runde</span>
+                        <span id="commaSpan" v-if="moveDotPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
+                        <span v-if="moveReflectPlayer[index] !== '-'">{{ moveReflectPlayer[index] + magicLevel + skullLevel}} Reflektieren</span>
+                        <span id="commaSpan" v-if="moveReflectPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
+                        <span v-if="moveDamageNextRoundPlayer[index] !== '-'">{{ moveDamageNextRoundPlayer[index] + skullLevel}} Schaden nächste Runde</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -86,6 +109,11 @@ export default {
                 ["src/assets/icons/skull.png", "src/assets/icons/skull.png"],
                 ["src/assets/icons/skull.png", "src/assets/icons/claw.png"],
             ],
+            imageGold: "/src/assets/icons/gold.png",
+            imageHealth: "/src/assets/icons/heart.png",
+            imageClaw: "src/assets/icons/claw.png",
+            imageMagic: "src/assets/icons/magic.png",
+            imageSkull: "src/assets/icons/skull.png",
             moveTables: null,
             clawLevel: 0,
             magicLevel: 0,
@@ -118,6 +146,7 @@ export default {
         socket.on("updatePlayer", activePlayer => {
             this.playerName = activePlayer.name;
             this.playerPicture = activePlayer.picture;
+            this.playerPictureFull = activePlayer.pictureFull;
             this.playerActions = activePlayer.actions;
             this.playerHealth = activePlayer.health;
             this.playerReputation = activePlayer.reputation;
@@ -130,20 +159,20 @@ export default {
             this.skullLevel = activePlayer.skullLevel;
 
             for (let i = 0; i < 6; i++) {
-                    const moveIndex = activePlayer.moves[i][0];
-                    const moveTable = this.moveTables[i];
+                const moveIndex = activePlayer.moves[i][0];
+                const moveTable = this.moveTables[i];
 
-                    if (moveTable && moveTable[moveIndex]) {
-                        const move = moveTable[moveIndex];
-                        this.moveNamePlayer[i] = move.name || "-";
-                        this.moveDamagePlayer[i] = move.damage !== 0 ? move.damage : "-";
-                        this.moveBlockPlayer[i] = move.block !== 0 ? move.block : "-";
-                        this.moveHealPlayer[i] = move.heal !== 0 ? move.heal : "-";
-                        this.moveDotPlayer[i] = move.dot !== 0 ? move.dot : "-";
-                        this.moveReflectPlayer[i] = move.reflect !== 0 ? move.reflect : "-";
-                        this.moveDamageNextRoundPlayer[i] = move.damageNextRound !== 0 ? move.damageNextRound : "-";
-                    }
+                if (moveTable && moveTable[moveIndex]) {
+                    const move = moveTable[moveIndex];
+                    this.moveNamePlayer[i] = move.name || "-";
+                    this.moveDamagePlayer[i] = move.damage !== 0 ? move.damage : "-";
+                    this.moveBlockPlayer[i] = move.block !== 0 ? move.block : "-";
+                    this.moveHealPlayer[i] = move.heal !== 0 ? move.heal : "-";
+                    this.moveDotPlayer[i] = move.dot !== 0 ? move.dot : "-";
+                    this.moveReflectPlayer[i] = move.reflect !== 0 ? move.reflect : "-";
+                    this.moveDamageNextRoundPlayer[i] = move.damageNextRound !== 0 ? move.damageNextRound : "-";
                 }
+            }
 
         })
         socket.emit("getMovesTables");
@@ -157,6 +186,10 @@ export default {
 </script>
 
 <style scoped>
+.content {
+    height: 90% !important;
+}
+
 #playerInfos {
     display: flex;
     justify-content: center;
@@ -164,27 +197,46 @@ export default {
     width: 100%;
 }
 
+#character {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+#contentLeft {
+    display: flex;
+    width: 30%;
+    height: 100%;
+}
+
+#contentRight {
+    display: flex;
+    width: 70%;
+    height: 100%;
+    flex-direction: column;
+}
+
 #playerStatistics {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    width: 50%;
-    border: solid 1px white;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 35%;
+}
+
+#playerImage img {
+    display: flex;
+    justify-content: center;
+    height: 100%;
 }
 
 #playerImage {
-    width: 50%;
-}
-
-.cell {
-    border: solid 1px white;
+    width: 100%;
     display: flex;
-    place-items: center;
+    box-sizing: border-box;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
+    padding: 1%;
 }
 
 p {
@@ -194,35 +246,27 @@ p {
     margin: 0;
 }
 
-table {
-    width: 50%;
-}
-
-th,
-td {
-    width: 50%;
-    border-bottom: #333333 dotted 1px;
-    font-size: 16px;
-}
-
-td p {
-    font-size: 16px;
+h1 {
+    border-top: 1px solid #f7e4c2;
+    border-bottom: 1px solid #f7e4c2;
 }
 
 #movesPlayer {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    height: 40%;
+    height: 50%;
+    width: 100%;
+    padding: 1%;
 }
 
 #movesPlayer .movesCombinationPlayer {
     flex-basis: calc(50% - 5px);
+    height: calc(33.333% - 5px);
     box-sizing: border-box;
     padding: 5px;
     background-color: rgba(50, 50, 50, 0.2);
     border-radius: 10px;
-    height: 120px;
     display: flex;
     flex-direction: row;
 }
@@ -243,16 +287,18 @@ td p {
 }
 
 .movesContentLeft {
+    display: flex;
     width: 50%;
     height: 100%;
     align-items: center;
 }
 
 .movesContentRight {
+    display: flex;
     width: 50%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-
 }
 
 .movesImages {
@@ -262,11 +308,17 @@ td p {
     justify-content: center;
 }
 
+.movesImages img {
+    height: 70%;
+    width: 70%;
+}
+
 .moveName {
     display: flex;
     width: 100%;
     height: 50%;
-    font-size: 20px;
+    text-align: left;
+    font-size: 16px;
     align-items: center;
 }
 
@@ -281,5 +333,60 @@ td p {
 
 #commaSpan {
     margin-right: 10px;
+}
+
+.headerItem {
+    display: flex;
+    height: 100%;
+}
+
+.levelElement {
+    display: flex;
+    width: 33, 333%;
+    height: auto;
+    margin: 5px;
+    padding: 5px;
+}
+
+.levelElement img {
+    display: flex;
+    width: 50%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.levelElement p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    font-size: 24px;
+    height: auto;
+}
+
+#playerStatisticsGeneral {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    height: 50%;
+    margin-right: 0%;
+    margin-left: 0%;
+}
+
+#playerStatisticsLevels {
+    justify-content: flex-start;
+    align-items: flex-end;
+    width: 100%;
+    height: 50%;
+    margin-right: 0%;
+    margin-left: 0%;
+}
+
+.levelElementBorder{
+    width: 15%;
+}
+
+.statElementBorder{
+    width: 20%;
 }
 </style>

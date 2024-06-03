@@ -120,6 +120,10 @@ export default {
     flex-direction: row;
 }
 
+#currentIsland p {
+    font-size: 16px;
+}
+
 #islands {
     width: 60%;
     display: flex;
@@ -153,6 +157,7 @@ export default {
     border-radius: 25px;
 }
 
+
 .overlay-content {
     position: absolute;
     top: 40%;
@@ -168,26 +173,30 @@ export default {
     border-radius: 15px;
 }
 
+.overlay-content p {
+    font-size: 20px;
+}
+
 #changeRegionPopUp img {
     width: 100%;
     height: 100%;
     overflow: hidden;
     object-fit: cover;
+    border-radius: 10px;
 }
 
-.buttons{
+#buttons{
     display: flex;
     width: 100%;
+    justify-content: center;
 }
 
-.buttons button {
+#buttons button {
     width: 40%;
-    background-color: transparent;
-    border-radius: 10px;
-    border-color: white;
     cursor: pointer;
-    font-size: 16px;
-    color: white;
     border-width: 1px;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 16px;
 }
 </style>
