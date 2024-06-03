@@ -139,7 +139,7 @@ export default {
 
 .island img{
     border-radius: 20px;
-    width: 100%;
+    width: 90%;
 }
 
 .island p {
@@ -170,7 +170,8 @@ export default {
     align-items: center;
     color: white;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid #f7e4c2;
     border-radius: 15px;
 }
 

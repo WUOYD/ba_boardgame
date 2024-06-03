@@ -3,7 +3,7 @@
     <div id="headerActions">
         <div id="headerSectionLeft">
             <div class="headerItem">
-                <img :src="imagePlayer" width="100" height="100" @click="updateView(1)" />
+                <img :src="imagePlayer" width="120" height="120" @click="updateView(1)" />
             </div>
             <div class="headerItem" id="playerStatisticsActions">
                 <div id="playerGold">
@@ -24,10 +24,10 @@
         </div>
         <div id="headerSectionRight">
             <div class="headerItem">
-                <img :src="imageMap" width="100" height="100" @click="updateView(8)" />
+                <img :src="imageMap" width="120" height="120" @click="updateView(8)" />
             </div>
             <div class="headerItem">
-                <img :src="imageQuestBig" width="100" height="100" @click="updateView(5)" />
+                <img :src="imageQuestBig" width="120" height="120" @click="updateView(5)" />
             </div>
         </div>
     </div>
@@ -62,14 +62,14 @@
             <p>Bestätige das du auf dem Questfeld bist.</p>
             <div id="buttons">
                 <button @click="quest()">Bestätigen</button>
-                <button @click="this.confirmation == 'none'">Ablehnen</button>
+                <button @click="this.confirmation = 'none'">Ablehnen</button>
             </div>
         </div>
         <div v-if="this.confirmation == 'Boss'" class="confirmationElement">
             <p>Bestätige das du auf dem Bossfeld bist.</p>
             <div id="buttons">
                 <button @click="boss()">Bestätigen</button>
-                <button @click="this.confirmation == 'none'">Ablehnen</button>
+                <button @click="this.confirmation = 'none'">Ablehnen</button>
             </div>
         </div>
     </div>
@@ -239,6 +239,13 @@ export default {
     border-bottom: 1px solid #f7e4c2;
 }
 
+#headerSectionMiddle  {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #playerActions {
     display: flex;
     margin-bottom: 20px;
@@ -270,6 +277,7 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    height: 20%;
     margin-bottom: 5%;
 }
 
@@ -301,6 +309,7 @@ export default {
 }
 
 #headerActions img {
+    width: 100%;
     border-radius: 50%;
     border: 3px solid #f7e4c2;
 }
@@ -316,13 +325,14 @@ export default {
 #headerSectionLeft {
     display: flex;
     flex-direction: row;
-    width: 20%;
+    width: 30%;
 }
 
 #headerSectionRight {
     display: flex;
     flex-direction: row;
-    width: 20%;
+    justify-content: flex-end;
+    width: 30%;
 }
 
 .headerItem {

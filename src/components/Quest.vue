@@ -183,8 +183,8 @@
                 <div class="questContent">
                     <div class="questText">
                         <p>{{ questTextOfferer }}</p>
-                        <p v-if="optionPicked == 'Good'">{{ optionGoodText }}</p>
-                        <p v-else>{{ optionBadText }}</p>
+                            <p class="optionTexts" v-if="optionPicked == 'Good'">{{ optionGoodText }}</p>
+                            <p class="optionTexts" v-else>{{ optionBadText }}</p>
                     </div>
                     <div id="questMapIcon">
                         <img :src="this.mapIcon" @click="this.showMap()" />
@@ -517,6 +517,11 @@ export default {
 #questMapIcon img {
     width: auto;
     height: 50%;
+}
+
+.optionTexts{
+    border-top: 1px solid #f7e4c2;
+    border-bottom: 1px solid #f7e4c2;
 }
 
 #questMap {

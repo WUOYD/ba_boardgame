@@ -1,8 +1,8 @@
 <template>
 <div v-if="winner === 'player'" class="winner">
     <div class="overlay-content">
-        <h2>Player won</h2>
-        <p>{{ playerName }} has slain {{ monsterName }}</p>
+        <h2>Spieler gewonnen</h2>
+        <p>{{ playerName }} hat {{ monsterName }} besiegt!</p>
         <p>Victory Points: {{ monsterVictoryPoints }}</p>
         <p>Gold: {{ monsterRewardGold }}</p>
         <button class="close-btn" @click="closeFight()">Zurück</button>
@@ -10,8 +10,8 @@
 </div>
 <div v-if="winner === 'monster'" class="winner">
     <div class="overlay-content">
-        <h2>Monster</h2>
-        <p>{{ monsterName }} has slain {{ playerName }}</p>
+        <h2>Monster gewonnen</h2>
+        <p>{{ monsterName }} hat {{ playerName }} besiegt!</p>
         <button class="close-btn" @click="closeFight()">Zurück</button>
     </div>
 </div>

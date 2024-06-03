@@ -1246,6 +1246,7 @@ function diceRollMonster(socket, activePlayer, rollMonster) {
   });
   if (winner) {
     socket.emit("fightWinner", false)
+    activePlayer.health = 5;
     return
   }
   return

@@ -211,7 +211,7 @@ const monsterTableBronzeTalvar= [
         health: 6,
         victoryPoints: 1,
         gold: 3,
-        image: "src/assets/img/monster/Hogoblin.webp",
+        image: "src/assets/img/monster/Hobgoblin.webp",
         moves: [
             { name: "Fauler Atem", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
             { name: "Magisches Ritual", text: "1 Schaden, 1 Schaden nächste Runde", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },

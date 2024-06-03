@@ -1,9 +1,6 @@
 <template>
     <div class="content">
         <div class="intro">
-            <div id="resetButton">
-                <button @click="reset()">Reset</button>
-            </div>
             <div class="text-wrapper">
                 <img :src="logo">
             </div>
@@ -26,6 +23,9 @@
                     <p>Starten</p>
                     <button @click="joinViewer()">Starten</button>
                 </div>
+            </div>
+            <div id="resetButton">
+                <button @click="reset()">Reset Server</button>
             </div>
         </div>
     </div>
@@ -106,7 +106,7 @@ p {
 }
 
 .titleText {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .buttons{
@@ -131,10 +131,10 @@ input {
 }
 
 #resetButton{
-    margin-bottom: 100px;
+    margin-top: 50px;
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
 }
 
 
