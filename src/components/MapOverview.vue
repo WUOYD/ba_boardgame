@@ -172,66 +172,6 @@ export default {
 </script>
     
     
-<style scoped>
-.content {
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    padding: 7vh 10vw 7vh 10vw;
-}
+<style>
 
-#reputations {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-}
-
-.islandReputation {
-    display: flex;
-    flex-basis: calc(50% - 20px);
-    box-sizing: border-box;
-    padding: 10px;
-    flex-direction: column;
-}
-
- .reputationListContent {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    font-size: 16px;
-}
-
-.reputationListHeadline, .reputationListElement{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 50%;
-    font-size: 16px;
-}
-
-.reputationListElement{
-    border-bottom: dotted 1px;
-}
-
-.playerPlace,
-.playerName,
-.playerReputation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 33.3333%;
-    height: 100%;
-}
-
-
-img {
-    width: 45%;
-    height: auto;
-}
 </style>

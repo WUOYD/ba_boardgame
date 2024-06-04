@@ -8,7 +8,6 @@ import Viewer from './components/Viewer.vue'
 import Fight from './components/Fight.vue'
 import Map from './components/Map.vue'
 import MapOverview from './components/MapOverview.vue'
-import Options from './components/Options.vue'
 import Quest from './components/Quest.vue'
 import Investigation from './components/Investigation.vue'
 import Intro from './components/Intro.vue'
@@ -18,10 +17,10 @@ import MoveBoss from './components/MoveBoss.vue'
 </script>
 
 <template>
-<component :is="Header" v-if="comp == 'Map' || comp == 'Character' || comp == 'Quest' || comp == 'Options' || comp == 'Upgrades' || comp == 'MapOverview'"></component>
-<component :is="HeaderEmpty" v-else></component>
-<Titlescreen v-if="title" />
-<component :is="comp"></component>
+  <component :is="Header" v-if="comp == 'Map' || comp == 'Character' || comp == 'Quest' || comp == 'Options' || comp == 'Upgrades' || comp == 'MapOverview'"></component>
+  <component :is="HeaderEmpty" v-else></component>
+  <Titlescreen v-if="title" />
+  <component :is="comp"></component>
 </template>
 
 <script>
@@ -35,7 +34,6 @@ export default {
     Quest,
     Viewer,
     Fight,
-    Options,
     Investigation,
     Upgrades,
     MapOverview,
@@ -96,10 +94,24 @@ export default {
       this.comp = "Actions";
       socket.emit("getActivePlayer");
     })
+    this.lockOrientation();
   },
   methods: {
     updateView(comp) {
       this.comp = comp
+    },
+    lockOrientation() {
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock("landscape").catch(function(error) {
+          console.error("Screen orientation lock failed:", error);
+        });
+      } else if (window.screen.lockOrientation) {
+        window.screen.lockOrientation("landscape").catch(function(error) {
+          console.error("Screen orientation lock failed:", error);
+        });
+      } else {
+        console.warn("Screen orientation lock not supported on this browser.");
+      }
     }
   },
   beforeUnmount() {

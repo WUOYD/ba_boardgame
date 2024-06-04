@@ -39,19 +39,5 @@ export default {
 </script>
 
 <style scoped>
-.content {
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-    z-index: 1;
-}
 
-button {
-    margin-right: 2%;
-    margin-left: 2%;
-}
-
-#moveBossText p{
-    font-size: 20px;
-}
 </style>

@@ -11,39 +11,6 @@
 </div>
 </template>
 
-<style scoped>
-.menu-wrapper {
-    display: flex;
-    place-items: center;
-    align-items: center;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
-}
-
-p {
-    font-size: 16px;
-}
-
-#return{
-    box-sizing: border-box;
-    padding: 4%;
-    justify-content: flex-start;
-}
-
-.menu-item {
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    width: 33.3333%;
-}
-
-.menu-item img {
-    width: 30%;
-    height: auto;
-}
-</style>
-
 <script>
 import {
     socket
@@ -66,7 +33,5 @@ export default {
 </script>
 
 <style>
-#return img{
- rotate: 180deg;
-}
+
 </style>
