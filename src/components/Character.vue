@@ -10,7 +10,7 @@
             <h1>{{ playerName }}</h1>
         </div>
         <div id="playerStatistics">
-            <div class="headerItem" id="playerStatisticsLevels">
+            <div id="playerStatisticsLevels">
                     <div class="levelElement">
                         <img :src="imageClaw" />
                         <div class="levelElementText">Schwert</div>

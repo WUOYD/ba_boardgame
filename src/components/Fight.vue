@@ -15,7 +15,7 @@
         <button class="close-btn" @click="closeFight()">Zurück</button>
     </div>
 </div>
-<div class="content single">
+<div class="content">
     <div id="statistics">
         <div :class="{ 'activeFighter': fightTurn === 'player' }" id="playerStatistics">
             <div class="staticticsContent">
@@ -61,8 +61,8 @@
                     <img :src="monsterImage" width="250" height="250" />
                 </div>
                 <div class="statisticsTable">
-                    <h2>{{ monsterName }}</h2>
                     <table>
+                        <h2>{{ monsterName }}</h2>
                         <tbody>
                             <tr>
                                 <th>Leben</th>
@@ -94,10 +94,10 @@
             </div>
         </div>
     </div>
-    <div v-if="fightTurn === 'player'" id="diceCombinationsPlayer">
+    <div v-if="fightTurn === 'player'" id="diceCombinationsPlayerFight">
         <div id="movesPlayer">
             <div v-for="(option, index) in optionsPlayer" :key="index" class="movesCombinationPlayer">
-                <button :class="{ selected: selectedOptionPlayer === option }" @click="selectOptionPlayer(option)">
+                <button class="movesCombinationPlayerButtons" :class="{ selected: selectedOptionPlayer === option }" @click="selectOptionPlayer(option)">
                     <div class="movesContentLeft">
                         <div class="movesImages">
                             <img :src="moveImages[index][0]" width="100" height="100" />

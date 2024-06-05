@@ -1,7 +1,6 @@
 <template>
 <div class="content">
-    <h1>Aufwertungen</h1>
-    <div v-if="this.currentView === 'abilities' || this.currentView === 'equipment'" id="buttons">
+    <div v-if="this.currentView === 'abilities' || this.currentView === 'equipment'" id="buttonsUpgrade">
         <button class="selectedTab" v-if="this.currentView === 'abilities'">Fähigkeiten</button>
         <button v-else @click="this.currentView = 'abilities'">Fähigkeiten</button>
         <button class="selectedTab" v-if="this.currentView === 'equipment'">Ausrüstung</button>

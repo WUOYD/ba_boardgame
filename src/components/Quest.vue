@@ -1,8 +1,6 @@
 <template>
-<div class="content single">
-    <h1>Quest</h1>
+<div class="content">
     <div v-if="questView" id="questView">
-        <h2>Quest</h2>
         <div v-if="questStep == 'Deliver'" class="quest">
             <div class="questPicture">
                 <img :src="this.questPictureDeliver" />
@@ -20,7 +18,7 @@
                             <p>{{ questTextReceiverBad }}</p>
                         </div>
                     </div>
-                    <div class="questButtons">
+                    <div class="optionButtons">
                         <button @click="this.questReward()">Weiter</button>
                     </div>
                 </div>
@@ -43,7 +41,7 @@
                             <p>{{ questTextMiddlemanBad }}</p>
                         </div>
                     </div>
-                    <div class="questButtons">
+                    <div class="optionButtons">
                         <button @click="this.questContinue()">Weiter</button>
                     </div>
                 </div>
@@ -68,7 +66,7 @@
                             <p>{{ questTextReceiverBad }}</p>
                         </div>
                     </div>
-                    <div class="questButtons">
+                    <div class="optionButtons">
                         <button @click="this.questReward()">Weiter</button>
                     </div>
                 </div>
@@ -96,7 +94,7 @@
                             <p>{{ questTextReceiverBad }}</p>
                         </div>
                     </div>
-                    <div class="questButtons">
+                    <div class="optionButtons">
                         <button @click="this.desicionGood()">{{ questTextOptionSecondGood }}</button>
                         <button @click="this.desicionBad()">{{ questTextOptionSecondBad }}</button>
                     </div>
@@ -115,7 +113,7 @@
                     <div class="questText">
                         <p>{{ questTextMonster }}</p>
                     </div>
-                    <div class="questButtons">
+                    <div class="optionButtons">
                         <button @click="this.questContinueFight()">Kämpfen</button>
                     </div>
                 </div>
@@ -140,7 +138,7 @@
                             <p v-if="rewardBadMove!=null">Neuer Angriff erhalten: {{ rewardBadMove }} Move</p>
                         </div>
                     </div>
-                    <div class="questButtons">
+                    <div class="optionButtons">
                         <button @click="this.questComplete()">Weiter</button>
                     </div>
                 </div>
@@ -164,7 +162,7 @@
                             <p v-if="rewardBadMove!=null">Neuer Angriff erhalten:{{ rewardBadMove }} Move</p>
                         </div>
                     </div>
-                    <div class="questButtons">
+                    <div class="optionButtons">
                         <button @click="this.questComplete()">Weiter</button>
                     </div>
                 </div>
@@ -373,7 +371,6 @@ export default {
             this.questView = true;
         })
         socket.on("showMapClient", () => {
-            console.log("test")
             this.openMap = true;
             this.openMapFirstTime = true;
         })

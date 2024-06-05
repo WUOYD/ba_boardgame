@@ -1,17 +1,17 @@
 <template>
-<div class="content">
+<div class="content" id="actions">
     <div id="headerActions">
         <div id="headerSectionLeft">
             <div class="headerItem">
-                <img :src="imagePlayer" width="120" height="120" @click="updateView(1)" />
+                <img :src="imagePlayer" @click="updateView(1)" />
             </div>
             <div class="headerItem" id="playerStatisticsActions">
                 <div id="playerGold">
-                    <img :src="imageGold" width="50" height="50" />
+                    <img :src="imageGold"/>
                     <p>{{ playerGold }}</p>
                 </div>
                 <div id="playerHealth">
-                    <img :src="imageHeal" width="50" height="50" />
+                    <img :src="imageHeal"/>
                     <p>{{ playerHealth }}</p>
                 </div>
             </div>
@@ -24,10 +24,10 @@
         </div>
         <div id="headerSectionRight">
             <div class="headerItem">
-                <img :src="imageMap" width="120" height="120" @click="updateView(8)" />
+                <img :src="imageMap" @click="updateView(8)" />
             </div>
             <div class="headerItem">
-                <img :src="imageQuestBig" width="120" height="120" @click="updateView(5)" />
+                <img :src="imageQuestBig" @click="updateView(5)" />
             </div>
         </div>
     </div>

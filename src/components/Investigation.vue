@@ -1,6 +1,5 @@
 <template>
-<div class="content single">
-    <h1>Investigation</h1>
+<div class="content">
     <div class="encounter" id="monster" v-if="currentEncounter == 'Monster'">
         <img :src="monsterImage" width="250" height="250" />
         <table>
