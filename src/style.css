@@ -762,7 +762,7 @@ html, body {
 #contentRight #playerStatistics{
   position: relative;
   display: flex;
-  height: 30%;
+  height: 30% !important;
   width: 100%;
   padding: 0;
 }
@@ -1932,8 +1932,13 @@ span {
   }
 
   #introVideo iframe{
-    width: 80%;
-    height: 100%;
+    width: 50%;
+    height: 60%;
+    margin-bottom: var(--margin-medium);
+  }
+
+  #introVideo button {
+    margin-bottom: var(--margin-large);
   }
 
   #contentRulesPlayer{
