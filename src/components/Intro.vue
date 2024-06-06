@@ -186,13 +186,13 @@
             </div>
         </div>
         <div v-if="this.rulesPage == 7" class="rulesPage">
-            <h2>Spielziel</h2>
+            <h2>Monster und Kampf</h2>
             <div class="contentRules">
                 <div class="contentRulesFull">
                     <img :src="imageEncounter">
                     <div>
                         <div class="borderRules"><p>1. Wähle 2 deiner 3 Würfel aus und tippe die Kombination an.</p></div>
-                        <div class="borderRules"><p>2. Dann mit kann "Bestätigen" du deine Eingabe bestätigen.</p></div>    
+                        <div class="borderRules"><p>2. Im Anschluss kannst du deine Eingabe bestätigen.</p></div>    
                     </div>
                 </div>
             </div>

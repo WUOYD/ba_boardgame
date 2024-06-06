@@ -330,7 +330,6 @@ io.on('connection', (socket) => {
   socket.on("endAction", function() {
     const identifiers = Object.keys(lobby);
     let oldPlayer = identifiers[activePlayer]
-    oldPlayer.actionUsed = false;
     let newPlayer
     if(activePlayer < playerList.length-1){
       activePlayer += 1;

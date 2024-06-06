@@ -20,3 +20,22 @@ Embark on interactive quests that add a new dimension to the gameplay experience
 ### 4. Fight System
 Engage in dynamic battles with opponents or in-game adversaries. Utilize different tactics and abilities to emerge victorious and claim your rewards.
 
+### 4. Requirements & Setup
+
+Requirements:
+-Lan (Local Area Network) -> for playing with different devices.
+-Node.js (Javascript Runtime)
+
+Setup:
+-Pull project: "git pull https://github.com/WUOYD/ba_boardgame.git"
+-Navigate to root of project: cd ../
+-Install Packages: npm i
+-Run Server: "node src/server.js"
+-Run Vite: "npm run dev" or "npm run dev -- --host" for hosting it over local device ip address.
+-Open the link in Vite tab (http://localhost:5173/ or http://"IPAdress":5173/)
+
+Important:
+-The game can only be started with at least 2 players.
+-When the server breaks -> stop it with "CTRL + R" and restart it with "node src/server.js"
+
+
