@@ -425,7 +425,7 @@ html, body {
 
 #playerStatistics {
   display: flex;
-  height: 90%;
+  height: 100% !important;
   width: 50%;
   display: flex;
   padding: 2%;
@@ -689,7 +689,7 @@ html, body {
 
 
 #monsterStatistics {
-  height: 90%;
+  height: 100% !important;;
   width: 50%;
   display: flex;
   padding: 2%;

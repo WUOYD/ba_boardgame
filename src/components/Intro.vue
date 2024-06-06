@@ -409,7 +409,7 @@ export default {
             imageQuest: "/src/assets/icons/quest.png",
             imageQuestBig: "/src/assets/icons/quest_big.png",
             imageGold: "/src/assets/icons/gold.png",
-            imageMap: "/src/assets/icons/map.png",
+            imageMap: "/src/assets/icons/map_border.png",
             imageEndTurn: "/src/assets/icons/endTurn.png",
             imageBoss: "/src/assets/icons/boss.png",
             imageClaw: "src/assets/icons/claw.png",

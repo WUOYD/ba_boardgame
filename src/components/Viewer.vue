@@ -619,7 +619,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .viewer {
     display: flex;
     width: 100%;
