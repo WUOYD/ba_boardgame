@@ -81,7 +81,7 @@
                     </div>
                     <div class="contentRulesRow">
                         <div class="contentRulesRowElement">
-                            <img :src="imageChangeIsland"/>
+                            <img :src="imageChangeIsland" />
                         </div>
                         <div class="contentRulesRowElement">
                             <p>Insel wechseln</p>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="contentRulesRow">
                         <div class="contentRulesRowElement">
-                            <img :src="imageEndTurn"/>
+                            <img :src="imageEndTurn" />
                         </div>
                         <div class="contentRulesRowElement">
                             <p>Zug beenden</p>
@@ -191,8 +191,12 @@
                 <div class="contentRulesFull">
                     <img :src="imageEncounter">
                     <div>
-                        <div class="borderRules"><p>1. Wähle 2 deiner 3 Würfel aus und tippe die Kombination an.</p></div>
-                        <div class="borderRules"><p>2. Im Anschluss kannst du deine Eingabe bestätigen.</p></div>    
+                        <div class="borderRules">
+                            <p>1. Wähle 2 deiner 3 Würfel aus und tippe die Kombination an.</p>
+                        </div>
+                        <div class="borderRules">
+                            <p>2. Im Anschluss kannst du deine Eingabe bestätigen.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -351,8 +355,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
             <div class="ruleButtons">
                 <button @click="this.rulesPage -= 1">Zurück</button>
@@ -360,14 +362,38 @@
             </div>
         </div>
     </div>
+    <div v-if="introStep == 'logIn'" class="rulesPage" id="logIn">
+        <div class="titleText" id="changeType">
+            <p>Wähle den Gerätetyp aus</p>
+            <div class="buttons">
+                <button @click="setClientType('player')" :class="{ selected: clientType === 'player' }">Spieler</button>
+                <button @click="setClientType('viewer')" :class="{ selected: clientType === 'viewer' }">Viewer</button>
+            </div>
+            <button @click="this.join()">Weiter</button>
+        </div>
+    </div>
+    <div v-if="introStep == 'logInPlayer'" id="logInPlayer">
+        <div class="contentRulesLeft">
+            <div id="logInPlayerImageFull">
+                <img :src="playerImageFull">
+            </div>
+        </div>
+        <div class="contentRulesRight">
+                <div id="logInPlayerImage">
+                    <img :src="playerImage">
+                </div>
+                <input type="text" maxlength="16" v-model="playerName" placeholder="Gib deinen Namen ein">
+                <button @click="joinPlayer()">Weiter</button>
+        </div>
+    </div>
     <div v-if="introStep == 'Lobby'" id="playerList">
         <div class="logo-wrapper">
             <img :src="logo">
         </div>
-        <div class="tableHeader">
-            <p>Spielername</p>
-            <p>Status</p>
-        </div>
+        <p class="borderRules" v-if="this.playerRegion == 'Athos'">Platziere deine Figur auf Athos!</p>
+        <p class="borderRules" v-if="this.playerRegion == 'Nythoria'">Platziere deine Figur auf Nythoria!</p>
+        <p class="borderRules" v-if="this.playerRegion == 'Frosgar'">Platziere deine Figur auf Frosgar!</p>
+        <p class="borderRules" v-if="this.playerRegion == 'Drakan'">Platziere deine Figur auf Drakan!</p>
         <div id="playerInfos">
             <div id="playerNames">
                 <div v-for="(player, index) in playerList" :key="index" class="playerName">
@@ -396,6 +422,8 @@ import {
 export default {
     data() {
         return {
+            playerName: '',
+            clientType: "player",
             playerList: null,
             playerReadyList: null,
             host: false,
@@ -422,18 +450,24 @@ export default {
             imageMage: "src/assets/img/player/mage_full.webp",
             imageBarbarian: "src/assets/img/player/barbarian_full.webp",
             imageThief: "src/assets/img/player/thief_full.webp",
+            playerImage: null,
+            playerImageFull: null,
+            playerRegion: null,
+
         }
     },
     mounted() {
         socket.on('updatePlayer', activePlayer => {
             this.host = activePlayer.host
+            this.playerImage = activePlayer.picture;
+            this.playerImageFull = activePlayer.pictureFull;
+            this.playerRegion = activePlayer.region
+
         })
         socket.on('setReadyState', playerState => {
             this.playerList = playerState.playerList
             this.playerReadyList = playerState.readyList
         })
-        socket.emit("getReadyState");
-        socket.emit("getActivePlayer");
     },
     methods: {
         playerReady() {
@@ -446,10 +480,26 @@ export default {
             this.introStep = "Rules";
         },
         skipRules() {
+            this.introStep = "logIn";
+        },
+        join() {
+            if (this.clientType == 'player') {
+                socket.emit("joinPlayer");
+                this.introStep = "logInPlayer";
+                socket.emit("getActivePlayer");
+            } else {
+                socket.emit("joinViewer");
+            }
+        },
+        joinPlayer() {
+            socket.emit("enterPlayerName", this.playerName);
             this.introStep = "Lobby";
-        }
+            socket.emit("getReadyState");
+        },
+        setClientType(type) {
+            this.clientType = type;
+        },
     },
-
 }
 </script>
 

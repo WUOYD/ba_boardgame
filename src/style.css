@@ -127,7 +127,7 @@ button {
 
 .selected {
   border: var(--border-width) solid #f7e4c2;
-  background-color: #505050;
+  background-color: #707070;
 }
 
 #app {
@@ -401,7 +401,30 @@ html, body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-bottom: var(--gap-medium);
+  margin-bottom: var(--margin-large);
+}
+
+#playerList{
+  display: flex;
+  width: 50%;
+  height: 50%;
+}
+
+#playerList .logo-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+#playerList .logo-wrapper img {
+  height: auto;
+  width: 100%;
+}
+
+#playerList .buttons button{
+  height: auto;
+  width: 100%;
+  height: 100%;
+  margin-top: var(--margin-large);
 }
 
 #character {
@@ -1013,8 +1036,8 @@ html, body {
 }
 
 #changeType {
-  height: 20%;
-  width: 40%;
+  height: 40%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1054,6 +1077,16 @@ input:focus {
   width: 100%;
   display: flex;
   justify-content: flex-end;
+}
+
+#startButton {
+  width: 15%;
+  margin-top: 5%;
+}
+
+#startButton button {
+  width: 100%;
+  margin-top: 5%;
 }
 
 table {
@@ -1234,16 +1267,6 @@ span {
 
 #commaSpan {
   margin-right: 2%;
-}
-
-.enterName{
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 20%;
-  gap: var(--gap-medium);
-  width: 20%;
 }
 
 #playerList{
@@ -1725,6 +1748,110 @@ span {
   margin-bottom: var(--margin-small);
 }
 
+#logIn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#logIn p {
+  font-size: var(--font-size-large);
+  margin-top: var(--margin-large);
+  margin-bottom: var(--margin-large);
+}
+
+#logIn button{
+  font-size: var(--font-size-medium);
+  margin-top: var(--margin-large);
+  margin-bottom: var(--margin-large);
+  width: 20%;
+}
+
+#logIn .buttons button{
+  font-size: var(--font-size-medium);
+  margin-top: var(--margin-small);
+  margin-bottom: var(--margin-large);
+  width: 100%;
+}
+
+#logIn .buttons{
+  width: 60%;
+  margin-bottom: var(--margin-large);
+}
+
+
+#logInPlayer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#logInPlayer .contentRulesLeft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+#logInPlayer .contentRulesRight{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+#logInPlayer .contentRulesRight p{
+  margin-top: var(--margin-large);
+  font-size: var(--font-size-large);
+}
+
+#logInPlayer .contentRulesRight input{
+  width: 50%;
+}
+
+
+#logInPlayerImage, #logInPlayerImageFull {
+  display: flex;
+  width: 100%;
+  height: 30%;
+  justify-content: center;
+}
+
+#logInPlayerImage {
+  display: flex;
+  width: 100%;
+  height: 30%;
+  justify-content: center;
+}
+
+#logInPlayerImage img {
+  position: flex;
+  border-radius: var(--border-radius) !important;
+  width: auto;
+  height: 100%;
+  border: var(--border-width) solid #f7e4c2;
+}
+
+#logInPlayerImageFull img {
+  width: auto;
+  height: 100%;
+}
+
+#logInPlayerImageFull {
+  width: auto;
+  height: 100%;
+}
+
+.titleText{
+  display: flex;
+  width: 50%;
+}
+
+
 @media only screen and (max-width: 950px) {
 
   .content{
@@ -1756,11 +1883,6 @@ span {
   .logo-wrapper img {
     height: auto;
     width: 30%;
-  }
-
-  .enterName{
-    width: 40%;
-    height: 40%;
   }
 
   #resetButton {

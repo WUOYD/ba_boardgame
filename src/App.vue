@@ -86,7 +86,7 @@ export default {
           break;
       }
     })
-    socket.on('join', (join) => {
+    socket.on('join', () => {
       this.title = false;
       this.comp = "Intro";
     })
