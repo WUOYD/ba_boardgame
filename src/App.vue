@@ -1,4 +1,12 @@
-<script setup>
+<template>
+  <component :is="Header" v-if="comp == 'Map' || comp == 'Character' || comp == 'Quest' || comp == 'Options' || comp == 'Upgrades' || comp == 'MapOverview'"></component>
+  <component :is="HeaderEmpty" v-else></component>
+  <Titlescreen v-if="title" />
+  <component :is="comp"></component>
+  <div id="rotateScreenPopUp">Bitte das Gerät rotieren!</div>
+</template>
+
+<script>
 import Titlescreen from './components/Titlescreen.vue'
 import Header from './components/Header.vue'
 import HeaderEmpty from './components/HeaderEmpty.vue'
@@ -13,20 +21,13 @@ import Investigation from './components/Investigation.vue'
 import Intro from './components/Intro.vue'
 import Upgrades from './components/Upgrades.vue'
 import MoveBoss from './components/MoveBoss.vue'
-
-</script>
-
-<template>
-  <component :is="Header" v-if="comp == 'Map' || comp == 'Character' || comp == 'Quest' || comp == 'Options' || comp == 'Upgrades' || comp == 'MapOverview'"></component>
-  <component :is="HeaderEmpty" v-else></component>
-  <Titlescreen v-if="title" />
-  <component :is="comp"></component>
-</template>
-
-<script>
 import { socket } from './client.js'
+
 export default {
   components: {
+    Titlescreen,
+    Header,
+    HeaderEmpty,
     Intro,
     Map,
     Character,
@@ -94,28 +95,16 @@ export default {
       this.comp = "Actions";
       socket.emit("getActivePlayer");
     })
-    this.lockOrientation();
+    
   },
   methods: {
     updateView(comp) {
       this.comp = comp
     },
-    lockOrientation() {
-      if (screen.orientation && screen.orientation.lock) {
-        screen.orientation.lock("landscape").catch(function(error) {
-          console.error("Screen orientation lock failed:", error);
-        });
-      } else if (window.screen.lockOrientation) {
-        window.screen.lockOrientation("landscape").catch(function(error) {
-          console.error("Screen orientation lock failed:", error);
-        });
-      } else {
-        console.warn("Screen orientation lock not supported on this browser.");
-      }
-    }
   },
   beforeUnmount() {
     socket.disconnect();
   }
 }
 </script>
+
