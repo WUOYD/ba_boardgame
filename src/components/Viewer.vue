@@ -162,9 +162,9 @@
                         <p>{{ questTextOfferer }}</p>
                     </div>
                     <div class="optionButtons">
-                        <button v-if="hasOptionGood == 1" >{{ this.optionGoodText }}</button>
-                        <button v-if="hasOptionBad == 1" >{{ this.optionBadText }}</button>
-                        <button v-if="hasOptionDeny == 1" >Ablehnen</button>
+                        <button v-if="hasOptionGood == 1">{{ this.optionGoodText }}</button>
+                        <button v-if="hasOptionBad == 1">{{ this.optionBadText }}</button>
+                        <button v-if="hasOptionDeny == 1">Ablehnen</button>
                     </div>
                 </div>
             </div>
@@ -275,7 +275,7 @@
                                 <span id="commaSpan" v-if="moveDotPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
                                 <span v-if="moveReflectPlayer[index] !== '-'">{{ moveReflectPlayer[index] + magicLevel + skullLevel}} Reflektieren</span>
                                 <span id="commaSpan" v-if="moveReflectPlayer[index] !== '-' && moveReflectPlayer[index] !== '-'">,</span>
-                                <span v-if="moveDamageNextRoundPlayer[index] !== '-'">{{ moveDamageNextRoundPlayer[index] + skullLevel}} Schaden nächste Runde</span>            
+                                <span v-if="moveDamageNextRoundPlayer[index] !== '-'">{{ moveDamageNextRoundPlayer[index] + skullLevel}} Schaden nächste Runde</span>
                             </div>
                         </div>
                     </button>
@@ -337,7 +337,7 @@
         </div>
     </div>
     <div v-if="currentEncounter == 'Map'" id="questMap">
-        <img v-if="optionPicked == 'Good'" :src="this.imageMapGood" @click="this.showMap()"/>
+        <img v-if="optionPicked == 'Good'" :src="this.imageMapGood" @click="this.showMap()" />
         <img v-else :src="this.imageMapBad" @click="this.showMap()" />
         <div v-if="openMapFirstTime == true">
             <p>Platziere einen Marker auf deiner aktuellen Position und einen auf die Angezeigte Position!</p>
@@ -467,10 +467,9 @@ export default {
     },
     mounted() {
         socket.on("ShowMapViewer", () => {
-            if(this.openMap){
+            if (this.openMap) {
                 this.openMap = false;
-            }
-            else{
+            } else {
                 this.openMap = true;
             }
         })
@@ -485,13 +484,12 @@ export default {
             this.travelDestination = region
         })
         socket.on("updateEncounter", message => {
-            if(this.currentEncounter == "Map"){
+            if (this.currentEncounter == "Map") {
                 this.currentEncounter = "Logo"
-            }
-            else{
+            } else {
                 this.currentEncounter = message
             }
-            
+
         })
         socket.on("setMovesTables", movesTables => {
             this.movesTableCombinationSwordSword = movesTables.movesTableCombinationSwordSword
@@ -552,7 +550,7 @@ export default {
                         this.optionPickedDecision = activePlayer.quest.optionPickedDecision
                     }
                 }
-                
+
                 for (let i = 0; i < 6; i++) {
                     const moveIndex = activePlayer.moves[i][0];
                     const moveTable = this.moveTables[i];
@@ -614,8 +612,7 @@ export default {
         });
         socket.emit("getMovesTables");
     },
-    methods: {
-    },
+    methods: {},
     beforeUnmount() {
         this.mounted = false;
     }
@@ -623,5 +620,334 @@ export default {
 </script>
 
 <style>
+.viewer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
 
+#monsterViewer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+#lootViewer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#islandViewer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#islandViewer img {
+    width: 50%;
+    height: 50%;
+}
+
+#lootViewer img {
+    width: 50%;
+    border-radius: 20px;
+}
+
+#logoViewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+#logoViewer img {
+    width: 50%;
+    height: auto
+}
+
+.questPicture {
+    display: flex;
+    height: 100%;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+}
+
+.questPicture img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.questInfos {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 70%;
+    padding: 2%;
+}
+
+.questOfferer {
+    width: 100%;
+    height: 10%;
+    text-align: left;
+}
+
+.questOfferer p {
+    font-size: 24px;
+}
+
+.questContent {
+    width: 100%;
+    height: 90%;
+}
+
+.questText {
+    width: 100%;
+    height: 50%;
+    text-align: left;
+}
+
+.questButtons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 40%;
+    justify-content: center;
+}
+
+.questButtons button {
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+#questMapIcon {
+    width: auto;
+    height: 50%;
+    box-sizing: border-box
+}
+
+#questMapIcon img {
+    width: auto;
+    height: 50%;
+
+}
+
+.reward {
+    justify-content: center;
+}
+
+.reward img {
+    width: 50%;
+    border-radius: 20px;
+}
+
+p {
+    white-space: pre-line;
+}
+
+#movesPlayer,
+#movesMonster {
+    width: 95%;
+    height: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#diceCombinationsPlayer,
+#diceCombinationsMonster {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(50, 50, 50, 0.3);
+    border-radius: 10px;
+    border: 1px solid #f7e4c2;
+}
+
+#movesPlayer .movesCombinationPlayer,
+#movesMonster .movesCombinationMonster {
+    flex-basis: calc(50% - 5px);
+    box-sizing: border-box;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+#movesPlayer .movesCombinationPlayer:nth-child(even) {
+    margin-right: 0px;
+}
+
+#movesMonster .movesCombinationMonster:nth-child(even) {
+    margin-right: 0px;
+}
+
+#movesPlayer .moveImages,
+#movesMonster .moveImages {
+    width: 50%;
+    justify-content: flex-end;
+}
+
+#movesPlayer img,
+#movesMonster img {
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.movesContentLeft {
+    width: 50%;
+    height: 100%;
+    align-items: center;
+}
+
+.movesContentRight {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    height: 100%
+}
+
+.movesImages {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.movesImages img {
+    width: 25%;
+    height: auto;
+}
+
+.moveName {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    font-size: 20px;
+    align-items: center;
+    justify-content: left;
+}
+
+.moveText {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+}
+
+.movesCombinationPlayer button,
+.movesCombinationMonster button {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: rgba(50, 50, 50, 0.5);
+    border: none;
+    border-radius: 5px;
+}
+
+.statisticsImage img {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    object-fit: cover;
+    justify-content: center;
+    align-items: center;
+}
+
+.activeFighter {
+    background-color: rgba(50, 50, 50, 0.3);
+    border-radius: 10px;
+    border: 1px solid #f7e4c2;
+}
+
+.buttonCombinationImages img {
+    border-radius: 5px;
+    margin: 5px;
+}
+
+#statistics {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+#playerStatistics {
+    display: flex;
+    width: 45%;
+    height: 80%;
+    display: flex;
+    padding: 1%;
+}
+
+#monsterStatistics {
+    height: 80%;
+    width: 45%;
+    display: flex;
+    padding: 1%;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+}
+
+.statisticsImage,
+.statisticsTable {
+    display: flex;
+    width: 50% !important;
+    margin-left: 2%;
+    margin-right: 2%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.staticticsContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.statisticsTable table {
+    width: 100%;
+    margin-bottom: 0px !important;
+}
+
+.statisticsTable th,
+td {
+    width: 50%;
+    border-bottom: #333333 dotted 1px;
+    font-size: 18px;
+}
+
+.statisticsTable td p {
+    font-size: 18px;
+}
+
+.islandViewer img {
+    width: auto;
+    height: 80%;
+}
+
+#commaSpan {
+    margin-right: 10px;
+}
 </style>

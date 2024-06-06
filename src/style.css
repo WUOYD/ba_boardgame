@@ -190,8 +190,10 @@ button {
   box-sizing: border-box;
   display: inline-block;
   white-space: wrap;
-  height: 30%;
+  height: auto;
   width: auto;
+  margin-bottom: var(--margin-medium);
+  margin-top: var(--margin-medium);
 }
 
 html, body {
@@ -213,7 +215,7 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   cursor: pointer;
 }
 
@@ -1031,7 +1033,14 @@ input {
   text-align: center;
   text-transform: uppercase;
   font-size: var(--font-size-medium);
+  background-color: #333333;
+  border: 1px solid #f7e4c2;
 }
+
+input:focus {
+  border: 1px solid #f7e4c2;
+}
+
 
 ::placeholder {
   text-align: center;
@@ -1501,7 +1510,7 @@ span {
 .contentRules{
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 70%;
   flex-direction: row;
 }
 
@@ -1510,6 +1519,7 @@ span {
   display: flex;
   width: 100%;
   height: 100%;
+  max-width: 100%;
   font-size: var(--font-size-large);
 }
 
@@ -1519,25 +1529,55 @@ span {
   margin-bottom: var(--margin-micro);
 }
 
+.rulesPage h2{
+  text-transform: none !important;
+  margin-top: var(--margin-small);
+  margin-bottom: var(--margin-small);
+}
+
 .contentRulesLeft{
   display: flex;
   justify-content: left;
   width: 50%;
-  height: 90%;
+  height: 100%;
   padding: var(--padding-small);
   white-space: pre-line;
   flex-direction: column;
   text-align: left;
 }
 
+#contentRulesPlayer{
+  display: flex;
+  height: auto;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.contentRulesPlayerDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 20%;
+  height: 100%;
+}
+
+.contentRulesPlayerDiv img{
+  width: 70%;
+  height: 100%;
+}
+
 .contentRulesRight{
   display: flex;
   width: 50%;
-  height: 80%;
+  height: 100%;
   padding: var(--padding-small);
   white-space: pre-line;
   flex-direction: column;
   text-align: left;
+  box-sizing: border-box;
 }
 
 .ruleButtons{
@@ -1598,6 +1638,88 @@ span {
   font-size: var(--font-size-large);
   background: linear-gradient(180deg, rgb(37, 8, 8) 40%, rgb(0, 0, 0) 90%);
   background-size: 100% 100%;
+}
+
+.contentRulesFull{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.contentRulesFull img{
+  display: block;
+  max-width:1000px;
+  max-height:500px;
+  width: auto;
+  height: auto;
+}
+
+.contentRulesFullColumn{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.contentRulesFullColumn p{
+  font-size: var(--font-size-medium);
+  margin-bottom: var(--margin-micro);
+  margin-top: var(--margin-micro);
+}
+
+.contentRulesImg {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.contentRulesImg img{
+  display: flex;
+  height: 100%;
+  width: auto;
+}
+
+.contentRulesRow{
+  display: flex;
+  width: 100%;
+  height: 45%;
+  flex-direction: row;
+  margin-bottom: var(--margin-small);
+}
+
+.contentRulesRowElement{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+}
+
+.contentRulesRowElement img{
+  width: 60%;
+  height: auto;
+}
+
+.contentRulesRowElementRow {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+}
+
+.contentRulesRowElementRow img{
+  width: 30%;
+  height: auto;
+  margin-left: var(--margin-micro);
+  border-radius: var(--border-radius) !important;
+}
+
+.contentRulesDiv{
+  margin-bottom: var(--margin-small);
 }
 
 @media only screen and (max-width: 950px) {
@@ -1809,6 +1931,23 @@ span {
   #introVideo iframe{
     width: 80%;
     height: 100%;
+  }
+
+  #contentRulesPlayer{
+    display: flex;
+    height: 80%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contentRulesFullColumn p {
+    margin-top: 0%;
+    margin-bottom: 0%;
+  }
+
+  .contentRulesPlayerDiv{
+    width: 20%;
   }
 }
 

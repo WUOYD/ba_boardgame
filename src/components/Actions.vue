@@ -46,14 +46,14 @@
         </div>
         <div :class="{ actionUsed: this.actionsUsedQuest == true || this.playerActions == 0}" v-if="this.playerHasQuest && this.playerRegion != 'Elysora'" class="action" @click="confirmationPopup('Quest')">
             <img :src="imageQuest"/>
-            <p>Quest</p>
+            <p>Auftrag</p>
         </div>
         <div :class="{ actionUsed: this.actionsUsedBoss == true || this.playerActions == 0}" v-if="this.playerRegion != 'Elysora'" class="action" @click="confirmationPopup('Boss')">
-            <img :src="imageQuest"/>
+            <img :src="imageBoss"/>
             <p>Boss</p>
         </div>
         <div class="action" @click="endAction()">
-            <img :src="imageInvestigate">
+            <img :src="imageEndTurn">
             <p>Zug Beenden</p>
         </div>
     </div>
@@ -92,6 +92,8 @@ export default {
             imageQuestBig: "/src/assets/icons/quest_big.png",
             imageGold: "/src/assets/icons/gold.png",
             imageMap: "/src/assets/icons/map.png",
+            imageEndTurn: "/src/assets/icons/endTurn.png",
+            imageBoss: "/src/assets/icons/boss.png",
             imagePlayer: null,
             playerName: null,
             playerActions: null,
