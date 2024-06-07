@@ -226,39 +226,49 @@ io.on('connection', (socket) => {
     socket.emit('join');
   })
 
-  socket.on('joinPlayer', () => {
-    let region;
-    let playerImage
-    let playerImageFull
-    switch (playerCount){
-      case 0:
-        playerImage = "src/assets/img/player/ranger_portrait.webp"
-        playerImageFull = "src/assets/img/player/ranger_full.webp"
-        region = "Athos";
-        break
-      case 1:
-        playerImage = "src/assets/img/player/mage_portrait.webp"
-        playerImageFull = "src/assets/img/player/mage_full.webp"
-        region = "Nythoria";
-        break
-      case 2:
-        playerImage = "src/assets/img/player/barbarian_portrait.webp"
-        playerImageFull = "src/assets/img/player/barbarian_full.webp"
-        region = "Frosgar";
-        break
-      case 3:
-        playerImage = "src/assets/img/player/thief_portrait.webp"
-        playerImageFull = "src/assets/img/player/thief_full.webp"
-        region = "Drakan";
-        break
+  socket.on('returnToStart', function() {
+    socket.emit('changeViewToStart');
+  })
+
+  socket.on('joinPlayer', function() {
+    if(playerCount < 4){
+      let region;
+      let playerImage
+      let playerImageFull
+      switch (playerCount){
+        case 0:
+          playerImage = "src/assets/img/player/ranger_portrait.webp"
+          playerImageFull = "src/assets/img/player/ranger_full.webp"
+          region = "Athos";
+          break
+        case 1:
+          playerImage = "src/assets/img/player/mage_portrait.webp"
+          playerImageFull = "src/assets/img/player/mage_full.webp"
+          region = "Nythoria";
+          break
+        case 2:
+          playerImage = "src/assets/img/player/barbarian_portrait.webp"
+          playerImageFull = "src/assets/img/player/barbarian_full.webp"
+          region = "Frosgar";
+          break
+        case 3:
+          playerImage = "src/assets/img/player/thief_portrait.webp"
+          playerImageFull = "src/assets/img/player/thief_full.webp"
+          region = "Drakan";
+          break
+      }
+      playerCount++
+      const playerObject = new Player(region, playerImage, playerImageFull);
+      lobby[socket.id] = playerObject;
+      playerList.push(lobby[socket.id]);
+      playerReadyList.push(false);
+      if (playerList.length == 1) {
+        lobby[socket.id].host = true;
+      }
+      socket.emit("joinPlayerSuccessful")
     }
-    playerCount++
-    const playerObject = new Player(region, playerImage, playerImageFull);
-    lobby[socket.id] = playerObject;
-    playerList.push(lobby[socket.id]);
-    playerReadyList.push(false);
-    if (playerList.length == 1) {
-      lobby[socket.id].host = true;
+    else{
+      socket.emit("joinPlayerUnsuccessful")
     }
   });
   

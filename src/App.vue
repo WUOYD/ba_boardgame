@@ -13,10 +13,12 @@ import Investigation from './components/Investigation.vue'
 import Intro from './components/Intro.vue'
 import Upgrades from './components/Upgrades.vue'
 import MoveBoss from './components/MoveBoss.vue'
+import Rules from './components/Rules.vue'
+
 </script>
 
 <template>
-  <component :is="Header" v-if="comp == 'Map' || comp == 'Character' || comp == 'Quest' || comp == 'Options' || comp == 'Upgrades' || comp == 'MapOverview'"></component>
+  <component :is="Header" v-if="comp == 'Map' || comp == 'Character' || comp == 'Quest' || comp == 'Options' || comp == 'Upgrades' || comp == 'MapOverview' || comp == 'Rules'"></component>
   <component :is="HeaderEmpty" v-else></component>
   <Titlescreen v-if="title" />
   <component :is="comp"></component>
@@ -41,7 +43,8 @@ export default {
     Investigation,
     Upgrades,
     MapOverview,
-    MoveBoss
+    MoveBoss,
+    Rules
   },
   created() {
     socket.connect();
@@ -84,6 +87,9 @@ export default {
         case 9:
           this.updateView("MoveBoss")
           break;
+        case 10:
+          this.updateView("Rules")
+          break;
       }
     })
     socket.on('join', () => {
@@ -93,6 +99,10 @@ export default {
     socket.on('joinViewerClient', () => {
       this.title = false;
       this.comp = "Viewer";
+    })
+    socket.on('changeViewToStart', () => {
+      this.title = true;
+      this.comp = "";
     })
     socket.on("startGame", () => {
       this.comp = "Actions";

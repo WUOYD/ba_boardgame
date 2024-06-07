@@ -274,7 +274,7 @@ html, body {
   justify-content: space-between;
   width: 100%;
   height: 40%;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 
 #headerActions img {
@@ -1079,6 +1079,19 @@ input:focus {
   justify-content: flex-end;
 }
 
+#rulesButton {
+  margin-top: 2%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  
+}
+
+#rulesButton button{
+  margin-left: 0;
+  margin-right: 0;
+}
+
 #startButton {
   width: 15%;
   margin-top: 5%;
@@ -1849,6 +1862,39 @@ span {
 .titleText{
   display: flex;
   width: 50%;
+}
+
+
+#joinPlayerUnsuccessful{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#joinPlayerUnsuccessful img{
+  width: 100%;
+  height: 100%;
+}
+
+#joinPlayerUnsuccessful .contentRulesLeft{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#joinPlayerUnsuccessful .contentRulesRight{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#joinPlayerUnsuccessful #logInPlayerImageFull{
+  height: 50%;
+  margin-top: var(--margin-large);
 }
 
 

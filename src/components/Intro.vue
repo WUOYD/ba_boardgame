@@ -362,17 +362,17 @@
             </div>
         </div>
     </div>
-    <div v-if="introStep == 'logIn'" class="rulesPage" id="logIn">
+    <div v-if="introStep == 'LogIn'" class="rulesPage" id="logIn">
         <div class="titleText" id="changeType">
             <p>Wähle den Gerätetyp aus</p>
             <div class="buttons">
                 <button @click="setClientType('player')" :class="{ selected: clientType === 'player' }">Spieler</button>
                 <button @click="setClientType('viewer')" :class="{ selected: clientType === 'viewer' }">Viewer</button>
             </div>
-            <button @click="this.join()">Weiter</button>
+            <button @click="join()">Weiter</button>
         </div>
     </div>
-    <div v-if="introStep == 'logInPlayer'" id="logInPlayer">
+    <div v-if="introStep == 'LogInPlayer'" id="logInPlayer">
         <div class="contentRulesLeft">
             <div id="logInPlayerImageFull">
                 <img :src="playerImageFull">
@@ -409,6 +409,17 @@
         <div class="buttons">
             <button @click="this.playerReady()">Bereit</button>
             <button v-if="this.host == true" @click="this.startGame()">Spiel starten</button>
+        </div>
+    </div>
+    <div v-if="introStep == 'JoinPlayerUnsuccessful'" id="joinPlayerUnsuccessful">
+        <div class="contentRulesLeft">
+            <div id="logInPlayerImageFull">
+                <img :src="imageEndTurn">
+            </div>
+        </div>
+        <div class="contentRulesRight">
+            <p>Beitritt nicht Möglich: Maximale Spielendenanzahl erreicht!</p>
+            <button @click="returnToStart()">Zurück</button>
         </div>
     </div>
 </div>
@@ -457,12 +468,18 @@ export default {
         }
     },
     mounted() {
+        socket.on('joinPlayerSuccessful', () => {
+            this.introStep = "LogInPlayer";
+            socket.emit("getActivePlayer");
+        })
+        socket.on('joinPlayerUnsuccessful', () => {
+            this.introStep = 'JoinPlayerUnsuccessful';
+        })
         socket.on('updatePlayer', activePlayer => {
             this.host = activePlayer.host
             this.playerImage = activePlayer.picture;
             this.playerImageFull = activePlayer.pictureFull;
             this.playerRegion = activePlayer.region
-
         })
         socket.on('setReadyState', playerState => {
             this.playerList = playerState.playerList
@@ -480,13 +497,11 @@ export default {
             this.introStep = "Rules";
         },
         skipRules() {
-            this.introStep = "logIn";
+            this.introStep = "LogIn";
         },
         join() {
             if (this.clientType == 'player') {
                 socket.emit("joinPlayer");
-                this.introStep = "logInPlayer";
-                socket.emit("getActivePlayer");
             } else {
                 socket.emit("joinViewer");
             }
@@ -499,6 +514,9 @@ export default {
         setClientType(type) {
             this.clientType = type;
         },
+        returnToStart(){
+            socket.emit("returnToStart");
+        }
     },
 }
 </script>

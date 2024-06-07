@@ -57,6 +57,9 @@
             <p>Zug Beenden</p>
         </div>
     </div>
+    <div id="rulesButton">
+        <button @click="rules()">Regeln</button>
+    </div>
     <div v-if="this.confirmation == 'Quest' || this.confirmation == 'Boss'" id="confirmationPopup">
         <div v-if="this.confirmation == 'Quest'" class="confirmationElement">
             <p>Bestätige das du auf dem Questfeld bist.</p>
@@ -182,6 +185,9 @@ export default {
             socket.emit("bossFight");
             socket.emit("updateView", 4);
             }
+        },
+        rules() {
+            socket.emit("updateView", 10);
         },
         confirmationPopup(action) {
             if(action == "Quest"){
