@@ -1897,6 +1897,10 @@ span {
   margin-top: var(--margin-large);
 }
 
+.islandReputation h2{
+  margin-top: var(--margin-small);
+  margin-bottom: var(--margin-small);
+}
 
 @media only screen and (max-width: 950px) {
 

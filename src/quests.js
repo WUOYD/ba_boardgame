@@ -641,7 +641,7 @@ let questTableBronzeAridora = [
             nameGood: "Aria",
             nameBad: "Morgrim",
             imageGood: "src/assets/img/quest/Aria.webp",
-            imageBad: "src/assets/img/quest/Morgrim.webp",
+            imageBad: "src/assets/img/quest/Aria-Morgrim.webp",
             textGood: "Unglaublich! Du hast es geschafft, den Sandsturm zu stoppen! Unser aller Dank gebührt dir, tapferer Abenteurer. Nimm bitte diese Belohnung an, es ist nicht viel, aber mehr habe ich leider nicht.",
             textBad: "Ich hörte, du hast da etwas von grossem Wert für mich? Du bist ein gewiefter Geschäftsmann, das muss man dir lassen. Dieses Amulett wird mir sicherlich einen schönen Gewinn einbringen. Du hast den richtigen Riecher für lukrative Geschäfte, das muss ich sagen. Nun, mein Freund, ich hoffe, unsere Wege kreuzen sich wieder, es hat mich gefreut, mit dir Geschäfte zu machen."
         },
@@ -1916,7 +1916,7 @@ let questTableBronzeAthos = [
         },
         questMiddleman: {
             name: "Heilkräuter",
-            image: "src/assets/img/quest/Haulkraeuter.webp",
+            image: "src/assets/img/quest/Heilkraeuter.webp",
             textGood: "Du hats die benötigten Heilkräuter gefunden, bringe sie zurück zu Elanor",
             textBad: "Du hats die benötigten Heilkräuter gefunden, bringe sie zurück zu Elanor"
         },

@@ -254,7 +254,7 @@ export default {
             questTextOptionSecondBad: null,
             optionGoodText: null,
             optionBadText: null,
-            mapIcon: "src/assets/icons/map_icon.webp",
+            mapIcon: "src/assets/icons/map.webp",
             imageTreasure: "src/assets/img/misc/treasure.webp",
             imageMapGood: "",
             imageMapBad: "",
@@ -319,43 +319,55 @@ export default {
                     if (activePlayer.quest.rewardGood.move != "-") {
                         switch (activePlayer.quest.rewardGood.move[0]) {
                             case "SwordSword":
-                                this.rewardGoodMove = this.movesTableCombinationSwordSword[activePlayer.quest.rewardGood.move[1]]
+                                let rewardMove = this.movesTableCombinationSwordSword[activePlayer.quest.rewardGood.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                             case "SwordMagic":
-                                this.rewardGoodMove = this.movesTableCombinationSwordMagic[activePlayer.quest.rewardGood.move[1]]
+                                let rewardMove = this.movesTableCombinationSwordMagic[activePlayer.quest.rewardGood.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                             case "MagicMagic":
-                                this.rewardGoodMove = this.movesTableCombinationMagicMagic[activePlayer.quest.rewardGood.move[1]]
+                                let rewardMove = this.movesTableCombinationMagicMagic[activePlayer.quest.rewardGood.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                             case "MagicSkull":
-                                this.rewardGoodMove = this.movesTableCombinationMagicSkull[activePlayer.quest.rewardGood.move[1]]
+                                let rewardMove = this.movesTableCombinationMagicSkull[activePlayer.quest.rewardGood.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                             case "SkullSkull":
-                                this.rewardGoodMove = this.movesTableCombinationSkullSkull[activePlayer.quest.rewardGood.move[1]]
+                                let rewardMove = this.movesTableCombinationSkullSkull[activePlayer.quest.rewardGood.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                             case "SwordSkull":
-                                this.rewardGoodMove = this.movesTableCombinationSwordSkull[activePlayer.quest.rewardGood.move[1]]
+                                let rewardMove = this.movesTableCombinationSwordSkull[activePlayer.quest.rewardGood.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                         }
                     } else {
                         switch (activePlayer.quest.rewardBad.move[0]) {
                             case "SwordSword":
-                                this.rewardBadMove = this.movesTableCombinationSwordSword[activePlayer.quest.rewardBad.move[1]]
+                                let rewardMove = this.movesTableCombinationSwordSword[activePlayer.quest.rewardBad.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                             case "SwordMagic":
-                                this.rewardBadMove = this.movesTableCombinationSwordMagic[activePlayer.quest.rewardBad.move[1]]
+                                let rewardMove = this.movesTableCombinationSwordMagic[activePlayer.quest.rewardBad.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                             case "MagicMagic":
-                                this.rewardBadMove = this.movesTableCombinationMagicMagic[activePlayer.quest.rewardBad.move[1]]
+                                let rewardMove = this.movesTableCombinationMagicMagic[activePlayer.quest.rewardBad.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                             case "MagicSkull":
-                                this.rewardBadMove = this.movesTableCombinationMagicSkull[activePlayer.quest.rewardBad.move[1]]
+                                let rewardMove = this.movesTableCombinationMagicSkull[activePlayer.quest.rewardBad.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                             case "SkullSkull":
-                                this.rewardBadMove = this.movesTableCombinationSkullSkull[activePlayer.quest.rewardBad.move[1]]
+                                let rewardMove = this.movesTableCombinationSkullSkull[activePlayer.quest.rewardBad.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                             case "SwordSkull":
-                                this.rewardBadMove = this.movesTableCombinationSwordSkull[activePlayer.quest.rewardBad.move[1]]
+                                let rewardMove = this.movesTableCombinationSwordSkull[activePlayer.quest.rewardBad.move[1]]
+                                this.rewardGoodMove = rewardMove.name
                                 break
                         }
                     }
