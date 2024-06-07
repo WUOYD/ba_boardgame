@@ -35,7 +35,8 @@ Setup:
 -Open the link in Vite tab (http://localhost:5173/ or http://"IPAdress":5173/)
 
 Important:
--The game can only be started with at least 2 players.
+-The game can only be started with at least 2 players and maximum 4 players.
 -When the server breaks -> stop it with "CTRL + R" and restart it with "node src/server.js"
+-When starting a new game press "reset server" on titlescreen to flush old data.
 
 
