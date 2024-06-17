@@ -66,12 +66,12 @@
                         </div>
                     </div>
                     <div class="player-level-infos">
-                        <p>Schwert verzaubern {{ playerClawLevel }}</p>
-                        <p>+{{ playerClawLevel }} Auf alle Schwertwürfe</p>
+                        <p>Schwert verzaubern {{ playerClawLevel+1 }}</p>
+                        <p>+{{ playerClawLevel+1 }} Auf alle Schwertwürfe</p>
                     </div>
                     <div class="upgradeButtons">
                         <button @click="upgradeClaw()">
-                            <p>{{ playerClawLevel * 3 }} Gold</p>
+                            <p>{{ (playerClawLevel+1) * 3 }} Gold</p>
                             <p>Upgrade Claw</p>
                         </button>
                     </div>
@@ -85,12 +85,12 @@
                         </div>
                     </div>
                     <div class="player-level-infos">
-                        <p>Magie verzaubern {{ playerMagicLevel }}</p>
-                        <p>+{{ playerMagicLevel }} Auf alle Schwertwürfe</p>
+                        <p>Magie verzaubern {{ playerMagicLevel+1 }}</p>
+                        <p>+{{ playerMagicLevel+1 }} Auf alle Schwertwürfe</p>
                     </div>
                     <div class="upgradeButtons">
                         <button @click="upgradeMagic()">
-                            <p>{{ playerMagicLevel * 3 }} Gold </p>
+                            <p>{{ (playerMagicLevel+1) * 3 }} Gold </p>
                             <p>Upgrade Magic</p>
                         </button>
                     </div>
@@ -104,12 +104,12 @@
                         </div>
                     </div>
                     <div class="player-level-infos">
-                        <p>Schwert verzaubern {{ playerSkullLevel }}</p>
-                        <p>+{{ playerSkullLevel }} Auf alle Schwertwürfe</p>
+                        <p>Schwert verzaubern {{ playerSkullLevel+1 }}</p>
+                        <p>+{{ playerSkullLevel+1 }} Auf alle Schwertwürfe</p>
                     </div>
                     <div class="upgradeButtons">
                         <button @click="upgradeSkull()">
-                            <p>{{ playerSkullLevel * 3 }} Gold </p>
+                            <p>{{ (playerSkullLevel+1) * 3 }} Gold </p>
                             <p>Upgrade Skull</p>
                         </button>
                     </div>

@@ -573,7 +573,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on("moveBossComplete", function() {
-    io.emit('updateClientView', 2);
+    const identifiers = Object.keys(lobby).filter(id => lobby[id] instanceof Player);
+    identifiers.forEach(id => {
+      io.to(id).emit("updateClientView", 2);
+    });
   });
 
   // Disconnect Handling
@@ -1287,14 +1290,8 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
       move = movesTableCombinationSwordSkull[moveIndex]
       break
   }
-  let playerDamage = move.damage;
+  let playerDamage = move.damage + (activePlayer.clawLevel > 0 ? activePlayer.clawLevel : 0); 
 
-  // if(moveType == "SwordSword" || moveType == "SwordMagic" || moveType == "SwordSkull"){
-  //   if(move.damage > 0){
-  //     activePlayer.clawLevel
-  //   }
-  // }
-  
   //dot
   if(move.dot > activePlayer.dot){
     activePlayer.dot = move.dot
@@ -1433,20 +1430,20 @@ function fightPlayer(activePlayer, activeMonster, playerRoll){
  // update skills
 function updateSkills(activePlayer, skill){
   if(skill == 1){
-    if(activePlayer.gold > (activePlayer.clawLevel * 3)){
-      activePlayer.gold = activePlayer.gold - (activePlayer.clawLevel * 3)
+    if(activePlayer.gold > ((activePlayer.clawLevel+1) * 3)){
+      activePlayer.gold = activePlayer.gold - ((activePlayer.clawLevel+1) * 3)
       activePlayer.clawLevel++
     }
   }
   else if(skill == 2){
-    if(activePlayer.gold > (activePlayer.magicLevel * 3)){
-      activePlayer.gold = activePlayer.gold - (activePlayer.magicLevel * 3)
+    if(activePlayer.gold > ((activePlayer.magicLevel+1) * 3)){
+      activePlayer.gold = activePlayer.gold - ((activePlayer.magicLevel+1) * 3)
       activePlayer.magicLevel++
     }
   }
   else if(skill == 3){
-    if(activePlayer.gold > (activePlayer.skullLevel * 3)){
-      activePlayer.gold = activePlayer.gold - (activePlayer.skullLevel * 3)
+    if(activePlayer.gold > ((activePlayer.skullLevel+1) * 3)){
+      activePlayer.gold = activePlayer.gold - ((activePlayer.skullLevel+1) * 3)
       activePlayer.skullLevel++
     }
   }
