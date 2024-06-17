@@ -67,12 +67,12 @@
                     </div>
                     <div class="player-level-infos">
                         <p>Schwert verzaubern {{ playerClawLevel+1 }}</p>
-                        <p>+{{ playerClawLevel+1 }} Auf alle Schwertwürfe</p>
+                        <p>+{{ playerClawLevel+1 }} Auf alle Angriffesaktionen</p>
                     </div>
                     <div class="upgradeButtons">
                         <button @click="upgradeClaw()">
                             <p>{{ (playerClawLevel+1) * 3 }} Gold</p>
-                            <p>Upgrade Claw</p>
+                            <p>Upgrade Schwert</p>
                         </button>
                     </div>
                 </div>
@@ -86,12 +86,12 @@
                     </div>
                     <div class="player-level-infos">
                         <p>Magie verzaubern {{ playerMagicLevel+1 }}</p>
-                        <p>+{{ playerMagicLevel+1 }} Auf alle Schwertwürfe</p>
+                        <p>+{{ playerMagicLevel+1 }} Auf alle Verteidigungsaktionen</p>
                     </div>
                     <div class="upgradeButtons">
                         <button @click="upgradeMagic()">
                             <p>{{ (playerMagicLevel+1) * 3 }} Gold </p>
-                            <p>Upgrade Magic</p>
+                            <p>Upgrade Magie</p>
                         </button>
                     </div>
                 </div>
@@ -104,8 +104,8 @@
                         </div>
                     </div>
                     <div class="player-level-infos">
-                        <p>Schwert verzaubern {{ playerSkullLevel+1 }}</p>
-                        <p>+{{ playerSkullLevel+1 }} Auf alle Schwertwürfe</p>
+                        <p>Schädel verzaubern {{ playerSkullLevel+1 }}</p>
+                        <p>+{{ playerSkullLevel+1 }} Auf alle anderen Aktionen</p>
                     </div>
                     <div class="upgradeButtons">
                         <button @click="upgradeSkull()">
