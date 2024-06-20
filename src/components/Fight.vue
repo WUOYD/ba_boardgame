@@ -100,8 +100,8 @@
                 <button class="movesCombinationPlayerButtons" :class="{ selected: selectedOptionPlayer === option }" @click="selectOptionPlayer(option)">
                     <div class="movesContentLeft">
                         <div class="movesImages">
-                            <img :src="moveImages[index][0]" width="100" height="100" />
-                            <img :src="moveImages[index][1]" width="100" height="100" />
+                            <img :src="moveImagesPlayer[index][0]" width="100" height="100" />
+                            <img :src="moveImagesPlayer[index][1]" width="100" height="100" />
                         </div>
                     </div>
                     <div class="movesContentRight">
@@ -135,8 +135,8 @@
                 <button :class="{ selected: selectedOptionMonster === option }" @click="selectOptionMonster(option)">
                     <div class="movesContentLeft">
                         <div class="movesImages">
-                            <img :src="moveImages[index][0]" />
-                            <img :src="moveImages[index][1]" />
+                            <img :src="moveImagesMonster[index][0]" />
+                            <img :src="moveImagesMonster[index][1]" />
                         </div>
                     </div>
                     <div class="movesContentRight">
@@ -165,7 +165,15 @@ import {
 export default {
     data() {
         return {
-            moveImages: [
+            moveImagesPlayer: [
+                ["src/assets/icons/sword.png", "src/assets/icons/sword.png"],
+                ["src/assets/icons/sword.png", "src/assets/icons/shield.png"],
+                ["src/assets/icons/shield.png", "src/assets/icons/shield.png"],
+                ["src/assets/icons/shield.png", "src/assets/icons/skull.png"],
+                ["src/assets/icons/skull.png", "src/assets/icons/skull.png"],
+                ["src/assets/icons/skull.png", "src/assets/icons/sword.png"],
+            ],
+            moveImagesMonster: [
                 ["src/assets/icons/claw.png", "src/assets/icons/claw.png"],
                 ["src/assets/icons/claw.png", "src/assets/icons/magic.png"],
                 ["src/assets/icons/magic.png", "src/assets/icons/magic.png"],

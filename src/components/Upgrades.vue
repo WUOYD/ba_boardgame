@@ -134,12 +134,12 @@ export default {
             moveTextPlayer: ["", "", "", "", "", ""],
             optionsPlayer: [1, 2, 3, 4, 5, 6],
             moveImages: [
-                ["src/assets/icons/claw.png", "src/assets/icons/claw.png"],
-                ["src/assets/icons/claw.png", "src/assets/icons/magic.png"],
-                ["src/assets/icons/magic.png", "src/assets/icons/magic.png"],
-                ["src/assets/icons/magic.png", "src/assets/icons/skull.png"],
+                ["src/assets/icons/sword.png", "src/assets/icons/sword.png"],
+                ["src/assets/icons/sword.png", "src/assets/icons/shield.png"],
+                ["src/assets/icons/shield.png", "src/assets/icons/shield.png"],
+                ["src/assets/icons/shield.png", "src/assets/icons/skull.png"],
                 ["src/assets/icons/skull.png", "src/assets/icons/skull.png"],
-                ["src/assets/icons/skull.png", "src/assets/icons/claw.png"],
+                ["src/assets/icons/skull.png", "src/assets/icons/sword.png"],
             ],
             playerClawLevel: 0,
             playerMagicLevel: 0,
@@ -154,8 +154,8 @@ export default {
                 value: false
             }],
             imagePathsClaw: {
-                trueImage: "src/assets/icons/claw.png",
-                falseImage: "src/assets/icons/clawGray.png"
+                trueImage: "src/assets/icons/sword.png",
+                falseImage: "src/assets/icons/swordGray.png"
             },
             magicIcons: [{
                 value: false
@@ -167,8 +167,8 @@ export default {
                 value: false
             }],
             imagePathsMagic: {
-                trueImage: "src/assets/icons/magic.png",
-                falseImage: "src/assets/icons/magicGray.png"
+                trueImage: "src/assets/icons/shield.png",
+                falseImage: "src/assets/icons/shieldGray.png"
             },
             skullIcons: [{
                 value: false
