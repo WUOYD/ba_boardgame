@@ -577,6 +577,12 @@ io.on('connection', (socket) => {
     identifiers.forEach(id => {
       io.to(id).emit("updateClientView", 2);
     });
+    for (const viewerSocketId of viewerList) {
+      const viewerSocket = io.sockets.sockets.get(viewerSocketId);
+      if (viewerSocket) {
+        viewerSocket.emit("updateEncounter", "Logo");
+      }
+    }
   });
 
   // Disconnect Handling
