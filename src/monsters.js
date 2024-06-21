@@ -20,7 +20,7 @@ const monsterTableBronzeNythoria = [
         name: "Seelenfresser",
         type: "Bronze",
         region: "Nythoria",
-        health: 6,
+        health: 5,
         victoryPoints: 1,
         gold: 3,
         image: "src/assets/img/monster/Seelenfresser.webp",
@@ -37,7 +37,7 @@ const monsterTableBronzeNythoria = [
         name: "Künstlicher Golem",
         type: "Bronze",
         region: "Nythoria",
-        health: 7,
+        health: 6,
         victoryPoints: 1,
         gold: 3,
         image: "src/assets/img/monster/Kuenstlicher_Golem.webp",
@@ -54,7 +54,7 @@ const monsterTableBronzeNythoria = [
         name: "Traumspinner",
         type: "Bronze",
         region: "Nythoria",
-        health: 5,
+        health: 4,
         victoryPoints: 1,
         gold: 3,
         image: "src/assets/img/monster/Traumspinner.webp",
@@ -71,7 +71,7 @@ const monsterTableBronzeNythoria = [
         name: "Traumspinner Königin",
         type: "Bronze",
         region: "Nythoria",
-        health: 8,
+        health: 5,
         victoryPoints: 1,
         gold: 3,
         image: "src/assets/img/monster/Traumspinner_Koenigin.webp",
@@ -90,7 +90,7 @@ const monsterTableBronzeDrakan = [
     {
         name: "Salamander",
         type: "Bronze",
-        health: 6,
+        health: 5,
         victoryPoints: 1,
         gold: 1,
         image: "src/assets/img/monster/Salamander.webp",
@@ -138,7 +138,7 @@ const monsterTableBronzeDrakan = [
     {
         name: "Obsidian Golem",
         type: "Bronze",
-        health: 8,
+        health: 6,
         victoryPoints: 1,
         gold: 1,
         image: "src/assets/img/monster/Obsidiangolem.webp",
@@ -174,7 +174,7 @@ const monsterTableBronzeTalvar= [
         name: "Betrunkener Goblin",
         type: "Bronze",
         region: "Talvar",
-        health: 6,
+        health: 5,
         victoryPoints: 1,
         gold: 3,
         image: "src/assets/img/monster/Betrunkener_Goblin.webp",
@@ -191,7 +191,7 @@ const monsterTableBronzeTalvar= [
         name: "Goblin Jäger",
         type: "Bronze",
         region: "Talvar",
-        health: 6,
+        health: 5,
         victoryPoints: 1,
         gold: 3,
         image: "src/assets/img/monster/Goblin_Jaeger.webp",
@@ -208,7 +208,7 @@ const monsterTableBronzeTalvar= [
         name: "Hogoblin",
         type: "Bronze",
         region: "Talvar",
-        health: 6,
+        health: 5,
         victoryPoints: 1,
         gold: 3,
         image: "src/assets/img/monster/Hobgoblin.webp",
@@ -312,7 +312,7 @@ const monsterTableBronzeFrosgar= [
         name: "Frostgreif",
         type: "Bronze",
         region: "Frosgar",
-        health: 6,
+        health: 5,
         victoryPoints: 1,
         gold: 3,
         image: "src/assets/img/monster/Frostgreif.webp",
@@ -329,7 +329,7 @@ const monsterTableBronzeFrosgar= [
         name: "Eisgolem",
         type: "Bronze",
         region: "Frosgar",
-        health: 8,
+        health: 5,
         victoryPoints: 1,
         gold: 3,
         image: "src/assets/img/monster/Eisgolem.webp",
@@ -348,7 +348,7 @@ const monsterTableBronzeAthos= [
     {
         name: "Manfred",
         type: "Bronze",
-        health: 8,
+        health: 6,
         victoryPoints: 1,
         gold: 1,
         image: "src/assets/img/monster/Manfred.webp",
@@ -380,7 +380,7 @@ const monsterTableBronzeAthos= [
     {
         name: "Dryaden Königin",
         type: "Bronze",
-        health: 8,
+        health: 3,
         victoryPoints: 1,
         gold: 1,
         image: "src/assets/img/monster/Dryadenkoenigin.webp",
@@ -412,7 +412,7 @@ const monsterTableBronzeAthos= [
     {
         name: "Kleiner Ork",
         type: "Bronze",
-        health: 6,
+        health: 4,
         victoryPoints: 1,
         gold: 1,
         image: "src/assets/img/monster/Kleiner_Ork.webp",
@@ -431,7 +431,7 @@ const monsterTableBronzeAridora= [
     {
         name: "Schlangenmagier",
         type: "Bronze",
-        health: 5,
+        health: 4,
         victoryPoints: 1,
         gold: 1,
         image: "src/assets/img/monster/Schlangenmagier.webp",
@@ -447,7 +447,7 @@ const monsterTableBronzeAridora= [
     {
         name: "Schlangenkämpfer",
         type: "Bronze",
-        health: 6,
+        health: 5,
         victoryPoints: 1,
         gold: 1,
         image: "src/assets/img/monster/Schlangenkaempfer.webp",
@@ -463,7 +463,7 @@ const monsterTableBronzeAridora= [
     {
         name: "Gürtelwächter",
         type: "Bronze",
-        health: 8,
+        health: 4,
         victoryPoints: 1,
         gold: 1,
         image: "src/assets/img/monster/Guertelwaechter.webp",
@@ -495,7 +495,7 @@ const monsterTableBronzeAridora= [
     {
         name: "Gnolljäger",
         type: "Bronze",
-        health: 6,
+        health: 4,
         victoryPoints: 1,
         gold: 1,
         image: "src/assets/img/monster/Gnoll_Jaeger.webp",
@@ -528,409 +528,411 @@ const monsterTableGoldAridora = []
 
 let monsterTableQuests = [
     {
-        "name": "Template",
-        "type": "Quest",
-        "health": 5,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "",
-        "moves": [
-            { "name": "-", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "-", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "-", "text": "2 Heilung", "damage": 0, "block": 0, "heal": 2, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "-", "text": "2 Block, 1 Schaden nächste Runde", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
-            { "name": "-", "text": "2 Schaden, 1 Schaden jede Runde", "damage": 2, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "-", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Template",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "",
+        moves: [
+            { name: "-", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "-", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "-", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "-", text: "2 Block, 1 Schaden nächste Runde", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
+            { name: "-", text: "2 Schaden, 1 Schaden jede Runde", damage: 2, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "-", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Eiswolf",
-        "type": "Quest",
-        "health": 5,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Eiswolf.webp",
-        "moves": [
-            { "name": "Krallenhieb", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Sprungangriff", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Eisige Aura", "text": "2 Heilung", "damage": 0, "block": 0, "heal": 2, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Winterschlaf", "text": "2 Block, 1 Schaden nächste Runde", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
-            { "name": "Eisiger Biss", "text": "2 Schaden, 1 Schaden jede Runde", "damage": 2, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Frostatem", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Eiswolf",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Eiswolf.webp",
+        moves: [
+            { name: "Krallenhieb", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Sprungangriff", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Eisige Aura", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Winterschlaf", text: "2 Block, 1 Schaden nächste Runde", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
+            { name: "Eisiger Biss", text: "2 Schaden, 1 Schaden jede Runde", damage: 2, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "Frostatem", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Ragnar",
-        "type": "Quest",
-        "health": 6,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Ragnar.webp",
-        "moves": [
-            { "name": "Axtangriff", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Kraftvoller Hieb", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Zorn", "text": "1 Heilung, 2 Schaden nächste Runde", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Wille der Barbaren", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Blutung", "text": "1 Schaden jede Runde", "damage": 0, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Todesstoss", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Ragnar",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Ragnar.webp",
+        moves: [
+            { name: "Axtangriff", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Kraftvoller Hieb", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Zorn", text: "1 Heilung, 2 Schaden nächste Runde", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 2 },
+            { name: "Wille der Barbaren", text: "2 Block", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Blutung", text: "1 Schaden jede Runde", damage: 0, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "Todesstoss", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Sandkrabbe",
-        "type": "Quest",
-        "health": 6,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Aldric-Sandkrabbe.webp",
-        "moves": [
-            { "name": "Klauenschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Rolle", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Eingraben", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Sandpanzer", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Aufspiessen", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Fangzahn", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Sandkrabbe",
+        type: "Quest",
+        health: 4,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Aldric-Sandkrabbe.webp",
+        moves: [
+            { name: "Klauenschlag", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Rolle", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Eingraben", text: "2 Block", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Sandpanzer", text: "2 Reflektieren", damage: 0, block: 0, heal: 0, dot: 0, reflect: 2, damageNextRound: 0 },
+            { name: "Aufspiessen", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Fangzahn", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Banditen",
-        "type": "Quest",
-        "health": 5,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Bran-Banditen.webp",
-        "moves": [
-            { "name": "Dolchstoss", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Blutklinge", "text": "1 Schaden pro Runde", "damage": 0, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Täuschung", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Rauchbombe", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Heiltrank", "text": "2 Heilung", "damage": 0, "block": 0, "heal": 2, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Hinterhalt", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Banditen",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Bran-Banditen.webp",
+        moves: [
+            { name: "Dolchstoss", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Blutklinge", text: "1 Schaden pro Runde", damage: 0, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "Täuschung", text: "2 Block", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Rauchbombe", text: "2 Reflektieren", damage: 0, block: 0, heal: 0, dot: 0, reflect: 2, damageNextRound: 0 },
+            { name: "Heiltrank", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Hinterhalt", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Gorr",
-        "type": "Quest",
-        "health": 5,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Gorr2.webp",
-        "moves": [
-            { "name": "Knüppelschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Messerangriff", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Ausweichen", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Kopfstoss", "text": "2 Schaden, 1 Selbstschaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 1 },
-            { "name": "Giftwolke", "text": "1 Schaden, 1 Schaden pro Runde", "damage": 1, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Versteckte Klinge", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Gorr",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Gorr2.webp",
+        moves: [
+            { name: "Knüppelschlag", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Messerangriff", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Ausweichen", text: "2 Block", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Kopfstoss", text: "2 Schaden, 1 Selbstschaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 1 },
+            { name: "Giftwolke", text: "1 Schaden, 1 Schaden pro Runde", damage: 1, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "Versteckte Klinge", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Drache",
-        "type": "Quest",
-        "health": 6,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Drache.webp",
-        "moves": [
-            { "name": "Flügelschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Ascheregen", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Herz der Flammen", "text": "1 Heilung", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Drachengebrüll", "text": "1 Heilung, 2 Schaden nächste Runde", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Verbrannte Erde", "text": "1 Schaden pro Runde", "damage": 0, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Feueratem", "text": "4 Schaden", "damage": 4, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Drache",
+        type: "Quest",
+        health: 6,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Drache.webp",
+        moves: [
+            { name: "Flügelschlag", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Ascheregen", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Herz der Flammen", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Drachengebrüll", text: "1 Heilung, 2 Schaden nächste Runde", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 2 },
+            { name: "Verbrannte Erde", text: "1 Schaden pro Runde", damage: 0, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "Feueratem", text: "4 Schaden", damage: 4, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Geisterwache",
-        "type": "Quest",
-        "health": 5,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Jorund-Geisterwache.webp",
-        "moves": [
-            { "name": "Geisterhand", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Wächteraura", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Furcht", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Todesrasseln", "text": "1 Heilung, 1 Schaden", "damage": 1, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Seelenernte", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Fluch des Wächters", "text": "2 Schaden pro Runde", "damage": 0, "block": 0, "heal": 0, "dot": 2, "reflect": 0, "damageNextRound": 0 }
+        name: "Geisterwache",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Jorund-Geisterwache.webp",
+        moves: [
+            { name: "Geisterhand", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Wächteraura", text: "2 Reflektieren", damage: 0, block: 0, heal: 0, dot: 0, reflect: 2, damageNextRound: 0 },
+            { name: "Furcht", text: "2 Block", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Todesrasseln", text: "1 Heilung, 1 Schaden", damage: 1, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Seelenernte", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Fluch des Wächters", text: "2 Schaden pro Runde", damage: 0, block: 0, heal: 0, dot: 2, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Grunthar",
-        "type": "Quest",
-        "health": 8,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Grunthar.webp",
-        "moves": [
-            { "name": "Faustschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Rülpser", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Bier trinken", "text": "1 Heilung", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Kopfstoss", "text": "2 Schaden, 2 Selbstschaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 },
-            { "name": "Unkontrollierter Schlag", "text": "3 Schaden, 2 Selbstschaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 },
-            { "name": "Torkeln", "text": "4 Selbstschaden", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 4 }
+        name: "Grunthar",
+        type: "Quest",
+        health: 4,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Grunthar.webp",
+        moves: [
+            { name: "Faustschlag", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Rülpser", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Bier trinken", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Kopfstoss", text: "2 Schaden, 2 Selbstschaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 2 },
+            { name: "Unkontrollierter Schlag", text: "3 Schaden, 2 Selbstschaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 2 },
+            { name: "Torkeln", text: "4 Selbstschaden", damage: 0, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 4 }
         ]
     },
     {
-        "name": "Olafur",
-        "type": "Quest",
-        "health": 8,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Olafur.webp",
-        "moves": [
-            { "name": "Faustschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Rülpser", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Bier trinken", "text": "1 Heilung", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Kopfstoss", "text": "2 Schaden, 2 Selbstschaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 },
-            { "name": "Unkontrollierter Schlag", "text": "3 Schaden, 2 Selbstschaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 },
-            { "name": "Torkeln", "text": "4 Selbstschaden", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 4 }
+        name: "Olafur",
+        type: "Quest",
+        health: 4,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Olafur.webp",
+        moves: [
+            { name: "Faustschlag", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Rülpser", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Bier trinken", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Kopfstoss", text: "2 Schaden, 2 Selbstschaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 2 },
+            { name: "Unkontrollierter Schlag", text: "3 Schaden, 2 Selbstschaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 2 },
+            { name: "Torkeln", text: "4 Selbstschaden", damage: 0, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 4 }
         ]
     },
     {
-        "name": "Lavagolem",
-        "type": "Quest",
-        "health": 6,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Morana-Bestie.webp",
-        "moves": [
-            { "name": "Feuerschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Inferno", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Lavafluss", "text": "1 Heilung", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Steinhaut", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Verbrennen", "text": "1 Schaden pro Runde", "damage": 1, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Magmaströme", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Lavagolem",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Morana-Bestie.webp",
+        moves: [
+            { name: "Feuerschlag", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Inferno", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Lavafluss", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Steinhaut", text: "2 Block", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Verbrennen", text: "1 Schaden pro Runde", damage: 1, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "Magmaströme", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Tempelwächter",
-        "type": "Quest",
-        "health": 7,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Dr.-Alrdich-Tempelwaechter.webp",
-        "moves": [
-            { "name": "Lanzenhieb", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Ansturm", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Schild des Wächters", "text": "3 Block", "damage": 0, "block": 3, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Defensive Haltung", "text": "3 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 3, "damageNextRound": 0 },
-            { "name": "Kraft des Artefakts", "text": "1 Heilung", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Opfer der Tempelwächter", "text": "4 Selbstschaden, 4 Schaden", "damage": 4, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 4 }
+        name: "Tempelwächter",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Dr.-Alrdich-Tempelwaechter.webp",
+        moves: [
+            { name: "Lanzenhieb", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Ansturm", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Schild des Wächters", text: "3 Block", damage: 0, block: 3, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Defensive Haltung", text: "3 Reflektieren", damage: 0, block: 0, heal: 0, dot: 0, reflect: 3, damageNextRound: 0 },
+            { name: "Kraft des Artefakts", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Opfer der Tempelwächter", text: "4 Selbstschaden, 4 Schaden", damage: 4, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 4 }
         ]
     },
     {
-        "name": "Hanto",
-        "type": "Quest",
-        "health": 6,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Leta-Wolf.webp",
-        "moves": [
-            { "name": "Biss", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Sprungangriff", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Ausweichen", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Klauenschlag", "text": "1 Schaden pro Runde", "damage": 1, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Blutrunst", "text": "2 Schaden nächste Runde", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Zerfetzen", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Hanto",
+        type: "Quest",
+        health: 6,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Leta-Wolf.webp",
+        moves: [
+            { name: "Biss", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Sprungangriff", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Ausweichen", text: "2 Block", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Klauenschlag", text: "1 Schaden pro Runde", damage: 1, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "Blutrunst", text: "2 Schaden nächste Runde", damage: 0, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 2 },
+            { name: "Zerfetzen", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Jotorun",
-        "type": "Quest",
-        "health": 5,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Dr.-Titus-Tona-Jotorun.webp",
-        "moves": [
-            { "name": "Faustschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Steinwurf", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Ausweichen", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Biss", "text": "1 Schaden pro Runde", "damage": 1, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Kratzer", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Eiszapfen", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Jotorun",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Dr.-Titus-Tona-Jotorun.webp",
+        moves: [
+            { name: "Faustschlag", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Steinwurf", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Ausweichen", text: "2 Block", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Biss", text: "1 Schaden pro Runde", damage: 1, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "Kratzer", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Eiszapfen", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Dr. Titus Tona",
-        "type": "Quest",
-        "health": 5,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Dr.Titus-Tona.webp",
-        "moves": [
-            { "name": "Elixier der Stärke", "text": "2 Schaden nächse Runde", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Kosmischer Schild", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Elixier der Kraft", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Heiltrank", "text": "1 Heilung", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Giftessenz", "text": "1 Schaden pro Runde", "damage": 1, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Kosmische Entladung", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Dr. Titus Tona",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Dr.Titus-Tona.webp",
+        moves: [
+            { name: "Elixier der Stärke", text: "2 Schaden nächse Runde", damage: 0, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 2 },
+            { name: "Kosmischer Schild", text: "2 Reflektieren", damage: 0, block: 0, heal: 0, dot: 0, reflect: 2, damageNextRound: 0 },
+            { name: "Elixier der Kraft", text: "2 Block", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Heiltrank", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Giftessenz", text: "1 Schaden pro Runde", damage: 1, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "Kosmische Entladung", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Baumgeist",
-        "type": "Quest",
-        "health": 5,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Gulmur-Baumbewohner.webp",
-        "moves": [
-            { "name": "Durchdringender Ast", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Schneiden der Blätter", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Kraft des Waldes", "text": "2 Heilung", "damage": 0, "block": 0, "heal": 2, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Magische Aura", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Wurzelfänge", "text": "1 Schaden pro Runde", "damage": 1, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Entladung", "text": "3 Schaden, 4 Selbstschaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 4 }
+        name: "Baumgeist",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Gulmur-Baumbewohner.webp",
+        moves: [
+            { name: "Durchdringender Ast", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Schneiden der Blätter", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Kraft des Waldes", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Magische Aura", text: "2 Reflektieren", damage: 0, block: 0, heal: 0, dot: 0, reflect: 2, damageNextRound: 0 },
+            { name: "Wurzelfänge", text: "1 Schaden pro Runde", damage: 1, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "Entladung", text: "3 Schaden, 4 Selbstschaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 4 }
         ]
     },
     {
-        "name": "Vito",
-        "type": "Quest",
-        "health": 5,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Vito.webp",
-        "moves": [
-            { "name": "Elixier der Stärke", "text": "2 Schaden nächse Runde", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Schildtrank", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Elixier der Kraft", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Heiltrank", "text": "1 Heilung", "damage": 0, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Giftessenz", "text": "1 Schaden pro Runde", "damage": 1, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Explosives Gemisch", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Vito",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Vito.webp",
+        moves: [
+            { name: "Elixier der Stärke", text: "2 Schaden nächse Runde", damage: 0, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 2 },
+            { name: "Schildtrank", text: "2 Reflektieren", damage: 0, block: 0, heal: 0, dot: 0, reflect: 2, damageNextRound: 0 },
+            { name: "Elixier der Kraft", text: "2 Block", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Heiltrank", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Giftessenz", text: "1 Schaden pro Runde", damage: 1, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "Explosives Gemisch", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Aerendyl",
-        "type": "Quest",
-        "health": 5,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Nuala-Aerendyl.webp",
-        "moves": [
-            { "name": "Faustschlag", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Tritt", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Ausweichen", "text": "2 Block", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Wahn", "text": "2 Schaden nächste Runde", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Kopfstoss", "text": "2 Schaden, 1 Selbstschaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 1 },
-            { "name": "Verwirrung", "text": "2 Selbstschaden", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 }
+        name: "Aerendyl",
+        type: "Quest",
+        health: 5,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Nuala-Aerendyl.webp",
+        moves: [
+            { name: "Faustschlag", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Tritt", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Ausweichen", text: "2 Block", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Wahn", text: "2 Schaden nächste Runde", damage: 0, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 2 },
+            { name: "Kopfstoss", text: "2 Schaden, 1 Selbstschaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 1 },
+            { name: "Verwirrung", text: "2 Selbstschaden", damage: 0, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 2 }
         ]
     }    
-  ];
+];
 
-  let monsterTableBoss = [
+
+let monsterTableBoss = [
     {
-        "name": "Template",
-        "type": "Boss",
-        "health": 5,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "",
-        "moves": [
-            { "name": "-", "text": "1 Schaden", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "-", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "-", "text": "2 Heilung", "damage": 0, "block": 0, "heal": 2, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "-", "text": "2 Block, 1 Schaden nächste Runde", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
-            { "name": "-", "text": "2 Schaden, 1 Schaden jede Runde", "damage": 2, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0 },
-            { "name": "-", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Template",
+        type: "Boss",
+        health: 0,
+        victoryPoints: 1,
+        gold: 1,
+        image: "",
+        moves: [
+            { name: "-", text: "1 Schaden", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "-", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "-", text: "1 Heilung", damage: 0, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "-", text: "2 Block, 1 Schaden nächste Runde", damage: 0, block: 2, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
+            { name: "-", text: "2 Schaden, 1 Schaden jede Runde", damage: 2, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0 },
+            { name: "-", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Gnarlgrimm",
-        "type": "Boss",
-        "health": 12,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Boss-Gnarlgrimm.webp",
-        "moves": [
-            { "name": "Astschlag", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Geisterhieb", "text": "2 Schaden, 1 Block", "damage": 2, "block": 1, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Geisternebel", "text": "1 Block, 2 Reflektieren", "damage": 0, "block": 1, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Schutzgeist", "text": "2 Block, 1 Heilung", "damage": 0, "block": 2, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Seelenflüstern", "text": "2 Schaden, 3 Schaden nächste Runde", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 3 },
-            { "name": "Wurzelschlinge", "text": "2 Schaden jede Runde, 1 Selbstschaden", "damage": 2, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 0, "selfDamage": 1 }
+        name: "Gnarlgrimm",
+        type: "Boss",
+        health: 12,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Boss-Gnarlgrimm.webp",
+        moves: [
+            { name: "Astschlag", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Geisterhieb", text: "2 Schaden, 1 Block", damage: 2, block: 1, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Geisternebel", text: "1 Block, 2 Reflektieren", damage: 0, block: 1, heal: 0, dot: 0, reflect: 2, damageNextRound: 0 },
+            { name: "Schutzgeist", text: "2 Block, 1 Heilung", damage: 0, block: 2, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Seelenflüstern", text: "2 Schaden, 3 Schaden nächste Runde", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 3 },
+            { name: "Wurzelschlinge", text: "2 Schaden jede Runde, 1 Selbstschaden", damage: 2, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 0, selfDamage: 1 }
         ]
     },
     {
-        "name": "Xerthok",
-        "type": "Boss",
-        "health": 11,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Boss-Xerthok.webp",
-        "moves": [
-            { "name": "Dornenfaust", "text": "1 Schaden, 1 Reflektieren", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 1, "damageNextRound": 0 },
-            { "name": "Dornenpanzer", "text": "1 Block, 1 Reflektieren", "damage": 0, "block": 1, "heal": 0, "dot": 0, "reflect": 1, "damageNextRound": 0 },
-            { "name": "Stachelrüstung", "text": "2 Reflektieren", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Sandsturm", "text": "1 Schaden, 2 Schaden nächste Runde", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Dornenessenz", "text": "3 Reflektieren, 2 Schaden", "damage": 0, "block": 0, "heal": 0, "dot": 0, "reflect": 3, "damageNextRound": 0 },
-            { "name": "Dornenschauer", "text": "2 Schaden, 1 Schaden jede Runde", "damage": 2, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 1 }
+        name: "Xerthok",
+        type: "Boss",
+        health: 11,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Boss-Xerthok.webp",
+        moves: [
+            { name: "Dornenfaust", text: "1 Schaden, 1 Reflektieren", damage: 1, block: 0, heal: 0, dot: 0, reflect: 1, damageNextRound: 0 },
+            { name: "Dornenpanzer", text: "1 Block, 1 Reflektieren", damage: 0, block: 1, heal: 0, dot: 0, reflect: 1, damageNextRound: 0 },
+            { name: "Stachelrüstung", text: "2 Reflektieren", damage: 0, block: 0, heal: 0, dot: 0, reflect: 2, damageNextRound: 0 },
+            { name: "Sandsturm", text: "1 Schaden, 2 Schaden nächste Runde", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 2 },
+            { name: "Dornenessenz", text: "3 Reflektieren, 2 Schaden", damage: 0, block: 0, heal: 0, dot: 0, reflect: 3, damageNextRound: 0 },
+            { name: "Dornenschauer", text: "2 Schaden, 1 Schaden jede Runde", damage: 2, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 1 }
         ]
     },
     {
-        "name": "Ankalor",
-        "type": "Boss",
-        "health": 13,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Boss-Ankalor.webp",
-        "moves": [
-            { "name": "Runenhieb", "text": "1 Schaden, 1 Schaden nächste Runde", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
-            { "name": "Magische Ketten", "text": "3 Block", "damage": 0, "block": 3, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Magische Barriere", "text": "2 Block, 2 Reflektieren", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Erderschütterer", "text": "3 Schaden, 1 Selbstschaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 1 },
-            { "name": "Runenheilung", "text": "1 Schaden, 3 Heilung", "damage": 1, "block": 0, "heal": 3, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Runenerruption", "text": "2 Schaden, 1 Schaden jede Runde", "damage": 2, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 1 }
+        name: "Ankalor",
+        type: "Boss",
+        health: 13,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Boss-Ankalor.webp",
+        moves: [
+            { name: "Runenhieb", text: "1 Schaden, 1 Schaden nächste Runde", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
+            { name: "Magische Ketten", text: "3 Block", damage: 0, block: 3, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Magische Barriere", text: "2 Block, 2 Reflektieren", damage: 0, block: 2, heal: 0, dot: 0, reflect: 2, damageNextRound: 0 },
+            { name: "Erderschütterer", text: "3 Schaden, 1 Selbstschaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 1 },
+            { name: "Runenheilung", text: "1 Schaden, 3 Heilung", damage: 1, block: 0, heal: 3, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Runenerruption", text: "2 Schaden, 1 Schaden jede Runde", damage: 2, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 1 }
         ]
     },
     {
-        "name": "Igneous",
-        "type": "Boss",
-        "health": 13,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Boss-Igneous.webp",
-        "moves": [
-            { "name": "Lavahieb", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Magmaerruption", "text": "2 Schaden, 1 Schaden nächste Runde", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
-            { "name": "Glühender Panzer", "text": "2 Block, 2 Reflektieren", "damage": 0, "block": 2, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Obsidianschild", "text": "4 Block", "damage": 0, "block": 4, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Vulkanische Wut", "text": "1 Schaden, 2 Schaden jede Runde", "damage": 1, "block": 0, "heal": 0, "dot": 1, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Ascheexplosion", "text": "3 Schaden", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 }
+        name: "Igneous",
+        type: "Boss",
+        health: 13,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Boss-Igneous.webp",
+        moves: [
+            { name: "Lavahieb", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Magmaerruption", text: "2 Schaden, 1 Schaden nächste Runde", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
+            { name: "Glühender Panzer", text: "2 Block, 2 Reflektieren", damage: 0, block: 2, heal: 0, dot: 0, reflect: 2, damageNextRound: 0 },
+            { name: "Obsidianschild", text: "4 Block", damage: 0, block: 4, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Vulkanische Wut", text: "1 Schaden, 2 Schaden jede Runde", damage: 1, block: 0, heal: 0, dot: 1, reflect: 0, damageNextRound: 2 },
+            { name: "Ascheexplosion", text: "3 Schaden", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 }
         ]
     },
     {
-        "name": "Krogar",
-        "type": "Boss",
-        "health": 11,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Boss-Krogar.webp",
-        "moves": [
-            { "name": "Schädelspalter", "text": "2 Schaden", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Kriegsgebrüll", "text": "2 Schaden, 1 Schaden nächste Runde", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
-            { "name": "Blutdurst", "text": "1 Schaden, 1 Heilung", "damage": 1, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Schild der Ahnen", "text": "3 Block, 3 Reflektieren", "damage": 0, "block": 3, "heal": 0, "dot": 0, "reflect": 3, "damageNextRound": 0 },
-            { "name": "Wut des Häuptlings", "text": "3 Schaden, 2 Schaden nächste Runde", "damage": 3, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Sturmangriff", "text": "4 Schaden, 2 Selbstschaden", "damage": 4, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 0, "selfDamage": 2 }
+        name: "Krogar",
+        type: "Boss",
+        health: 11,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Boss-Krogar.webp",
+        moves: [
+            { name: "Schädelspalter", text: "2 Schaden", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Kriegsgebrüll", text: "2 Schaden, 1 Schaden nächste Runde", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
+            { name: "Blutdurst", text: "1 Schaden, 1 Heilung", damage: 1, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Schild der Ahnen", text: "3 Block, 3 Reflektieren", damage: 0, block: 3, heal: 0, dot: 0, reflect: 3, damageNextRound: 0 },
+            { name: "Wut des Häuptlings", text: "3 Schaden, 2 Schaden nächste Runde", damage: 3, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 2 },
+            { name: "Sturmangriff", text: "4 Schaden, 2 Selbstschaden", damage: 4, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 0, selfDamage: 2 }
         ]
     },
     {
-        "name": "Fenral",
-        "type": "Boss",
-        "health": 12,
-        "victoryPoints": 1,
-        "gold": 1,
-        "image": "src/assets/img/monster/Boss-Fenral.webp",
-        "moves": [
-            { "name": "Reisszahnangriff", "text": "1 Schaden, 1 Schaden nächste Runde", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 1 },
-            { "name": "Mondschatten", "text": "1 Block, 2 Reflektieren", "damage": 0, "block": 1, "heal": 0, "dot": 0, "reflect": 2, "damageNextRound": 0 },
-            { "name": "Blutrausch", "text": "1 Schaden, 1 Heilung", "damage": 1, "block": 0, "heal": 1, "dot": 0, "reflect": 0, "damageNextRound": 0 },
-            { "name": "Heulender Wind", "text": "2 Schaden, 2 Schaden nächste Runde", "damage": 2, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 2 },
-            { "name": "Eisklauen", "text": "4 Schaden, 1 Block, 1 Reflektieren", "damage": 4, "block": 1, "heal": 0, "dot": 0, "reflect": 1, "damageNextRound": 0 },
-            { "name": "Rudelruf", "text": "1 Schaden, 3 Schaden nächste Runde", "damage": 1, "block": 0, "heal": 0, "dot": 0, "reflect": 0, "damageNextRound": 3 }
+        name: "Fenral",
+        type: "Boss",
+        health: 12,
+        victoryPoints: 1,
+        gold: 1,
+        image: "src/assets/img/monster/Boss-Fenral.webp",
+        moves: [
+            { name: "Reisszahnangriff", text: "1 Schaden, 1 Schaden nächste Runde", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 1 },
+            { name: "Mondschatten", text: "1 Block, 2 Reflektieren", damage: 0, block: 1, heal: 0, dot: 0, reflect: 2, damageNextRound: 0 },
+            { name: "Blutrausch", text: "1 Schaden, 1 Heilung", damage: 1, block: 0, heal: 1, dot: 0, reflect: 0, damageNextRound: 0 },
+            { name: "Heulender Wind", text: "2 Schaden, 2 Schaden nächste Runde", damage: 2, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 2 },
+            { name: "Eisklauen", text: "4 Schaden, 1 Block, 1 Reflektieren", damage: 4, block: 1, heal: 0, dot: 0, reflect: 1, damageNextRound: 0 },
+            { name: "Rudelruf", text: "1 Schaden, 3 Schaden nächste Runde", damage: 1, block: 0, heal: 0, dot: 0, reflect: 0, damageNextRound: 3 }
         ]
     },
-]    
+]
+
 
 
 const monsterTableBronze = {
